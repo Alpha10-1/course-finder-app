@@ -1,0 +1,110 @@
+[
+  {
+    "courseName": "B Architecture",
+    "qualificationCode": "BB8ARQ",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Bachelor",
+    "faculty": "Art, Design and Architecture",
+    "duration": "3 years",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      { "subject": "Mathematics", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BA Communication Design",
+    "qualificationCode": "BB8CDQ",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Bachelor",
+    "faculty": "Art, Design and Architecture",
+    "duration": "3 years",
+    "minAPS": 25,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          { "subject": "Mathematical Literacy", "minMark": 60 },
+          { "subject": "Mathematics", "minMark": 40 }
+        ]
+      },
+      { "subject": "English", "minMark": 50 },
+      { "subject": "Life Orientation", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BA Digital Media Design",
+    "qualificationCode": "BB8MDQ",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Bachelor",
+    "faculty": "Art, Design and Architecture",
+    "duration": "3 years",
+    "minAPS": 25,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          { "subject": "Mathematical Literacy", "minMark": 60 },
+          { "subject": "Mathematics", "minMark": 40 }
+        ]
+      },
+      { "subject": "English", "minMark": 50 },
+      { "subject": "Life Orientation", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BA Industrial Design",
+    "qualificationCode": "BB8IDQ",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Bachelor",
+    "faculty": "Art, Design and Architecture",
+    "duration": "3 years",
+    "minAPS": 27,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          { "subject": "Mathematical Literacy", "minMark": 60 },
+          { "subject": "Mathematics", "minMark": 40 }
+        ]
+      },
+      { "subject": "English", "minMark": 50 },
+      { "subject": "Life Orientation", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BA Interior Design",
+    "qualificationCode": "BB8INQ",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Bachelor",
+    "faculty": "Art, Design and Architecture",
+    "duration": "3 years",
+    "minAPS": 25,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          { "subject": "Mathematical Literacy", "minMark": 60 },
+          { "subject": "Mathematics", "minMark": 40 }
+        ]
+      },
+      { "subject": "English", "minMark": 50 },
+      { "subject": "Life Orientation", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BA Visual Art",
+    "qualificationCode": "BB8VAQ",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Bachelor",
+    "faculty": "Art, Design and Architecture",
+    "duration": "3 years",
+    "minAPS": 26,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          { "subject": "Mathematical Literacy", "minMark": 60 },
+          { "subject": "Mathematics", "minMark": 40 }
+        ]
+      },
+      { "subject": "English", "minMark": 50 },
+      { "subject": "Life Orientation", "minMark": 50 }
+    ]
+  }
+]
