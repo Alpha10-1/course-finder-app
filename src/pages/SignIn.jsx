@@ -1,4 +1,3 @@
-// SignIn.jsx
 import { useState } from "react";
 import { auth, googleProvider } from "../firebase";
 import {
@@ -7,50 +6,45 @@ import {
   signInWithPhoneNumber,
   RecaptchaVerifier,
 } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("");
   const [confirmationResult, setConfirmationResult] = useState(null);
+  const navigate = useNavigate();
 
-  // Sign in with email/password
   const handleEmailSignIn = async (e) => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      alert("Signed in successfully with Email!");
+      navigate("/home");
     } catch (err) {
       alert(err.message);
     }
   };
 
-  // Sign in with Google
   const handleGoogleSignIn = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
-      alert("Signed in successfully with Google!");
+      navigate("/home");
     } catch (err) {
       alert(err.message);
     }
   };
 
-  // Send OTP for phone login
   const handleSendOtp = async () => {
     try {
       if (!window.recaptchaVerifier) {
         window.recaptchaVerifier = new RecaptchaVerifier(
           auth,
           "recaptcha-container",
-          {
-            size: "invisible",
-          }
+          { size: "invisible" }
         );
       }
-      const appVerifier = window.recaptchaVerifier;
-      const result = await signInWithPhoneNumber(auth, phone, appVerifier);
+      const result = await signInWithPhoneNumber(auth, phone, window.recaptchaVerifier);
       setConfirmationResult(result);
       alert("OTP sent!");
     } catch (err) {
@@ -58,11 +52,10 @@ export default function SignIn() {
     }
   };
 
-  // Verify OTP
   const handleVerifyOtp = async () => {
     try {
       await confirmationResult.confirm(otp);
-      alert("Signed in successfully with Phone!");
+      navigate("/home");
     } catch (err) {
       alert(err.message);
     }
@@ -70,18 +63,17 @@ export default function SignIn() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-100 to-purple-200 p-6">
-      <div className="w-full max-w-md bg-white p-6 rounded-2xl shadow-xl space-y-6">
-
-        <h1 className="text-3xl font-bold text-center text-gray-800">Sign In</h1>
+      <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-xl space-y-5">
+        <h1 className="text-3xl font-bold text-center text-gray-900">Sign In</h1>
 
         {/* Email Sign In */}
-        <form onSubmit={handleEmailSignIn} className="space-y-4">
+        <form onSubmit={handleEmailSignIn} className="space-y-3">
           <input
             type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className="w-full p-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-400"
             required
           />
           <input
@@ -89,7 +81,7 @@ export default function SignIn() {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className="w-full p-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-400"
             required
           />
           <button
@@ -100,8 +92,7 @@ export default function SignIn() {
           </button>
         </form>
 
-        {/* Divider */}
-        <div className="text-center text-gray-500">OR</div>
+        <div className="text-center text-gray-400 text-sm font-medium">OR</div>
 
         {/* Google Sign In */}
         <button
@@ -111,17 +102,16 @@ export default function SignIn() {
           Sign in with Google
         </button>
 
-        {/* Divider */}
-        <div className="text-center text-gray-500">OR</div>
+        <div className="text-center text-gray-400 text-sm font-medium">OR</div>
 
         {/* Phone Sign In */}
-        <div className="space-y-2">
+        <div className="space-y-3">
           <input
             type="tel"
             placeholder="Phone (e.g. +27123456789)"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            className="w-full p-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className="w-full p-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-400"
           />
           <button
             onClick={handleSendOtp}
@@ -137,7 +127,7 @@ export default function SignIn() {
                 placeholder="Enter OTP"
                 value={otp}
                 onChange={(e) => setOtp(e.target.value)}
-                className="w-full p-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="w-full p-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-400"
               />
               <button
                 onClick={handleVerifyOtp}
@@ -149,7 +139,6 @@ export default function SignIn() {
           )}
         </div>
 
-        {/* Invisible reCAPTCHA */}
         <div id="recaptcha-container"></div>
       </div>
     </div>
