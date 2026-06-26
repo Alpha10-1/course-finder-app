@@ -75,6 +75,19 @@ export default function Admin() {
   const [loadingUsers, setLoadingUsers] = useState(true);
   const [searchUser, setSearchUser] = useState("");
   const [expandedUser, setExpandedUser] = useState(null);
+  const [showImport, setShowImport] = useState(false);
+  const [importText, setImportText] = useState("");
+
+  // User filters
+  const [filterPlan, setFilterPlan] = useState("");
+  const [filterAdmin, setFilterAdmin] = useState("");
+  const [filterAuthOnly, setFilterAuthOnly] = useState("");
+
+  // Course filters
+  const [filterInstitution, setFilterInstitution] = useState("");
+  const [filterQualType, setFilterQualType] = useState("");
+  const [filterMinAPS, setFilterMinAPS] = useState("");
+  const [filterMaxAPS, setFilterMaxAPS] = useState("");
 
   // Courses state — Firestore
   const [courses, setCourses] = useState([]);
@@ -97,59 +110,22 @@ export default function Admin() {
     setTimeout(() => setToast(null), 3500);
   };
 
-  // ── Load Firestore users ─────────────────────────────────────────────────
-  // We read the Firestore "users" collection. For Auth-only accounts (no doc),
-  // we enrich using the Firebase Auth REST "accounts:batchGet" endpoint which
-  // returns all users when called with the admin's current ID token.
+  // ── Load users from Firestore ────────────────────────────────────────────
+  // Note: Firebase Auth user listing requires Admin SDK (server-side).
+  // Users appear here as soon as they sign in (SignIn.jsx writes their doc).
+  // For pre-existing Auth accounts, use "Import users" below.
   const loadUsers = useCallback(async () => {
     setLoadingUsers(true);
     try {
-      // 1. Get Firestore user docs
       const snap = await getDocs(collection(db, "users"));
-      const firestoreDocs = {};
-      snap.docs.forEach((d) => { firestoreDocs[d.id] = { uid: d.id, ...d.data() }; });
-
-      // 2. Get ID token of current admin to call REST API
-      const currentUser = auth.currentUser;
-      const idToken = currentUser ? await currentUser.getIdToken() : null;
-
-      let authUsers = [];
-      if (idToken) {
-        // Firebase Auth REST: list all users in project
-        const res = await fetch(
-          `https://identitytoolkit.googleapis.com/v1/projects/course-finder-214e7/accounts:batchGet?maxResults=1000`,
-          { headers: { Authorization: `Bearer ${idToken}` } }
-        );
-        if (res.ok) {
-          const data = await res.json();
-          authUsers = data.userInfo || [];
-        }
-      }
-
-      // 3. If REST worked, merge Auth + Firestore
-      if (authUsers.length > 0) {
-        const merged = authUsers.map((au) => ({
-          uid: au.localId,
-          email: au.email || au.providerUserInfo?.[0]?.email || "",
-          displayName: au.displayName || "",
-          emailVerified: au.emailVerified,
-          createdAt: au.createdAt ? new Date(parseInt(au.createdAt)).toISOString() : null,
-          lastLoginAt: au.lastLoginAt ? new Date(parseInt(au.lastLoginAt)).toISOString() : null,
-          authOnly: !firestoreDocs[au.localId], // true if no Firestore doc
-          // merge Firestore data if it exists
-          ...(firestoreDocs[au.localId] || {}),
-        }));
-        setUsers(merged);
-      } else {
-        // Fallback: just Firestore docs
-        setUsers(Object.values(firestoreDocs));
-      }
+      setUsers(snap.docs.map((d) => ({ uid: d.id, ...d.data() })));
     } catch (err) {
       showToast("Failed to load users: " + err.message, "error");
     } finally {
       setLoadingUsers(false);
     }
   }, []);
+
 
   // ── Load Firestore courses ───────────────────────────────────────────────
   const loadCourses = useCallback(async () => {
@@ -289,20 +265,70 @@ export default function Admin() {
     setAdminEmailInput("");
   };
 
-  // ── Filters ───────────────────────────────────────────────────────────────
-  const filteredUsers = users.filter((u) =>
-    !searchUser ||
-    (u.email || "").toLowerCase().includes(searchUser.toLowerCase()) ||
-    (u.firstName || "").toLowerCase().includes(searchUser.toLowerCase()) ||
-    (u.lastName || "").toLowerCase().includes(searchUser.toLowerCase()) ||
-    (u.displayName || "").toLowerCase().includes(searchUser.toLowerCase())
-  );
+  // ── Import pre-existing Auth users by pasting emails ────────────────────
+  // Since we can't list Firebase Auth users client-side, paste their emails
+  // (one per line) from the Firebase Console to create Firestore stubs.
+  const handleImportUsers = async () => {
+    const emails = importText
+      .split(/[\n,;]+/)
+      .map((e) => e.trim().toLowerCase())
+      .filter((e) => e.includes("@"));
 
-  const filteredCourses = courses.filter((c) =>
-    !courseSearch ||
-    c.courseName?.toLowerCase().includes(courseSearch.toLowerCase()) ||
-    c.institution?.toLowerCase().includes(courseSearch.toLowerCase())
-  );
+    if (emails.length === 0) { showToast("No valid emails found", "error"); return; }
+
+    let created = 0, skipped = 0;
+    for (const email of emails) {
+      const exists = users.find((u) => (u.email || "").toLowerCase() === email);
+      if (exists) { skipped++; continue; }
+      // Create a stub — uid will be filled when they next sign in
+      const stubId = `stub_${email.replace(/[^a-z0-9]/g, "_")}`;
+      try {
+        await setDoc(doc(db, "users", stubId), {
+          uid: stubId,
+          email,
+          firstName: "",
+          lastName: "",
+          dob: "",
+          plan: "free",
+          isAdmin: false,
+          stub: true, // flag so we know it's incomplete
+          createdAt: new Date().toISOString(),
+        });
+        created++;
+      } catch (err) {
+        console.error("Stub create failed:", email, err);
+      }
+    }
+
+    showToast(`Imported ${created} user(s), skipped ${skipped} existing.`);
+    setImportText("");
+    setShowImport(false);
+    loadUsers();
+  };
+
+  // ── Filters ───────────────────────────────────────────────────────────────
+  const filteredUsers = users.filter((u) => {
+    const matchSearch = !searchUser ||
+      (u.email || "").toLowerCase().includes(searchUser.toLowerCase()) ||
+      (u.firstName || "").toLowerCase().includes(searchUser.toLowerCase()) ||
+      (u.lastName || "").toLowerCase().includes(searchUser.toLowerCase()) ||
+      (u.displayName || "").toLowerCase().includes(searchUser.toLowerCase());
+    const matchPlan = !filterPlan || (u.plan || "free") === filterPlan;
+    const matchAdmin = filterAdmin === "" || String(!!u.isAdmin) === filterAdmin;
+    const matchAuthOnly = filterAuthOnly === "" || String(!!u.authOnly) === filterAuthOnly;
+    return matchSearch && matchPlan && matchAdmin && matchAuthOnly;
+  });
+
+  const filteredCourses = courses.filter((c) => {
+    const matchSearch = !courseSearch ||
+      c.courseName?.toLowerCase().includes(courseSearch.toLowerCase()) ||
+      c.institution?.toLowerCase().includes(courseSearch.toLowerCase());
+    const matchInstitution = !filterInstitution || c.institution === filterInstitution;
+    const matchQualType = !filterQualType || c.qualificationType === filterQualType;
+    const matchMinAPS = !filterMinAPS || c.minAPS >= Number(filterMinAPS);
+    const matchMaxAPS = !filterMaxAPS || c.minAPS <= Number(filterMaxAPS);
+    return matchSearch && matchInstitution && matchQualType && matchMinAPS && matchMaxAPS;
+  });
 
   // ── Sub-renders ───────────────────────────────────────────────────────────
   const planBadge = (plan) => {
@@ -315,36 +341,97 @@ export default function Admin() {
     return <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${styles[plan] || styles.free}`}>{labels[plan] || "Free"}</span>;
   };
 
-  const CourseFormFields = ({ data, onChange }) => (
-    <div className="space-y-3">
-      {[["courseName","Course Name"],["faculty","Faculty"],["duration","Duration (e.g. 3 years)"]].map(([field, label]) => (
-        <div key={field}>
-          <label className="text-xs text-gray-400 mb-1 block">{label}</label>
-          <input value={data[field] || ""} onChange={(e) => onChange(field, e.target.value)}
+  const CourseFormFields = ({ data, onChange }) => {
+    const keySubjects = data.keySubjects || [];
+
+    const updateKeySubject = (i, field, value) => {
+      const updated = keySubjects.map((k, idx) =>
+        idx === i ? { ...k, [field]: field === "minMark" ? Number(value) : value } : k
+      );
+      onChange("keySubjects", updated);
+    };
+
+    const addKeySubject = () => {
+      onChange("keySubjects", [...keySubjects, { subject: "", minMark: 50 }]);
+    };
+
+    const removeKeySubject = (i) => {
+      onChange("keySubjects", keySubjects.filter((_, idx) => idx !== i));
+    };
+
+    return (
+      <div className="space-y-3">
+        {[["courseName","Course Name"],["faculty","Faculty"],["duration","Duration (e.g. 3 years)"]].map(([field, label]) => (
+          <div key={field}>
+            <label className="text-xs text-gray-400 mb-1 block">{label}</label>
+            <input value={data[field] || ""} onChange={(e) => onChange(field, e.target.value)}
+              className="w-full bg-gray-800 border border-gray-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500" />
+          </div>
+        ))}
+        <div>
+          <label className="text-xs text-gray-400 mb-1 block">Institution</label>
+          <select value={data.institution || ""} onChange={(e) => onChange("institution", e.target.value)}
+            className="w-full bg-gray-800 border border-gray-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+            {INSTITUTIONS.map((i) => <option key={i} value={i}>{i}</option>)}
+          </select>
+        </div>
+        <div>
+          <label className="text-xs text-gray-400 mb-1 block">Qualification Type</label>
+          <select value={data.qualificationType || ""} onChange={(e) => onChange("qualificationType", e.target.value)}
+            className="w-full bg-gray-800 border border-gray-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+            {QUAL_TYPES.map((q) => <option key={q} value={q}>{q}</option>)}
+          </select>
+        </div>
+        <div>
+          <label className="text-xs text-gray-400 mb-1 block">Minimum APS</label>
+          <input type="number" value={data.minAPS || ""} onChange={(e) => onChange("minAPS", Number(e.target.value))}
             className="w-full bg-gray-800 border border-gray-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500" />
         </div>
-      ))}
-      <div>
-        <label className="text-xs text-gray-400 mb-1 block">Institution</label>
-        <select value={data.institution || ""} onChange={(e) => onChange("institution", e.target.value)}
-          className="w-full bg-gray-800 border border-gray-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
-          {INSTITUTIONS.map((i) => <option key={i} value={i}>{i}</option>)}
-        </select>
+
+        {/* Key Subjects */}
+        <div>
+          <div className="flex items-center justify-between mb-2">
+            <label className="text-xs text-gray-400 font-semibold uppercase tracking-wider">Required Subjects</label>
+            <button type="button" onClick={addKeySubject}
+              className="text-xs bg-green-800 hover:bg-green-700 text-green-300 px-2 py-1 rounded-lg transition">
+              + Add Subject
+            </button>
+          </div>
+          {keySubjects.length === 0 ? (
+            <p className="text-xs text-gray-600 italic px-1">No required subjects — open to all with qualifying APS.</p>
+          ) : (
+            <div className="space-y-2">
+              {keySubjects.map((ks, i) => (
+                <div key={i} className="flex gap-2 items-center">
+                  <input
+                    value={ks.subject || ""}
+                    onChange={(e) => updateKeySubject(i, "subject", e.target.value)}
+                    placeholder="e.g. Mathematics"
+                    className="flex-1 bg-gray-800 border border-gray-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  />
+                  <div className="flex items-center gap-1 shrink-0">
+                    <span className="text-gray-500 text-xs">≥</span>
+                    <input
+                      type="number"
+                      value={ks.minMark ?? 50}
+                      min={0} max={100}
+                      onChange={(e) => updateKeySubject(i, "minMark", e.target.value)}
+                      className="w-16 bg-gray-800 border border-gray-600 rounded-lg px-2 py-2 text-sm text-white text-center focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    />
+                    <span className="text-gray-500 text-xs">%</span>
+                  </div>
+                  <button type="button" onClick={() => removeKeySubject(i)}
+                    className="text-red-500 hover:text-red-400 font-bold text-base px-1 transition">
+                    ✕
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
-      <div>
-        <label className="text-xs text-gray-400 mb-1 block">Qualification Type</label>
-        <select value={data.qualificationType || ""} onChange={(e) => onChange("qualificationType", e.target.value)}
-          className="w-full bg-gray-800 border border-gray-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
-          {QUAL_TYPES.map((q) => <option key={q} value={q}>{q}</option>)}
-        </select>
-      </div>
-      <div>
-        <label className="text-xs text-gray-400 mb-1 block">Minimum APS</label>
-        <input type="number" value={data.minAPS || ""} onChange={(e) => onChange("minAPS", Number(e.target.value))}
-          className="w-full bg-gray-800 border border-gray-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500" />
-      </div>
-    </div>
-  );
+    );
+  };
 
   // ── Render ────────────────────────────────────────────────────────────────
   return (
@@ -355,6 +442,37 @@ export default function Admin() {
         <div className={`fixed top-4 right-4 z-50 px-5 py-3 rounded-xl shadow-lg text-sm font-medium
           ${toast.type === "error" ? "bg-red-600" : "bg-green-600"} text-white max-w-sm`}>
           {toast.msg}
+        </div>
+      )}
+
+      {/* Import users modal */}
+      {showImport && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
+          <div className="bg-gray-900 border border-gray-700 rounded-2xl p-6 w-full max-w-md space-y-4">
+            <div>
+              <p className="text-lg font-bold text-white">Import Users from Firebase Console</p>
+              <p className="text-xs text-gray-400 mt-1 leading-relaxed">
+                Go to Firebase Console → Authentication → Users, copy the email addresses
+                (Identifier column) and paste them below — one per line or comma-separated.
+                This creates Firestore stubs so they appear in the admin panel immediately.
+              </p>
+            </div>
+            <textarea
+              value={importText}
+              onChange={(e) => setImportText(e.target.value)}
+              placeholder={"user1@example.com\nuser2@example.com\nuser3@example.com"}
+              rows={6}
+              className="w-full bg-gray-800 border border-gray-600 rounded-xl px-3 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none"
+            />
+            <div className="flex gap-3">
+              <button onClick={() => { setShowImport(false); setImportText(""); }}
+                className="flex-1 py-2 rounded-xl bg-gray-700 hover:bg-gray-600 text-sm transition">Cancel</button>
+              <button onClick={handleImportUsers}
+                className="flex-1 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-sm font-semibold transition">
+                Import
+              </button>
+            </div>
+          </div>
         </div>
       )}
 
@@ -486,14 +604,50 @@ export default function Admin() {
                   </span>
                 )}
               </h2>
-              <button onClick={loadUsers} className="text-xs text-purple-400 hover:text-purple-300 border border-gray-700 px-3 py-1.5 rounded-lg transition">
-                ↻ Refresh
-              </button>
+              <div className="flex gap-2">
+                <button onClick={() => setShowImport(true)}
+                  className="text-xs text-yellow-400 hover:text-yellow-300 border border-yellow-900 px-3 py-1.5 rounded-lg transition">
+                  ⬇ Import
+                </button>
+                <button onClick={loadUsers} className="text-xs text-purple-400 hover:text-purple-300 border border-gray-700 px-3 py-1.5 rounded-lg transition">
+                  ↻ Refresh
+                </button>
+              </div>
             </div>
 
             <input value={searchUser} onChange={(e) => setSearchUser(e.target.value)}
               placeholder="Search by name or email…"
               className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500" />
+
+            {/* User filters */}
+            <div className="flex flex-wrap gap-2 items-center">
+              <select value={filterPlan} onChange={(e) => setFilterPlan(e.target.value)}
+                className="bg-gray-900 border border-gray-700 text-gray-300 text-xs rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                <option value="">All Plans</option>
+                <option value="free">Free</option>
+                <option value="ad_free">Ad-Free (R30)</option>
+                <option value="apply_for_me">Apply For Me (R150)</option>
+              </select>
+              <select value={filterAdmin} onChange={(e) => setFilterAdmin(e.target.value)}
+                className="bg-gray-900 border border-gray-700 text-gray-300 text-xs rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                <option value="">All Roles</option>
+                <option value="true">Admins Only</option>
+                <option value="false">Non-Admins</option>
+              </select>
+              <select value={filterAuthOnly} onChange={(e) => setFilterAuthOnly(e.target.value)}
+                className="bg-gray-900 border border-gray-700 text-gray-300 text-xs rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                <option value="">All Account Types</option>
+                <option value="true">Auth-Only (no profile)</option>
+                <option value="false">Has Profile</option>
+              </select>
+              {(filterPlan || filterAdmin || filterAuthOnly) && (
+                <button onClick={() => { setFilterPlan(""); setFilterAdmin(""); setFilterAuthOnly(""); }}
+                  className="text-xs text-red-400 hover:text-red-300 border border-red-900 px-2 py-1 rounded-lg transition">
+                  Clear filters
+                </button>
+              )}
+              <span className="text-xs text-gray-600 ml-auto">{filteredUsers.length} of {users.length} users</span>
+            </div>
 
             {loadingUsers ? (
               <p className="text-gray-500 text-sm py-8 text-center">Loading users…</p>
@@ -526,13 +680,29 @@ export default function Admin() {
 
                     {expandedUser === user.uid && (
                       <div className="border-t border-gray-800 px-5 py-4 space-y-4">
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-xs">
-                          <InfoCell label="UID" value={user.uid} mono />
-                          <InfoCell label="Email" value={user.email} />
-                          <InfoCell label="Date of Birth" value={user.dob || "—"} />
-                          <InfoCell label="Plan" value={user.plan || "free"} />
-                          <InfoCell label="Joined" value={user.createdAt ? new Date(user.createdAt).toLocaleDateString("en-ZA") : "—"} />
-                          <InfoCell label="Last Login" value={user.lastLoginAt ? new Date(user.lastLoginAt).toLocaleDateString("en-ZA") : "—"} />
+
+                        {/* Profile card */}
+                        <div className="bg-gray-800 rounded-xl p-4 space-y-3">
+                          <p className="text-xs text-gray-400 font-semibold uppercase tracking-wider">Profile</p>
+                          <div className="grid grid-cols-2 gap-3">
+                            <InfoCell label="First Name" value={user.firstName || user.displayName?.split(" ")[0] || "—"} />
+                            <InfoCell label="Last Name" value={user.lastName || user.displayName?.split(" ").slice(1).join(" ") || "—"} />
+                            <InfoCell label="Email" value={user.email} />
+                            <InfoCell label="Date of Birth" value={user.dob || "—"} />
+                          </div>
+                        </div>
+
+                        {/* Account info */}
+                        <div className="bg-gray-800 rounded-xl p-4 space-y-3">
+                          <p className="text-xs text-gray-400 font-semibold uppercase tracking-wider">Account</p>
+                          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                            <InfoCell label="UID" value={user.uid} mono />
+                            <InfoCell label="Plan" value={user.plan || "free"} />
+                            <InfoCell label="Admin" value={user.isAdmin ? "Yes" : "No"} />
+                            <InfoCell label="Joined" value={user.createdAt ? new Date(user.createdAt).toLocaleDateString("en-ZA") : "—"} />
+                            <InfoCell label="Last Login" value={user.lastLoginAt ? new Date(user.lastLoginAt).toLocaleDateString("en-ZA") : "—"} />
+                            <InfoCell label="Email Verified" value={user.emailVerified ? "Yes" : "No"} />
+                          </div>
                         </div>
 
                         {user.subjects?.length > 0 && (
@@ -605,6 +775,39 @@ export default function Admin() {
             <input value={courseSearch} onChange={(e) => setCourseSearch(e.target.value)}
               placeholder="Search by course name or institution…"
               className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500" />
+
+            {/* Course filters */}
+            <div className="flex flex-wrap gap-2 items-center">
+              <select value={filterInstitution} onChange={(e) => setFilterInstitution(e.target.value)}
+                className="bg-gray-900 border border-gray-700 text-gray-300 text-xs rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                <option value="">All Institutions</option>
+                {[...new Set(courses.map((c) => c.institution))].sort().map((i) => (
+                  <option key={i} value={i}>{i}</option>
+                ))}
+              </select>
+              <select value={filterQualType} onChange={(e) => setFilterQualType(e.target.value)}
+                className="bg-gray-900 border border-gray-700 text-gray-300 text-xs rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                <option value="">All Qualifications</option>
+                {QUAL_TYPES.map((q) => <option key={q} value={q}>{q}</option>)}
+              </select>
+              <div className="flex items-center gap-1">
+                <span className="text-gray-500 text-xs">APS</span>
+                <input type="number" value={filterMinAPS} onChange={(e) => setFilterMinAPS(e.target.value)}
+                  placeholder="Min" min={0} max={100}
+                  className="w-16 bg-gray-900 border border-gray-700 text-gray-300 text-xs rounded-lg px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-purple-500" />
+                <span className="text-gray-600 text-xs">–</span>
+                <input type="number" value={filterMaxAPS} onChange={(e) => setFilterMaxAPS(e.target.value)}
+                  placeholder="Max" min={0} max={100}
+                  className="w-16 bg-gray-900 border border-gray-700 text-gray-300 text-xs rounded-lg px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-purple-500" />
+              </div>
+              {(filterInstitution || filterQualType || filterMinAPS || filterMaxAPS) && (
+                <button onClick={() => { setFilterInstitution(""); setFilterQualType(""); setFilterMinAPS(""); setFilterMaxAPS(""); }}
+                  className="text-xs text-red-400 hover:text-red-300 border border-red-900 px-2 py-1 rounded-lg transition">
+                  Clear filters
+                </button>
+              )}
+              <span className="text-xs text-gray-600 ml-auto">{filteredCourses.length} of {courses.length} courses</span>
+            </div>
 
             {loadingCourses ? (
               <p className="text-gray-500 text-sm py-8 text-center">Loading courses…</p>
