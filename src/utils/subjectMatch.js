@@ -54,6 +54,11 @@ export function subjectMatches(userSubject, reqSubject) {
  * @param {Array} keySubjects - from courses.json
  * @returns {boolean}
  */
+function safeMark(mark) {
+  const n = parseInt(mark, 10);
+  return Number.isFinite(n) ? n : -1;
+}
+
 export function meetsKeySubjects(userSubjects, keySubjects) {
   if (!keySubjects || keySubjects.length === 0) return true;
 
@@ -64,7 +69,7 @@ export function meetsKeySubjects(userSubjects, keySubjects) {
         userSubjects.some(
           (s) =>
             subjectMatches(s.subject, opt.subject) &&
-            parseInt(s.mark, 10) >= opt.minMark
+            safeMark(s.mark) >= opt.minMark
         )
       );
     }
@@ -73,7 +78,7 @@ export function meetsKeySubjects(userSubjects, keySubjects) {
     return userSubjects.some(
       (s) =>
         subjectMatches(s.subject, req.subject) &&
-        parseInt(s.mark, 10) >= req.minMark
+        safeMark(s.mark) >= req.minMark
     );
   });
 }

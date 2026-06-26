@@ -5,9 +5,10 @@ import {
 } from "firebase/firestore";
 import { sendPasswordResetEmail, onAuthStateChanged } from "firebase/auth";
 import { db, auth } from "../firebase";
+import { isSuperAdmin, PERMISSIONS, ADMIN_ROLES, getRoleInfo } from "../utils/adminConfig";
 
 const FIREBASE_API_KEY = "AIzaSyDgSKlh9_3pBI9_IggS3C9aGh7I2edX484";
-const TABS = ["Dashboard", "Users", "Courses", "Settings"];
+const ALL_TABS = ["Dashboard", "Users", "Courses", "Settings"];
 
 const QUAL_TYPES = ["Bachelor", "Bachelor (Extended)", "Diploma", "Extended Diploma", "Higher Certificate"];
 const INSTITUTIONS = [
@@ -71,6 +72,7 @@ export default function Admin() {
   const [tab, setTab] = useState("Dashboard");
 
   // Users state — merged Auth + Firestore
+  const [currentUserRole, setCurrentUserRole] = useState("super");
   const [users, setUsers] = useState([]);
   const [loadingUsers, setLoadingUsers] = useState(true);
   const [searchUser, setSearchUser] = useState("");
@@ -118,7 +120,18 @@ export default function Admin() {
     setLoadingUsers(true);
     try {
       const snap = await getDocs(collection(db, "users"));
-      setUsers(snap.docs.map((d) => ({ uid: d.id, ...d.data() })));
+      const list = snap.docs.map((d) => ({ uid: d.id, ...d.data() }));
+      setUsers(list);
+      // Detect current user's role
+      const me = auth.currentUser;
+      if (me) {
+        if (isSuperAdmin(me.email)) {
+          setCurrentUserRole("super");
+        } else {
+          const myDoc = list.find((u) => u.uid === me.uid);
+          setCurrentUserRole(myDoc?.adminRole || "admin");
+        }
+      }
     } catch (err) {
       showToast("Failed to load users: " + err.message, "error");
     } finally {
@@ -201,19 +214,29 @@ export default function Admin() {
     } catch (err) { showToast(err.message, "error"); }
   };
 
-  const handleToggleAdmin = async (uid, current) => {
+  // Set a user's admin role. Pass role=null to revoke all admin access.
+  const handleSetRole = async (uid, role) => {
+    // Never allow modifying the super admin via UI
+    const target = users.find((u) => u.uid === uid);
+    if (target && isSuperAdmin(target.email)) {
+      showToast("Super admin cannot be modified.", "error"); return;
+    }
     try {
       const ref = doc(db, "users", uid);
       const snap = await getDoc(ref);
-      if (snap.exists()) {
-        await updateDoc(ref, { isAdmin: !current });
-      } else {
-        await setDoc(ref, { isAdmin: !current, uid });
-      }
-      setUsers((prev) => prev.map((u) => u.uid === uid ? { ...u, isAdmin: !current } : u));
-      showToast(`Admin ${!current ? "granted" : "revoked"}`);
+      const updates = role
+        ? { isAdmin: true, adminRole: role }
+        : { isAdmin: false, adminRole: null };
+      if (snap.exists()) { await updateDoc(ref, updates); }
+      else { await setDoc(ref, { uid, ...updates }); }
+      setUsers((prev) => prev.map((u) => u.uid === uid ? { ...u, ...updates } : u));
+      showToast(role ? `Role set to "${role}"` : "Admin access revoked");
     } catch (err) { showToast(err.message, "error"); }
   };
+
+  // Legacy alias used in Settings tab
+  const handleToggleAdmin = (uid, isCurrentlyAdmin) =>
+    handleSetRole(uid, isCurrentlyAdmin ? null : "admin");
 
   const handleChangePlan = async (uid, plan) => {
     try {
@@ -544,15 +567,17 @@ export default function Admin() {
         <button onClick={() => navigate("/home")} className="text-gray-400 hover:text-white text-sm transition">← Back to App</button>
       </div>
 
-      {/* Tabs */}
+      {/* Tabs — filtered by current user's role permissions */}
       <div className="flex border-b border-gray-800 px-6">
-        {TABS.map((t) => (
-          <button key={t} onClick={() => setTab(t)}
-            className={`px-4 py-3 text-sm font-medium transition border-b-2 -mb-px
-              ${tab === t ? "border-purple-500 text-purple-400" : "border-transparent text-gray-500 hover:text-gray-300"}`}>
-            {t}
-          </button>
-        ))}
+        {ALL_TABS
+          .filter((t) => (PERMISSIONS[currentUserRole] || []).includes(t.toLowerCase()))
+          .map((t) => (
+            <button key={t} onClick={() => setTab(t)}
+              className={`px-4 py-3 text-sm font-medium transition border-b-2 -mb-px
+                ${tab === t ? "border-purple-500 text-purple-400" : "border-transparent text-gray-500 hover:text-gray-300"}`}>
+              {t}
+            </button>
+          ))}
       </div>
 
       <div className="flex-1 p-6 max-w-7xl mx-auto w-full">
@@ -672,7 +697,10 @@ export default function Admin() {
                       </div>
                       <div className="flex items-center gap-2 shrink-0 ml-2">
                         {user.authOnly && <span className="text-xs bg-orange-900 text-orange-300 px-2 py-0.5 rounded-full">Auth-only</span>}
-                        {user.isAdmin && <span className="text-xs bg-red-900 text-red-300 px-2 py-0.5 rounded-full">Admin</span>}
+                        {user.isAdmin && (() => {
+                          const ri = getRoleInfo(user.adminRole || "admin");
+                          return <span className={`text-xs px-2 py-0.5 rounded-full ${ri?.bg || "bg-red-900"} ${ri?.color || "text-red-300"}`}>{ri?.badge} {ri?.label || "Admin"}</span>;
+                        })()}
                         {planBadge(user.plan)}
                         <span className="text-gray-600">{expandedUser === user.uid ? "▲" : "▼"}</span>
                       </div>
@@ -729,10 +757,24 @@ export default function Admin() {
                             className="bg-blue-900 hover:bg-blue-800 text-blue-300 text-xs px-3 py-1.5 rounded-lg transition">
                             📧 Reset Password
                           </button>
-                          <button onClick={() => handleToggleAdmin(user.uid, !!user.isAdmin)}
-                            className={`text-xs px-3 py-1.5 rounded-lg transition ${user.isAdmin ? "bg-orange-900 hover:bg-orange-800 text-orange-300" : "bg-green-900 hover:bg-green-800 text-green-300"}`}>
-                            {user.isAdmin ? "🛡️ Revoke Admin" : "🛡️ Grant Admin"}
-                          </button>
+                          {/* Role selector — only super admins can grant super role */}
+                          {!isSuperAdmin(user.email) && (
+                            <select
+                              value={user.isAdmin ? (user.adminRole || "admin") : "none"}
+                              onChange={(e) => handleSetRole(user.uid, e.target.value === "none" ? null : e.target.value)}
+                              className="bg-gray-800 border border-gray-600 text-gray-300 text-xs rounded-lg px-2 py-1.5 focus:outline-none"
+                            >
+                              <option value="none">🚫 No Access</option>
+                              <option value="moderator">🟡 Moderator (courses only)</option>
+                              <option value="admin">🟠 Admin (full access)</option>
+                              {isSuperAdmin(auth.currentUser?.email) && (
+                                <option value="super">🔴 Super Admin</option>
+                              )}
+                            </select>
+                          )}
+                          {isSuperAdmin(user.email) && (
+                            <span className="text-xs bg-red-900 text-red-300 px-3 py-1.5 rounded-lg">🔴 Super Admin (protected)</span>
+                          )}
                           <button onClick={() => setConfirmDeleteUser({ uid: user.uid, email: user.email })}
                             className="bg-red-900 hover:bg-red-800 text-red-300 text-xs px-3 py-1.5 rounded-lg transition">
                             🗑️ Delete

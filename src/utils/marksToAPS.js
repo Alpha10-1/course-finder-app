@@ -1,8 +1,9 @@
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function clamp(p) {
-  if (!Number.isFinite(p)) return 0;
-  return Math.max(0, Math.min(100, p));
+  const n = Number(p);
+  if (!Number.isFinite(n)) return 0;
+  return Math.max(0, Math.min(100, n));
 }
 
 function normalizeName(name = "") {
@@ -77,7 +78,11 @@ function witsBandLO(percent) {
  *          NMU, RU, SMU, SPU, UFH, MUT, UMP, UWC, UNIVEN, VUT, UP, UKZN
  */
 function aps_nsc_42(subjects) {
-  const pool = subjects.filter((s) => !isLifeOrientation(s.subject));
+  const pool = subjects.filter((s) =>
+    !isLifeOrientation(s.subject) &&
+    s.mark !== null && s.mark !== undefined && s.mark !== "" &&
+    Number.isFinite(Number(s.mark))
+  );
   const chosen = bestN(pool, 6, (s) => convertMarkToAPS(s.mark));
   return chosen.reduce((sum, s) => sum + convertMarkToAPS(s.mark), 0);
 }

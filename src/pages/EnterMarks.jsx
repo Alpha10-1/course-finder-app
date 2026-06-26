@@ -55,7 +55,10 @@ export default function EnterMarks() {
           if (snap.exists()) {
             const data = snap.data();
             if (data.subjects && data.subjects.length > 0) {
-              setRows(data.subjects.map((s) => ({ subject: s.subject, mark: String(s.mark) })));
+              setRows(data.subjects.map((s) => ({
+                subject: s.subject,
+                mark: (s.mark !== undefined && s.mark !== null) ? String(s.mark) : "",
+              })));
               setRestored(true);
             }
           }
@@ -94,7 +97,10 @@ export default function EnterMarks() {
 
   const getFilledSubjects = () =>
     rows
-      .filter((r) => r.mark !== "")
+      .filter((r) => {
+        const v = String(r.mark ?? "").trim();
+        return v !== "" && !isNaN(Number(v));
+      })
       .map((r) => ({ subject: r.subject, mark: parseInt(r.mark, 10) }));
 
   const handleCalculate = (e) => {
