@@ -1,19 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { convertMarkToAPS } from "../utils/marksToAPS";
+import { calculateGeneralAPS } from "../utils/marksToAPS";
 import { auth, db } from "../firebase";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
 
 const SUBJECTS = [
   "Accounting",
+  "Afrikaans Home Language",
+  "Afrikaans First Additional Language",
   "Business Studies",
+  "CAT (Computer Applications Technology)",
   "Consumer Studies",
   "Economics",
   "Engineering Graphics and Design",
-  "English",
+  "English Home Language",
+  "English First Additional Language",
   "Geography",
   "History",
-  "Information Technology",
+  "IT (Information Technology)",
   "Life Orientation",
   "Life Sciences",
   "Mathematical Literacy",
@@ -23,20 +28,45 @@ const SUBJECTS = [
   "Visual Arts",
 ];
 
-export default function EnterMarks() {
-  const [rows, setRows] = useState([
-    { subject: "Accounting", mark: "" },
-    { subject: "Business Studies", mark: "" },
-    { subject: "Consumer Studies", mark: "" },
-    { subject: "English", mark: "" },
-    { subject: "Geography", mark: "" },
-    { subject: "Life Orientation", mark: "" },
-    { subject: "Mathematics", mark: "" },
-    { subject: "Physical Sciences", mark: "" },
-  ]);
+const DEFAULT_ROWS = [
+  { subject: "Accounting", mark: "" },
+  { subject: "Business Studies", mark: "" },
+  { subject: "Consumer Studies", mark: "" },
+  { subject: "English Home Language", mark: "" },
+  { subject: "Geography", mark: "" },
+  { subject: "Life Orientation", mark: "" },
+  { subject: "Mathematics", mark: "" },
+  { subject: "Physical Sciences", mark: "" },
+];
 
+export default function EnterMarks() {
+  const [rows, setRows] = useState(DEFAULT_ROWS);
   const [aps, setAps] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [restored, setRestored] = useState(false);
   const navigate = useNavigate();
+
+  // Load saved marks from Firestore on mount
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        try {
+          const snap = await getDoc(doc(db, "users", user.uid));
+          if (snap.exists()) {
+            const data = snap.data();
+            if (data.subjects && data.subjects.length > 0) {
+              setRows(data.subjects.map((s) => ({ subject: s.subject, mark: String(s.mark) })));
+              setRestored(true);
+            }
+          }
+        } catch (err) {
+          console.error("Error loading saved marks:", err);
+        }
+      }
+      setLoading(false);
+    });
+    return () => unsubscribe();
+  }, []);
 
   const handleSubjectChange = (index, value) => {
     const updated = [...rows];
@@ -62,28 +92,22 @@ export default function EnterMarks() {
     setAps(null);
   };
 
-  const calculateAPS = () => {
-    const filled = rows.filter((r) => r.mark !== "");
-    const total = filled.reduce((sum, r) => {
-      return sum + convertMarkToAPS(parseInt(r.mark, 10));
-    }, 0);
-    setAps(total);
-    return { total, filled };
-  };
+  const getFilledSubjects = () =>
+    rows
+      .filter((r) => r.mark !== "")
+      .map((r) => ({ subject: r.subject, mark: parseInt(r.mark, 10) }));
 
   const handleCalculate = (e) => {
     e.preventDefault();
-    calculateAPS();
+    const subjects = getFilledSubjects();
+    const total = calculateGeneralAPS(subjects);
+    setAps(total);
   };
 
   const handleViewCourses = async () => {
-    const { total, filled } = calculateAPS();
-    const subjects = filled.map((r) => ({
-      subject: r.subject,
-      mark: r.mark,
-    }));
+    const subjects = getFilledSubjects();
+    const total = calculateGeneralAPS(subjects);
 
-    // Save to Firestore
     const user = auth.currentUser;
     if (user) {
       try {
@@ -96,14 +120,28 @@ export default function EnterMarks() {
     navigate("/results", { state: { subjects, aps: total } });
   };
 
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-purple-200">
+        <p className="text-gray-600">Loading your marks...</p>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 to-purple-200 flex items-start justify-center p-6">
       <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-2xl mt-6">
-        <h1 className="text-2xl font-bold text-center text-gray-900 mb-6">
+        <h1 className="text-2xl font-bold text-center text-gray-900 mb-1">
           Enter Your Subject Marks
         </h1>
 
-        <form onSubmit={handleCalculate} className="space-y-3">
+        {restored && (
+          <p className="text-center text-green-600 text-sm mb-4">
+            ✓ Your previous marks have been restored
+          </p>
+        )}
+
+        <form onSubmit={handleCalculate} className="space-y-3 mt-4">
           {rows.map((row, index) => (
             <div key={index} className="flex items-center gap-2">
               <div className="relative flex-1">
@@ -159,6 +197,9 @@ export default function EnterMarks() {
           <>
             <p className="text-center text-purple-700 font-bold text-xl mt-5">
               Your APS: {aps}
+            </p>
+            <p className="text-center text-gray-400 text-xs mt-1">
+              General APS (best 6 subjects, LO excluded) — per-university scores calculated on results page
             </p>
             <button
               onClick={handleViewCourses}

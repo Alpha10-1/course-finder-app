@@ -1,16 +1,3343 @@
 [
   {
-    "courseName": "B Architecture",
-    "qualificationCode": "BB8ARQ",
-    "institution": "University of Johannesburg",
-    "qualificationType": "Bachelor",
-    "faculty": "Art, Design and Architecture",
+    "courseName": "Bachelor of Commerce (General)",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Commerce, Law & Management",
     "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 38,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Chemical Engineering",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Engineering and the Built Environment",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 42,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50},
+      {"subject": "Physical Sciences", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Metallurgy and Materials Engineering",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Engineering and the Built Environment",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 42,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50},
+      {"subject": "Physical Sciences", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Civil Engineering",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Engineering and the Built Environment",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 42,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50},
+      {"subject": "Physical Sciences", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Electrical Engineering",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Engineering and the Built Environment",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 42,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50},
+      {"subject": "Physical Sciences", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Biomedical Engineering",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Engineering and the Built Environment",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 42,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50},
+      {"subject": "Physical Sciences", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Digital Arts",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Engineering and the Built Environment",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 42,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50},
+      {"subject": "Physical Sciences", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Aeronautical Engineering",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Engineering and the Built Environment",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 42,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50},
+      {"subject": "Physical Sciences", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Industrial Engineering",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Engineering and the Built Environment",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 42,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50},
+      {"subject": "Physical Sciences", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Mechanical Engineering",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Engineering and the Built Environment",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 42,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50},
+      {"subject": "Physical Sciences", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Mining Engineering",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Engineering and the Built Environment",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 42,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50},
+      {"subject": "Physical Sciences", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Architectural Studies",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Engineering and the Built Environment",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 34,
+    "keySubjects": [
+      {"subject": "English", "minMark": 40},
+      {"subject": "Mathematics", "minMark": 40}
+    ],
+    "additionalRequirements": "Written and graphic drawing exercise required"
+  },
+  {
+    "courseName": "Urban and Regional Planning",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Engineering and the Built Environment",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 36,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Construction Studies",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Engineering and the Built Environment",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 36,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Property Studies",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Engineering and the Built Environment",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 36,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Commerce in Information Systems",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Commerce, Law & Management",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 38,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Commerce in Politics, Philosophy and Economics",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Commerce, Law & Management",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 38,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Accounting Science",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Commerce, Law & Management",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 44,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Accounting",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Commerce, Law & Management",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 38,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Economic Science",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Commerce, Law & Management",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 42,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 70}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Commerce with Law",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Commerce, Law & Management",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 43,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "LLB (Four-year stream)",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Commerce, Law & Management",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 46,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "BAdmin",
+    "qualificationCode": "07130012",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      { "subject": "Mathematics", "minMark": 40 }
+    ]
+  },
+  {
+    "courseName": "BCom (Accounting Sciences)",
+    "qualificationCode": "07130042",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 34,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      { "subject": "Mathematics", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BCom (Economics)",
+    "qualificationCode": "07130083",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 32,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      { "subject": "Mathematics", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BCom (Financial Sciences)",
+    "qualificationCode": "07130252",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 32,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      { "subject": "Mathematics", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BCom (Informatics)",
+    "qualificationCode": "07130152",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      { "subject": "Mathematics", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BCom (Law)",
+    "qualificationCode": "07130062",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 32,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      { "subject": "Mathematics", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BCom (Management Accounting)",
+    "qualificationCode": "07130142",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 32,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      { "subject": "Mathematics", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BCom (Marketing Management)",
+    "qualificationCode": "07130092",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
     "minAPS": 30,
     "keySubjects": [
       { "subject": "English", "minMark": 50 },
       { "subject": "Mathematics", "minMark": 50 }
     ]
+  },
+  {
+    "courseName": "BCom (Supply Chain Management)",
+    "qualificationCode": "07130261",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      { "subject": "Mathematics", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BCom (Tourism Management)",
+    "qualificationCode": "07130073",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      { "subject": "Mathematics", "minMark": 40 }
+    ]
+  },
+  {
+    "courseName": "BEd (Foundation Phase Teaching)",
+    "qualificationCode": "07131173",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Education",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BEd (Intermediate Phase Teaching)",
+    "qualificationCode": "07131183",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Education",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BEd (Senior Phase and FET Teaching)",
+    "qualificationCode": "07131203",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Education",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BSc (Actuarial and Financial Mathematics)",
+    "qualificationCode": "02133173",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 34,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      { "subject": "Mathematics", "minMark": 80 }
+    ]
+  },
+  {
+    "courseName": "BSc (Agricultural Economics and Agribusiness Management)",
+    "qualificationCode": "02133485",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      { "subject": "Mathematics", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BSc (Animal Science)",
+    "qualificationCode": "02133493",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      { "subject": "Mathematics", "minMark": 60 },
+      { "subject": "Physical Sciences", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BSc (Biochemistry)",
+    "qualificationCode": "02133172",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      { "subject": "Mathematics", "minMark": 60 },
+      { "subject": "Physical Sciences", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BSc (Biological Sciences)",
+    "qualificationCode": "02133193",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      { "subject": "Mathematics", "minMark": 60 },
+      { "subject": "Physical Sciences", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BSc (Chemistry)",
+    "qualificationCode": "02133272",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      { "subject": "Mathematics", "minMark": 60 },
+      { "subject": "Physical Sciences", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BSc (Computer Science)",
+    "qualificationCode": "02133462",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 32,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      { "subject": "Mathematics", "minMark": 70 }
+    ]
+  },
+  {
+    "courseName": "BSc (Ecology)",
+    "qualificationCode": "02133223",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 60 },
+      { "subject": "Physical Sciences", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BSc (Entomology)",
+    "qualificationCode": "02133212",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 60 },
+      { "subject": "Physical Sciences", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BSc (Environmental Sciences)",
+    "qualificationCode": "02133373",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 60 },
+      { "subject": "Physical Sciences", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BSc (Food Science)",
+    "qualificationCode": "02133383",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 60 },
+      { "subject": "Physical Sciences", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BSc (Genetics)",
+    "qualificationCode": "02133363",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 60 },
+      { "subject": "Physical Sciences", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BSc (Geography and Environmental Science)",
+    "qualificationCode": "02133352",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 50 },
+      { "subject": ["Geography","Physical Sciences"], "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BSc (Geology)",
+    "qualificationCode": "02133362",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 60 },
+      { "subject": "Physical Sciences", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BSc (Human Physiology)",
+    "qualificationCode": "02133393",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 60 },
+      { "subject": "Physical Sciences", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BSc (Mathematics)",
+    "qualificationCode": "02133452",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 70 },
+      { "subject": "Physical Sciences", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BSc (Mathematical Statistics)",
+    "qualificationCode": "02133282",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 70 }
+    ]
+  },
+  {
+    "courseName": "BSc (Meteorology)",
+    "qualificationCode": "02133232",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 70 },
+      { "subject": "Physical Sciences", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BSc (Microbiology)",
+    "qualificationCode": "02133403",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 60 },
+      { "subject": "Physical Sciences", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BSc (Physics)",
+    "qualificationCode": "02133412",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 32,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 70 },
+      { "subject": "Physical Sciences", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BSc (Plant Science)",
+    "qualificationCode": "02133422",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 60 },
+      { "subject": "Physical Sciences", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BSc (Veterinary Biology)",
+    "qualificationCode": "08130002",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Veterinary Science",
+    "duration": "1 year (leading to BVSc)",
+    "qualificationType": "Bachelor",
+    "minAPS": 35,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 70 },
+      { "subject": "Physical Sciences", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BA",
+    "qualificationCode": "01130001",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Humanities",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BA (Law)",
+    "qualificationCode": "01130002",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Humanities",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 32,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BA (Languages)",
+    "qualificationCode": "01130003",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Humanities",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BA (Visual Studies)",
+    "qualificationCode": "01130004",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Humanities",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BA (Fine Arts)",
+    "qualificationCode": "01130101",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Humanities",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BA (Information Design)",
+    "qualificationCode": "01130102",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Humanities",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BA (Drama)",
+    "qualificationCode": "01130103",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Humanities",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BA (Music)",
+    "qualificationCode": "01130104",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Humanities",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BA (Extended programme)",
+    "qualificationCode": "01130006",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Humanities",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 26,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BPolSci (Political Studies)",
+    "qualificationCode": "01130034",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Humanities",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BPolSci (International Studies)",
+    "qualificationCode": "01130035",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Humanities",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BPolSci (Extended programme)",
+    "qualificationCode": "01130033",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Humanities",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 26,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BMus",
+    "qualificationCode": "01132003",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Humanities",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BSocial Work",
+    "qualificationCode": "01130026",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Humanities",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BTh",
+    "qualificationCode": "01130028",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Theology and Religion",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BConsumer Science (Clothing: Retail Management)",
+    "qualificationCode": "02130183",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      { "subject": ["Mathematics", "Mathematical Literacy"], "minMark": 50 },
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BConsumer Science (Food: Retail Management)",
+    "qualificationCode": "02130185",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      { "subject": ["Mathematics", "Mathematical Literacy"], "minMark": 50 },
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BConsumer Science (Hospitality Management)",
+    "qualificationCode": "02130184",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      { "subject": ["Mathematics", "Mathematical Literacy"], "minMark": 50 },
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BSc (Nutrition)",
+    "qualificationCode": "02133391",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "Physical Sciences", "minMark": 50 },
+      { "subject": "Mathematics", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BSc (Dietetics)",
+    "qualificationCode": "10133002",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Health Sciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "Physical Sciences", "minMark": 50 },
+      { "subject": "Mathematics", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BSc (Speech-Language Pathology)",
+    "qualificationCode": "10132003",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Humanities",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BSc (Audiology)",
+    "qualificationCode": "10132004",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Humanities",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BOccTher (Occupational Therapy)",
+    "qualificationCode": "10132001",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Health Sciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "Life Sciences", "minMark": 60 },
+      { "subject": "Mathematics", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BPhysT (Physiotherapy)",
+    "qualificationCode": "10132002",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Health Sciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 32,
+    "keySubjects": [
+      { "subject": "Life Sciences", "minMark": 60 },
+      { "subject": "Physical Sciences", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BNurs (Nursing Science)",
+    "qualificationCode": "10131002",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Health Sciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      { "subject": "Life Sciences", "minMark": 60 },
+      { "subject": ["Mathematics","Physical Sciences"], "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "MBChB (Medicine)",
+    "qualificationCode": "10130015",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Health Sciences",
+    "duration": "6 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 35,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 60 },
+      { "subject": "Physical Sciences", "minMark": 60 },
+      { "subject": "Life Sciences", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BChD (Dentistry)",
+    "qualificationCode": "10130017",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Health Sciences",
+    "duration": "5 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 35,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 60 },
+      { "subject": "Physical Sciences", "minMark": 60 },
+      { "subject": "Life Sciences", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BOH (Oral Hygiene)",
+    "qualificationCode": "10131008",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Health Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      { "subject": "Life Sciences", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BSc (Veterinary Biology)",
+    "qualificationCode": "08130001",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Veterinary Science",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 34,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 60 },
+      { "subject": "Physical Sciences", "minMark": 60 },
+      { "subject": "Life Sciences", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BVSc (Veterinary Science)",
+    "qualificationCode": "08130002",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Veterinary Science",
+    "duration": "6 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 34,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 60 },
+      { "subject": "Physical Sciences", "minMark": 60 },
+      { "subject": "Life Sciences", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BEng (Mechanical Engineering)",
+    "qualificationCode": "12131014",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Engineering, Built Environment and Information Technology",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 35,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 70 },
+      { "subject": "Physical Sciences", "minMark": 70 }
+    ]
+  },
+  {
+    "courseName": "BEng (Chemical Engineering)",
+    "qualificationCode": "12131012",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Engineering, Built Environment and Information Technology",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 35,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 70 },
+      { "subject": "Physical Sciences", "minMark": 70 }
+    ]
+  },
+  {
+    "courseName": "BEng (Civil Engineering)",
+    "qualificationCode": "12131013",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Engineering, Built Environment and Information Technology",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 35,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 70 },
+      { "subject": "Physical Sciences", "minMark": 70 }
+    ]
+  },
+  {
+    "courseName": "BEng (Electrical Engineering)",
+    "qualificationCode": "12131015",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Engineering, Built Environment and Information Technology",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 35,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 70 },
+      { "subject": "Physical Sciences", "minMark": 70 }
+    ]
+  },
+  {
+    "courseName": "BEng (Electronic Engineering)",
+    "qualificationCode": "12131016",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Engineering, Built Environment and Information Technology",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 35,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 70 },
+      { "subject": "Physical Sciences", "minMark": 70 }
+    ]
+  },
+  {
+    "courseName": "BEng (Industrial Engineering)",
+    "qualificationCode": "12131017",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Engineering, Built Environment and Information Technology",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 35,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 70 },
+      { "subject": "Physical Sciences", "minMark": 70 }
+    ]
+  },
+  {
+    "courseName": "BEng (Metallurgical Engineering)",
+    "qualificationCode": "12131018",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Engineering, Built Environment and Information Technology",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 35,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 70 },
+      { "subject": "Physical Sciences", "minMark": 70 }
+    ]
+  },
+  {
+    "courseName": "BEng (Mining Engineering)",
+    "qualificationCode": "12131019",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Engineering, Built Environment and Information Technology",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 35,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 70 },
+      { "subject": "Physical Sciences", "minMark": 70 }
+    ]
+  },
+  {
+    "courseName": "BEng (Computer Engineering)",
+    "qualificationCode": "12131021",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Engineering, Built Environment and Information Technology",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 35,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 70 },
+      { "subject": "Physical Sciences", "minMark": 70 }
+    ]
+  },
+  {
+    "courseName": "BSc (Computer Science)",
+    "qualificationCode": "02133262",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 32,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 70 }
+    ]
+  },
+  {
+    "courseName": "BIT (Information Systems)",
+    "qualificationCode": "12134011",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Engineering, Built Environment and Information Technology",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BIT (Multimedia)",
+    "qualificationCode": "12134013",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Engineering, Built Environment and Information Technology",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BIT (Information Technology)",
+    "qualificationCode": "12134012",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Engineering, Built Environment and Information Technology",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BSc (IT)",
+    "qualificationCode": "02133263",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 32,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 70 }
+    ]
+  },
+  {
+    "courseName": "BSc (Mathematics)",
+    "qualificationCode": "02133373",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 70 }
+    ]
+  },
+  {
+    "courseName": "BSc (Physics)",
+    "qualificationCode": "02133374",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 70 },
+      { "subject": "Physical Sciences", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BSc (Chemistry)",
+    "qualificationCode": "02133375",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 60 },
+      { "subject": "Physical Sciences", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BSc (Geology)",
+    "qualificationCode": "02133376",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 60 },
+      { "subject": "Physical Sciences", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BSc (Meteorology)",
+    "qualificationCode": "02133377",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 32,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 70 },
+      { "subject": "Physical Sciences", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BSc (Environmental Sciences)",
+    "qualificationCode": "02133378",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 60 },
+      { "subject": "Physical Sciences", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BSc (Zoology)",
+    "qualificationCode": "02133379",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 50 },
+      { "subject": "Life Sciences", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BSc (Plant Science)",
+    "qualificationCode": "02133380",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 50 },
+      { "subject": "Life Sciences", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BSc (Biochemistry)",
+    "qualificationCode": "02133381",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 60 },
+      { "subject": "Physical Sciences", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BSc (Genetics)",
+    "qualificationCode": "02133382",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 60 },
+      { "subject": "Life Sciences", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BSc (Microbiology)",
+    "qualificationCode": "02133383",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 60 },
+      { "subject": "Life Sciences", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BSc (Food Science)",
+    "qualificationCode": "02133384",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 60 },
+      { "subject": "Physical Sciences", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BSc (Nutrition and Food Science)",
+    "qualificationCode": "02133385",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 60 },
+      { "subject": "Life Sciences", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BSc (Human Physiology)",
+    "qualificationCode": "02133386",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 60 },
+      { "subject": "Life Sciences", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BSc (Medical Sciences)",
+    "qualificationCode": "02133387",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Health Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 34,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 60 },
+      { "subject": "Life Sciences", "minMark": 60 },
+      { "subject": "Physical Sciences", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BSc (Radiography)",
+    "qualificationCode": "10139021",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Health Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 50 },
+      { "subject": "Life Sciences", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BOccTher (Occupational Therapy)",
+    "qualificationCode": "10139031",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Health Sciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "Life Sciences", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BPhysT (Physiotherapy)",
+    "qualificationCode": "10139041",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Health Sciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      { "subject": "Life Sciences", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BSportSci (Sport Science)",
+    "qualificationCode": "10139051",
+    "institution": "University of Pretoria",
+    "faculty": "Faculty of Health Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      { "subject": "Life Sciences", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "Biomedical Sciences",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Health Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 15,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": ["Life Sciences","Physical Sciences"], "minMark": 60}
+    ],
+    "additionalRequirements": "NBT test required by 18 August 2025"
+  },
+  {
+    "courseName": "Biokinetics",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Health Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 15,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": ["Life Sciences","Physical Sciences"], "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "Clinical Medical Practice",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Health Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 15,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50},
+      {"subject": "Life Sciences", "minMark": 80}
+    ]
+  },
+  {
+    "courseName": "Medicine and Surgery",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Health Sciences",
+    "duration": "6 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 15,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": ["Life Sciences","Physical Sciences"], "minMark": 60}
+    ],
+    "additionalRequirements": "Job shadowing (16+ hours) + NBT test"
+  },
+  {
+    "courseName": "Dental Science",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Health Sciences",
+    "duration": "5 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 16,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": "Life Sciences", "minMark": 80},
+      {"subject": "Physical Sciences", "minMark": 80}
+    ]
+  },
+  {
+    "courseName": "Nursing",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Health Sciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 12,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50},
+      {"subject": "Life Sciences", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Pharmacy",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Health Sciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 15,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": "Physical Sciences", "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "Occupational Therapy",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Health Sciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 12,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50},
+      {"subject": "Life Sciences", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Physiotherapy",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Health Sciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 15,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": "Physical Sciences", "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Arts (General)",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Humanities",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 36,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60},
+      {"subject": "Mathematics", "minMark": 50}  
+    ]
+  },
+  {
+    "courseName": "Bachelor of Arts (Law)",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Humanities",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 43,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60},  
+      {"subject": "Mathematics", "minMark": 40}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Arts in Digital Arts",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Humanities",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 36,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60}  
+    ],
+    "additionalRequirements": "Portfolio or written assignment"
+  },
+  {
+    "courseName": "Bachelor of Arts in Theatre and Performance",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Humanities",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 34,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60}  
+    ],
+    "additionalRequirements": "Audition or portfolio"
+  },
+  {
+    "courseName": "Bachelor of Arts in Film and Television",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Humanities",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 34,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60}  
+    ],
+    "additionalRequirements": "Portfolio or written assignment"
+  },
+  {
+    "courseName": "Bachelor of Arts in Fine Arts",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Humanities",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 34,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60}  
+    ],
+    "additionalRequirements": "Portfolio submission"
+  },
+  {
+    "courseName": "Bachelor of Music",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Humanities",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 34,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60}  
+    ],
+    "additionalRequirements": "Audition"
+  },
+  {
+    "courseName": "Bachelor of Education (Foundation Phase Teaching)",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Humanities",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 37,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60}, 
+      { "subject": ["Mathematics","Maths Literacy","Technical Mathematics"], "minMark": 50 }
+    ],
+    "additionalRequirements": "Choose one: Mathematics (50%), Maths Literacy (60%), or Technical Mathematics (60%)"
+  },
+  {
+    "courseName": "Bachelor of Education (Intermediate Phase Teaching)",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Humanities",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 37,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60}, 
+      { "subject": ["Mathematics","Maths Literacy","Technical Mathematics"], "minMark": 50 }
+    ],
+    "additionalRequirements": "Choose one: Mathematics (50%), Maths Literacy (60%), or Technical Mathematics (60%)"
+  },
+  {
+    "courseName": "Bachelor of Education (Senior Phase and FET Teaching)",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Humanities",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 37,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60},  
+      { "subject": ["Mathematics","Technical Mathematics"], "minMark": 65}  
+    ],
+    "additionalRequirements": "Teaching subjects required: Language, Mathematics, Technical Mathematics, etc."
+  },
+  {
+    "courseName": "Bachelor of Arts in Speech-Language Pathology",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Humanities",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 34,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60},  
+      {"subject": "Mathematics", "minMark": 50}  
+    ],
+    "additionalRequirements": "NBT test required by 18 August 2025"
+  },
+  {
+    "courseName": "Bachelor of Arts in Audiology",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Humanities",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 34,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60},  
+      {"subject": "Mathematics", "minMark": 50}  
+    ],
+    "additionalRequirements": "NBT test required by 18 August 2025"
+  },
+  {
+    "courseName": "Bachelor of Social Work",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Humanities",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 34,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60},  
+      {"subject": "Mathematics", "minMark": 50}  
+    ]
+  },
+  {
+    "courseName": "Bachelor of Science (General)",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Science",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 42,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60}, 
+      {"subject": "Mathematics", "minMark": 60} 
+    ]
+  },
+  {
+    "courseName": "Biological Sciences",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Science",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 43,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": "Life Sciences", "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "Geographical and Archaeological Sciences",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Science",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 42,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60},
+      {"subject": "Mathematics", "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "Geological Sciences",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Science",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 42,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": "Physical Sciences", "minMark": 70} 
+    ]
+  },
+  {
+    "courseName": "Actuarial Science",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Science",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 42,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60},
+      {"subject": "Mathematics", "minMark": 80} 
+    ]
+  },
+  {
+    "courseName": "Computer Science",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Science",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 44,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60},
+      {"subject": "Mathematics", "minMark": 70} 
+    ]
+  },
+  {
+    "courseName": "Astronomy and Astrophysics",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Science",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 43,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60},
+      {"subject": "Mathematics", "minMark": 70},
+      {"subject": "Physical Sciences", "minMark": 70}
+    ]
+  },
+  {
+    "courseName": "Materials Science",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Science",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 43,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60},
+      {"subject": "Mathematics", "minMark": 70},
+      {"subject": "Physical Sciences", "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "Chemistry with Chemical Engineering",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Science",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 43,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60},
+      {"subject": "Mathematics", "minMark": 70},
+      {"subject": "Physical Sciences", "minMark": 70}
+    ]
+  },
+  {
+    "courseName": "Physical Sciences (Chemistry/Physics)",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Science",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 42,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60},
+      {"subject": "Mathematics", "minMark": 70},
+      {"subject": "Physical Sciences", "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "Environmental Studies",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Science",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 42,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60},
+      {"subject": "Mathematics", "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "Mathematical Sciences",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Science",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 42,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60},
+      {"subject": "Mathematics", "minMark": 80}
+    ]
+  },
+  {
+    "courseName": "Computational and Applied Mathematics",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Science",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 44,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60},
+      {"subject": "Mathematics", "minMark": 70}
+    ]
+  },
+  {
+    "courseName": "Geospatial Sciences",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Science",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 42,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60},
+      {"subject": "Mathematics", "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "Health Systems Sciences",
+    "institution": "University of the Witwatersrand",
+    "faculty": "Faculty of Science",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 15,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": ["Life Sciences","Physical Sciences"], "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "BSc Biological Sciences",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 32,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": "Life Sciences", "minMark": 60},
+      {"subject": "Physical Sciences", "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "BSc Forensic Science",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 34,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 70},
+      {"subject": "Life Sciences", "minMark": 70},
+      {"subject": "Physical Sciences", "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "BSc Actuarial Science",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 34,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 70}
+    ]
+  },
+  {
+    "courseName": "BSc Mathematical Sciences",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 32,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 70},
+      {"subject": "Physical Sciences", "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "BSc Chemical Sciences",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 32,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": "Physical Sciences", "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "BSc Physical Sciences",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 32,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": "Physical Sciences", "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "BSc Geology",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": "Physical Sciences", "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "BSc Computer Science",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 32,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": "Physical Sciences", "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "BSc Information Technology",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 32,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": "Physical Sciences", "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "BSc Agriculture",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 40},
+      {"subject": ["Life Sciences", "Agricultural Sciences"], "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "BSc Construction Economics & Management",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": ["Economics", "Business Studies", "Accounting"], "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "BSc Quantity Surveying",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": ["Physical Sciences", "Engineering Graphics"], "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "BSc Architecture",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50}
+    ],
+    "additionalRequirements": "Portfolio submission by 31 July 2025."
+  },
+  {
+    "courseName": "BSc Sustainable Food Systems",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 30}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Commerce (BCom)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "BCom Economics",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "BCom Finance",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "BCom Business and Financial Analytics",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 34,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "BCom Marketing",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 40}
+    ]
+  },
+  {
+    "courseName": "BCom Business Management",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 40}
+    ]
+  },
+  {
+    "courseName": "BCom Human Resource Management",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 40}
+    ]
+  },
+  {
+    "courseName": "BCom (Law)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 33,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Administration (BAdmin)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": ["Mathematics", "Mathematical Literacy"], "minMark": 30}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Accounting (BAcc)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 34,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "BCom Accounting",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "BSc Computer Science and Chemistry",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 32,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": "Life Sciences", "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "BSc Computer Science and Physics",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 32,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": "Life Sciences", "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "BSc Computer Science and Management",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 32,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": "Life Sciences", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "BSc Chemistry and Physics",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 32,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": "Physical Sciences", "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "BSc Chemistry and Botany",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Natural and Agricultural Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 32,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": "Life Sciences", "minMark": 60},
+      {"subject": "Physical Sciences", "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "BA General",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Humanities",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "BA Language Practice",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Humanities",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60},
+      {"subject": ["Afrikaans", "Sesotho", "isiZulu"], "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "BA Governance and Political Transformation",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Humanities",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "BA Integrated Organisational Communication",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Humanities",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "BA Journalism",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Humanities",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "BA Fine Arts",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Humanities",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "BA Drama and Theatre Arts",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Humanities",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Music",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Humanities",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Social Work",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Humanities",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Community Development",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Humanities",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "BSocSci General",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Humanities",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Diploma in Music",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Humanities",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 25,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50}
+    ],
+    "additionalRequirements": "Grade 5 in principal instrument/voice (or equivalent); Grade 3 Music Theory recommended; audition required"
+  },
+  {
+    "courseName": "Higher Certificate in Music Performance",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Humanities",
+    "duration": "1 year",
+    "qualificationType": "Higher Certificate",
+    "minAPS": 20,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50}
+    ],
+    "additionalRequirements": "Audition and musical aptitude test required"
+  },
+  {
+    "courseName": "Diploma in Performing Arts",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Humanities",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 25,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50}
+    ],
+    "additionalRequirements": "Audition and interview required"
+  },
+  {
+    "courseName": "Diploma in Language Practice",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Humanities",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 25,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": ["Afrikaans", "Sesotho", "isiZulu"], "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Diploma in Media Studies",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Humanities",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 25,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Commerce (BCom)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "BCom with Specialisation in Economics",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "BCom with Specialisation in Finance",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "BCom with Specialisation in Business and Financial Analytics",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 34,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "BCom with Specialisation in Marketing",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 40}
+    ]
+  },
+  {
+    "courseName": "BCom with Specialisation in Business Management",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 40}
+    ]
+  },
+  {
+    "courseName": "BCom with Specialisation in Human Resource Management",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 40}
+    ]
+  },
+  {
+    "courseName": "BCom (Law)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 33,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Administration (BAdmin)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 30}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Accounting (BAcc)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 34,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Laws (LLB)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Law",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 33,
+    "keySubjects": [
+      {"subject": "English", "minMark": 70},
+      {"subject": "Mathematics", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Education in Foundation Phase (Afrikaans Home Language)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Education",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Afrikaans Home Language", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Education in Foundation Phase (Sesotho Home Language)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Education",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Sesotho Home Language", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Education in Foundation Phase (IsiZulu Home Language)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Education",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "IsiZulu Home Language", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Education in Foundation Phase (English Home Language)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Education",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Afrikaans", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Education in Intermediate Phase (Mathematics, Natural Sciences, Technology and Afrikaans Home Language)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Education",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50},
+      {"subject": "Afrikaans Home Language", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Education in Intermediate Phase (Life Skills, Social Sciences and Afrikaans Home Language)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Education",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Afrikaans Home Language", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Education in Intermediate Phase (Mathematics, Natural Sciences and Technology, and English Home Language)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Education",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50},
+      {"subject": "Afrikaans", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Education in Intermediate Phase (Life Skills, Social Sciences, and English Home Language)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Education",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Afrikaans", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Education in Intermediate Phase (Mathematics, Natural Sciences and Technology, and Sesotho Home Language)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Education",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50},
+      {"subject": "Sesotho Home Language", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Education in Intermediate Phase (Life Skills and Social Sciences, and IsiZulu Home Language)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Education",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "IsiZulu Home Language", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Education in Intermediate Phase (Life Skills, Social Sciences, and Sesotho Home Language)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Education",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Sesotho Home Language", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Education in Intermediate Phase (Mathematics, Natural Sciences and Technology, and IsiZulu Home Language)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Education",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50},
+      {"subject": "IsiZulu Home Language", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Education in Senior and FET Phase (Accounting and Business Studies)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Education",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50},
+      {"subject": "Accounting", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Education in Senior and FET Phase (EMS and Accounting/Business Studies)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Education",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50},
+      {"subject": "Accounting", "minMark": 50},
+      {"subject": "Economics", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Education in Senior and FET Phase (Technology and Engineering Graphics and Design)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Education",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Engineering Graphics and Design", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Education in Senior and FET Phase (Natural Sciences and Mathematics/Life Sciences)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Education",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": "Physical Sciences", "minMark": 60},
+      {"subject": "Life Sciences", "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Education in Senior and FET Phase (Technology and Life Sciences)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Education",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Life Sciences", "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Education in Senior and FET Phase (Sesotho HL and English FAL)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Education",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Sesotho Home Language", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Education in Senior and FET Phase (IsiZulu HL and English FAL)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Education",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "IsiZulu Home Language", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Education in Senior and FET Phase (Mathematics and Physical Sciences)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Education",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": "Physical Sciences", "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Education in Senior and FET Phase (Sesotho HL and History)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Education",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Sesotho Home Language", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Education in Senior and FET Phase (IsiZulu HL and History)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Education",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "IsiZulu Home Language", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Education in Senior and FET Phase (English and History)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Education",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Education in Senior and FET Phase (Afrikaans HL and English)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Education",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Afrikaans Home Language", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Education in Senior and FET Phase (Geography and Life Sciences)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Education",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Geography", "minMark": 60},
+      {"subject": "Life Sciences", "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Medicine and Bachelor of Surgery (MB ChB)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Health Sciences",
+    "duration": "6 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 36,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": "Life Sciences", "minMark": 60},
+      {"subject": "Physical Sciences", "minMark": 60}
+    ],
+    "selectionProcess": true,
+    "applicationDeadline": "31 May 2025"
+  },
+  {
+    "courseName": "Bachelor of Medical Science with Specialisation in Radiation Science (BMedSc)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Health Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": "Life Sciences", "minMark": 60},
+      {"subject": "Physical Sciences", "minMark": 60}
+    ],
+    "selectionProcess": true,
+    "applicationDeadline": "31 May 2025"
+  },
+  {
+    "courseName": "Bachelor of Optometry (BOptom)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Health Sciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 33,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60},
+      {"subject": "Mathematics", "minMark": 50},
+      {"subject": "Life Sciences", "minMark": 60},
+      {"subject": "Physical Sciences", "minMark": 60}
+    ],
+    "selectionProcess": true,
+    "applicationDeadline": "31 May 2025"
+  },
+  {
+    "courseName": "Bachelor of Science in Physiotherapy (BSc Physiotherapy)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Health Sciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 33,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60},
+      {"subject": "Mathematics", "minMark": 50},
+      {"subject": "Life Sciences", "minMark": 60},
+      {"subject": "Physical Sciences", "minMark": 50}
+    ],
+    "selectionProcess": true,
+    "applicationDeadline": "31 May 2025"
+  },
+  {
+    "courseName": "Bachelor of Science in Dietetics (BSc Dietetics)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Health Sciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 33,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60},
+      {"subject": "Mathematics", "minMark": 50},
+      {"subject": "Life Sciences", "minMark": 60},
+      {"subject": "Physical Sciences", "minMark": 50}
+    ],
+    "selectionProcess": true,
+    "applicationDeadline": "31 May 2025"
+  },
+  {
+    "courseName": "Bachelor of Occupational Therapy (BOccTher)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Health Sciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 33,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60},
+      {"subject": "Mathematics", "minMark": 50},
+      {"subject": "Life Sciences", "minMark": 60},
+      {"subject": "Physical Sciences", "minMark": 50}
+    ],
+    "selectionProcess": true,
+    "applicationDeadline": "31 May 2025"
+  },
+  {
+    "courseName": "Bachelor of Biokinetics (BBiok)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Health Sciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 60},
+      {"subject": "Mathematics", "minMark": 50},
+      {"subject": "Life Sciences", "minMark": 50},
+      {"subject": "Physical Sciences", "minMark": 50}
+    ],
+    "selectionProcess": true,
+    "applicationDeadline": "31 May 2025"
+  },
+  {
+    "courseName": "Bachelor of Sport Coaching (B SportCoach)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Health Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50}
+    ],
+    "selectionProcess": true,
+    "applicationDeadline": "31 May 2025"
+  },
+  {
+    "courseName": "Bachelor of Nursing (BNurs)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Health Sciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 40},
+      {"subject": "Mathematical Literacy", "minMark": 70},
+      {"subject": "Life Sciences", "minMark": 60},
+      {"subject": "Physical Sciences", "minMark": 50}
+    ],
+    "selectionProcess": true,
+    "applicationDeadline": "31 July 2025"
+  },
+  {
+    "courseName": "Bachelor of Divinity (BDiv)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Theology and Religion",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50}
+    ],
+    "selectionProcess": true,
+    "additionalRequirements": "Selection form required; UFS Academic Literacy Test",
+    "campus": "Bloemfontein Campus"
+  },
+  {
+    "courseName": "Bachelor of Theology (BTh)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Theology and Religion",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50}
+    ],
+    "selectionProcess": true,
+    "additionalRequirements": "Selection form required; UFS Academic Literacy Test",
+    "campus": "Bloemfontein Campus"
+  },
+  {
+    "courseName": "Bachelor of Theology Extended Curriculum Programme (BTh ECP)",
+    "institution": "University of the Free State",
+    "faculty": "Faculty of Theology and Religion",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 25,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50}
+    ],
+    "selectionProcess": true,
+    "additionalRequirements": "Selection form required; UFS Academic Literacy Test",
+    "campus": "Bloemfontein Campus"
+  },
+  {
+    "courseName": "BAgric in Agribusiness Management",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of AgriSciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 60,
+    "keySubjects": [
+      {"subject": ["English","Afrikaans"], "minMark": 50},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": "Physical Sciences", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "BScAgric in Agricultural Economics",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of AgriSciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 60,
+    "keySubjects": [
+      {"subject": ["English","Afrikaans"], "minMark": 50},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": "Physical Sciences", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "BAgric in Agricultural Production and Management (Elsenburg)",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of AgriSciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 55,
+    "keySubjects": [
+      {"subject": ["English","Afrikaans"], "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50},
+      {"subject": "Mathematical Literacy", "minMark": 60},
+      {"subject": ["Physical Sciences","Life Sciences","Agricultural Sciences"], "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "BScAgric in Animal Production Systems",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of AgriSciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 60,
+    "keySubjects": [
+      {"subject": ["English","Afrikaans"], "minMark": 50},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": "Physical Sciences", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "BScAgric in Plant and Soil Science",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of AgriSciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 60,
+    "keySubjects": [
+      {"subject": ["English","Afrikaans"], "minMark": 50},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": "Physical Sciences", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "BScAgric in Viticulture and Oenology",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of AgriSciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 60,
+    "keySubjects": [
+      {"subject": ["English","Afrikaans"], "minMark": 50},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": "Physical Sciences", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "BSc in Food Science",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of AgriSciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 60,
+    "keySubjects": [
+      {"subject": ["English","Afrikaans"], "minMark": 50},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": "Physical Sciences", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "Bachelor of Data Science (BDatSci)",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of AgriSciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 80,
+    "keySubjects": [
+      {"subject": "Mathematics", "minMark": 80},
+      {
+        "subjectGroup": [
+          { "subject": "Afrikaans Home Language", "minMark": 60 },
+          { "subject": "English Home Language", "minMark": 60 },
+          { "subject": "Afrikaans First Additional Language", "minMark": 75 },
+          { "subject": "English First Additional Language", "minMark": 75 }
+        ]
+      }
+    ]
+  },
+  {
+    "courseName": "BSc in Conservation Ecology",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of AgriSciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 60,
+    "keySubjects": [
+      {"subject": ["English","Afrikaans"], "minMark": 50},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": "Physical Sciences", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "BSc in Forestry (Forestry and Wood Sciences)",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of AgriSciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 60,
+    "keySubjects": [
+      {"subject": ["English","Afrikaans"], "minMark": 50},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": "Physical Sciences", "minMark": 50}
+    ]
+  },
+  {"courseName": "BSc in Forestry and Natural Resources Sciences",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of AgriSciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 60,
+    "keySubjects": [
+          {"subject": "Mathematics", "minMark": 60},
+          {"subject": "Physical Sciences", "minMark": 50}
+        ]
+  },
+  {"courseName": "BSc in Wood and Wood Products Sciences",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of AgriSciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 60,
+    "keySubjects": [
+      {"subject": "Mathematics", "minMark": 70},
+      {"subject": "Physical Sciences", "minMark": 60}
+        ]
   },
   {
     "courseName": "BA Communication Design",
@@ -70,41 +3397,611 @@
     ]
   },
   {
-    "courseName": "BA Interior Design",
-    "qualificationCode": "BB8INQ",
+    "courseName": "B Architecture",
+    "qualificationCode": "BB8ARQ",
     "institution": "University of Johannesburg",
     "qualificationType": "Bachelor",
     "faculty": "Art, Design and Architecture",
     "duration": "3 years",
-    "minAPS": 25,
+    "minAPS": 30,
     "keySubjects": [
-      {
-        "subjectGroup": [
-          { "subject": "Mathematical Literacy", "minMark": 60 },
-          { "subject": "Mathematics", "minMark": 40 }
-        ]
-      },
       { "subject": "English", "minMark": 50 },
-      { "subject": "Life Orientation", "minMark": 50 }
+      { "subject": "Mathematics", "minMark": 50 }
     ]
   },
   {
-    "courseName": "BA Visual Art",
-    "qualificationCode": "BB8VAQ",
+    "courseName": "ACCOUNTING (CA)",
+    "qualificationCode": "B34CAQ",
     "institution": "University of Johannesburg",
     "qualificationType": "Bachelor",
-    "faculty": "Art, Design and Architecture",
+    "faculty": "Business and Economics",
+    "duration": "3 years",
+    "minAPS": 33,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      { "subject": "Mathematics", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "HOSPITALITY MANAGEMENT",
+    "qualificationCode": "B34HNQ",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Bachelor",
+    "faculty": "Business and Economics",
     "duration": "3 years",
     "minAPS": 26,
     "keySubjects": [
       {
         "subjectGroup": [
-          { "subject": "Mathematical Literacy", "minMark": 60 },
-          { "subject": "Mathematics", "minMark": 40 }
+          { "subject": "Mathematics", "minMark": 50 },
+          { "subject": "Technical Mathematics", "minMark": 50 },
+          { "subject": "Mathematical Literacy", "minMark": 60 }
         ]
       },
-      { "subject": "English", "minMark": 50 },
-      { "subject": "Life Orientation", "minMark": 50 }
+      { "subject": "English", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "HUMAN RESOURCE MANAGEMENT",
+    "qualificationCode": "B34HRQ",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Bachelor",
+    "faculty": "Business and Economics",
+    "duration": "3 years",
+    "minAPS": 28,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 50 },
+          { "subject": "Technical Mathematics", "minMark": 50 },
+          { "subject": "Mathematical Literacy", "minMark": 60 }
+        ]
+      },
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "TOURISM DEVELOPMENT AND MANAGEMENT",
+    "qualificationCode": "B34TDQ",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Bachelor",
+    "faculty": "Business and Economics",
+    "duration": "3 years",
+    "minAPS": 26,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 40 },
+          { "subject": "Technical Mathematics", "minMark": 40 },
+          { "subject": "Mathematical Literacy", "minMark": 50 }
+        ]
+      },
+      { "subject": "English", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "Bachelor of Arts inPUBLIC MANAGEMENT AND GOVERNANCE",
+    "qualificationCode": "B34PKQ / B34PSQ",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Bachelor",
+    "faculty": "Humanities",
+    "duration": "3 years",
+    "minAPS": 26,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 40 },
+          { "subject": "Technical Mathematics", "minMark": 40 },
+          { "subject": "Mathematical Literacy", "minMark": 60 }
+        ]
+      },
+      { "subject": "English", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "Bachelor of Commerce in ACCOUNTING",
+    "qualificationCode": "B34A5Q",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Bachelor",
+    "faculty": "Business and Economics",
+    "duration": "3 years",
+    "minAPS": 28,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 50 },
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "Bachelor of Commerce in BUSINESS MANAGEMENT",
+    "qualificationCode": "B34BMQ",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Bachelor",
+    "faculty": "Business and Economics",
+    "duration": "3 years",
+    "minAPS": 26,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 50 },
+          { "subject": "Technical Mathematics", "minMark": 50 }
+        ]
+      },
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "Bachelor of Commerce in ECONOMICS AND ECONOMETRICS",
+    "qualificationCode": "B3N14Q",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Bachelor",
+    "faculty": "Business and Economics",
+    "duration": "3 years",
+    "minAPS": 28,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 50 },
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "Bachelor of Commerce in ENTREPRENEURIAL MANAGEMENT",
+    "qualificationCode": "B1CEMQ",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Bachelor",
+    "faculty": "Business and Economics",
+    "duration": "3 years",
+    "minAPS": 26,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 50 },
+          { "subject": "Technical Mathematics", "minMark": 50 }
+        ]
+      },
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "Bachelor of Commerce in FINANCE",
+    "qualificationCode": "B34F5Q",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Bachelor",
+    "faculty": "Business and Economics",
+    "duration": "3 years",
+    "minAPS": 28,
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 50 },
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "Bachelor of Commerce in INDUSTRIAL PSYCHOLOGY",
+    "qualificationCode": "B34INQ",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Bachelor",
+    "faculty": "Business and Economics",
+    "duration": "3 years",
+    "minAPS": 26,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 50 },
+          { "subject": "Technical Mathematics", "minMark": 50 },
+          { "subject": "Mathematical Literacy", "minMark": 60 }
+        ]
+      },
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "INFORMATION MANAGEMENT",
+    "qualificationCode": "B34/MQ",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Bachelor",
+    "faculty": "Business and Economics",
+    "duration": "3 years",
+    "minAPS": 28,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 50 },
+          { "subject": "Mathematical Literacy", "minMark": 70 },
+          { "subject": "Technical Mathematics", "minMark": 50 }
+        ]
+      },
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "INFORMATION SYSTEMS",
+    "qualificationCode": "B1C1SQ",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Bachelor",
+    "faculty": "Business and Economics",
+    "duration": "3 years",
+    "minAPS": 26,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 50 },
+          { "subject": "Technical Mathematics", "minMark": 50 }
+        ]
+      },
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "MARKETING MANAGEMENT",
+    "qualificationCode": "B1C1M0Q",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Bachelor",
+    "faculty": "Business and Economics",
+    "duration": "3 years",
+    "minAPS": 26,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 50 },
+          { "subject": "Technical Mathematics", "minMark": 50 }
+        ]
+      },
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "TRANSPORT AND LOGISTICS MANAGEMENT",
+    "qualificationCode": "B33/TLQ",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Bachelor",
+    "faculty": "Business and Economics",
+    "duration": "3 years",
+    "minAPS": 27,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 50 },
+          { "subject": "Technical Mathematics", "minMark": 50 }
+        ]
+      },
+      { "subject": "English", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "ACCOUNTING (Extended Degree)",
+    "qualificationCode": "B34AEQ",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Bachelor (Extended)",
+    "faculty": "Business and Economics",
+    "duration": "4 years",
+    "minAPS": 25,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 40 },
+          { "subject": "Mathematical Literacy", "minMark": 70 }
+        ]
+      },
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BUSINESS MANAGEMENT (Extended Degree)",
+    "qualificationCode": "B34BEQ",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Bachelor (Extended)",
+    "faculty": "Business and Economics",
+    "duration": "4 years",
+    "minAPS": 25,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 40 },
+          { "subject": "Technical Mathematics", "minMark": 40 },
+          { "subject": "Mathematical Literacy", "minMark": 70 }
+        ]
+      },
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "ECONOMICS AND ECONOMETRICS (Extended Degree)",
+    "qualificationCode": "B3NE4Q",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Bachelor (Extended)",
+    "faculty": "Business and Economics",
+    "duration": "4 years",
+    "minAPS": 25,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 40 },
+          { "subject": "Mathematical Literacy", "minMark": 70 }
+        ]
+      },
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "FINANCE (Extended Degree)",
+    "qualificationCode": "B34FEQ",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Bachelor (Extended)",
+    "faculty": "Business and Economics",
+    "duration": "4 years",
+    "minAPS": 25,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 40 },
+          { "subject": "Mathematical Literacy", "minMark": 70 }
+        ]
+      },
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "ACCOUNTANCY",
+    "qualificationCode": "D3A15Q",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Diploma",
+    "faculty": "Business and Economics",
+    "duration": "3 years",
+    "minAPS": 22,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 40 },
+          { "subject": "Technical Mathematics", "minMark": 40 },
+          { "subject": "Mathematical Literacy", "minMark": 60 }
+        ]
+      },
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BUSINESS INFORMATION TECHNOLOGY",
+    "qualificationCode": "DI1401",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Diploma",
+    "faculty": "Business and Economics",
+    "duration": "3 years",
+    "minAPS": 22,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 40 },
+          { "subject": "Technical Mathematics", "minMark": 40 },
+          { "subject": "Mathematical Literacy", "minMark": 70 }
+        ]
+      },
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "FINANCIAL SERVICES OPERATIONS",
+    "qualificationCode": "D34F9Q",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Diploma",
+    "faculty": "Business and Economics",
+    "duration": "3 years",
+    "minAPS": 22,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 40 },
+          { "subject": "Technical Mathematics", "minMark": 40 },
+          { "subject": "Mathematical Literacy", "minMark": 60 }
+        ]
+      },
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "FOOD AND BEVERAGE OPERATIONS",
+    "qualificationCode": "D34FBQ",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Diploma",
+    "faculty": "Business and Economics",
+    "duration": "3 years",
+    "minAPS": 22,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 40 },
+          { "subject": "Technical Mathematics", "minMark": 40 },
+          { "subject": "Mathematical Literacy", "minMark": 60 }
+        ]
+      },
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "MARKETING",
+    "qualificationCode": "D34/KKQ",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Diploma",
+    "faculty": "Business and Economics",
+    "duration": "3 years",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 60 },
+          { "subject": "Technical Mathematics", "minMark": 40 },
+          { "subject": "Mathematical Literacy", "minMark": 40 }
+        ]
+      },
+      { "subject": "English", "minMark": 40 }
+    ]
+  },
+  {
+    "courseName": "PEOPLE MANAGEMENT",
+    "qualificationCode": "D34P2Q",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Diploma",
+    "faculty": "Business and Economics",
+    "duration": "3 years",
+    "minAPS": 22,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 40 },
+          { "subject": "Technical Mathematics", "minMark": 40 },
+          { "subject": "Mathematical Literacy", "minMark": 60 }
+        ]
+      },
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "SMALL BUSINESS MANAGEMENT",
+    "qualificationCode": "D34SBMQ",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Diploma",
+    "faculty": "Business and Economics",
+    "duration": "3 years",
+    "minAPS": 22,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 40 },
+          { "subject": "Technical Mathematics", "minMark": 40 },
+          { "subject": "Mathematical Literacy", "minMark": 60 }
+        ]
+      },
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "RETAIL BUSINESS MANAGEMENT",
+    "qualificationCode": "D34RMQ",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Diploma",
+    "faculty": "Business and Economics",
+    "duration": "3 years",
+    "minAPS": 22,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 40 },
+          { "subject": "Technical Mathematics", "minMark": 40 },
+          { "subject": "Mathematical Literacy", "minMark": 60 }
+        ]
+      },
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "SMALL BUSINESS MANAGEMENT",
+    "qualificationCode": "D34SBQ",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Diploma",
+    "faculty": "Business and Economics",
+    "duration": "3 years",
+    "minAPS": 22,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 40 },
+          { "subject": "Technical Mathematics", "minMark": 40 },
+          { "subject": "Mathematical Literacy", "minMark": 60 }
+        ]
+      },
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "TOURISM MANAGEMENT",
+    "qualificationCode": "D34TMQ",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Diploma",
+    "faculty": "Business and Economics",
+    "duration": "3 years",
+    "minAPS": 22,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 40 },
+          { "subject": "Technical Mathematics", "minMark": 40 },
+          { "subject": "Mathematical Literacy", "minMark": 60 }
+        ]
+      },
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "TRANSPORTATION MANAGEMENT",
+    "qualificationCode": "D34TRQ",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Diploma",
+    "faculty": "Business and Economics",
+    "duration": "3 years",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 40 },
+          { "subject": "Technical Mathematics", "minMark": 40 },
+          { "subject": "Mathematical Literacy", "minMark": 60 }
+        ]
+      },
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "LOGISTICS (Extended Diploma)",
+    "qualificationCode": "D34LEQ",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Extended Diploma",
+    "faculty": "Business and Economics",
+    "duration": "4 years",
+    "minAPS": 22,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 40 },
+          { "subject": "Technical Mathematics", "minMark": 40 },
+          { "subject": "Mathematical Literacy", "minMark": 60 }
+        ]
+      },
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "PEOPLE MANAGEMENT (Extended Diploma)",
+    "qualificationCode": "D34PEQ",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Extended Diploma",
+    "faculty": "Business and Economics",
+    "duration": "4 years",
+    "minAPS": 19,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 40 },
+          { "subject": "Technical Mathematics", "minMark": 40 },
+          { "subject": "Mathematical Literacy", "minMark": 50 }
+        ]
+      },
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "SMALL BUSINESS MANAGEMENT (Extended Diploma)",
+    "qualificationCode": "D34SEQ",
+    "institution": "University of Johannesburg",
+    "qualificationType": "Extended Diploma",
+    "faculty": "Business and Economics",
+    "duration": "4 years",
+    "minAPS": 19,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 40 },
+          { "subject": "Technical Mathematics", "minMark": 40 },
+          { "subject": "Mathematical Literacy", "minMark": 50 }
+        ]
+      },
+      { "subject": "English", "minMark": 50 }
     ]
   }
 ]
