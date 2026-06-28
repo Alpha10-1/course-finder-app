@@ -9,6 +9,7 @@ import ExamNumberEntry from "./pages/ExamNumberEntry";
 import Admin from "./pages/Admin";
 import RequireAuth from "./components/RequireAuth";
 import RequireAdmin from "./components/RequireAdmin";
+import PaymentSuccess from "./pages/PaymentSuccess";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/results" element={<RequireAuth><Results /></RequireAuth>} />
         <Route path="/exam-number" element={<RequireAuth><ExamNumberEntry /></RequireAuth>} />
         <Route path="/admin" element={<RequireAdmin><Admin /></RequireAdmin>} />
+        <Route path="/payment-success" element={<RequireAuth><PaymentSuccess /></RequireAuth>} />
       </Routes>
     </Router>
   );

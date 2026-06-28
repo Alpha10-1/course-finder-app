@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { auth, googleProvider, db } from "../firebase";
-import { createUserWithEmailAndPassword, signInWithPopup, updateProfile } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+  updateProfile,
+  sendEmailVerification,
+  signOut,
+} from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
@@ -22,6 +28,17 @@ async function isNewUser(uid) {
   return !snap.exists() || snap.data().newUser === true;
 }
 
+function friendlyError(code) {
+  const map = {
+    "auth/email-already-in-use":  "An account with this email already exists.",
+    "auth/invalid-email":         "Please enter a valid email address.",
+    "auth/weak-password":         "Password must be at least 6 characters.",
+    "auth/popup-closed-by-user":  "Google sign-in was cancelled.",
+    "auth/network-request-failed":"Network error. Please check your connection.",
+  };
+  return map[code] || "Something went wrong. Please try again.";
+}
+
 const inputClass =
   "w-full p-3 border border-gray-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-300 text-gray-800 placeholder-gray-400";
 
@@ -33,9 +50,25 @@ export default function SignUp() {
   const [password,  setPassword]  = useState("");
   const [loading,   setLoading]   = useState(false);
   const [error,     setError]     = useState("");
+
+  // After email sign-up, show the "check your inbox" screen
+  const [verifyScreen, setVerifyScreen] = useState(false);
+  const [verifyEmail,  setVerifyEmail]  = useState("");
+  const [resendCooldown, setResendCooldown] = useState(0);
+
   const navigate = useNavigate();
 
-  /* ── Email sign-up: collect everything at once ── */
+  const startCooldown = () => {
+    setResendCooldown(60);
+    const t = setInterval(() => {
+      setResendCooldown((n) => {
+        if (n <= 1) { clearInterval(t); return 0; }
+        return n - 1;
+      });
+    }, 1000);
+  };
+
+  /* ── Email sign-up ── */
   const handleEmailSignUp = async (e) => {
     e.preventDefault();
     if (!dob) { setError("Please select your date of birth."); return; }
@@ -43,13 +76,18 @@ export default function SignUp() {
     try {
       const cred = await createUserWithEmailAndPassword(auth, email, password);
       await saveUserProfile(cred.user, { firstName, lastName, dob, email });
-      navigate("/home");
+      await sendEmailVerification(cred.user);
+      // Sign them out immediately — they must verify before accessing the app
+      await signOut(auth);
+      setVerifyEmail(email);
+      setVerifyScreen(true);
+      startCooldown();
     } catch (err) {
       setError(friendlyError(err.code));
     } finally { setLoading(false); }
   };
 
-  /* ── Google sign-up: auto-fill from Google, ask for DOB only if new ── */
+  /* ── Google sign-up — Google already verified their email ── */
   const handleGoogleSignUp = async () => {
     setError(""); setLoading(true);
     try {
@@ -60,16 +98,59 @@ export default function SignUp() {
         await saveUserProfile(cred.user, {
           firstName: parts[0] || "",
           lastName:  parts.slice(1).join(" ") || "",
-          dob:       "",          // Google doesn't provide DOB
+          dob:       "",
           email:     cred.user.email || "",
         });
       }
+      // Google accounts are pre-verified — go straight to app
       navigate("/home");
     } catch (err) {
       setError(friendlyError(err.code));
     } finally { setLoading(false); }
   };
 
+  const handleResend = async () => {
+    if (resendCooldown > 0) return;
+    // Need to temporarily sign in to resend — Firebase requires an active user
+    // We just tell them to use the sign-in page to trigger another send
+    // Simplest: just show the sign-in page where they can trigger another reset
+    navigate("/signin");
+  };
+
+  /* ── Verify email screen ── */
+  if (verifyScreen) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-blue-50 px-4 py-10">
+        <div className="w-full max-w-sm bg-white rounded-2xl shadow-lg p-8 space-y-5 text-center">
+          <div className="text-5xl">📬</div>
+          <h1 className="text-2xl font-bold text-gray-900">Check your inbox</h1>
+          <p className="text-gray-500 text-sm leading-relaxed">
+            We sent a verification link to{" "}
+            <span className="font-semibold text-gray-800">{verifyEmail}</span>.
+            Click the link in that email to activate your account.
+          </p>
+
+          <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 text-left space-y-1">
+            <p className="text-xs text-blue-700 font-semibold">Didn't get it?</p>
+            <p className="text-xs text-blue-600">Check your spam folder. The email comes from noreply@mycoursefinder.web.app</p>
+          </div>
+
+          <button
+            onClick={() => navigate("/signin")}
+            className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-xl font-semibold transition"
+          >
+            Go to Sign In
+          </button>
+
+          <p className="text-xs text-gray-400">
+            Once verified, sign in with your email and password to access the app.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  /* ── Main sign-up form ── */
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-blue-50 px-4 py-10">
       <div className="w-full max-w-sm bg-white rounded-2xl shadow-lg p-8 space-y-5">
@@ -85,7 +166,6 @@ export default function SignUp() {
           </p>
         )}
 
-        {/* Email sign-up form */}
         <form onSubmit={handleEmailSignUp} className="space-y-3">
           <div className="flex gap-3">
             <input type="text" placeholder="First name" required value={firstName}
@@ -105,8 +185,8 @@ export default function SignUp() {
           <input type="email" placeholder="Email address" required value={email}
             onChange={(e) => setEmail(e.target.value)} className={inputClass} />
 
-          <input type="password" placeholder="Password (min 6 characters)" required minLength={6} value={password}
-            onChange={(e) => setPassword(e.target.value)} className={inputClass} />
+          <input type="password" placeholder="Password (min 6 characters)" required minLength={6}
+            value={password} onChange={(e) => setPassword(e.target.value)} className={inputClass} />
 
           <button type="submit" disabled={loading}
             className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold transition disabled:opacity-60">
@@ -114,14 +194,12 @@ export default function SignUp() {
           </button>
         </form>
 
-        {/* Divider */}
         <div className="flex items-center gap-3">
           <div className="flex-1 h-px bg-gray-200" />
           <span className="text-gray-400 text-xs">or</span>
           <div className="flex-1 h-px bg-gray-200" />
         </div>
 
-        {/* Google */}
         <button onClick={handleGoogleSignUp} disabled={loading}
           className="w-full flex items-center justify-center gap-3 border border-gray-200 hover:bg-gray-50 text-gray-700 py-3 rounded-xl font-medium transition disabled:opacity-60">
           <GoogleIcon />
@@ -148,15 +226,4 @@ function GoogleIcon() {
       <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
     </svg>
   );
-}
-
-function friendlyError(code) {
-  const map = {
-    "auth/email-already-in-use": "An account with this email already exists.",
-    "auth/invalid-email": "Please enter a valid email address.",
-    "auth/weak-password": "Password must be at least 6 characters.",
-    "auth/popup-closed-by-user": "Google sign-in was cancelled.",
-    "auth/network-request-failed": "Network error. Please check your connection.",
-  };
-  return map[code] || "Something went wrong. Please try again.";
 }

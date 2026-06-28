@@ -49,9 +49,7 @@ export default function OnboardingModal({ onClose }) {
             </div>
 
             <div className="space-y-3">
-              <PlanRow icon="✅" label="Free" desc="See if you qualify for any course — always free." highlight={false} />
-              <PlanRow icon="📺" label="Watch an ad" desc="Unlock 3 more courses at a time by watching a short ad." highlight={false} />
-              <PlanRow icon="⭐" label="R30 — Ad-Free" desc="View all qualifying courses with no ads, ever." highlight={true} />
+              <PlanRow icon="✅" label="Free" desc="Browse all qualifying courses — always free, no ads." highlight={false} />
               <PlanRow icon="🚀" label="R150 — Apply For Me" desc="We apply to up to 6 institutions on your behalf." highlight={true} />
             </div>
 

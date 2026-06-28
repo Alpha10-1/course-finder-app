@@ -68,7 +68,6 @@ export default function Home() {
 
   const planLabel = {
     free: "Free Plan",
-    ad_free: "Ad-Free ⭐",
     apply_for_me: "Apply For Me 🚀",
   }[plan] || "Free Plan";
 
@@ -117,13 +116,13 @@ export default function Home() {
             <p className="text-xs text-gray-400">Current plan</p>
             <p className="text-sm font-semibold text-purple-700">{planLabel}</p>
           </div>
-          {plan === "free" ? (
+          {plan !== "apply_for_me" ? (
             <button onClick={() => setShowPricing(true)}
-              className="bg-gradient-to-r from-purple-600 to-blue-500 text-white text-sm px-4 py-2 rounded-xl font-semibold hover:opacity-90 transition">
-              Upgrade →
+              className="bg-gradient-to-r from-purple-600 to-pink-500 text-white text-sm px-4 py-2 rounded-xl font-semibold hover:opacity-90 transition">
+              Apply For Me →
             </button>
           ) : (
-            <span className="text-green-600 text-xs font-medium bg-green-50 px-3 py-1 rounded-full">Active</span>
+            <span className="text-green-600 text-xs font-medium bg-green-50 px-3 py-1 rounded-full">🚀 Active</span>
           )}
         </div>
       </div>
