@@ -159,22 +159,7 @@ export default function Admin() {
     }
   }, []);
 
-  // Seed courses from local JSON into Firestore (one-time operation)
-  const handleSeedCourses = async () => {
-    try {
-      showToast("Seeding courses to Firestore… this may take a moment.", "success");
-      const { default: localCourses } = await import("../data/courses.json");
-      let count = 0;
-      for (const course of localCourses) {
-        await addDoc(collection(db, "courses"), course);
-        count++;
-      }
-      showToast(`✓ Seeded ${count} courses to Firestore`);
-      loadCourses();
-    } catch (err) {
-      showToast("Seed failed: " + err.message, "error");
-    }
-  };
+
 
   useEffect(() => { loadUsers(); loadCourses(); }, [loadUsers, loadCourses]);
 
@@ -182,7 +167,7 @@ export default function Admin() {
   const stats = {
     total: users.length,
     free: users.filter((u) => !u.plan || u.plan === "free").length,
-    adFree: users.filter((u) => u.plan === "ad_free").length,
+
     applyForMe: users.filter((u) => u.plan === "apply_for_me").length,
     admins: users.filter((u) => u.isAdmin).length,
     authOnly: users.filter((u) => u.authOnly).length,
@@ -357,96 +342,183 @@ export default function Admin() {
   const planBadge = (plan) => {
     const styles = {
       free: "bg-gray-700 text-gray-300",
-      ad_free: "bg-blue-900 text-blue-300",
       apply_for_me: "bg-purple-900 text-purple-300",
     };
-    const labels = { free: "Free", ad_free: "Ad-Free R30", apply_for_me: "Apply R150" };
+    const labels = { free: "Free", apply_for_me: "Apply R150" };
     return <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${styles[plan] || styles.free}`}>{labels[plan] || "Free"}</span>;
   };
 
   const CourseFormFields = ({ data, onChange }) => {
     const keySubjects = data.keySubjects || [];
 
-    const updateKeySubject = (i, field, value) => {
+    // Add a single required subject
+    const addSingle = () => {
+      onChange("keySubjects", [...keySubjects, { subject: "", minMark: 50 }]);
+    };
+
+    // Add an OR group (e.g. Mathematics OR Mathematical Literacy)
+    const addGroup = () => {
+      onChange("keySubjects", [
+        ...keySubjects,
+        { subjectGroup: [{ subject: "", minMark: 50 }, { subject: "", minMark: 50 }] },
+      ]);
+    };
+
+    const removeReq = (i) => {
+      onChange("keySubjects", keySubjects.filter((_, idx) => idx !== i));
+    };
+
+    // Update a single-subject requirement
+    const updateSingle = (i, field, value) => {
       const updated = keySubjects.map((k, idx) =>
         idx === i ? { ...k, [field]: field === "minMark" ? Number(value) : value } : k
       );
       onChange("keySubjects", updated);
     };
 
-    const addKeySubject = () => {
-      onChange("keySubjects", [...keySubjects, { subject: "", minMark: 50 }]);
+    // Update one option inside an OR group
+    const updateGroupOption = (i, j, field, value) => {
+      const updated = keySubjects.map((k, idx) => {
+        if (idx !== i) return k;
+        const newGroup = k.subjectGroup.map((opt, jdx) =>
+          jdx === j ? { ...opt, [field]: field === "minMark" ? Number(value) : value } : opt
+        );
+        return { subjectGroup: newGroup };
+      });
+      onChange("keySubjects", updated);
     };
 
-    const removeKeySubject = (i) => {
-      onChange("keySubjects", keySubjects.filter((_, idx) => idx !== i));
+    const addGroupOption = (i) => {
+      const updated = keySubjects.map((k, idx) =>
+        idx === i
+          ? { subjectGroup: [...k.subjectGroup, { subject: "", minMark: 50 }] }
+          : k
+      );
+      onChange("keySubjects", updated);
     };
+
+    const removeGroupOption = (i, j) => {
+      const updated = keySubjects.map((k, idx) => {
+        if (idx !== i) return k;
+        const newGroup = k.subjectGroup.filter((_, jdx) => jdx !== j);
+        // If only 1 left, convert back to a single requirement
+        return newGroup.length === 1
+          ? { subject: newGroup[0].subject, minMark: newGroup[0].minMark }
+          : { subjectGroup: newGroup };
+      });
+      onChange("keySubjects", updated);
+    };
+
+    const inputCls = "bg-gray-800 border border-gray-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500";
+    const markCls = "w-16 bg-gray-800 border border-gray-600 rounded-lg px-2 py-2 text-sm text-white text-center focus:outline-none focus:ring-2 focus:ring-purple-500";
 
     return (
       <div className="space-y-3">
         {[["courseName","Course Name"],["faculty","Faculty"],["duration","Duration (e.g. 3 years)"]].map(([field, label]) => (
           <div key={field}>
             <label className="text-xs text-gray-400 mb-1 block">{label}</label>
-            <input value={data[field] || ""} onChange={(e) => onChange(field, e.target.value)}
-              className="w-full bg-gray-800 border border-gray-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500" />
+            <input value={data[field] || ""} onChange={(e) => onChange(field, e.target.value)} className={`w-full ${inputCls}`} />
           </div>
         ))}
         <div>
           <label className="text-xs text-gray-400 mb-1 block">Institution</label>
-          <select value={data.institution || ""} onChange={(e) => onChange("institution", e.target.value)}
-            className="w-full bg-gray-800 border border-gray-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+          <select value={data.institution || ""} onChange={(e) => onChange("institution", e.target.value)} className={`w-full ${inputCls}`}>
             {INSTITUTIONS.map((i) => <option key={i} value={i}>{i}</option>)}
           </select>
         </div>
         <div>
           <label className="text-xs text-gray-400 mb-1 block">Qualification Type</label>
-          <select value={data.qualificationType || ""} onChange={(e) => onChange("qualificationType", e.target.value)}
-            className="w-full bg-gray-800 border border-gray-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+          <select value={data.qualificationType || ""} onChange={(e) => onChange("qualificationType", e.target.value)} className={`w-full ${inputCls}`}>
             {QUAL_TYPES.map((q) => <option key={q} value={q}>{q}</option>)}
           </select>
         </div>
         <div>
           <label className="text-xs text-gray-400 mb-1 block">Minimum APS</label>
-          <input type="number" value={data.minAPS || ""} onChange={(e) => onChange("minAPS", Number(e.target.value))}
-            className="w-full bg-gray-800 border border-gray-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500" />
+          <input type="number" value={data.minAPS || ""} onChange={(e) => onChange("minAPS", Number(e.target.value))} className={`w-full ${inputCls}`} />
         </div>
 
         {/* Key Subjects */}
         <div>
           <div className="flex items-center justify-between mb-2">
             <label className="text-xs text-gray-400 font-semibold uppercase tracking-wider">Required Subjects</label>
-            <button type="button" onClick={addKeySubject}
-              className="text-xs bg-green-800 hover:bg-green-700 text-green-300 px-2 py-1 rounded-lg transition">
-              + Add Subject
-            </button>
+            <div className="flex gap-2">
+              <button type="button" onClick={addSingle}
+                className="text-xs bg-green-800 hover:bg-green-700 text-green-300 px-2 py-1 rounded-lg transition">
+                + Single
+              </button>
+              <button type="button" onClick={addGroup}
+                className="text-xs bg-blue-800 hover:bg-blue-700 text-blue-300 px-2 py-1 rounded-lg transition">
+                + OR Group
+              </button>
+            </div>
           </div>
+
           {keySubjects.length === 0 ? (
-            <p className="text-xs text-gray-600 italic px-1">No required subjects — open to all with qualifying APS.</p>
+            <p className="text-xs text-gray-600 italic px-1">
+              No required subjects — open to all with qualifying APS.
+            </p>
           ) : (
-            <div className="space-y-2">
+            <div className="space-y-3">
               {keySubjects.map((ks, i) => (
-                <div key={i} className="flex gap-2 items-center">
-                  <input
-                    value={ks.subject || ""}
-                    onChange={(e) => updateKeySubject(i, "subject", e.target.value)}
-                    placeholder="e.g. Mathematics"
-                    className="flex-1 bg-gray-800 border border-gray-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-                  />
-                  <div className="flex items-center gap-1 shrink-0">
-                    <span className="text-gray-500 text-xs">≥</span>
-                    <input
-                      type="number"
-                      value={ks.minMark ?? 50}
-                      min={0} max={100}
-                      onChange={(e) => updateKeySubject(i, "minMark", e.target.value)}
-                      className="w-16 bg-gray-800 border border-gray-600 rounded-lg px-2 py-2 text-sm text-white text-center focus:outline-none focus:ring-2 focus:ring-purple-500"
-                    />
-                    <span className="text-gray-500 text-xs">%</span>
-                  </div>
-                  <button type="button" onClick={() => removeKeySubject(i)}
-                    className="text-red-500 hover:text-red-400 font-bold text-base px-1 transition">
-                    ✕
-                  </button>
+                <div key={i}>
+                  {/* ── Single subject requirement ── */}
+                  {!ks.subjectGroup ? (
+                    <div className="flex gap-2 items-center bg-gray-800/50 rounded-xl px-3 py-2">
+                      <input
+                        value={ks.subject || ""}
+                        onChange={(e) => updateSingle(i, "subject", e.target.value)}
+                        placeholder="e.g. Mathematics"
+                        className={`flex-1 ${inputCls}`}
+                      />
+                      <span className="text-gray-500 text-xs shrink-0">≥</span>
+                      <input
+                        type="number" value={ks.minMark ?? 50} min={0} max={100}
+                        onChange={(e) => updateSingle(i, "minMark", e.target.value)}
+                        className={markCls}
+                      />
+                      <span className="text-gray-500 text-xs shrink-0">%</span>
+                      <button type="button" onClick={() => removeReq(i)}
+                        className="text-red-500 hover:text-red-400 font-bold px-1">✕</button>
+                    </div>
+                  ) : (
+                    /* ── OR group ── */
+                    <div className="border border-blue-800 rounded-xl p-3 space-y-2">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-xs text-blue-400 font-semibold uppercase tracking-wider">OR Group</span>
+                        <div className="flex gap-2">
+                          <button type="button" onClick={() => addGroupOption(i)}
+                            className="text-xs text-blue-400 hover:text-blue-300">+ option</button>
+                          <button type="button" onClick={() => removeReq(i)}
+                            className="text-xs text-red-500 hover:text-red-400 font-bold">✕ Remove group</button>
+                        </div>
+                      </div>
+                      {ks.subjectGroup.map((opt, j) => (
+                        <div key={j} className="flex gap-2 items-center">
+                          {j > 0 && (
+                            <span className="text-xs text-blue-500 font-bold shrink-0 w-6 text-center">OR</span>
+                          )}
+                          {j === 0 && <div className="w-6 shrink-0" />}
+                          <input
+                            value={opt.subject || ""}
+                            onChange={(e) => updateGroupOption(i, j, "subject", e.target.value)}
+                            placeholder="e.g. Mathematical Literacy"
+                            className={`flex-1 ${inputCls}`}
+                          />
+                          <span className="text-gray-500 text-xs shrink-0">≥</span>
+                          <input
+                            type="number" value={opt.minMark ?? 50} min={0} max={100}
+                            onChange={(e) => updateGroupOption(i, j, "minMark", e.target.value)}
+                            className={markCls}
+                          />
+                          <span className="text-gray-500 text-xs shrink-0">%</span>
+                          {ks.subjectGroup.length > 2 && (
+                            <button type="button" onClick={() => removeGroupOption(i, j)}
+                              className="text-red-500 hover:text-red-400 font-bold px-1">✕</button>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -589,13 +661,12 @@ export default function Admin() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <StatCard label="Total Users" value={stats.total} icon="👥" color="from-blue-600 to-blue-800" />
               <StatCard label="Free Plan" value={stats.free} icon="✅" color="from-gray-600 to-gray-800" />
-              <StatCard label="Ad-Free (R30)" value={stats.adFree} icon="⭐" color="from-blue-700 to-purple-700" />
               <StatCard label="Apply For Me (R150)" value={stats.applyForMe} icon="🚀" color="from-purple-700 to-pink-700" />
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               <StatCard label="Total Courses" value={courses.length} icon="📚" color="from-green-700 to-teal-700" />
               <StatCard label="Auth-Only Accounts" value={stats.authOnly} icon="👤" color="from-orange-700 to-red-700" />
-              <StatCard label="Est. Revenue" value={`R${stats.adFree * 30 + stats.applyForMe * 150}`} icon="💰" color="from-yellow-600 to-orange-600" />
+              <StatCard label="Est. Revenue" value={`R${stats.applyForMe * 150}`} icon="💰" color="from-yellow-600 to-orange-600" />
             </div>
 
             {/* Plan distribution */}
@@ -604,12 +675,10 @@ export default function Admin() {
                 <p className="text-sm font-semibold text-gray-300 mb-3">Plan Distribution</p>
                 <div className="flex rounded-full overflow-hidden h-4 mb-3">
                   <div className="bg-gray-500" style={{ width: `${(stats.free/stats.total)*100}%` }} />
-                  <div className="bg-blue-500" style={{ width: `${(stats.adFree/stats.total)*100}%` }} />
                   <div className="bg-purple-500" style={{ width: `${(stats.applyForMe/stats.total)*100}%` }} />
                 </div>
                 <div className="flex gap-4 text-xs text-gray-400">
                   <span><span className="inline-block w-2 h-2 rounded-full bg-gray-500 mr-1"/>Free ({Math.round((stats.free/stats.total)*100)}%)</span>
-                  <span><span className="inline-block w-2 h-2 rounded-full bg-blue-500 mr-1"/>Ad-Free ({Math.round((stats.adFree/stats.total)*100)}%)</span>
                   <span><span className="inline-block w-2 h-2 rounded-full bg-purple-500 mr-1"/>Apply ({Math.round((stats.applyForMe/stats.total)*100)}%)</span>
                 </div>
               </div>
@@ -750,7 +819,6 @@ export default function Admin() {
                           <select value={user.plan || "free"} onChange={(e) => handleChangePlan(user.uid, e.target.value)}
                             className="bg-gray-800 border border-gray-600 text-gray-300 text-xs rounded-lg px-2 py-1.5 focus:outline-none">
                             <option value="free">Set: Free</option>
-                            <option value="ad_free">Set: Ad-Free (R30)</option>
                             <option value="apply_for_me">Set: Apply For Me (R150)</option>
                           </select>
                           <button onClick={() => handlePasswordReset(user.email)}
@@ -797,12 +865,7 @@ export default function Admin() {
                 Courses <span className="text-gray-500 font-normal text-base">({filteredCourses.length})</span>
               </h2>
               <div className="flex gap-2">
-                {courses.length === 0 && (
-                  <button onClick={handleSeedCourses}
-                    className="text-xs bg-yellow-700 hover:bg-yellow-600 text-yellow-200 px-3 py-1.5 rounded-lg transition font-medium">
-                    ⚡ Seed from JSON
-                  </button>
-                )}
+
                 <button onClick={() => { setNewCourse(BLANK_COURSE); setAddingCourse(true); }}
                   className="text-xs bg-green-700 hover:bg-green-600 text-green-200 px-3 py-1.5 rounded-lg transition font-medium">
                   + Add Course
@@ -854,12 +917,9 @@ export default function Admin() {
             {loadingCourses ? (
               <p className="text-gray-500 text-sm py-8 text-center">Loading courses…</p>
             ) : courses.length === 0 ? (
-              <div className="text-center py-12 space-y-3">
-                <p className="text-gray-400">No courses in Firestore yet.</p>
-                <p className="text-gray-600 text-sm">Click "Seed from JSON" to import your 300 courses, then you can add, edit and delete them here.</p>
-                <button onClick={handleSeedCourses} className="bg-yellow-600 hover:bg-yellow-500 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition">
-                  ⚡ Seed Courses from JSON
-                </button>
+              <div className="text-center py-12">
+                <p className="text-gray-400">No courses found in Firestore.</p>
+                <p className="text-gray-500 text-sm mt-1">Use the "+ Add Course" button to add courses.</p>
               </div>
             ) : (
               <div className="overflow-x-auto rounded-2xl border border-gray-800">

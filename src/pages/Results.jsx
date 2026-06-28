@@ -5,14 +5,9 @@ import { doc, getDoc, collection, getDocs } from "firebase/firestore";
 import { calculateAPSForUniversity, calculateGeneralAPS } from "../utils/marksToAPS";
 import { meetsKeySubjects, subjectMatches } from "../utils/subjectMatch";
 import { db, auth } from "../firebase";
-import localCoursesData from "../data/courses.json";
-
 async function fetchCourses() {
-  try {
-    const snap = await getDocs(collection(db, "courses"));
-    if (!snap.empty) return snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-  } catch {}
-  return localCoursesData; // fallback to local JSON
+  const snap = await getDocs(collection(db, "courses"));
+  return snap.docs.map((d) => ({ id: d.id, ...d.data() }));
 }
 
 export default function Results() {
@@ -28,7 +23,6 @@ export default function Results() {
   const [selectedFaculty, setSelectedFaculty] = useState("");
   const [selectedInstitution, setSelectedInstitution] = useState("");
   const [selectedQualification, setSelectedQualification] = useState("");
-  const [showFullResults, setShowFullResults] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -107,17 +101,7 @@ export default function Results() {
       (!searchTerm || c.courseName.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
-  const getLimited = (courses) => {
-    const seen = new Set();
-    const result = [];
-    for (const c of courses) {
-      if (!seen.has(c.institution)) { seen.add(c.institution); result.push(c); }
-      if (result.length === 3) break;
-    }
-    return result;
-  };
-
-  const displayedNormal = showFullResults ? filteredNormal : getLimited(filteredNormal);
+  const displayedNormal = filteredNormal;
   const totalUnlocked = filteredNormal.length + filteredExtended.length;
 
   // ── Helpers ───────────────────────────────────────────────────────────────
@@ -263,15 +247,7 @@ export default function Results() {
                 <CourseCard key={idx} course={course} colorScheme="blue" />
               ))}
             </div>
-            {!showFullResults && filteredNormal.length > 3 && (
-              <div className="text-center mt-6">
-                <p className="text-sm text-gray-500 mb-2">Want to see more courses?</p>
-                <button onClick={() => setShowFullResults(true)}
-                  className="bg-yellow-500 text-white px-5 py-2 rounded-xl font-semibold hover:bg-yellow-600 transition">
-                  Watch Ad to Unlock
-                </button>
-              </div>
-            )}
+
           </>
         )}
 
