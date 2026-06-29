@@ -66,6 +66,9 @@ export default function Home() {
     setShowPricing(false);
   };
 
+  // Already paid — never show pricing again
+  const canUpgrade = plan !== "apply_for_me";
+
   const planLabel = {
     free: "Free Plan",
     apply_for_me: "Apply For Me 🚀",
@@ -116,7 +119,7 @@ export default function Home() {
             <p className="text-xs text-gray-400">Current plan</p>
             <p className="text-sm font-semibold text-purple-700">{planLabel}</p>
           </div>
-          {plan !== "apply_for_me" ? (
+          {canUpgrade ? (
             <button onClick={() => setShowPricing(true)}
               className="bg-gradient-to-r from-purple-600 to-pink-500 text-white text-sm px-4 py-2 rounded-xl font-semibold hover:opacity-90 transition">
               Apply For Me →

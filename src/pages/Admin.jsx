@@ -815,7 +815,56 @@ export default function Admin() {
                           </div>
                         )}
 
+                        {/* Apply For Me selections */}
+                        {user.applySelections && (
+                          <div>
+                            <div className="flex items-center justify-between mb-2">
+                              <p className="text-xs text-gray-400 font-medium">
+                                Apply For Me Selections
+                                {user.applyStatus && (
+                                  <span className={`ml-2 px-2 py-0.5 rounded-full text-xs ${
+                                    user.applyStatus === "complete" ? "bg-green-900 text-green-300" :
+                                    user.applyStatus === "in_progress" ? "bg-blue-900 text-blue-300" :
+                                    "bg-yellow-900 text-yellow-300"
+                                  }`}>
+                                    {user.applyStatus === "complete" ? "✓ Complete" :
+                                     user.applyStatus === "in_progress" ? "In Progress" : "Pending"}
+                                  </span>
+                                )}
+                              </p>
+                            </div>
+                            <div className="space-y-2">
+                              {Object.entries(user.applySelections).map(([inst, choices]) => (
+                                <div key={inst} className="bg-gray-800 rounded-xl p-3">
+                                  <p className="text-white text-xs font-semibold mb-1">{inst}</p>
+                                  {[1, 2, 3].map((r) => choices[r] && (
+                                    <p key={r} className="text-gray-400 text-xs">
+                                      <span className="text-purple-400">Choice {r}:</span> {choices[r].courseName}
+                                    </p>
+                                  ))}
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
                         <div className="flex flex-wrap gap-2 pt-1">
+                          {/* Quick grant Apply For Me */}
+                          {user.plan !== "apply_for_me" ? (
+                            <button
+                              onClick={() => handleChangePlan(user.uid, "apply_for_me")}
+                              className="bg-purple-800 hover:bg-purple-700 text-purple-200 text-xs px-3 py-1.5 rounded-lg transition font-medium"
+                            >
+                              🚀 Grant Apply For Me
+                            </button>
+                          ) : (
+                            <button
+                              onClick={() => handleChangePlan(user.uid, "free")}
+                              className="bg-gray-700 hover:bg-gray-600 text-gray-300 text-xs px-3 py-1.5 rounded-lg transition"
+                            >
+                              Revoke Apply For Me
+                            </button>
+                          )}
                           <select value={user.plan || "free"} onChange={(e) => handleChangePlan(user.uid, e.target.value)}
                             className="bg-gray-800 border border-gray-600 text-gray-300 text-xs rounded-lg px-2 py-1.5 focus:outline-none">
                             <option value="free">Set: Free</option>
