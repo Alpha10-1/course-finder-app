@@ -40,9 +40,33 @@ const INSTITUTIONS = [
   "Sol Plaatje University",
 ];
 
+// Common college qualification types (TVET / private colleges)
+const COLLEGE_QUAL_TYPES = [
+  "N4 Certificate", "N5 Certificate", "N6 Certificate",
+  "NCV Level 2", "NCV Level 3", "NCV Level 4",
+  "National Certificate (Vocational)",
+  "Higher Certificate", "Diploma", "Occupational Certificate",
+];
+
+const UNI_QUAL_TYPES = ["Bachelor", "Bachelor (Extended)", "Diploma", "Extended Diploma", "Higher Certificate"];
+
+// Master subject list — used for all subject dropdowns in the admin panel
+const SUBJECT_OPTIONS = [
+  "Accounting", "Afrikaans Home Language", "Afrikaans First Additional Language",
+  "Agricultural Sciences", "Business Studies", "CAT (Computer Applications Technology)",
+  "Civil Technology", "Computer Literacy", "Consumer Studies", "Dramatic Arts",
+  "Economics", "Electrical Technology", "Engineering Graphics and Design",
+  "English Home Language", "English First Additional Language", "Geography",
+  "History", "Hospitality Studies", "IT (Information Technology)", "Life Orientation",
+  "Life Sciences", "Mathematical Literacy", "Mathematics",
+  "Mechanical Technology", "Music", "Physical Sciences", "Religion Studies",
+  "Tourism", "Visual Arts",
+].sort();
+
 const BLANK_COURSE = {
-  courseName: "", institution: INSTITUTIONS[0], faculty: "",
+  courseName: "", institution: INSTITUTIONS[0], institutionType: "university", faculty: "",
   duration: "", qualificationType: "Bachelor", minAPS: 0, keySubjects: [],
+  admissionRequirement: "", // free-text for NQF-style requirements e.g. "Grade 9 or higher"
 };
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
@@ -66,6 +90,263 @@ async function fetchAllAuthUsers(idToken) {
 }
 
 // ─── Main component ──────────────────────────────────────────────────────────
+
+function CourseFormFields({ data, onChange }) {
+  const keySubjects = data.keySubjects || [];
+
+  // Add a single required subject
+  const addSingle = () => {
+    onChange("keySubjects", [...keySubjects, { subject: "", minMark: 50 }]);
+  };
+
+  // Add an OR group (e.g. Mathematics OR Mathematical Literacy)
+  const addGroup = () => {
+    onChange("keySubjects", [
+      ...keySubjects,
+      { subjectGroup: [{ subject: "", minMark: 50 }, { subject: "", minMark: 50 }] },
+    ]);
+  };
+
+  const removeReq = (i) => {
+    onChange("keySubjects", keySubjects.filter((_, idx) => idx !== i));
+  };
+
+  // Update a single-subject requirement
+  const updateSingle = (i, field, value) => {
+    const updated = keySubjects.map((k, idx) =>
+      idx === i ? { ...k, [field]: field === "minMark" ? Number(value) : value } : k
+    );
+    onChange("keySubjects", updated);
+  };
+
+  // Update one option inside an OR group
+  const updateGroupOption = (i, j, field, value) => {
+    const updated = keySubjects.map((k, idx) => {
+      if (idx !== i) return k;
+      const newGroup = k.subjectGroup.map((opt, jdx) =>
+        jdx === j ? { ...opt, [field]: field === "minMark" ? Number(value) : value } : opt
+      );
+      return { subjectGroup: newGroup };
+    });
+    onChange("keySubjects", updated);
+  };
+
+  const addGroupOption = (i) => {
+    const updated = keySubjects.map((k, idx) =>
+      idx === i
+        ? { subjectGroup: [...k.subjectGroup, { subject: "", minMark: 50 }] }
+        : k
+    );
+    onChange("keySubjects", updated);
+  };
+
+  const removeGroupOption = (i, j) => {
+    const updated = keySubjects.map((k, idx) => {
+      if (idx !== i) return k;
+      const newGroup = k.subjectGroup.filter((_, jdx) => jdx !== j);
+      // If only 1 left, convert back to a single requirement
+      return newGroup.length === 1
+        ? { subject: newGroup[0].subject, minMark: newGroup[0].minMark }
+        : { subjectGroup: newGroup };
+    });
+    onChange("keySubjects", updated);
+  };
+
+  const inputCls = "bg-gray-800 border border-gray-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500";
+  const markCls = "w-16 bg-gray-800 border border-gray-600 rounded-lg px-2 py-2 text-sm text-white text-center focus:outline-none focus:ring-2 focus:ring-purple-500";
+
+  const isCollege = data.institutionType === "college";
+  const qualOptions = isCollege ? COLLEGE_QUAL_TYPES : UNI_QUAL_TYPES;
+
+  return (
+    <div className="space-y-3">
+
+      {/* Institution Type toggle */}
+      <div>
+        <label className="text-xs text-gray-400 mb-1 block">Institution Type</label>
+        <div className="grid grid-cols-2 gap-2">
+          <button type="button"
+            onClick={() => { onChange("institutionType", "university"); onChange("qualificationType", "Bachelor"); }}
+            className={`py-2 rounded-lg text-sm font-medium transition ${
+              !isCollege ? "bg-purple-600 text-white" : "bg-gray-800 text-gray-400 border border-gray-600"
+            }`}>
+            🎓 University
+          </button>
+          <button type="button"
+            onClick={() => { onChange("institutionType", "college"); onChange("qualificationType", COLLEGE_QUAL_TYPES[0]); }}
+            className={`py-2 rounded-lg text-sm font-medium transition ${
+              isCollege ? "bg-amber-600 text-white" : "bg-gray-800 text-gray-400 border border-gray-600"
+            }`}>
+            🏫 College
+          </button>
+        </div>
+      </div>
+
+      {[["courseName","Course Name"],["faculty","Faculty"],["duration","Duration (e.g. 3 years)"]].map(([field, label]) => (
+        <div key={field}>
+          <label className="text-xs text-gray-400 mb-1 block">{label}</label>
+          <input value={data[field] || ""} onChange={(e) => onChange(field, e.target.value)} className={`w-full ${inputCls}`} />
+        </div>
+      ))}
+
+      <div>
+        <label className="text-xs text-gray-400 mb-1 block">Institution</label>
+        {isCollege ? (
+          <input
+            value={data.institution || ""}
+            onChange={(e) => onChange("institution", e.target.value)}
+            placeholder="e.g. Northlink TVET College"
+            className={`w-full ${inputCls}`}
+          />
+        ) : (
+          <select value={data.institution || ""} onChange={(e) => onChange("institution", e.target.value)} className={`w-full ${inputCls}`}>
+            {INSTITUTIONS.map((i) => <option key={i} value={i}>{i}</option>)}
+          </select>
+        )}
+      </div>
+
+      <div>
+        <label className="text-xs text-gray-400 mb-1 block">Qualification Type</label>
+        <select value={data.qualificationType || ""} onChange={(e) => onChange("qualificationType", e.target.value)} className={`w-full ${inputCls}`}>
+          {qualOptions.map((q) => <option key={q} value={q}>{q}</option>)}
+        </select>
+      </div>
+
+      <div>
+        <label className="text-xs text-gray-400 mb-1 block">
+          Minimum APS {isCollege && <span className="text-gray-500">(use 0 if not APS-based)</span>}
+        </label>
+        <input type="number" value={data.minAPS || ""} onChange={(e) => onChange("minAPS", Number(e.target.value))} className={`w-full ${inputCls}`} />
+      </div>
+
+      {isCollege && (
+        <div>
+          <label className="text-xs text-gray-400 mb-1 block">
+            Admission Requirement (free text — optional)
+          </label>
+          <textarea
+            value={data.admissionRequirement || ""}
+            onChange={(e) => onChange("admissionRequirement", e.target.value)}
+            placeholder='e.g. "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency at NQF Level 3/4 of the same sub field."'
+            rows={3}
+            className={`w-full ${inputCls} resize-none`}
+          />
+          <p className="text-xs text-gray-500 mt-1">
+            Shown to users alongside Min APS — useful for NQF-based or grade-based requirements.
+          </p>
+        </div>
+      )}
+
+      {/* Key Subjects */}
+      <div>
+        <div className="flex items-center justify-between mb-2">
+          <label className="text-xs text-gray-400 font-semibold uppercase tracking-wider">Required Subjects</label>
+          <div className="flex gap-2">
+            <button type="button" onClick={addSingle}
+              className="text-xs bg-green-800 hover:bg-green-700 text-green-300 px-2 py-1 rounded-lg transition">
+              + Single
+            </button>
+            <button type="button" onClick={addGroup}
+              className="text-xs bg-blue-800 hover:bg-blue-700 text-blue-300 px-2 py-1 rounded-lg transition">
+              + OR Group
+            </button>
+          </div>
+        </div>
+
+        {/* Quick-add presets — common requirement combos in one click */}
+        <div className="flex flex-wrap gap-1.5 mb-3">
+          {[
+            { label: "+ English ≥50%", req: { subject: "English Home Language", minMark: 50 } },
+            { label: "+ Maths ≥50%",   req: { subject: "Mathematics", minMark: 50 } },
+            { label: "+ Maths OR Maths Lit", req: { subjectGroup: [{ subject: "Mathematics", minMark: 50 }, { subject: "Mathematical Literacy", minMark: 60 }] } },
+            { label: "+ LO OR Computer Literacy", req: { subjectGroup: [{ subject: "Life Orientation", minMark: 40 }, { subject: "Computer Literacy", minMark: 40 }] } },
+          ].map((preset, idx) => (
+            <button key={idx} type="button"
+              onClick={() => onChange("keySubjects", [...keySubjects, preset.req])}
+              className="text-xs bg-gray-800 hover:bg-gray-700 text-gray-300 px-2.5 py-1 rounded-full border border-gray-600 transition">
+              {preset.label}
+            </button>
+          ))}
+        </div>
+
+        {keySubjects.length === 0 ? (
+          <p className="text-xs text-gray-600 italic px-1">
+            No required subjects — open to all with qualifying APS.
+          </p>
+        ) : (
+          <div className="space-y-3">
+            {keySubjects.map((ks, i) => (
+              <div key={i}>
+                {/* ── Single subject requirement ── */}
+                {!ks.subjectGroup ? (
+                  <div className="flex gap-2 items-center bg-gray-800/50 rounded-xl px-3 py-2">
+                    <select
+                      value={ks.subject || ""}
+                      onChange={(e) => updateSingle(i, "subject", e.target.value)}
+                      className={`flex-1 ${inputCls}`}
+                    >
+                      <option value="">Select subject…</option>
+                      {SUBJECT_OPTIONS.map((s) => <option key={s} value={s}>{s}</option>)}
+                    </select>
+                    <span className="text-gray-500 text-xs shrink-0">≥</span>
+                    <input
+                      type="number" value={ks.minMark ?? 50} min={0} max={100}
+                      onChange={(e) => updateSingle(i, "minMark", e.target.value)}
+                      className={markCls}
+                    />
+                    <span className="text-gray-500 text-xs shrink-0">%</span>
+                    <button type="button" onClick={() => removeReq(i)}
+                      className="text-red-500 hover:text-red-400 font-bold px-1">✕</button>
+                  </div>
+                ) : (
+                  /* ── OR group ── */
+                  <div className="border border-blue-800 rounded-xl p-3 space-y-2">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-xs text-blue-400 font-semibold uppercase tracking-wider">OR Group</span>
+                      <div className="flex gap-2">
+                        <button type="button" onClick={() => addGroupOption(i)}
+                          className="text-xs text-blue-400 hover:text-blue-300">+ option</button>
+                        <button type="button" onClick={() => removeReq(i)}
+                          className="text-xs text-red-500 hover:text-red-400 font-bold">✕ Remove group</button>
+                      </div>
+                    </div>
+                    {ks.subjectGroup.map((opt, j) => (
+                      <div key={j} className="flex gap-2 items-center">
+                        {j > 0 && (
+                          <span className="text-xs text-blue-500 font-bold shrink-0 w-6 text-center">OR</span>
+                        )}
+                        {j === 0 && <div className="w-6 shrink-0" />}
+                        <select
+                          value={opt.subject || ""}
+                          onChange={(e) => updateGroupOption(i, j, "subject", e.target.value)}
+                          className={`flex-1 ${inputCls}`}
+                        >
+                          <option value="">Select subject…</option>
+                          {SUBJECT_OPTIONS.map((s) => <option key={s} value={s}>{s}</option>)}
+                        </select>
+                        <span className="text-gray-500 text-xs shrink-0">≥</span>
+                        <input
+                          type="number" value={opt.minMark ?? 50} min={0} max={100}
+                          onChange={(e) => updateGroupOption(i, j, "minMark", e.target.value)}
+                          className={markCls}
+                        />
+                        <span className="text-gray-500 text-xs shrink-0">%</span>
+                        {ks.subjectGroup.length > 2 && (
+                          <button type="button" onClick={() => removeGroupOption(i, j)}
+                            className="text-red-500 hover:text-red-400 font-bold px-1">✕</button>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
 
 export default function Admin() {
   const navigate = useNavigate();
@@ -99,6 +380,7 @@ export default function Admin() {
   const [addingCourse, setAddingCourse] = useState(false);
   const [newCourse, setNewCourse] = useState(BLANK_COURSE);
   const [confirmDeleteCourse, setConfirmDeleteCourse] = useState(null);
+  const [selectedVarsity, setSelectedVarsity] = useState(null); // null = show varsity grid, else show that varsity's courses
 
   // Settings
   const [adminEmailInput, setAdminEmailInput] = useState("");
@@ -346,186 +628,6 @@ export default function Admin() {
     };
     const labels = { free: "Free", apply_for_me: "Apply R150" };
     return <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${styles[plan] || styles.free}`}>{labels[plan] || "Free"}</span>;
-  };
-
-  const CourseFormFields = ({ data, onChange }) => {
-    const keySubjects = data.keySubjects || [];
-
-    // Add a single required subject
-    const addSingle = () => {
-      onChange("keySubjects", [...keySubjects, { subject: "", minMark: 50 }]);
-    };
-
-    // Add an OR group (e.g. Mathematics OR Mathematical Literacy)
-    const addGroup = () => {
-      onChange("keySubjects", [
-        ...keySubjects,
-        { subjectGroup: [{ subject: "", minMark: 50 }, { subject: "", minMark: 50 }] },
-      ]);
-    };
-
-    const removeReq = (i) => {
-      onChange("keySubjects", keySubjects.filter((_, idx) => idx !== i));
-    };
-
-    // Update a single-subject requirement
-    const updateSingle = (i, field, value) => {
-      const updated = keySubjects.map((k, idx) =>
-        idx === i ? { ...k, [field]: field === "minMark" ? Number(value) : value } : k
-      );
-      onChange("keySubjects", updated);
-    };
-
-    // Update one option inside an OR group
-    const updateGroupOption = (i, j, field, value) => {
-      const updated = keySubjects.map((k, idx) => {
-        if (idx !== i) return k;
-        const newGroup = k.subjectGroup.map((opt, jdx) =>
-          jdx === j ? { ...opt, [field]: field === "minMark" ? Number(value) : value } : opt
-        );
-        return { subjectGroup: newGroup };
-      });
-      onChange("keySubjects", updated);
-    };
-
-    const addGroupOption = (i) => {
-      const updated = keySubjects.map((k, idx) =>
-        idx === i
-          ? { subjectGroup: [...k.subjectGroup, { subject: "", minMark: 50 }] }
-          : k
-      );
-      onChange("keySubjects", updated);
-    };
-
-    const removeGroupOption = (i, j) => {
-      const updated = keySubjects.map((k, idx) => {
-        if (idx !== i) return k;
-        const newGroup = k.subjectGroup.filter((_, jdx) => jdx !== j);
-        // If only 1 left, convert back to a single requirement
-        return newGroup.length === 1
-          ? { subject: newGroup[0].subject, minMark: newGroup[0].minMark }
-          : { subjectGroup: newGroup };
-      });
-      onChange("keySubjects", updated);
-    };
-
-    const inputCls = "bg-gray-800 border border-gray-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500";
-    const markCls = "w-16 bg-gray-800 border border-gray-600 rounded-lg px-2 py-2 text-sm text-white text-center focus:outline-none focus:ring-2 focus:ring-purple-500";
-
-    return (
-      <div className="space-y-3">
-        {[["courseName","Course Name"],["faculty","Faculty"],["duration","Duration (e.g. 3 years)"]].map(([field, label]) => (
-          <div key={field}>
-            <label className="text-xs text-gray-400 mb-1 block">{label}</label>
-            <input value={data[field] || ""} onChange={(e) => onChange(field, e.target.value)} className={`w-full ${inputCls}`} />
-          </div>
-        ))}
-        <div>
-          <label className="text-xs text-gray-400 mb-1 block">Institution</label>
-          <select value={data.institution || ""} onChange={(e) => onChange("institution", e.target.value)} className={`w-full ${inputCls}`}>
-            {INSTITUTIONS.map((i) => <option key={i} value={i}>{i}</option>)}
-          </select>
-        </div>
-        <div>
-          <label className="text-xs text-gray-400 mb-1 block">Qualification Type</label>
-          <select value={data.qualificationType || ""} onChange={(e) => onChange("qualificationType", e.target.value)} className={`w-full ${inputCls}`}>
-            {QUAL_TYPES.map((q) => <option key={q} value={q}>{q}</option>)}
-          </select>
-        </div>
-        <div>
-          <label className="text-xs text-gray-400 mb-1 block">Minimum APS</label>
-          <input type="number" value={data.minAPS || ""} onChange={(e) => onChange("minAPS", Number(e.target.value))} className={`w-full ${inputCls}`} />
-        </div>
-
-        {/* Key Subjects */}
-        <div>
-          <div className="flex items-center justify-between mb-2">
-            <label className="text-xs text-gray-400 font-semibold uppercase tracking-wider">Required Subjects</label>
-            <div className="flex gap-2">
-              <button type="button" onClick={addSingle}
-                className="text-xs bg-green-800 hover:bg-green-700 text-green-300 px-2 py-1 rounded-lg transition">
-                + Single
-              </button>
-              <button type="button" onClick={addGroup}
-                className="text-xs bg-blue-800 hover:bg-blue-700 text-blue-300 px-2 py-1 rounded-lg transition">
-                + OR Group
-              </button>
-            </div>
-          </div>
-
-          {keySubjects.length === 0 ? (
-            <p className="text-xs text-gray-600 italic px-1">
-              No required subjects — open to all with qualifying APS.
-            </p>
-          ) : (
-            <div className="space-y-3">
-              {keySubjects.map((ks, i) => (
-                <div key={i}>
-                  {/* ── Single subject requirement ── */}
-                  {!ks.subjectGroup ? (
-                    <div className="flex gap-2 items-center bg-gray-800/50 rounded-xl px-3 py-2">
-                      <input
-                        value={ks.subject || ""}
-                        onChange={(e) => updateSingle(i, "subject", e.target.value)}
-                        placeholder="e.g. Mathematics"
-                        className={`flex-1 ${inputCls}`}
-                      />
-                      <span className="text-gray-500 text-xs shrink-0">≥</span>
-                      <input
-                        type="number" value={ks.minMark ?? 50} min={0} max={100}
-                        onChange={(e) => updateSingle(i, "minMark", e.target.value)}
-                        className={markCls}
-                      />
-                      <span className="text-gray-500 text-xs shrink-0">%</span>
-                      <button type="button" onClick={() => removeReq(i)}
-                        className="text-red-500 hover:text-red-400 font-bold px-1">✕</button>
-                    </div>
-                  ) : (
-                    /* ── OR group ── */
-                    <div className="border border-blue-800 rounded-xl p-3 space-y-2">
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="text-xs text-blue-400 font-semibold uppercase tracking-wider">OR Group</span>
-                        <div className="flex gap-2">
-                          <button type="button" onClick={() => addGroupOption(i)}
-                            className="text-xs text-blue-400 hover:text-blue-300">+ option</button>
-                          <button type="button" onClick={() => removeReq(i)}
-                            className="text-xs text-red-500 hover:text-red-400 font-bold">✕ Remove group</button>
-                        </div>
-                      </div>
-                      {ks.subjectGroup.map((opt, j) => (
-                        <div key={j} className="flex gap-2 items-center">
-                          {j > 0 && (
-                            <span className="text-xs text-blue-500 font-bold shrink-0 w-6 text-center">OR</span>
-                          )}
-                          {j === 0 && <div className="w-6 shrink-0" />}
-                          <input
-                            value={opt.subject || ""}
-                            onChange={(e) => updateGroupOption(i, j, "subject", e.target.value)}
-                            placeholder="e.g. Mathematical Literacy"
-                            className={`flex-1 ${inputCls}`}
-                          />
-                          <span className="text-gray-500 text-xs shrink-0">≥</span>
-                          <input
-                            type="number" value={opt.minMark ?? 50} min={0} max={100}
-                            onChange={(e) => updateGroupOption(i, j, "minMark", e.target.value)}
-                            className={markCls}
-                          />
-                          <span className="text-gray-500 text-xs shrink-0">%</span>
-                          {ks.subjectGroup.length > 2 && (
-                            <button type="button" onClick={() => removeGroupOption(i, j)}
-                              className="text-red-500 hover:text-red-400 font-bold px-1">✕</button>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
-    );
   };
 
   // ── Render ────────────────────────────────────────────────────────────────
@@ -848,6 +950,26 @@ export default function Admin() {
                           </div>
                         )}
 
+                        {/* Application contact details */}
+                        {(user.applyPhone || user.applyEmail) && (
+                          <div className="bg-gray-800 rounded-xl p-4 space-y-2">
+                            <p className="text-xs text-gray-400 font-semibold uppercase tracking-wider">Application Contact</p>
+                            {user.applyPhone && (
+                              <div className="flex items-center gap-2">
+                                <span className="text-sm text-white">📞 {user.applyPhone}</span>
+                                <a href={"https://wa.me/" + user.applyPhone.replace(/[^0-9]/g, "")}
+                                  target="_blank" rel="noopener noreferrer"
+                                  className="text-xs bg-green-800 text-green-300 px-2 py-0.5 rounded-full hover:bg-green-700 transition">
+                                  WhatsApp ↗
+                                </a>
+                              </div>
+                            )}
+                            {user.applyEmail && (
+                              <p className="text-sm text-white">✉️ {user.applyEmail}</p>
+                            )}
+                          </div>
+                        )}
+
                         <div className="flex flex-wrap gap-2 pt-1">
                           {/* Quick grant Apply For Me */}
                           {user.plan !== "apply_for_me" ? (
@@ -909,111 +1031,169 @@ export default function Admin() {
         {/* ── COURSES ── */}
         {tab === "Courses" && (
           <div className="space-y-4">
-            <div className="flex items-center justify-between flex-wrap gap-2">
-              <h2 className="text-xl font-bold text-white">
-                Courses <span className="text-gray-500 font-normal text-base">({filteredCourses.length})</span>
-              </h2>
-              <div className="flex gap-2">
 
-                <button onClick={() => { setNewCourse(BLANK_COURSE); setAddingCourse(true); }}
-                  className="text-xs bg-green-700 hover:bg-green-600 text-green-200 px-3 py-1.5 rounded-lg transition font-medium">
-                  + Add Course
-                </button>
-                <button onClick={loadCourses}
-                  className="text-xs text-purple-400 hover:text-purple-300 border border-gray-700 px-3 py-1.5 rounded-lg transition">
-                  ↻ Refresh
-                </button>
-              </div>
-            </div>
+            {/* ═══ VARSITY GRID — landing view ═══ */}
+            {!selectedVarsity && (
+              <>
+                <div className="flex items-center justify-between flex-wrap gap-2">
+                  <h2 className="text-xl font-bold text-white">
+                    Institutions <span className="text-gray-500 font-normal text-base">({courses.length} courses total)</span>
+                  </h2>
+                  <div className="flex gap-2">
+                    <button onClick={() => { setNewCourse(BLANK_COURSE); setAddingCourse(true); }}
+                      className="text-xs bg-green-700 hover:bg-green-600 text-green-200 px-3 py-1.5 rounded-lg transition font-medium">
+                      + Add Course
+                    </button>
+                    <button onClick={loadCourses}
+                      className="text-xs text-purple-400 hover:text-purple-300 border border-gray-700 px-3 py-1.5 rounded-lg transition">
+                      ↻ Refresh
+                    </button>
+                  </div>
+                </div>
 
-            <input value={courseSearch} onChange={(e) => setCourseSearch(e.target.value)}
-              placeholder="Search by course name or institution…"
-              className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500" />
-
-            {/* Course filters */}
-            <div className="flex flex-wrap gap-2 items-center">
-              <select value={filterInstitution} onChange={(e) => setFilterInstitution(e.target.value)}
-                className="bg-gray-900 border border-gray-700 text-gray-300 text-xs rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-purple-500">
-                <option value="">All Institutions</option>
-                {[...new Set(courses.map((c) => c.institution))].sort().map((i) => (
-                  <option key={i} value={i}>{i}</option>
-                ))}
-              </select>
-              <select value={filterQualType} onChange={(e) => setFilterQualType(e.target.value)}
-                className="bg-gray-900 border border-gray-700 text-gray-300 text-xs rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-purple-500">
-                <option value="">All Qualifications</option>
-                {QUAL_TYPES.map((q) => <option key={q} value={q}>{q}</option>)}
-              </select>
-              <div className="flex items-center gap-1">
-                <span className="text-gray-500 text-xs">APS</span>
-                <input type="number" value={filterMinAPS} onChange={(e) => setFilterMinAPS(e.target.value)}
-                  placeholder="Min" min={0} max={100}
-                  className="w-16 bg-gray-900 border border-gray-700 text-gray-300 text-xs rounded-lg px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-purple-500" />
-                <span className="text-gray-600 text-xs">–</span>
-                <input type="number" value={filterMaxAPS} onChange={(e) => setFilterMaxAPS(e.target.value)}
-                  placeholder="Max" min={0} max={100}
-                  className="w-16 bg-gray-900 border border-gray-700 text-gray-300 text-xs rounded-lg px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-purple-500" />
-              </div>
-              {(filterInstitution || filterQualType || filterMinAPS || filterMaxAPS) && (
-                <button onClick={() => { setFilterInstitution(""); setFilterQualType(""); setFilterMinAPS(""); setFilterMaxAPS(""); }}
-                  className="text-xs text-red-400 hover:text-red-300 border border-red-900 px-2 py-1 rounded-lg transition">
-                  Clear filters
-                </button>
-              )}
-              <span className="text-xs text-gray-600 ml-auto">{filteredCourses.length} of {courses.length} courses</span>
-            </div>
-
-            {loadingCourses ? (
-              <p className="text-gray-500 text-sm py-8 text-center">Loading courses…</p>
-            ) : courses.length === 0 ? (
-              <div className="text-center py-12">
-                <p className="text-gray-400">No courses found in Firestore.</p>
-                <p className="text-gray-500 text-sm mt-1">Use the "+ Add Course" button to add courses.</p>
-              </div>
-            ) : (
-              <div className="overflow-x-auto rounded-2xl border border-gray-800">
-                <table className="w-full text-sm">
-                  <thead className="bg-gray-900 text-gray-400 text-xs uppercase tracking-wider">
-                    <tr>
-                      <th className="text-left px-4 py-3">Course</th>
-                      <th className="text-left px-4 py-3 hidden md:table-cell">Institution</th>
-                      <th className="text-left px-4 py-3 hidden md:table-cell">Type</th>
-                      <th className="text-left px-4 py-3">APS</th>
-                      <th className="px-4 py-3 text-right">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-800">
-                    {filteredCourses.map((course) => (
-                      <tr key={course.id} className="bg-gray-950 hover:bg-gray-900 transition">
-                        <td className="px-4 py-3 font-medium text-white max-w-xs">
-                          <p className="truncate">{course.courseName}</p>
-                          <p className="text-xs text-gray-500 md:hidden truncate">{course.institution}</p>
-                        </td>
-                        <td className="px-4 py-3 text-gray-400 hidden md:table-cell max-w-xs">
-                          <p className="truncate">{course.institution}</p>
-                        </td>
-                        <td className="px-4 py-3 hidden md:table-cell">
-                          <span className="text-xs bg-gray-800 text-gray-300 px-2 py-0.5 rounded-full">{course.qualificationType}</span>
-                        </td>
-                        <td className="px-4 py-3 text-purple-400 font-semibold">{course.minAPS}</td>
-                        <td className="px-4 py-3">
-                          <div className="flex gap-2 justify-end">
-                            <button onClick={() => setEditingCourse({ ...course })}
-                              className="text-xs bg-purple-900 hover:bg-purple-800 text-purple-300 px-3 py-1 rounded-lg transition">
-                              Edit
-                            </button>
-                            <button onClick={() => setConfirmDeleteCourse(course)}
-                              className="text-xs bg-red-900 hover:bg-red-800 text-red-300 px-3 py-1 rounded-lg transition">
-                              Delete
-                            </button>
+                {loadingCourses ? (
+                  <p className="text-gray-500 text-sm py-8 text-center">Loading courses…</p>
+                ) : courses.length === 0 ? (
+                  <div className="text-center py-12">
+                    <p className="text-gray-400">No courses found in Firestore.</p>
+                    <p className="text-gray-500 text-sm mt-1">Use the "+ Add Course" button to add courses.</p>
+                  </div>
+                ) : (
+                  <>
+                    {/* Universities */}
+                    {(() => {
+                      const uniInstitutions = [...new Set(
+                        courses.filter((c) => c.institutionType !== "college").map((c) => c.institution)
+                      )].sort();
+                      if (uniInstitutions.length === 0) return null;
+                      return (
+                        <div>
+                          <p className="text-xs text-gray-400 font-semibold uppercase tracking-wider mb-2">🎓 Universities</p>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                            {uniInstitutions.map((inst) => {
+                              const count = courses.filter((c) => c.institution === inst).length;
+                              return (
+                                <button key={inst} onClick={() => setSelectedVarsity(inst)}
+                                  className="bg-gray-900 hover:bg-gray-800 border border-gray-800 hover:border-purple-600 rounded-2xl p-4 text-left transition group">
+                                  <p className="text-white font-semibold text-sm group-hover:text-purple-400 transition truncate">{inst}</p>
+                                  <p className="text-gray-500 text-xs mt-1">{count} course{count !== 1 ? "s" : ""}</p>
+                                </button>
+                              );
+                            })}
                           </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                        </div>
+                      );
+                    })()}
+
+                    {/* Colleges */}
+                    {(() => {
+                      const collegeInstitutions = [...new Set(
+                        courses.filter((c) => c.institutionType === "college").map((c) => c.institution)
+                      )].sort();
+                      if (collegeInstitutions.length === 0) return null;
+                      return (
+                        <div className="mt-6">
+                          <p className="text-xs text-gray-400 font-semibold uppercase tracking-wider mb-2">🏫 Colleges</p>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                            {collegeInstitutions.map((inst) => {
+                              const count = courses.filter((c) => c.institution === inst).length;
+                              return (
+                                <button key={inst} onClick={() => setSelectedVarsity(inst)}
+                                  className="bg-gray-900 hover:bg-gray-800 border border-gray-800 hover:border-amber-600 rounded-2xl p-4 text-left transition group">
+                                  <p className="text-white font-semibold text-sm group-hover:text-amber-400 transition truncate">{inst}</p>
+                                  <p className="text-gray-500 text-xs mt-1">{count} course{count !== 1 ? "s" : ""}</p>
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      );
+                    })()}
+                  </>
+                )}
+              </>
             )}
+
+            {/* ═══ SINGLE VARSITY VIEW — courses for selectedVarsity ═══ */}
+            {selectedVarsity && (() => {
+              const varsityCourses = courses.filter((c) => c.institution === selectedVarsity);
+              const filtered = varsityCourses.filter((c) =>
+                !courseSearch || c.courseName?.toLowerCase().includes(courseSearch.toLowerCase())
+              );
+              return (
+                <>
+                  <div className="flex items-center justify-between flex-wrap gap-2">
+                    <div>
+                      <button onClick={() => { setSelectedVarsity(null); setCourseSearch(""); }}
+                        className="text-xs text-gray-400 hover:text-white transition mb-1">
+                        ← All Institutions
+                      </button>
+                      <h2 className="text-xl font-bold text-white">
+                        {selectedVarsity}
+                        <span className="text-gray-500 font-normal text-base ml-2">({filtered.length} of {varsityCourses.length})</span>
+                      </h2>
+                    </div>
+                    <div className="flex gap-2">
+                      <button onClick={() => {
+                        setNewCourse({ ...BLANK_COURSE, institution: selectedVarsity,
+                          institutionType: varsityCourses[0]?.institutionType || "university" });
+                        setAddingCourse(true);
+                      }}
+                        className="text-xs bg-green-700 hover:bg-green-600 text-green-200 px-3 py-1.5 rounded-lg transition font-medium">
+                        + Add Course Here
+                      </button>
+                    </div>
+                  </div>
+
+                  <input value={courseSearch} onChange={(e) => setCourseSearch(e.target.value)}
+                    placeholder={`Search courses at ${selectedVarsity}…`}
+                    className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500" />
+
+                  {filtered.length === 0 ? (
+                    <p className="text-gray-500 text-sm py-8 text-center">No courses match your search.</p>
+                  ) : (
+                    <div className="overflow-x-auto rounded-2xl border border-gray-800">
+                      <table className="w-full text-sm">
+                        <thead className="bg-gray-900 text-gray-400 text-xs uppercase tracking-wider">
+                          <tr>
+                            <th className="text-left px-4 py-3">Course</th>
+                            <th className="text-left px-4 py-3 hidden md:table-cell">Type</th>
+                            <th className="text-left px-4 py-3">APS</th>
+                            <th className="px-4 py-3 text-right">Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-800">
+                          {filtered.map((course) => (
+                            <tr key={course.id} className="bg-gray-950 hover:bg-gray-900 transition">
+                              <td className="px-4 py-3 font-medium text-white max-w-md">
+                                <p className="truncate">{course.courseName}</p>
+                                <p className="text-xs text-gray-500 truncate">{course.faculty}</p>
+                              </td>
+                              <td className="px-4 py-3 hidden md:table-cell">
+                                <span className="text-xs bg-gray-800 text-gray-300 px-2 py-0.5 rounded-full">{course.qualificationType}</span>
+                              </td>
+                              <td className="px-4 py-3 text-purple-400 font-semibold">{course.minAPS}</td>
+                              <td className="px-4 py-3">
+                                <div className="flex gap-2 justify-end">
+                                  <button onClick={() => setEditingCourse({ ...course })}
+                                    className="text-xs bg-purple-900 hover:bg-purple-800 text-purple-300 px-3 py-1 rounded-lg transition">
+                                    Edit
+                                  </button>
+                                  <button onClick={() => setConfirmDeleteCourse(course)}
+                                    className="text-xs bg-red-900 hover:bg-red-800 text-red-300 px-3 py-1 rounded-lg transition">
+                                    Delete
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+                </>
+              );
+            })()}
           </div>
         )}
 
