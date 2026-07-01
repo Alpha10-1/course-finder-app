@@ -15,7 +15,7 @@ export const ADMIN_ROLES = {
 
 // What each role can access
 export const PERMISSIONS = {
-  super:     ["dashboard", "users", "courses", "settings"],
+  super:     ["dashboard", "users", "courses", "settings", "audit log"],
   admin:     ["dashboard", "users", "courses", "settings"],
   moderator: ["courses"],
 };

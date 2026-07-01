@@ -13,10 +13,29 @@
  *  - Special cases: "Mathematics" in a requirement must NOT match
  *    "Mathematical Literacy" unless the requirement explicitly says
  *    "Mathematical Literacy".
+ *  - Known synonym pairs (e.g. "Computer Literacy" ↔ "CAT") are treated
+ *    as equivalent, since colleges often use the older/generic term while
+ *    NSC subject lists use the formal CAT name.
  */
 
 function normalize(str) {
   return String(str ?? "").trim().toLowerCase();
+}
+
+// Pairs of subject names treated as equivalent regardless of substring overlap.
+// Each pair is checked both directions.
+const SYNONYM_PAIRS = [
+  ["computer literacy", "cat (computer applications technology)"],
+  ["computer literacy", "cat"],
+  ["computer literacy", "computer applications technology"],
+  ["it", "information technology"],
+  ["it (information technology)", "information technology"],
+];
+
+function isSynonym(a, b) {
+  return SYNONYM_PAIRS.some(
+    ([x, y]) => (a === x && b === y) || (a === y && b === x)
+  );
 }
 
 /**
@@ -32,6 +51,9 @@ export function subjectMatches(userSubject, reqSubject) {
   // Exact match
   if (user === req) return true;
 
+  // Known synonym pairs (e.g. Computer Literacy ↔ CAT)
+  if (isSynonym(user, req)) return true;
+
   // Special case: "mathematics" requirement must NOT match "mathematical literacy"
   if (req === "mathematics" && user === "mathematical literacy") return false;
   if (req === "mathematics" && user === "math literacy") return false;
@@ -43,6 +65,10 @@ export function subjectMatches(userSubject, reqSubject) {
   // e.g. req="English" matches user="English Home Language"
   if (user.startsWith(req)) return true;
   if (user.includes(req)) return true;
+
+  // Reverse containment: req contains user as a substring
+  // e.g. req="CAT (Computer Applications Technology)" matches user="CAT"
+  if (req.includes(user) && user.length >= 3) return true;
 
   return false;
 }

@@ -4003,5 +4003,829 @@
       },
       { "subject": "English", "minMark": 50 }
     ]
+  },
+  {
+    "courseName": "BSc (Dietetics) - Bachelor of Science in Dietetics",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Health Sciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 26,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50},
+      {"subject": "Physical Sciences", "minMark": 60},
+      {"subject": "Life Sciences", "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "BOptom - Bachelor of Optometry",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Health Sciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 27,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": "Physical Sciences", "minMark": 60},
+      {"subject": "Life Sciences", "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "BNurs - Bachelor of Nursing",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Health Sciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 26,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50},
+      {"subject": "Physical Sciences", "minMark": 60},
+      {"subject": "Life Sciences", "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "BPharm - Bachelor of Pharmacy",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Health Sciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 27,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": "Physical Sciences", "minMark": 60},
+      {"subject": "Life Sciences", "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "MBChB - Bachelor of Medicine & Bachelor of Surgery",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Health Sciences",
+    "duration": "6 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 27,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": "Physical Sciences", "minMark": 60},
+      {"subject": "Life Sciences", "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "BSc (Medical Sciences) - Bachelor of Science in Medical Sciences",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Health Sciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 26,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50},
+      {"subject": "Physical Sciences", "minMark": 60},
+      {"subject": "Life Sciences", "minMark": 60}
+    ]
+  },
+  {
+    "courseName": "BA - Bachelor of Arts (Languages stream)",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Humanities",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 25,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      {
+        "subjectGroup": [
+          { "subject": "Northern Sotho", "minMark": 60 },
+          { "subject": "Tshivenda", "minMark": 60 },
+          { "subject": "Xitsonga", "minMark": 60 }
+        ]
+      }
+    ]
+  },
+  {
+    "courseName": "BA - Bachelor of Arts (Translation and Linguistics stream)",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Humanities",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 25,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      {
+        "subjectGroup": [
+          { "subject": "Northern Sotho", "minMark": 60 },
+          { "subject": "Tshivenda", "minMark": 60 },
+          { "subject": "Xitsonga", "minMark": 60 }
+        ]
+      }
+    ]
+  },
+  {
+    "courseName": "BA - Bachelor of Arts (Performing Arts stream)",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Humanities",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 25,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      {
+        "subjectGroup": [
+          { "subject": "Northern Sotho", "minMark": 60 },
+          { "subject": "Tshivenda", "minMark": 60 },
+          { "subject": "Xitsonga", "minMark": 60 }
+        ]
+      }
+    ]
+  },
+  {
+    "courseName": "BInfSt - Bachelor of Information Studies",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Humanities",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 25,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      {
+        "subjectGroup": [
+          { "subject": "Northern Sotho", "minMark": 60 },
+          { "subject": "Tshivenda", "minMark": 60 },
+          { "subject": "Xitsonga", "minMark": 60 }
+        ]
+      }
+    ]
+  },
+  {
+    "courseName": "BA (Contemporary English and Multilingual Studies) - Bachelor of Arts in Contemporary English and Multilingual Studies",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Humanities",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 25,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      {
+        "subjectGroup": [
+          { "subject": "English", "minMark": 60 },
+          { "subject": "Northern Sotho", "minMark": 60 }
+        ]
+      }
+    ]
+  },
+  {
+    "courseName": "BA (Communication Studies) - Bachelor of Arts in Communication Studies",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Humanities",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 25,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      {
+        "subjectGroup": [
+          { "subject": "Northern Sotho", "minMark": 60 },
+          { "subject": "Tshivenda", "minMark": 60 },
+          { "subject": "Xitsonga", "minMark": 60 }
+        ]
+      }
+    ]
+  },
+  {
+    "courseName": "BA (Media Studies) - Bachelor of Arts in Media Studies",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Humanities",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 25,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      {
+        "subjectGroup": [
+          { "subject": "Northern Sotho", "minMark": 60 },
+          { "subject": "Tshivenda", "minMark": 60 },
+          { "subject": "Xitsonga", "minMark": 60 }
+        ]
+      }
+    ]
+  },
+  {
+    "courseName": "BA (Media Studies) - Bachelor of Arts in Media Studies (Extended Curriculum Programme)",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Humanities",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 23,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      {
+        "subjectGroup": [
+          { "subject": "Northern Sotho", "minMark": 50 },
+          { "subject": "Tshivenda", "minMark": 50 },
+          { "subject": "Xitsonga", "minMark": 50 }
+        ]
+      }
+    ]
+  },
+  {
+    "courseName": "BAcc - Bachelor of Accountancy",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Management & Law",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "BCom (Accountancy) - Bachelor of Commerce in Accountancy",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Management & Law",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "BCom (Accountancy) - Bachelor of Commerce in Accountancy (Extended Curriculum Programme)",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Management & Law",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 26,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "BCom (Human Resource Management) - Bachelor of Commerce in Human Resource Management",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Management & Law",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 26,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 40 },
+          { "subject": "Mathematical Literacy", "minMark": 40 }
+        ]
+      }
+    ]
+  },
+  {
+    "courseName": "BCom (Human Resource Management) - Bachelor of Commerce in Human Resource Management (Extended Curriculum Programmes)",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Management & Law",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 22,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 40 },
+          { "subject": "Mathematical Literacy", "minMark": 40 }
+        ]
+      }
+    ]
+  },
+  {
+    "courseName": "BCom (Business Management) - Bachelor of Commerce in Business Management",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Management & Law",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 26,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 40 },
+          { "subject": "Mathematical Literacy", "minMark": 40 }
+        ]
+      }
+    ]
+  },
+  {
+    "courseName": "BCom (Business Management) - Bachelor of Commerce in Business Management (Extended Curriculum Programmes)",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Management & Law",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 22,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 40 },
+          { "subject": "Mathematical Literacy", "minMark": 40 }
+        ]
+      }
+    ]
+  },
+  {
+    "courseName": "BCom (Economics) - Bachelor of Commerce in Economics",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Management & Law",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 26,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 40 },
+          { "subject": "Mathematical Literacy", "minMark": 40 }
+        ]
+      },
+      { "subject": "Economics", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BCom (Economics) - Bachelor of Commerce in Economics (Extended Curriculum Programme)",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Management & Law",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 22,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 40 },
+          { "subject": "Mathematical Literacy", "minMark": 40 }
+        ]
+      },
+      { "subject": "Economics", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BAdmin - Bachelor of Administration",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Management & Law",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 26,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BAdmin (Local Government) - Bachelor of Administration in Local Government",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Management & Law",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 26,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BDev (Planning and Management) - Bachelor of Development in Planning and Management",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Management & Law",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 26,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 40 },
+          { "subject": "Mathematical Literacy", "minMark": 60 }
+        ]
+      }
+    ]
+  },
+  {
+    "courseName": "LLB - Bachelor of Laws",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Management & Law",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          { "subject": "English", "minMark": 60 },
+          { "subject": "English Home Language", "minMark": 50 }
+        ]
+      }
+    ]
+  },
+  {
+    "courseName": "LLB - Bachelor of Laws (Extended Curriculum Programme)",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Management & Law",
+    "duration": "5 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 26,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          { "subject": "English", "minMark": 60 },
+          { "subject": "English Home Language", "minMark": 50 }
+        ]
+      }
+    ]
+  },
+  {
+    "courseName": "BAgricMan - Bachelor of Agricultural Management",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Science & Agriculture",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 24,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 40 },
+          { "subject": "Mathematical Literacy", "minMark": 40 }
+        ]
+      },
+      { "subject": "Life Sciences", "minMark": 50 },
+      { "subject": "Agricultural Subject", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BSc (Agriculture) (Agricultural Economics) - Bachelor of Science in Agriculture in Agricultural Economics",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Science & Agriculture",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 24,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 50 },
+          { "subject": "Mathematical Literacy", "minMark": 50 }
+        ]
+      },
+      { "subject": "Life Sciences", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BSc (Agriculture) (Plant Production) - Bachelor of Science in Agriculture in Plant Production",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Science & Agriculture",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 24,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 50 },
+          { "subject": "Mathematical Literacy", "minMark": 50 }
+        ]
+      },
+      { "subject": "Physical Sciences", "minMark": 50 },
+      { "subject": "Life Sciences", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BSc (Agriculture) (Animal Production) - Bachelor of Science in Agriculture in Animal Production",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Science & Agriculture",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 24,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 50 },
+          { "subject": "Mathematical Literacy", "minMark": 50 }
+        ]
+      },
+      { "subject": "Physical Sciences", "minMark": 50 },
+      { "subject": "Life Sciences", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BSc (Agriculture) (Soil Science) - Bachelor of Science in Agriculture in Soil Science",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Science & Agriculture",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 25,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 50 },
+          { "subject": "Mathematical Literacy", "minMark": 50 }
+        ]
+      },
+      { "subject": "Physical Sciences", "minMark": 60 },
+      { "subject": "Life Sciences", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BSc (Environmental & Resource Studies) - Bachelor of Science in Environmental & Resource Studies",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Science & Agriculture",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 24,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 50 },
+          { "subject": "Mathematical Literacy", "minMark": 50 }
+        ]
+      },
+      { "subject": "Physical Sciences", "minMark": 50 },
+      { "subject": "Life Sciences", "minMark": 50 },
+      { "subject": "Geography", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BSc (Water & Sanitation Sciences) - Bachelor of Science in Water & Sanitation Sciences",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Science & Agriculture",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 24,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      {
+        "subjectGroup": [
+          { "subject": "Mathematics", "minMark": 60 },
+          { "subject": "Mathematical Literacy", "minMark": 60 }
+        ]
+      },
+      { "subject": "Physical Sciences", "minMark": 60 },
+      { "subject": "Life Sciences", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BSc - Bachelor of Science (Mathematical Sciences stream)",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Science & Agriculture",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 24,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      { "subject": "Mathematics", "minMark": 60 },
+      { "subject": "Physical Sciences", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BSc - Bachelor of Science (Mathematical Sciences stream) (Extended Curriculum Programme)",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Science & Agriculture",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 22,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      { "subject": "Mathematics", "minMark": 50 },
+      { "subject": "Physical Sciences", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BSc - Bachelor of Science (Life Sciences Stream)",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Science & Agriculture",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 26,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      { "subject": "Mathematics", "minMark": 60 },
+      { "subject": "Physical Sciences", "minMark": 60 },
+      { "subject": "Life Sciences", "minMark": 50 }
+    ]
+  },
+  {
+    "courseName": "BSc - Bachelor of Science (Life Sciences Stream) (Extended Curriculum Programme)",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Science & Agriculture",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 22,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      { "subject": "Mathematics", "minMark": 50 },
+      { "subject": "Physical Sciences", "minMark": 50 },
+      { "subject": "Life Sciences", "minMark": 40 }
+    ]
+  },
+  {
+    "courseName": "BAgricMan - Bachelor of Agricultural Management",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Science & Agriculture",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 24,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 40},
+      {"subject": "Life Sciences", "minMark": 50},
+      {"subject": "Agricultural Subject", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "BSc (Agriculture) (Agricultural Economics) - Bachelor of Science in Agriculture in Agricultural Economics",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Science & Agriculture",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 24,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50},
+      {"subject": "Life Sciences", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "BSc (Agriculture) (Plant Production) - Bachelor of Science in Agriculture in Plant Production",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Science & Agriculture",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 24,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50},
+      {"subject": "Physical Sciences", "minMark": 50},
+      {"subject": "Life Sciences", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "BSc (Agriculture) (Animal Production) - Bachelor of Science in Agriculture in Animal Production",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Science & Agriculture",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 24,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50},
+      {"subject": "Physical Sciences", "minMark": 50},
+      {"subject": "Life Sciences", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "BSc (Agriculture) (Soil Science) - Bachelor of Science in Agriculture in Soil Science",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Science & Agriculture",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 25,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50},
+      {"subject": "Physical Sciences", "minMark": 60},
+      {"subject": "Life Sciences", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "BSc (Environmental & Resource Studies) - Bachelor of Science in Environmental & Resource Studies",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Science & Agriculture",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 24,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 50},
+      {"subject": "Physical Sciences", "minMark": 50},
+      {"subject": "Life Sciences", "minMark": 50},
+      {"subject": "Geography", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "BSc (Water & Sanitation Sciences) - Bachelor of Science in Water & Sanitation Sciences",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Science & Agriculture",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 24,
+    "keySubjects": [
+      {"subject": "English", "minMark": 50},
+      {"subject": "Mathematics", "minMark": 60},
+      {"subject": "Physical Sciences", "minMark": 60},
+      {"subject": "Life Sciences", "minMark": 50}
+    ]
+  },
+  {
+    "courseName": "BSc - Bachelor of Science (Physical Sciences stream)",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Science & Agriculture",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 26,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      { "subject": "Mathematics", "minMark": 60 },
+      { "subject": "Physical Sciences", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BSc - Bachelor of Science (Physical Sciences stream) (Extended Curriculum Programme)",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Science & Agriculture",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 22,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      { "subject": "Mathematics", "minMark": 50 },
+      { "subject": "Physical Sciences", "minMark": 50 },
+      { "subject": "Life Sciences", "minMark": 40 }
+    ]
+  },
+  {
+    "courseName": "BSc (Geology) - Bachelor of Science in Geology",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Science & Agriculture",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 26,
+    "keySubjects": [
+      { "subject": "English", "minMark": 50 },
+      { "subject": "Mathematics", "minMark": 60 },
+      { "subject": "Physical Sciences", "minMark": 60 }
+    ]
+  },
+  {
+    "courseName": "BEd (SP & FET Teaching) - Bachelor of Education in Senior Phase & FET Teaching (majoring in Languages and Life Orientation)",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Humanities",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 24,
+    "keySubjects": [
+      { "subject": "Life Orientation", "minMark": 60 },
+      { "subjectGroup": [ { "subject": "Sepedi", "minMark": 50 }, { "subject": "Tshivenda", "minMark": 50 }, { "subject": "Xitsonga", "minMark": 50 }, { "subject": "English", "minMark": 50 } ] }
+    ]
+  },
+  {
+    "courseName": "BEd (SP & FET Teaching) - Bachelor of Education in Senior Phase & FET Teaching (majoring in Languages and Social Sciences)",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Humanities",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 24,
+    "keySubjects": [
+      { "subjectGroup": [ { "subject": "English", "minMark": 40 }, { "subject": "English", "minMark": 50 } ] },
+      { "subjectGroup": [ { "subject": "Geography", "minMark": 50 }, { "subject": "History", "minMark": 50 }, { "subject": "Sepedi", "minMark": 50 }, { "subject": "Tshivenda", "minMark": 50 }, { "subject": "Xitsonga", "minMark": 50 } ] }
+    ]
+  },
+  {
+    "courseName": "BEd (SP & FET Teaching) - Bachelor of Education in Senior Phase & FET Teaching (majoring in Economics and Management Studies)",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Humanities",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 24,
+    "keySubjects": [
+      { "subject": "English", "minMark": 40 },
+      { "subjectGroup": [ { "subject": "Accounting", "minMark": 50 }, { "subject": "Economics", "minMark": 50 }, { "subject": "Business Studies", "minMark": 50 } ] }
+    ]
+  },
+  {
+    "courseName": "BEd (SP & FET Teaching) - Bachelor of Education in Senior Phase & FET Teaching (majoring in Mathematics, Science & Technology)",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Humanities",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 24,
+    "keySubjects": [
+      { "subject": "English", "minMark": 40 },
+      { "subject": "Mathematics", "minMark": 50 },
+      { "subjectGroup": [ { "subject": "Physical Sciences", "minMark": 50 }, { "subject": "Life Sciences", "minMark": 50 } ] }
+    ]
+  },
+  {
+    "courseName": "BEd (FP Teaching) - Bachelor of Education in Foundation Phase Teaching",
+    "institution": "University of Venda",
+    "faculty": "Faculty of Humanities",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 24,
+    "keySubjects": [
+      { "subject": "First Language", "minMark": 50 },
+      { "subjectGroup": [ { "subject": "Mathematics", "minMark": 40 }, { "subject": "Mathematics", "minMark": 50 } ] }
+    ]
   }
 ]
