@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc, setDoc, collection, getDocs } from "firebase/firestore";
-import { calculateAPSForUniversity, calculateGeneralAPS } from "../utils/marksToAPS";
+import { calculateAPSForUniversity, calculateGeneralAPS, meetsCollegeRequirement, getCompletionLabel } from "../utils/marksToAPS";
 import { meetsKeySubjects, subjectMatches } from "../utils/subjectMatch";
 import { db, auth } from "../firebase";
 import PricingModal from "../components/PricingModal";
@@ -58,6 +58,8 @@ export default function Results() {
   const [activeTab,      setActiveTab]      = useState("universities"); // "universities" | "colleges"
   const [accessLevel,    setAccessLevel]    = useState("all"); // "all" | "grade12_current" | "colleges_only"
   const [gradeLabel,     setGradeLabel]     = useState("");
+  const [grade,          setGrade]          = useState(null);
+  const [gradeStatus,    setGradeStatus]    = useState(null);
 
   // ── Load data ─────────────────────────────────────────────────────────────
   useEffect(() => {
@@ -69,6 +71,8 @@ export default function Results() {
         let uid = null;
         let savedSelections = {};
         let alreadySubmitted = false;
+        let userGrade = null;
+        let userGradeStatus = null;
 
         if (location.state?.subjects) {
           loadedSubjects = location.state.subjects;
@@ -78,6 +82,8 @@ export default function Results() {
         if (location.state?.accessLevel) setAccessLevel(location.state.accessLevel);
         if (location.state?.accessLevel === "colleges_only") setActiveTab("colleges");
         if (location.state?.grade) {
+          userGrade = location.state.grade;
+          userGradeStatus = location.state.gradeStatus;
           const ms = location.state.marksSource;
           const g  = location.state.grade;
           const s  = location.state.gradeStatus;
@@ -106,6 +112,8 @@ export default function Results() {
                   if (data.accessLevel === "colleges_only") setActiveTab("colleges");
                 }
                 if (!location.state?.grade && data.grade) {
+                  userGrade = data.grade;
+                  userGradeStatus = data.gradeStatus;
                   const ms = data.marksSource;
                   const g  = data.grade;
                   const s  = data.gradeStatus;
@@ -128,11 +136,23 @@ export default function Results() {
 
         if (cancelled) return;
 
+        setGrade(userGrade);
+        setGradeStatus(userGradeStatus);
+
         const gAps = calculateGeneralAPS(loadedSubjects);
         const coursesData = await fetchCourses();
         const qualified = coursesData.filter((course) => {
-          const { score: uniAps } = calculateAPSForUniversity(course.institution, loadedSubjects);
-          if (uniAps < course.minAPS) return false;
+          const isCollegeCourse = course.institutionType === "college";
+
+          if (isCollegeCourse) {
+            // Colleges: eligibility based on grade/NQF level, not APS
+            if (!meetsCollegeRequirement(userGrade, userGradeStatus, course)) return false;
+          } else {
+            // Universities: eligibility based on per-institution APS model
+            const { score: uniAps } = calculateAPSForUniversity(course.institution, loadedSubjects);
+            if (uniAps < course.minAPS) return false;
+          }
+
           return meetsKeySubjects(loadedSubjects, course.keySubjects);
         });
 
@@ -362,15 +382,34 @@ export default function Results() {
         <p className="text-gray-700 text-sm">Duration: {course.duration}</p>
         <p className="text-gray-700 text-sm">Qualification: {course.qualificationType}</p>
         <p className="text-gray-500 text-xs mt-1">Code: {course.qualificationCode || "—"}</p>
-        <p className="text-gray-500 text-xs">Min APS: {course.minAPS}</p>
-        {course.admissionRequirement && (
-          <p className="text-amber-700 text-xs mt-1 bg-amber-50 rounded-lg px-2 py-1.5 leading-relaxed">
-            📋 {course.admissionRequirement}
-          </p>
+
+        {isCollege ? (
+          <>
+            {(course.minGrade || course.minNQFLevel) && (
+              <p className="text-gray-500 text-xs">
+                Requires:{" "}
+                {course.minGrade && <span className="font-medium text-gray-700">{course.minGrade}</span>}
+                {course.minGrade && course.minNQFLevel && " · "}
+                {course.minNQFLevel && <span className="font-medium text-gray-700">NQF Level {course.minNQFLevel}</span>}
+              </p>
+            )}
+            {course.admissionRequirement && (
+              <p className="text-amber-700 text-xs mt-1 bg-amber-50 rounded-lg px-2 py-1.5 leading-relaxed">
+                📋 {course.admissionRequirement}
+              </p>
+            )}
+            <p className={`text-xs font-medium mt-1 ${scoreColor}`}>
+              ✓ You qualify — {getCompletionLabel(grade, gradeStatus)}
+            </p>
+          </>
+        ) : (
+          <>
+            <p className="text-gray-500 text-xs">Min APS: {course.minAPS}</p>
+            <p className={`text-xs font-medium mt-1 ${scoreColor}`}>
+              Your score: {uniScore} <span className="text-gray-400 font-normal">({uniLabel})</span>
+            </p>
+          </>
         )}
-        <p className={`text-xs font-medium mt-1 ${scoreColor}`}>
-          Your score: {uniScore} <span className="text-gray-400 font-normal">({uniLabel})</span>
-        </p>
         {keyStatus.length > 0 && (
           <div className="mt-2 space-y-0.5">
             {keyStatus.map((req, i) => (
@@ -438,95 +477,6 @@ export default function Results() {
               className="flex-1 bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-xl font-semibold transition disabled:opacity-60"
             >
               {saving ? "Saving…" : isLastRound ? "Submit →" : `Go to ${round === 1 ? "2nd" : "3rd"} Choices →`}
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // ── Contact details screen (final step before submit) ────────────────────
-  if (collectContact) {
-    const handleSubmitWithContact = async () => {
-      setContactError("");
-      if (!contactPhone.trim()) { setContactError("Please enter your phone number."); return; }
-      if (!contactEmail.trim() || !contactEmail.includes("@")) { setContactError("Please enter a valid email address."); return; }
-      await handleSaveAndSubmit();
-      setCollectContact(false);
-    };
-
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-100 to-purple-200 flex flex-col items-center justify-center p-6">
-        <div className="w-full max-w-md bg-white shadow-xl rounded-2xl p-8 space-y-5">
-          <div className="text-center">
-            <div className="text-4xl mb-2">📞</div>
-            <h2 className="text-2xl font-bold text-gray-900">Contact Details</h2>
-            <p className="text-gray-500 text-sm mt-1">
-              These details will be used for your university applications and WhatsApp updates.
-            </p>
-          </div>
-
-          {contactError && (
-            <p className="bg-red-50 border border-red-200 text-red-600 text-sm rounded-xl px-4 py-2">
-              {contactError}
-            </p>
-          )}
-
-          <div className="space-y-3">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Phone Number <span className="text-gray-400 font-normal">(WhatsApp)</span>
-              </label>
-              <input
-                type="tel"
-                placeholder="e.g. +27 82 123 4567"
-                value={contactPhone}
-                onChange={(e) => setContactPhone(e.target.value)}
-                className="w-full p-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 text-gray-800"
-              />
-              <p className="text-xs text-gray-400 mt-1">Include country code for WhatsApp (e.g. +27 for South Africa)</p>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-              <input
-                type="email"
-                placeholder="your@email.com"
-                value={contactEmail}
-                onChange={(e) => setContactEmail(e.target.value)}
-                className="w-full p-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 text-gray-800"
-              />
-            </div>
-          </div>
-
-          {/* Summary of all selections */}
-          <div className="bg-gray-50 rounded-xl p-4 space-y-2 max-h-48 overflow-y-auto">
-            <p className="text-xs text-gray-400 font-semibold uppercase tracking-wider mb-2">Your Selections</p>
-            {Object.entries(selections).map(([inst, choices]) => (
-              <div key={inst} className="text-xs">
-                <p className="font-semibold text-gray-700">{inst}</p>
-                {[1, 2, 3].map((r) => choices[r] && (
-                  <p key={r} className="text-gray-500 ml-2">
-                    <span className="text-purple-600">Choice {r}:</span> {choices[r].courseName}
-                  </p>
-                ))}
-              </div>
-            ))}
-          </div>
-
-          <div className="flex gap-3 pt-1">
-            <button
-              onClick={() => { setCollectContact(false); setConfirming(true); }}
-              className="flex-1 border border-gray-200 text-gray-600 hover:bg-gray-50 py-3 rounded-xl font-medium transition text-sm"
-            >
-              ← Back
-            </button>
-            <button
-              onClick={handleSubmitWithContact}
-              disabled={saving}
-              className="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-semibold transition disabled:opacity-60"
-            >
-              {saving ? "Submitting…" : "Submit Application →"}
             </button>
           </div>
         </div>

@@ -1,14 +1,15 @@
 import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  collection, getDocs, doc, updateDoc, deleteDoc, setDoc, addDoc, getDoc
+  collection, getDocs, doc, updateDoc, deleteDoc, setDoc, addDoc, getDoc,
+  query, orderBy, limit
 } from "firebase/firestore";
 import { sendPasswordResetEmail, onAuthStateChanged } from "firebase/auth";
 import { db, auth } from "../firebase";
 import { isSuperAdmin, PERMISSIONS, ADMIN_ROLES, getRoleInfo } from "../utils/adminConfig";
 
 const FIREBASE_API_KEY = "AIzaSyDgSKlh9_3pBI9_IggS3C9aGh7I2edX484";
-const ALL_TABS = ["Dashboard", "Users", "Courses", "Settings"];
+const ALL_TABS = ["Dashboard", "Users", "Courses", "Audit Log", "Settings"];
 
 const QUAL_TYPES = ["Bachelor", "Bachelor (Extended)", "Diploma", "Extended Diploma", "Higher Certificate"];
 const INSTITUTIONS = [
@@ -66,7 +67,9 @@ const SUBJECT_OPTIONS = [
 const BLANK_COURSE = {
   courseName: "", institution: INSTITUTIONS[0], institutionType: "university", faculty: "",
   duration: "", qualificationType: "Bachelor", minAPS: 0, keySubjects: [],
-  admissionRequirement: "", // free-text for NQF-style requirements e.g. "Grade 9 or higher"
+  admissionRequirement: "", // free-text description shown to users
+  minGrade: null,           // "Grade 9" | "Grade 10" | "Grade 11" | "Grade 12" | null — colleges only
+  minNQFLevel: null,        // 1 | 2 | 3 | 4 | null — colleges only
 };
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
@@ -214,27 +217,63 @@ function CourseFormFields({ data, onChange }) {
 
       <div>
         <label className="text-xs text-gray-400 mb-1 block">
-          Minimum APS {isCollege && <span className="text-gray-500">(use 0 if not APS-based)</span>}
+          Minimum APS {isCollege && <span className="text-gray-500">(usually not used for colleges — leave 0)</span>}
         </label>
         <input type="number" value={data.minAPS || ""} onChange={(e) => onChange("minAPS", Number(e.target.value))} className={`w-full ${inputCls}`} />
       </div>
 
       {isCollege && (
-        <div>
-          <label className="text-xs text-gray-400 mb-1 block">
-            Admission Requirement (free text — optional)
-          </label>
-          <textarea
-            value={data.admissionRequirement || ""}
-            onChange={(e) => onChange("admissionRequirement", e.target.value)}
-            placeholder='e.g. "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency at NQF Level 3/4 of the same sub field."'
-            rows={3}
-            className={`w-full ${inputCls} resize-none`}
-          />
-          <p className="text-xs text-gray-500 mt-1">
-            Shown to users alongside Min APS — useful for NQF-based or grade-based requirements.
+        <>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="text-xs text-gray-400 mb-1 block">Minimum Grade</label>
+              <select
+                value={data.minGrade || ""}
+                onChange={(e) => onChange("minGrade", e.target.value || null)}
+                className={`w-full ${inputCls}`}
+              >
+                <option value="">None</option>
+                <option value="Grade 9">Grade 9</option>
+                <option value="Grade 10">Grade 10</option>
+                <option value="Grade 11">Grade 11</option>
+                <option value="Grade 12">Grade 12</option>
+              </select>
+            </div>
+            <div>
+              <label className="text-xs text-gray-400 mb-1 block">Minimum NQF Level</label>
+              <select
+                value={data.minNQFLevel || ""}
+                onChange={(e) => onChange("minNQFLevel", e.target.value ? Number(e.target.value) : null)}
+                className={`w-full ${inputCls}`}
+              >
+                <option value="">None</option>
+                <option value="1">NQF Level 1</option>
+                <option value="2">NQF Level 2</option>
+                <option value="3">NQF Level 3</option>
+                <option value="4">NQF Level 4</option>
+              </select>
+            </div>
+          </div>
+          <p className="text-xs text-gray-500 -mt-2">
+            Set at least one. If both are set, the learner must meet both. Leave both blank for open enrolment (no minimum).
           </p>
-        </div>
+
+          <div>
+            <label className="text-xs text-gray-400 mb-1 block">
+              Admission Requirement (free text — shown to users)
+            </label>
+            <textarea
+              value={data.admissionRequirement || ""}
+              onChange={(e) => onChange("admissionRequirement", e.target.value)}
+              placeholder='e.g. "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency at NQF Level 3/4 of the same sub field."'
+              rows={3}
+              className={`w-full ${inputCls} resize-none`}
+            />
+            <p className="text-xs text-gray-500 mt-1">
+              This is purely descriptive — eligibility is determined by the Minimum Grade / NQF Level fields above.
+            </p>
+          </div>
+        </>
       )}
 
       {/* Key Subjects */}
@@ -353,7 +392,7 @@ export default function Admin() {
   const [tab, setTab] = useState("Dashboard");
 
   // Users state — merged Auth + Firestore
-  const [currentUserRole, setCurrentUserRole] = useState("super");
+  const [currentUserRole, setCurrentUserRole] = useState("admin"); // safe default; upgraded to "super" only after verified
   const [users, setUsers] = useState([]);
   const [loadingUsers, setLoadingUsers] = useState(true);
   const [searchUser, setSearchUser] = useState("");
@@ -517,11 +556,123 @@ export default function Admin() {
   };
 
   // ── Course actions ────────────────────────────────────────────────────────
+  // ── Audit log ──────────────────────────────────────────────────────────────
+  // Records every course change with who, what, when. Only the super admin
+  // can read this (enforced by Firestore rules), but any admin/moderator who
+  // makes a change still gets logged — they just can't view the log.
+  const [auditLogs, setAuditLogs] = useState([]);
+  const [loadingAuditLogs, setLoadingAuditLogs] = useState(true);
+
+  const writeAuditLog = async (action, course, changedFields) => {
+    const me = auth.currentUser;
+    if (!me) return;
+    try {
+      await addDoc(collection(db, "courseAuditLogs"), {
+        action,              // "add" | "edit" | "delete"
+        courseId: course.id || null,
+        courseName: course.courseName || "(unnamed course)",
+        institution: course.institution || "",
+        changedFields: changedFields || null, // for edits: { field: { from, to } }
+        adminUid: me.uid,
+        adminEmail: me.email || "unknown",
+        timestamp: new Date().toISOString(),
+      });
+    } catch (err) {
+      // Never block the actual course operation if logging fails
+      console.error("Audit log write failed:", err);
+    }
+  };
+
+  const loadAuditLogs = useCallback(async () => {
+    if (!isSuperAdmin(auth.currentUser?.email)) return;
+    setLoadingAuditLogs(true);
+    try {
+      const q = query(collection(db, "courseAuditLogs"), orderBy("timestamp", "desc"), limit(200));
+      const snap = await getDocs(q);
+      setAuditLogs(snap.docs.map((d) => ({ id: d.id, ...d.data() })));
+    } catch (err) {
+      console.error("Failed to load audit logs:", err);
+    } finally {
+      setLoadingAuditLogs(false);
+    }
+  }, []);
+
+  useEffect(() => { loadAuditLogs(); }, [loadAuditLogs]);
+
+  // Build a diff between the old course doc and the new edited data
+  const buildCourseDiff = (oldData, newData) => {
+    const diff = {};
+    const allKeys = new Set([...Object.keys(oldData), ...Object.keys(newData)]);
+    allKeys.forEach((key) => {
+      if (key === "id") return;
+      const oldVal = JSON.stringify(oldData[key] ?? null);
+      const newVal = JSON.stringify(newData[key] ?? null);
+      if (oldVal !== newVal) {
+        diff[key] = { from: oldData[key] ?? null, to: newData[key] ?? null };
+      }
+    });
+    return diff;
+  };
+
+  const handleSeedCourses = async () => {
+    try {
+      showToast("Checking for new courses to add…");
+
+      // 1. Fetch what's already in Firestore
+      const snap = await getDocs(collection(db, "courses"));
+      const existing = new Set(
+        snap.docs.map((d) => {
+          const c = d.data();
+          return [
+            (c.courseName  || "").trim().toLowerCase(),
+            (c.institution || "").trim().toLowerCase(),
+            (c.faculty     || "").trim().toLowerCase(),
+          ].join("|||");
+        })
+      );
+
+      // 2. Load local JSON and filter to only genuinely new courses
+      const { default: localCourses } = await import("../data/courses.json");
+      const toAdd = localCourses.filter((c) => {
+        const key = [
+          (c.courseName  || "").trim().toLowerCase(),
+          (c.institution || "").trim().toLowerCase(),
+          (c.faculty     || "").trim().toLowerCase(),
+        ].join("|||");
+        return !existing.has(key);
+      });
+
+      if (toAdd.length === 0) {
+        showToast("✓ No new courses to add — Firestore is already up to date.");
+        return;
+      }
+
+      showToast(`Adding ${toAdd.length} new course(s)…`);
+      for (const course of toAdd) {
+        await addDoc(collection(db, "courses"), course);
+      }
+
+      showToast(`✓ Added ${toAdd.length} new course(s). ${existing.size} already existed.`);
+      loadCourses();
+    } catch (err) {
+      showToast("Seed failed: " + err.message, "error");
+    }
+  };
+
   const handleSaveCourse = async () => {
     try {
       const { id, ...data } = editingCourse;
+      const original = courses.find((c) => c.id === id) || {};
+      const diff = buildCourseDiff(original, data);
+
       await updateDoc(doc(db, "courses", id), data);
       setCourses((prev) => prev.map((c) => c.id === id ? { id, ...data } : c));
+
+      if (Object.keys(diff).length > 0) {
+        await writeAuditLog("edit", { id, ...data }, diff);
+        loadAuditLogs();
+      }
+
       setEditingCourse(null);
       showToast("Course updated");
     } catch (err) { showToast(err.message, "error"); }
@@ -530,7 +681,10 @@ export default function Admin() {
   const handleAddCourse = async () => {
     try {
       const ref = await addDoc(collection(db, "courses"), newCourse);
-      setCourses((prev) => [...prev, { id: ref.id, ...newCourse }]);
+      const created = { id: ref.id, ...newCourse };
+      setCourses((prev) => [...prev, created]);
+      await writeAuditLog("add", created, null);
+      loadAuditLogs();
       setNewCourse(BLANK_COURSE);
       setAddingCourse(false);
       showToast("Course added");
@@ -539,8 +693,11 @@ export default function Admin() {
 
   const handleDeleteCourse = async (id, name) => {
     try {
+      const deletedCourse = courses.find((c) => c.id === id) || { id, courseName: name };
       await deleteDoc(doc(db, "courses", id));
       setCourses((prev) => prev.filter((c) => c.id !== id));
+      await writeAuditLog("delete", deletedCourse, null);
+      loadAuditLogs();
       setConfirmDeleteCourse(null);
       showToast(`"${name}" deleted`);
     } catch (err) { showToast(err.message, "error"); }
@@ -1040,6 +1197,10 @@ export default function Admin() {
                     Institutions <span className="text-gray-500 font-normal text-base">({courses.length} courses total)</span>
                   </h2>
                   <div className="flex gap-2">
+                    <button onClick={handleSeedCourses}
+                      className="text-xs bg-yellow-700 hover:bg-yellow-600 text-yellow-200 px-3 py-1.5 rounded-lg transition font-medium">
+                      ⚡ Seed from JSON
+                    </button>
                     <button onClick={() => { setNewCourse(BLANK_COURSE); setAddingCourse(true); }}
                       className="text-xs bg-green-700 hover:bg-green-600 text-green-200 px-3 py-1.5 rounded-lg transition font-medium">
                       + Add Course
@@ -1198,6 +1359,82 @@ export default function Admin() {
         )}
 
         {/* ── SETTINGS ── */}
+        {/* ── AUDIT LOG (super admin only) ── */}
+        {tab === "Audit Log" && isSuperAdmin(auth.currentUser?.email) && (
+          <div className="space-y-4">
+            <div className="flex items-center justify-between flex-wrap gap-2">
+              <h2 className="text-xl font-bold text-white">
+                Course Audit Log
+                <span className="text-gray-500 font-normal text-base ml-2">({auditLogs.length} recent changes)</span>
+              </h2>
+              <button onClick={loadAuditLogs}
+                className="text-xs text-purple-400 hover:text-purple-300 border border-gray-700 px-3 py-1.5 rounded-lg transition">
+                ↻ Refresh
+              </button>
+            </div>
+
+            <p className="text-xs text-gray-500 bg-gray-900 border border-gray-800 rounded-xl px-4 py-3">
+              🔒 This log is only visible to the super admin. Every course add, edit, and delete by any
+              admin or moderator is recorded here with their email and the exact fields changed.
+            </p>
+
+            {loadingAuditLogs ? (
+              <p className="text-gray-500 text-sm py-8 text-center">Loading audit log…</p>
+            ) : auditLogs.length === 0 ? (
+              <p className="text-gray-500 text-sm py-8 text-center">No course changes recorded yet.</p>
+            ) : (
+              <div className="space-y-2">
+                {auditLogs.map((log) => {
+                  const actionStyle = {
+                    add:    { icon: "➕", label: "Added",  color: "bg-green-900 text-green-300" },
+                    edit:   { icon: "✏️", label: "Edited", color: "bg-blue-900 text-blue-300" },
+                    delete: { icon: "🗑️", label: "Deleted", color: "bg-red-900 text-red-300" },
+                  }[log.action] || { icon: "•", label: log.action, color: "bg-gray-800 text-gray-300" };
+
+                  return (
+                    <div key={log.id} className="bg-gray-900 border border-gray-800 rounded-2xl p-4">
+                      <div className="flex items-start justify-between gap-3 flex-wrap">
+                        <div className="flex items-center gap-2">
+                          <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${actionStyle.color}`}>
+                            {actionStyle.icon} {actionStyle.label}
+                          </span>
+                          <p className="text-white text-sm font-medium">{log.courseName}</p>
+                        </div>
+                        <p className="text-gray-500 text-xs whitespace-nowrap">
+                          {log.timestamp ? new Date(log.timestamp).toLocaleString("en-ZA") : "—"}
+                        </p>
+                      </div>
+
+                      <p className="text-gray-400 text-xs mt-1">
+                        {log.institution && <>at <span className="text-gray-300">{log.institution}</span> · </>}
+                        by <span className="text-purple-400 font-medium">{log.adminEmail}</span>
+                      </p>
+
+                      {/* Show field-level diff for edits */}
+                      {log.action === "edit" && log.changedFields && Object.keys(log.changedFields).length > 0 && (
+                        <div className="mt-3 bg-gray-800 rounded-xl p-3 space-y-1.5">
+                          {Object.entries(log.changedFields).map(([field, change]) => (
+                            <div key={field} className="text-xs">
+                              <span className="text-gray-400 font-medium">{field}:</span>{" "}
+                              <span className="text-red-400 line-through">
+                                {typeof change.from === "object" ? JSON.stringify(change.from) : String(change.from ?? "—")}
+                              </span>
+                              {" → "}
+                              <span className="text-green-400">
+                                {typeof change.to === "object" ? JSON.stringify(change.to) : String(change.to ?? "—")}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        )}
+
         {tab === "Settings" && (
           <div className="space-y-6 max-w-lg">
             <h2 className="text-xl font-bold text-white">Settings</h2>

@@ -231,3 +231,91 @@ export function calculateAPSForUniversity(universityName, subjects) {
 export function calculateGeneralAPS(subjects) {
   return aps_nsc_42(subjects);
 }
+
+// ─── College / NQF eligibility ─────────────────────────────────────────────────
+//
+// TVET and private colleges in South Africa typically do NOT use APS at all.
+// Instead, admission is based on:
+//   1. The highest school grade completed (Grade 9 minimum), and/or
+//   2. An NQF level (1–4) the learner has demonstrated competency in.
+//
+// NQF levels map roughly to grades like this for school-going learners:
+//   NQF Level 1 ≈ Grade 9
+//   NQF Level 2 ≈ Grade 10
+//   NQF Level 3 ≈ Grade 11
+//   NQF Level 4 ≈ Grade 12 (NSC / matric)
+//
+// A course's minimum requirement is stored on the course document as:
+//   minGrade:    "Grade 9" | "Grade 10" | "Grade 11" | "Grade 12" | null
+//   minNQFLevel: 1 | 2 | 3 | 4 | null
+// At least one of these should be set for a college course; if both are set,
+// the learner must satisfy BOTH (rare, but some advanced NCV programmes do this).
+
+const GRADE_TO_NUM = { "Grade 9": 9, "Grade 10": 10, "Grade 11": 11, "Grade 12": 12 };
+const GRADE_TO_NQF = { "Grade 9": 1, "Grade 10": 2, "Grade 11": 3, "Grade 12": 4 };
+
+/**
+ * Convert a user's grade + status into:
+ *   - highestGradeCompleted (label, e.g. "Grade 11")
+ *   - highestGradeNum       (number, e.g. 9–12)
+ *   - highestNQFCompleted   (number, e.g. 1–4)
+ *
+ * Status "current" means the user is currently IN the stated grade, so the
+ * highest COMPLETED grade is one below it (e.g. currently in Grade 12 →
+ * only Grade 11 counts as completed). Status "completed" means the stated
+ * grade itself has been completed.
+ */
+export function getHighestCompletedLevel(grade, gradeStatus) {
+  if (!grade || !GRADE_TO_NUM[grade]) {
+    return { highestGradeCompleted: null, highestGradeNum: 0, highestNQFCompleted: 0 };
+  }
+
+  const gradeNum = GRADE_TO_NUM[grade];
+  const completedNum = gradeStatus === "current" ? Math.max(gradeNum - 1, 0) : gradeNum;
+  const completedLabel = Object.keys(GRADE_TO_NUM).find((g) => GRADE_TO_NUM[g] === completedNum) || null;
+  const nqf = completedLabel ? GRADE_TO_NQF[completedLabel] : 0;
+
+  return {
+    highestGradeCompleted: completedLabel,
+    highestGradeNum: completedNum,
+    highestNQFCompleted: nqf,
+  };
+}
+
+/**
+ * Check whether a user meets a college course's grade/NQF requirement.
+ *
+ * @param {string} grade        - e.g. "Grade 11"
+ * @param {string} gradeStatus  - "current" | "completed"
+ * @param {object} course       - course doc with optional minGrade / minNQFLevel
+ * @returns {boolean}
+ */
+export function meetsCollegeRequirement(grade, gradeStatus, course) {
+  const { highestGradeNum, highestNQFCompleted } = getHighestCompletedLevel(grade, gradeStatus);
+
+  // Nothing required on the course → always eligible (open enrolment)
+  if (!course.minGrade && !course.minNQFLevel) return true;
+
+  let gradeOk = true;
+  let nqfOk = true;
+
+  if (course.minGrade && GRADE_TO_NUM[course.minGrade]) {
+    gradeOk = highestGradeNum >= GRADE_TO_NUM[course.minGrade];
+  }
+  if (course.minNQFLevel) {
+    nqfOk = highestNQFCompleted >= Number(course.minNQFLevel);
+  }
+
+  if (course.minGrade && !course.minNQFLevel) return gradeOk;
+  if (course.minNQFLevel && !course.minGrade) return nqfOk;
+  return gradeOk && nqfOk; // both set → must satisfy both
+}
+
+/**
+ * Human-readable label for what a user has completed, used in the UI.
+ */
+export function getCompletionLabel(grade, gradeStatus) {
+  const { highestGradeCompleted, highestNQFCompleted } = getHighestCompletedLevel(grade, gradeStatus);
+  if (!highestGradeCompleted) return "No completed grade on record";
+  return `${highestGradeCompleted} completed (NQF Level ${highestNQFCompleted})`;
+}
