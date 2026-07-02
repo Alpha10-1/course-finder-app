@@ -381,7 +381,10 @@ export default function Results() {
           {course.courseName}
         </h3>
         <p className="text-gray-700 text-sm">Faculty: {course.faculty}</p>
-        <p className="text-gray-700 text-sm">Institution: {course.institution}</p>
+        <p className="text-gray-700 text-sm">
+          Institution: {course.institution}
+          {course.campus && <span className="text-gray-500"> — {course.campus}</span>}
+        </p>
         <p className="text-gray-700 text-sm">Duration: {course.duration}</p>
         <p className="text-gray-700 text-sm">Qualification: {course.qualificationType}</p>
         <p className="text-gray-500 text-xs mt-1">Code: {course.qualificationCode || "—"}</p>
