@@ -182,7 +182,10 @@ export default function ApplyModal({ courses, onClose }) {
                     <button key={course.id} onClick={() => handlePick(course)}
                       className="w-full text-left bg-blue-50 hover:bg-purple-50 border border-blue-100 hover:border-purple-300 rounded-xl px-4 py-3 transition">
                       <p className="font-medium text-gray-900 text-sm">{course.courseName}</p>
-                      <p className="text-xs text-gray-500 mt-0.5">{course.faculty} · Min APS: {course.minAPS} · {course.duration}</p>
+                      <p className="text-xs text-gray-500 mt-0.5">
+                        {course.campus && <span className="text-purple-600 font-medium">{course.campus} · </span>}
+                        {course.faculty} · Min APS: {course.minAPS} · {course.duration}
+                      </p>
                     </button>
                   ))}
                 </div>
@@ -199,7 +202,10 @@ export default function ApplyModal({ courses, onClose }) {
                 {chosenInstitutions.map((inst) => (
                   <div key={inst} className="bg-purple-50 rounded-xl px-4 py-2 text-left">
                     <p className="text-xs text-gray-500">{inst}</p>
-                    <p className="font-medium text-purple-800 text-sm">{selections[inst][1].courseName}</p>
+                    <p className="font-medium text-purple-800 text-sm">
+                      {selections[inst][1].courseName}
+                      {selections[inst][1].campus && <span className="text-purple-500 font-normal"> ({selections[inst][1].campus})</span>}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -213,7 +219,10 @@ export default function ApplyModal({ courses, onClose }) {
             if (picked) return (
               <div key={inst} className="bg-green-50 border border-green-200 rounded-xl px-4 py-3">
                 <p className="text-xs text-gray-500">{inst}</p>
-                <p className="font-medium text-green-800 text-sm">✓ {picked.courseName}</p>
+                <p className="font-medium text-green-800 text-sm">
+                  ✓ {picked.courseName}
+                  {picked.campus && <span className="text-green-600 font-normal"> ({picked.campus})</span>}
+                </p>
               </div>
             );
             return (
@@ -227,7 +236,10 @@ export default function ApplyModal({ courses, onClose }) {
                       <button key={course.id} onClick={() => handlePick(course)}
                         className="w-full text-left bg-blue-50 hover:bg-purple-50 border border-blue-100 hover:border-purple-300 rounded-xl px-4 py-3 transition">
                         <p className="font-medium text-gray-900 text-sm">{course.courseName}</p>
-                        <p className="text-xs text-gray-500 mt-0.5">{course.faculty} · Min APS: {course.minAPS}</p>
+                        <p className="text-xs text-gray-500 mt-0.5">
+                          {course.campus && <span className="text-purple-600 font-medium">{course.campus} · </span>}
+                          {course.faculty} · Min APS: {course.minAPS}
+                        </p>
                       </button>
                     ))}
                   </div>

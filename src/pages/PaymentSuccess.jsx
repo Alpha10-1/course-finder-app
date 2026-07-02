@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { auth, db } from "../firebase";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, onSnapshot, getDoc } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 
 const PLAN_LABELS = {
@@ -9,43 +9,78 @@ const PLAN_LABELS = {
   apply_for_me: { name: "Apply For Me", icon: "🚀" },
 };
 
+// How long to wait for the signature-verified webhook to land before telling
+// the user activation is taking longer than usual. The webhook is normally
+// near-instant, but Yoco can occasionally take a little while to deliver it.
+const WEBHOOK_TIMEOUT_MS = 45000;
+
 export default function PaymentSuccess() {
-  const [status,  setStatus]  = useState("upgrading"); // upgrading | done | error
+  const [status,  setStatus]  = useState("upgrading"); // upgrading | done | pending | error
   const [planId,  setPlanId]  = useState("");
   const [searchParams]        = useSearchParams();
   const navigate              = useNavigate();
+  const uidRef                = useRef(null);
+
+  const checkNow = async () => {
+    const uid = uidRef.current;
+    if (!uid || !planId) return;
+    try {
+      const snap = await getDoc(doc(db, "users", uid));
+      if (snap.exists() && snap.data().plan === planId) {
+        setStatus("done");
+      } else {
+        setStatus("pending");
+      }
+    } catch {
+      setStatus("pending");
+    }
+  };
 
   useEffect(() => {
-    const uid    = searchParams.get("uid");
-    const plan   = searchParams.get("plan");
+    const uid  = searchParams.get("uid");
+    const plan = searchParams.get("plan");
 
     if (!uid || !plan) {
       setStatus("error");
       return;
     }
 
+    uidRef.current = uid;
     setPlanId(plan);
 
-    const unsub = onAuthStateChanged(auth, async (user) => {
+    let unsubSnapshot = null;
+    let timeoutId      = null;
+
+    const unsubAuth = onAuthStateChanged(auth, (user) => {
       if (!user || user.uid !== uid) {
         // User not signed in or uid mismatch — redirect to sign in
         navigate("/signin");
         return;
       }
 
-      try {
-        await updateDoc(doc(db, "users", uid), {
-          plan,
-          paidAt: new Date().toISOString(),
-        });
-        setStatus("done");
-      } catch (err) {
-        console.error("Plan upgrade error:", err);
-        setStatus("error");
-      }
+      // IMPORTANT: we never write `plan` ourselves here. Access is only ever
+      // granted by the signature-verified Yoco webhook (api/yoco-webhook.js /
+      // functions/index.js), which updates this same Firestore doc once it
+      // has confirmed the payment is genuine. We just listen for that write —
+      // trusting the redirect's query params alone would let anyone unlock
+      // the paid feature without actually paying.
+      unsubSnapshot = onSnapshot(doc(db, "users", uid), (snap) => {
+        if (snap.exists() && snap.data().plan === plan) {
+          setStatus("done");
+          if (timeoutId) clearTimeout(timeoutId);
+        }
+      });
+
+      timeoutId = setTimeout(() => {
+        setStatus((s) => (s === "done" ? s : "pending"));
+      }, WEBHOOK_TIMEOUT_MS);
     });
 
-    return () => unsub();
+    return () => {
+      unsubAuth();
+      if (unsubSnapshot) unsubSnapshot();
+      if (timeoutId) clearTimeout(timeoutId);
+    };
   }, [navigate, searchParams]);
 
   const plan = PLAN_LABELS[planId];
@@ -57,8 +92,31 @@ export default function PaymentSuccess() {
         {status === "upgrading" && (
           <>
             <div className="w-12 h-12 border-4 border-purple-200 border-t-purple-600 rounded-full animate-spin mx-auto" />
-            <h1 className="text-xl font-bold text-gray-900">Activating your plan…</h1>
-            <p className="text-gray-400 text-sm">Just a moment.</p>
+            <h1 className="text-xl font-bold text-gray-900">Confirming your payment…</h1>
+            <p className="text-gray-400 text-sm">We're verifying with Yoco — this only takes a moment.</p>
+          </>
+        )}
+
+        {status === "pending" && (
+          <>
+            <div className="text-5xl">⏳</div>
+            <h1 className="text-xl font-bold text-gray-900">Still confirming…</h1>
+            <p className="text-gray-500 text-sm">
+              Your payment may have gone through, but confirmation is taking longer than usual.
+              This can happen if Yoco is briefly delayed — it should resolve on its own.
+            </p>
+            <button
+              onClick={checkNow}
+              className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-xl font-semibold transition"
+            >
+              Check again
+            </button>
+            <button
+              onClick={() => navigate("/home")}
+              className="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 py-3 rounded-xl font-semibold transition"
+            >
+              I'll check back later
+            </button>
           </>
         )}
 
@@ -88,7 +146,7 @@ export default function PaymentSuccess() {
             <div className="text-5xl">⚠️</div>
             <h1 className="text-xl font-bold text-gray-900">Something went wrong</h1>
             <p className="text-gray-500 text-sm">
-              Your payment may have gone through but we couldn't update your account.
+              Your payment may have gone through but we couldn't confirm your account update.
               Please contact support with your email and we'll sort it out.
             </p>
             <button

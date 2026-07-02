@@ -71,6 +71,9 @@ const SUBJECT_OPTIONS = [
 
 const BLANK_COURSE = {
   courseName: "", institution: INSTITUTIONS[0], institutionType: "university", faculty: "",
+  campus: "",                // college-only, optional — e.g. "Boksburg Campus". `institution` stays
+                               // the college itself (e.g. "Ekurhuleni East TVET College"); campus is
+                               // the specific site offering this particular course.
   duration: "", qualificationType: "Bachelor", minAPS: 0, keySubjects: [],
   admissionRequirement: "", // free-text description shown to users
   minGrade: null,           // "Grade 9" | "Grade 10" | "Grade 11" | "Grade 12" | null — colleges only
@@ -86,11 +89,12 @@ const BLANK_COURSE = {
 
 // ─── College course JSON expansion ─────────────────────────────────────────
 //
-// A source entry in college-courses.json can either:
-//   (a) have a plain `institution` string (single-campus course), or
-//   (b) have a `campuses` array — the entry is cloned once per campus, using
-//       campus.institution as the institution and optionally excluding
-//       specific vocational subjects that aren't offered there.
+// A source entry in college-courses.json has ONE `institution` — the college
+// itself (e.g. "Ekurhuleni East TVET College"). If that college offers the
+// course at multiple sites, list them in `campuses` — the entry is cloned
+// once per campus, keeping the shared `institution` and adding that campus's
+// name plus optionally excluding vocational subjects not offered there.
+// A course offered at a single site just omits `campuses` entirely.
 // Mirrors the expansion logic in seed-college-courses.mjs so the admin-panel
 // button and the offline Node script behave identically.
 function expandCollegeCourse(entry) {
@@ -100,8 +104,8 @@ function expandCollegeCourse(entry) {
     return [{ institutionType: "college", keySubjects: [], faculty: "", ...base, curriculum: curriculum || null }];
   }
 
-  return campuses.map((campus) => {
-    const exclude = new Set((campus.excludeVocational || []).map((s) => s.trim().toLowerCase()));
+  return campuses.map((campusObj) => {
+    const exclude = new Set((campusObj.excludeVocational || []).map((s) => s.trim().toLowerCase()));
     const vocationalSubjects = (curriculum?.vocationalSubjects || []).filter(
       (v) => !exclude.has((v.subject || "").trim().toLowerCase())
     );
@@ -109,8 +113,8 @@ function expandCollegeCourse(entry) {
       institutionType: "college",
       keySubjects: [],
       faculty: "",
-      ...base,
-      institution: campus.institution,
+      ...base,                     // institution (the college) comes from here
+      campus: campusObj.campus,    // the specific site
       curriculum: curriculum ? { ...curriculum, vocationalSubjects } : null,
     };
   });
@@ -120,6 +124,7 @@ function courseDedupeKey(c) {
   return [
     (c.courseName  || "").trim().toLowerCase(),
     (c.institution || "").trim().toLowerCase(),
+    (c.campus      || "").trim().toLowerCase(),
     (c.faculty     || "").trim().toLowerCase(),
   ].join("|||");
 }
@@ -307,7 +312,7 @@ function CourseFormFields({ data, onChange }) {
             <input
               value={data.institution || ""}
               onChange={(e) => onChange("institution", e.target.value)}
-              placeholder="e.g. Northlink TVET College"
+              placeholder="e.g. Ekurhuleni East TVET College"
               className={`w-full ${inputCls}`}
             />
           ) : (
@@ -316,6 +321,23 @@ function CourseFormFields({ data, onChange }) {
             </select>
           )}
         </div>
+
+        {isCollege && (
+          <div>
+            <label className="text-xs text-gray-400 mb-1 block">Campus (optional)</label>
+            <input
+              value={data.campus || ""}
+              onChange={(e) => onChange("campus", e.target.value)}
+              placeholder="e.g. Boksburg Campus"
+              className={`w-full ${inputCls}`}
+            />
+            <p className="text-xs text-gray-600 mt-1">
+              Leave blank if this college has one site. Fill in when the same college offers this
+              course at multiple campuses — the college goes in Institution above, the specific
+              site goes here.
+            </p>
+          </div>
+        )}
 
         <div>
           <label className="text-xs text-gray-400 mb-1 block">Qualification Type</label>
@@ -1631,7 +1653,12 @@ export default function Admin() {
                           {filtered.map((course) => (
                             <tr key={course.id} className="bg-gray-950 hover:bg-gray-900 transition">
                               <td className="px-4 py-3 font-medium text-white max-w-md">
-                                <p className="truncate">{course.courseName}</p>
+                                <p className="truncate">
+                                  {course.courseName}
+                                  {course.campus && (
+                                    <span className="ml-2 text-xs font-normal bg-amber-900/50 text-amber-300 px-1.5 py-0.5 rounded">{course.campus}</span>
+                                  )}
+                                </p>
                                 <p className="text-xs text-gray-500 truncate">{course.faculty}</p>
                               </td>
                               <td className="px-4 py-3 hidden md:table-cell">
