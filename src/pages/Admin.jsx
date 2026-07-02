@@ -7,6 +7,8 @@ import {
 import { sendPasswordResetEmail, onAuthStateChanged } from "firebase/auth";
 import { db, auth } from "../firebase";
 import { isSuperAdmin, PERMISSIONS, ADMIN_ROLES, getRoleInfo } from "../utils/adminConfig";
+import { HOME_LANGUAGE_SUBJECTS, FAL_SUBJECTS } from "../utils/languages";
+import { NSC_LEVEL_OPTIONS, levelToMinMark, markToLevel } from "../utils/marksToAPS";
 
 const FIREBASE_API_KEY = "AIzaSyDgSKlh9_3pBI9_IggS3C9aGh7I2edX484";
 const ALL_TABS = ["Dashboard", "Users", "Courses", "Audit Log", "Settings"];
@@ -53,15 +55,18 @@ const UNI_QUAL_TYPES = ["Bachelor", "Bachelor (Extended)", "Diploma", "Extended 
 
 // Master subject list — used for all subject dropdowns in the admin panel
 const SUBJECT_OPTIONS = [
-  "Accounting", "Afrikaans Home Language", "Afrikaans First Additional Language",
+  "Accounting",
   "Agricultural Sciences", "Business Studies", "CAT (Computer Applications Technology)",
   "Civil Technology", "Computer Literacy", "Consumer Studies", "Dramatic Arts",
   "Economics", "Electrical Technology", "Engineering Graphics and Design",
-  "English Home Language", "English First Additional Language", "Geography",
+  "Geography",
   "History", "Hospitality Studies", "IT (Information Technology)", "Life Orientation",
-  "Life Sciences", "Mathematical Literacy", "Mathematics",
+  "Life Sciences", "Mathematical Literacy", "Mathematics", "Technical Mathematics",
   "Mechanical Technology", "Music", "Physical Sciences", "Religion Studies",
   "Tourism", "Visual Arts",
+  // All 11 official languages, as Home Language and First Additional Language
+  ...HOME_LANGUAGE_SUBJECTS,
+  ...FAL_SUBJECTS,
 ].sort();
 
 const BLANK_COURSE = {
@@ -70,7 +75,54 @@ const BLANK_COURSE = {
   admissionRequirement: "", // free-text description shown to users
   minGrade: null,           // "Grade 9" | "Grade 10" | "Grade 11" | "Grade 12" | null — colleges only
   minNQFLevel: null,        // 1 | 2 | 3 | 4 | null — colleges only
+  apsAlternatives: [],      // [{ subject: "Mathematical Literacy", minAPS: 34 }] — alternate minAPS
+                             // that applies instead of minAPS when the learner took that subject
+                             // (e.g. Maths vs Maths Lit courses with different cutoffs)
+  curriculum: null,         // college-only, optional — { fundamentalSubjects: [], vocationalSubjects: [] }
+                             // describes the qualification's subject structure (e.g. NC(V) programmes).
+                             // This is DISPLAY-ONLY and is never used for eligibility matching — see
+                             // minGrade/minNQFLevel above for the actual admission gate.
 };
+
+// ─── College course JSON expansion ─────────────────────────────────────────
+//
+// A source entry in college-courses.json can either:
+//   (a) have a plain `institution` string (single-campus course), or
+//   (b) have a `campuses` array — the entry is cloned once per campus, using
+//       campus.institution as the institution and optionally excluding
+//       specific vocational subjects that aren't offered there.
+// Mirrors the expansion logic in seed-college-courses.mjs so the admin-panel
+// button and the offline Node script behave identically.
+function expandCollegeCourse(entry) {
+  const { campuses, curriculum, _comment, ...base } = entry;
+
+  if (!campuses || campuses.length === 0) {
+    return [{ institutionType: "college", keySubjects: [], faculty: "", ...base, curriculum: curriculum || null }];
+  }
+
+  return campuses.map((campus) => {
+    const exclude = new Set((campus.excludeVocational || []).map((s) => s.trim().toLowerCase()));
+    const vocationalSubjects = (curriculum?.vocationalSubjects || []).filter(
+      (v) => !exclude.has((v.subject || "").trim().toLowerCase())
+    );
+    return {
+      institutionType: "college",
+      keySubjects: [],
+      faculty: "",
+      ...base,
+      institution: campus.institution,
+      curriculum: curriculum ? { ...curriculum, vocationalSubjects } : null,
+    };
+  });
+}
+
+function courseDedupeKey(c) {
+  return [
+    (c.courseName  || "").trim().toLowerCase(),
+    (c.institution || "").trim().toLowerCase(),
+    (c.faculty     || "").trim().toLowerCase(),
+  ].join("|||");
+}
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
@@ -96,6 +148,7 @@ async function fetchAllAuthUsers(idToken) {
 
 function CourseFormFields({ data, onChange }) {
   const keySubjects = data.keySubjects || [];
+  const [fundamentalInput, setFundamentalInput] = useState("");
 
   // Add a single required subject
   const addSingle = () => {
@@ -155,6 +208,61 @@ function CourseFormFields({ data, onChange }) {
     onChange("keySubjects", updated);
   };
 
+  // ── Alternate APS (e.g. different minAPS for Maths vs Maths Lit) ──────────
+  const apsAlternatives = data.apsAlternatives || [];
+
+  const addApsAlternative = () => {
+    onChange("apsAlternatives", [
+      ...apsAlternatives,
+      { subject: "Mathematical Literacy", minAPS: (Number(data.minAPS) || 0) + 4 },
+    ]);
+  };
+
+  const updateApsAlternative = (i, field, value) => {
+    const updated = apsAlternatives.map((a, idx) =>
+      idx === i ? { ...a, [field]: field === "minAPS" ? Number(value) : value } : a
+    );
+    onChange("apsAlternatives", updated);
+  };
+
+  const removeApsAlternative = (i) => {
+    onChange("apsAlternatives", apsAlternatives.filter((_, idx) => idx !== i));
+  };
+
+  // ── Curriculum (college-only, optional, display-only) ─────────────────────
+  // Used for programmes like NC(V) that list compulsory fundamental subjects
+  // plus vocational subjects offered at specific NQF levels (some optional).
+  // This does NOT affect eligibility — see minGrade/minNQFLevel for that.
+  const curriculum = data.curriculum || { fundamentalSubjects: [], vocationalSubjects: [] };
+  const fundamentalSubjects = curriculum.fundamentalSubjects || [];
+  const vocationalSubjects = curriculum.vocationalSubjects || [];
+
+  const setCurriculum = (patch) => onChange("curriculum", { ...curriculum, ...patch });
+
+  const addFundamental = (name) => {
+    if (!name.trim()) return;
+    setCurriculum({ fundamentalSubjects: [...fundamentalSubjects, name.trim()] });
+  };
+  const removeFundamental = (i) => {
+    setCurriculum({ fundamentalSubjects: fundamentalSubjects.filter((_, idx) => idx !== i) });
+  };
+
+  const addVocational = () => {
+    setCurriculum({
+      vocationalSubjects: [...vocationalSubjects, { subject: "", levels: "2-4", optional: false }],
+    });
+  };
+  const updateVocational = (i, field, value) => {
+    setCurriculum({
+      vocationalSubjects: vocationalSubjects.map((v, idx) =>
+        idx === i ? { ...v, [field]: value } : v
+      ),
+    });
+  };
+  const removeVocational = (i) => {
+    setCurriculum({ vocationalSubjects: vocationalSubjects.filter((_, idx) => idx !== i) });
+  };
+
   const inputCls = "bg-gray-800 border border-gray-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500";
   const markCls = "w-16 bg-gray-800 border border-gray-600 rounded-lg px-2 py-2 text-sm text-white text-center focus:outline-none focus:ring-2 focus:ring-purple-500";
 
@@ -185,42 +293,94 @@ function CourseFormFields({ data, onChange }) {
         </div>
       </div>
 
-      {[["courseName","Course Name"],["faculty","Faculty"],["duration","Duration (e.g. 3 years)"]].map(([field, label]) => (
-        <div key={field}>
-          <label className="text-xs text-gray-400 mb-1 block">{label}</label>
-          <input value={data[field] || ""} onChange={(e) => onChange(field, e.target.value)} className={`w-full ${inputCls}`} />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        {[["courseName","Course Name"],["faculty","Faculty"],["duration","Duration (e.g. 3 years)"]].map(([field, label]) => (
+          <div key={field} className={field === "courseName" ? "md:col-span-2" : ""}>
+            <label className="text-xs text-gray-400 mb-1 block">{label}</label>
+            <input value={data[field] || ""} onChange={(e) => onChange(field, e.target.value)} className={`w-full ${inputCls}`} />
+          </div>
+        ))}
+
+        <div>
+          <label className="text-xs text-gray-400 mb-1 block">Institution</label>
+          {isCollege ? (
+            <input
+              value={data.institution || ""}
+              onChange={(e) => onChange("institution", e.target.value)}
+              placeholder="e.g. Northlink TVET College"
+              className={`w-full ${inputCls}`}
+            />
+          ) : (
+            <select value={data.institution || ""} onChange={(e) => onChange("institution", e.target.value)} className={`w-full ${inputCls}`}>
+              {INSTITUTIONS.map((i) => <option key={i} value={i}>{i}</option>)}
+            </select>
+          )}
         </div>
-      ))}
 
-      <div>
-        <label className="text-xs text-gray-400 mb-1 block">Institution</label>
-        {isCollege ? (
-          <input
-            value={data.institution || ""}
-            onChange={(e) => onChange("institution", e.target.value)}
-            placeholder="e.g. Northlink TVET College"
-            className={`w-full ${inputCls}`}
-          />
-        ) : (
-          <select value={data.institution || ""} onChange={(e) => onChange("institution", e.target.value)} className={`w-full ${inputCls}`}>
-            {INSTITUTIONS.map((i) => <option key={i} value={i}>{i}</option>)}
+        <div>
+          <label className="text-xs text-gray-400 mb-1 block">Qualification Type</label>
+          <select value={data.qualificationType || ""} onChange={(e) => onChange("qualificationType", e.target.value)} className={`w-full ${inputCls}`}>
+            {qualOptions.map((q) => <option key={q} value={q}>{q}</option>)}
           </select>
-        )}
+        </div>
+
+        <div className={isCollege ? "md:col-span-2" : ""}>
+          <label className="text-xs text-gray-400 mb-1 block">
+            Minimum APS {isCollege && <span className="text-gray-500">(usually not used for colleges — leave 0)</span>}
+          </label>
+          <input type="number" value={data.minAPS || ""} onChange={(e) => onChange("minAPS", Number(e.target.value))} className={`w-full ${inputCls}`} />
+        </div>
       </div>
 
-      <div>
-        <label className="text-xs text-gray-400 mb-1 block">Qualification Type</label>
-        <select value={data.qualificationType || ""} onChange={(e) => onChange("qualificationType", e.target.value)} className={`w-full ${inputCls}`}>
-          {qualOptions.map((q) => <option key={q} value={q}>{q}</option>)}
-        </select>
-      </div>
-
-      <div>
-        <label className="text-xs text-gray-400 mb-1 block">
-          Minimum APS {isCollege && <span className="text-gray-500">(usually not used for colleges — leave 0)</span>}
-        </label>
-        <input type="number" value={data.minAPS || ""} onChange={(e) => onChange("minAPS", Number(e.target.value))} className={`w-full ${inputCls}`} />
-      </div>
+      {/* Alternate APS — different minAPS depending on which subject the learner took,
+          e.g. Mathematics vs Mathematical Literacy */}
+      {!isCollege && (
+        <div>
+          <div className="flex items-center justify-between mb-1">
+            <label className="text-xs text-gray-400 font-semibold uppercase tracking-wider">
+              Alternate APS (subject-dependent)
+            </label>
+            <div className="flex gap-2">
+              <button type="button" onClick={addApsAlternative}
+                className="text-xs bg-purple-800 hover:bg-purple-700 text-purple-300 px-2 py-1 rounded-lg transition">
+                + Add alternate
+              </button>
+            </div>
+          </div>
+          <p className="text-xs text-gray-600 mb-2">
+            Use this if the minimum APS differs depending on which subject a learner took
+            (e.g. Maths vs Maths Lit). Base Minimum APS above applies by default; if the
+            learner has one of the subjects listed here, that APS is used instead.
+          </p>
+          {apsAlternatives.length === 0 ? (
+            <p className="text-xs text-gray-600 italic px-1">No alternates — the base Minimum APS always applies.</p>
+          ) : (
+            <div className="space-y-2">
+              {apsAlternatives.map((alt, i) => (
+                <div key={i} className="flex gap-2 items-center bg-gray-800/50 rounded-xl px-3 py-2">
+                  <span className="text-xs text-gray-500 shrink-0">If learner took</span>
+                  <select
+                    value={alt.subject || ""}
+                    onChange={(e) => updateApsAlternative(i, "subject", e.target.value)}
+                    className={`flex-1 ${inputCls}`}
+                  >
+                    <option value="">Select subject…</option>
+                    {SUBJECT_OPTIONS.map((s) => <option key={s} value={s}>{s}</option>)}
+                  </select>
+                  <span className="text-xs text-gray-500 shrink-0">min APS</span>
+                  <input
+                    type="number" value={alt.minAPS ?? 0}
+                    onChange={(e) => updateApsAlternative(i, "minAPS", e.target.value)}
+                    className={markCls}
+                  />
+                  <button type="button" onClick={() => removeApsAlternative(i)}
+                    className="text-red-500 hover:text-red-400 font-bold px-1">✕</button>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
 
       {isCollege && (
         <>
@@ -273,6 +433,97 @@ function CourseFormFields({ data, onChange }) {
               This is purely descriptive — eligibility is determined by the Minimum Grade / NQF Level fields above.
             </p>
           </div>
+
+          {/* Curriculum — optional, display-only subject structure (e.g. NC(V) programmes) */}
+          <div className="border border-gray-700 rounded-xl p-3 space-y-3">
+            <div>
+              <p className="text-xs text-gray-400 font-semibold uppercase tracking-wider mb-1">
+                Curriculum (optional — display only)
+              </p>
+              <p className="text-xs text-gray-600">
+                For programmes like NC(V) that list compulsory fundamental subjects plus vocational
+                subjects offered at specific NQF levels (some optional). Shown to students but does
+                NOT affect eligibility — that's still controlled by Minimum Grade / NQF Level above.
+              </p>
+            </div>
+
+            {/* Fundamental subjects */}
+            <div>
+              <label className="text-xs text-gray-400 mb-1 block">Compulsory Fundamental Subjects</label>
+              <div className="flex flex-wrap gap-1.5 mb-2">
+                {fundamentalSubjects.map((s, i) => (
+                  <span key={i} className="text-xs bg-gray-800 border border-gray-600 text-gray-300 rounded-full pl-2.5 pr-1 py-1 flex items-center gap-1.5">
+                    {s}
+                    <button type="button" onClick={() => removeFundamental(i)} className="text-red-500 hover:text-red-400 font-bold">✕</button>
+                  </span>
+                ))}
+                {fundamentalSubjects.length === 0 && <p className="text-xs text-gray-600 italic">None added yet.</p>}
+              </div>
+              <div className="flex gap-2">
+                <input
+                  value={fundamentalInput}
+                  onChange={(e) => setFundamentalInput(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") { e.preventDefault(); addFundamental(fundamentalInput); setFundamentalInput(""); }
+                  }}
+                  placeholder="e.g. English First Additional Language"
+                  className={`flex-1 ${inputCls}`}
+                />
+                <button type="button"
+                  onClick={() => { addFundamental(fundamentalInput); setFundamentalInput(""); }}
+                  className="text-xs bg-green-800 hover:bg-green-700 text-green-300 px-3 py-2 rounded-lg transition">
+                  + Add
+                </button>
+              </div>
+            </div>
+
+            {/* Vocational subjects */}
+            <div>
+              <div className="flex items-center justify-between mb-1">
+                <label className="text-xs text-gray-400 block">Vocational Subjects</label>
+                <button type="button" onClick={addVocational}
+                  className="text-xs bg-amber-800 hover:bg-amber-700 text-amber-300 px-2 py-1 rounded-lg transition">
+                  + Add vocational subject
+                </button>
+              </div>
+              {vocationalSubjects.length === 0 ? (
+                <p className="text-xs text-gray-600 italic">None added yet.</p>
+              ) : (
+                <div className="space-y-2">
+                  {vocationalSubjects.map((v, i) => (
+                    <div key={i} className="flex gap-2 items-center bg-gray-800/50 rounded-xl px-3 py-2">
+                      <input
+                        value={v.subject || ""}
+                        onChange={(e) => updateVocational(i, "subject", e.target.value)}
+                        placeholder="e.g. Electrical Principles and Practice"
+                        className={`flex-1 ${inputCls}`}
+                      />
+                      <input
+                        value={v.levels || ""}
+                        onChange={(e) => updateVocational(i, "levels", e.target.value)}
+                        placeholder="e.g. 2-4"
+                        className={`w-20 ${inputCls}`}
+                      />
+                      <label className="flex items-center gap-1 text-xs text-gray-400 shrink-0">
+                        <input
+                          type="checkbox"
+                          checked={!!v.optional}
+                          onChange={(e) => updateVocational(i, "optional", e.target.checked)}
+                        />
+                        Optional
+                      </label>
+                      <button type="button" onClick={() => removeVocational(i)}
+                        className="text-red-500 hover:text-red-400 font-bold px-1">✕</button>
+                    </div>
+                  ))}
+                </div>
+              )}
+              <p className="text-xs text-gray-600 mt-1">
+                "Levels" is free text (e.g. "2", "2-4", "3-4") since NC(V) subjects are assessed by
+                NQF competency level rather than percentage mark.
+              </p>
+            </div>
+          </div>
         </>
       )}
 
@@ -295,10 +546,14 @@ function CourseFormFields({ data, onChange }) {
         {/* Quick-add presets — common requirement combos in one click */}
         <div className="flex flex-wrap gap-1.5 mb-3">
           {[
-            { label: "+ English ≥50%", req: { subject: "English Home Language", minMark: 50 } },
-            { label: "+ Maths ≥50%",   req: { subject: "Mathematics", minMark: 50 } },
-            { label: "+ Maths OR Maths Lit", req: { subjectGroup: [{ subject: "Mathematics", minMark: 50 }, { subject: "Mathematical Literacy", minMark: 60 }] } },
-            { label: "+ LO OR Computer Literacy", req: { subjectGroup: [{ subject: "Life Orientation", minMark: 40 }, { subject: "Computer Literacy", minMark: 40 }] } },
+            { label: "+ English (Level 4)", req: { subject: "English Home Language", minMark: 50 } },
+            { label: "+ Maths (Level 4)",   req: { subject: "Mathematics", minMark: 50 } },
+            { label: "+ Maths (L4) OR Maths Lit (L5)", req: { subjectGroup: [{ subject: "Mathematics", minMark: 50 }, { subject: "Mathematical Literacy", minMark: 60 }] } },
+            { label: "+ LO OR Computer Literacy (L3)", req: { subjectGroup: [{ subject: "Life Orientation", minMark: 40 }, { subject: "Computer Literacy", minMark: 40 }] } },
+            {
+              label: "+ Second Language (any of 11, L3)",
+              req: { subjectGroup: FAL_SUBJECTS.map((s) => ({ subject: s, minMark: 40 })) },
+            },
           ].map((preset, idx) => (
             <button key={idx} type="button"
               onClick={() => onChange("keySubjects", [...keySubjects, preset.req])}
@@ -307,6 +562,11 @@ function CourseFormFields({ data, onChange }) {
             </button>
           ))}
         </div>
+        <p className="text-xs text-gray-600 -mt-1 mb-2">
+          "Second Language" adds an OR group across all 11 official languages' First Additional
+          Language subjects — a learner satisfies it with any one of them at the mark you set
+          (edit the mark per-option afterwards if needed).
+        </p>
 
         {keySubjects.length === 0 ? (
           <p className="text-xs text-gray-600 italic px-1">
@@ -328,12 +588,15 @@ function CourseFormFields({ data, onChange }) {
                       {SUBJECT_OPTIONS.map((s) => <option key={s} value={s}>{s}</option>)}
                     </select>
                     <span className="text-gray-500 text-xs shrink-0">≥</span>
-                    <input
-                      type="number" value={ks.minMark ?? 50} min={0} max={100}
-                      onChange={(e) => updateSingle(i, "minMark", e.target.value)}
-                      className={markCls}
-                    />
-                    <span className="text-gray-500 text-xs shrink-0">%</span>
+                    <select
+                      value={markToLevel(ks.minMark ?? 50)}
+                      onChange={(e) => updateSingle(i, "minMark", levelToMinMark(e.target.value))}
+                      className={`${inputCls} w-36 shrink-0`}
+                    >
+                      {NSC_LEVEL_OPTIONS.map((o) => (
+                        <option key={o.level} value={o.level}>{o.label}</option>
+                      ))}
+                    </select>
                     <button type="button" onClick={() => removeReq(i)}
                       className="text-red-500 hover:text-red-400 font-bold px-1">✕</button>
                   </div>
@@ -364,12 +627,15 @@ function CourseFormFields({ data, onChange }) {
                           {SUBJECT_OPTIONS.map((s) => <option key={s} value={s}>{s}</option>)}
                         </select>
                         <span className="text-gray-500 text-xs shrink-0">≥</span>
-                        <input
-                          type="number" value={opt.minMark ?? 50} min={0} max={100}
-                          onChange={(e) => updateGroupOption(i, j, "minMark", e.target.value)}
-                          className={markCls}
-                        />
-                        <span className="text-gray-500 text-xs shrink-0">%</span>
+                        <select
+                          value={markToLevel(opt.minMark ?? 50)}
+                          onChange={(e) => updateGroupOption(i, j, "minMark", levelToMinMark(e.target.value))}
+                          className={`${inputCls} w-36 shrink-0`}
+                        >
+                          {NSC_LEVEL_OPTIONS.map((o) => (
+                            <option key={o.level} value={o.level}>{o.label}</option>
+                          ))}
+                        </select>
                         {ks.subjectGroup.length > 2 && (
                           <button type="button" onClick={() => removeGroupOption(i, j)}
                             className="text-red-500 hover:text-red-400 font-bold px-1">✕</button>
@@ -659,6 +925,36 @@ export default function Admin() {
     }
   };
 
+  const handleSeedCollegeCourses = async () => {
+    try {
+      showToast("Checking for new college courses to add…");
+
+      // 1. Fetch what's already in Firestore
+      const snap = await getDocs(collection(db, "courses"));
+      const existing = new Set(snap.docs.map((d) => courseDedupeKey(d.data())));
+
+      // 2. Load local JSON, expand any multi-campus entries, filter to genuinely new ones
+      const { default: localCollegeCourses } = await import("../data/college-courses.json");
+      const expanded = localCollegeCourses.flatMap(expandCollegeCourse);
+      const toAdd = expanded.filter((c) => !existing.has(courseDedupeKey(c)));
+
+      if (toAdd.length === 0) {
+        showToast("✓ No new college courses to add — Firestore is already up to date.");
+        return;
+      }
+
+      showToast(`Adding ${toAdd.length} new college course(s)…`);
+      for (const course of toAdd) {
+        await addDoc(collection(db, "courses"), course);
+      }
+
+      showToast(`✓ Added ${toAdd.length} new college course(s). ${existing.size} already existed.`);
+      loadCourses();
+    } catch (err) {
+      showToast("Seed failed: " + err.message, "error");
+    }
+  };
+
   const handleSaveCourse = async () => {
     try {
       const { id, ...data } = editingCourse;
@@ -862,11 +1158,13 @@ export default function Admin() {
 
       {/* Edit course modal */}
       {editingCourse && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 overflow-y-auto">
-          <div className="bg-gray-900 border border-gray-700 rounded-2xl p-6 w-full max-w-lg space-y-4 my-8">
-            <h3 className="text-lg font-bold text-white">Edit Course</h3>
-            <CourseFormFields data={editingCourse} onChange={(f, v) => setEditingCourse((p) => ({ ...p, [f]: v }))} />
-            <div className="flex gap-3 pt-2">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
+          <div className="bg-gray-900 border border-gray-700 rounded-2xl w-full max-w-4xl max-h-[88vh] flex flex-col">
+            <h3 className="text-lg font-bold text-white px-6 pt-6 pb-3 shrink-0 border-b border-gray-800">Edit Course</h3>
+            <div className="overflow-y-auto flex-1 min-h-0 px-6 py-4">
+              <CourseFormFields data={editingCourse} onChange={(f, v) => setEditingCourse((p) => ({ ...p, [f]: v }))} />
+            </div>
+            <div className="flex gap-3 px-6 py-4 border-t border-gray-800 shrink-0">
               <button onClick={() => setEditingCourse(null)} className="flex-1 py-2 rounded-xl bg-gray-700 hover:bg-gray-600 text-sm transition">Cancel</button>
               <button onClick={handleSaveCourse} className="flex-1 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-sm font-semibold transition">Save Changes</button>
             </div>
@@ -876,11 +1174,13 @@ export default function Admin() {
 
       {/* Add course modal */}
       {addingCourse && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 overflow-y-auto">
-          <div className="bg-gray-900 border border-gray-700 rounded-2xl p-6 w-full max-w-lg space-y-4 my-8">
-            <h3 className="text-lg font-bold text-white">Add New Course</h3>
-            <CourseFormFields data={newCourse} onChange={(f, v) => setNewCourse((p) => ({ ...p, [f]: v }))} />
-            <div className="flex gap-3 pt-2">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
+          <div className="bg-gray-900 border border-gray-700 rounded-2xl w-full max-w-4xl max-h-[88vh] flex flex-col">
+            <h3 className="text-lg font-bold text-white px-6 pt-6 pb-3 shrink-0 border-b border-gray-800">Add New Course</h3>
+            <div className="overflow-y-auto flex-1 min-h-0 px-6 py-4">
+              <CourseFormFields data={newCourse} onChange={(f, v) => setNewCourse((p) => ({ ...p, [f]: v }))} />
+            </div>
+            <div className="flex gap-3 px-6 py-4 border-t border-gray-800 shrink-0">
               <button onClick={() => setAddingCourse(false)} className="flex-1 py-2 rounded-xl bg-gray-700 hover:bg-gray-600 text-sm transition">Cancel</button>
               <button onClick={handleAddCourse} className="flex-1 py-2 rounded-xl bg-green-600 hover:bg-green-700 text-sm font-semibold transition">Add Course</button>
             </div>
@@ -1200,6 +1500,10 @@ export default function Admin() {
                     <button onClick={handleSeedCourses}
                       className="text-xs bg-yellow-700 hover:bg-yellow-600 text-yellow-200 px-3 py-1.5 rounded-lg transition font-medium">
                       ⚡ Seed from JSON
+                    </button>
+                    <button onClick={handleSeedCollegeCourses}
+                      className="text-xs bg-amber-700 hover:bg-amber-600 text-amber-200 px-3 py-1.5 rounded-lg transition font-medium">
+                      🏫 Seed Colleges from JSON
                     </button>
                     <button onClick={() => { setNewCourse(BLANK_COURSE); setAddingCourse(true); }}
                       className="text-xs bg-green-700 hover:bg-green-600 text-green-200 px-3 py-1.5 rounded-lg transition font-medium">

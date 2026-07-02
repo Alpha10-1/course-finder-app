@@ -4,6 +4,10 @@ import { auth } from "../firebase";
 // Your Vercel deployment URL — update after deploying to Vercel
 const API_BASE = "https://course-finder-app-zeta.vercel.app";
 
+// TEMP: R10 for Yoco payment testing — revert to "R150" once verified
+// (must stay in sync with the `amount` in api/create-checkout.js / functions/index.js)
+const APPLY_FOR_ME_PRICE = "R10";
+
 export default function PricingModal({ onClose }) {
   const [step,    setStep]    = useState("main"); // main | confirm | loading | awaiting | error
   const [errMsg,  setErrMsg]  = useState("");
@@ -77,7 +81,7 @@ export default function PricingModal({ onClose }) {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-8 text-center space-y-5">
         <div className="text-5xl">🚀</div>
-        <h2 className="text-xl font-bold text-gray-900">Apply For Me — R150</h2>
+        <h2 className="text-xl font-bold text-gray-900">Apply For Me — {APPLY_FOR_ME_PRICE}</h2>
         <ul className="text-left space-y-2">
           {[
             "We apply to up to 6 institutions on your behalf",
@@ -92,7 +96,7 @@ export default function PricingModal({ onClose }) {
         </ul>
         <button onClick={handlePay}
           className="w-full bg-gradient-to-r from-purple-600 to-pink-500 text-white py-3 rounded-xl font-semibold hover:opacity-90 transition">
-          Pay R150 with Yoco →
+          Pay {APPLY_FOR_ME_PRICE} with Yoco →
         </button>
         <button onClick={() => setStep("main")} className="w-full text-gray-400 text-sm hover:text-gray-600 transition">
           ← Back
@@ -136,7 +140,7 @@ export default function PricingModal({ onClose }) {
                     <p className="text-gray-400 text-xs">once-off</p>
                   </div>
                 </div>
-                <p className="text-3xl font-extrabold text-purple-700">R150</p>
+                <p className="text-3xl font-extrabold text-purple-700">{APPLY_FOR_ME_PRICE}</p>
               </div>
 
               <ul className="space-y-2 mb-5">
@@ -154,7 +158,7 @@ export default function PricingModal({ onClose }) {
 
               <button onClick={() => setStep("confirm")}
                 className="w-full bg-gradient-to-r from-purple-600 to-pink-500 text-white py-3 rounded-xl font-semibold hover:opacity-90 transition">
-                Get Apply For Me — R150
+                Get Apply For Me — {APPLY_FOR_ME_PRICE}
               </button>
             </div>
           </div>

@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc, setDoc, collection, getDocs } from "firebase/firestore";
-import { calculateAPSForUniversity, calculateGeneralAPS, meetsCollegeRequirement, getCompletionLabel } from "../utils/marksToAPS";
+import { calculateAPSForUniversity, calculateGeneralAPS, meetsCollegeRequirement, getCompletionLabel, getEffectiveMinAPS } from "../utils/marksToAPS";
 import { meetsKeySubjects, subjectMatches } from "../utils/subjectMatch";
 import { db, auth } from "../firebase";
 import PricingModal from "../components/PricingModal";
@@ -150,7 +150,8 @@ export default function Results() {
           } else {
             // Universities: eligibility based on per-institution APS model
             const { score: uniAps } = calculateAPSForUniversity(course.institution, loadedSubjects);
-            if (uniAps < course.minAPS) return false;
+            const requiredAPS = getEffectiveMinAPS(course, loadedSubjects);
+            if (uniAps < requiredAPS) return false;
           }
 
           return meetsKeySubjects(loadedSubjects, course.keySubjects);
@@ -338,6 +339,8 @@ export default function Results() {
   const CourseCard = ({ course, colorScheme }) => {
     const { score: uniScore, label: uniLabel } = getUniAps(course.institution);
     const keyStatus = getKeySubjectStatus(course.keySubjects);
+    const requiredAPS = getEffectiveMinAPS(course, subjects);
+    const usingAltAPS = requiredAPS !== (Number(course.minAPS) || 0);
     const isGreen   = colorScheme === "green";
     const isCollege = colorScheme === "college";
     const selectedRound = getCourseSelectionRound(course);
@@ -398,13 +401,37 @@ export default function Results() {
                 📋 {course.admissionRequirement}
               </p>
             )}
+            {course.curriculum && (course.curriculum.fundamentalSubjects?.length > 0 || course.curriculum.vocationalSubjects?.length > 0) && (
+              <div className="mt-2 bg-white/60 rounded-lg px-2 py-1.5 space-y-1.5">
+                {course.curriculum.fundamentalSubjects?.length > 0 && (
+                  <p className="text-xs text-gray-600">
+                    <span className="font-medium text-gray-700">Fundamental subjects:</span>{" "}
+                    {course.curriculum.fundamentalSubjects.join(", ")}
+                  </p>
+                )}
+                {course.curriculum.vocationalSubjects?.length > 0 && (
+                  <div className="text-xs text-gray-600">
+                    <span className="font-medium text-gray-700">Vocational subjects:</span>{" "}
+                    {course.curriculum.vocationalSubjects.map((v, i) => (
+                      <span key={i}>
+                        {v.subject} ({v.levels}{v.optional ? ", optional" : ""})
+                        {i < course.curriculum.vocationalSubjects.length - 1 ? "; " : ""}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
             <p className={`text-xs font-medium mt-1 ${scoreColor}`}>
               ✓ You qualify — {getCompletionLabel(grade, gradeStatus)}
             </p>
           </>
         ) : (
           <>
-            <p className="text-gray-500 text-xs">Min APS: {course.minAPS}</p>
+            <p className="text-gray-500 text-xs">
+              Min APS: {requiredAPS}
+              {usingAltAPS && <span className="text-gray-400"> (based on your subject choice)</span>}
+            </p>
             <p className={`text-xs font-medium mt-1 ${scoreColor}`}>
               Your score: {uniScore} <span className="text-gray-400 font-normal">({uniLabel})</span>
             </p>
@@ -749,7 +776,7 @@ export default function Results() {
           <div className="bg-gradient-to-r from-purple-600 to-pink-500 rounded-2xl p-5 mb-6 flex items-center justify-between gap-4">
             <div>
               <p className="text-white font-bold">🚀 Apply For Me</p>
-              <p className="text-white/80 text-sm mt-0.5">Let us apply to up to 6 universities on your behalf — R150 once-off</p>
+              <p className="text-white/80 text-sm mt-0.5">Let us apply to up to 6 universities on your behalf — R10 once-off</p>
             </div>
             <button onClick={() => setShowPricing(true)}
               className="bg-white text-purple-700 font-semibold text-sm px-4 py-2 rounded-xl hover:bg-purple-50 transition shrink-0">

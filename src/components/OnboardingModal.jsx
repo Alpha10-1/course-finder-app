@@ -50,7 +50,7 @@ export default function OnboardingModal({ onClose }) {
 
             <div className="space-y-3">
               <PlanRow icon="✅" label="Free" desc="Browse all qualifying courses — always free, no ads." highlight={false} />
-              <PlanRow icon="🚀" label="R150 — Apply For Me" desc="We apply to up to 6 institutions on your behalf." highlight={true} />
+              <PlanRow icon="🚀" label="R10 — Apply For Me" desc="We apply to up to 6 institutions on your behalf." highlight={true} />
             </div>
 
             <button onClick={onClose}
