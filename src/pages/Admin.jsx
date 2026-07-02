@@ -1079,7 +1079,7 @@ export default function Admin() {
       free: "bg-gray-700 text-gray-300",
       apply_for_me: "bg-purple-900 text-purple-300",
     };
-    const labels = { free: "Free", apply_for_me: "Apply R150" };
+    const labels = { free: "Free", apply_for_me: "Apply R100" };
     return <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${styles[plan] || styles.free}`}>{labels[plan] || "Free"}</span>;
   };
 
@@ -1220,7 +1220,7 @@ export default function Admin() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <StatCard label="Total Users" value={stats.total} icon="👥" color="from-blue-600 to-blue-800" />
               <StatCard label="Free Plan" value={stats.free} icon="✅" color="from-gray-600 to-gray-800" />
-              <StatCard label="Apply For Me (R150)" value={stats.applyForMe} icon="🚀" color="from-purple-700 to-pink-700" />
+              <StatCard label="Apply For Me (R100)" value={stats.applyForMe} icon="🚀" color="from-purple-700 to-pink-700" />
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               <StatCard label="Total Courses" value={courses.length} icon="📚" color="from-green-700 to-teal-700" />
@@ -1279,7 +1279,7 @@ export default function Admin() {
                 <option value="">All Plans</option>
                 <option value="free">Free</option>
                 <option value="ad_free">Ad-Free (R30)</option>
-                <option value="apply_for_me">Apply For Me (R150)</option>
+                <option value="apply_for_me">Apply For Me (R100)</option>
               </select>
               <select value={filterAdmin} onChange={(e) => setFilterAdmin(e.target.value)}
                 className="bg-gray-900 border border-gray-700 text-gray-300 text-xs rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-purple-500">
@@ -1447,7 +1447,7 @@ export default function Admin() {
                           <select value={user.plan || "free"} onChange={(e) => handleChangePlan(user.uid, e.target.value)}
                             className="bg-gray-800 border border-gray-600 text-gray-300 text-xs rounded-lg px-2 py-1.5 focus:outline-none">
                             <option value="free">Set: Free</option>
-                            <option value="apply_for_me">Set: Apply For Me (R150)</option>
+                            <option value="apply_for_me">Set: Apply For Me (R100)</option>
                           </select>
                           <button onClick={() => handlePasswordReset(user.email)}
                             className="bg-blue-900 hover:bg-blue-800 text-blue-300 text-xs px-3 py-1.5 rounded-lg transition">
