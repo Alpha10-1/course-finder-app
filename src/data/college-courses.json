@@ -1,0 +1,54 @@
+[
+  {
+    "courseName": "N4 Certificate: Electrical Engineering",
+    "institution": "Northlink TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies",
+    "qualificationType": "N4 Certificate",
+    "qualificationCode": "",
+    "duration": "1 year (N4)",
+    "minGrade": "Grade 11",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 11 (or NCV Level 3) with Mathematics and Physical Science.",
+    "keySubjects": [
+      { "subject": "Mathematics", "minMark": 40 },
+      { "subject": "Physical Sciences", "minMark": 40 }
+    ]
+  },
+  {
+    "courseName": "NC (V) Engineering Studies — Electrical Infrastructure Construction",
+    "institutionType": "college",
+    "faculty": "Engineering Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level for all programmes (Levels 2, 3 & 4)",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at NQF Level 3/4 of the same sub-field/programme.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 7,
+      "note": "To obtain a National Certificate: a total of 7 subjects — 3 fundamental and 4 vocational subjects.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematics",
+        "Life Skills and Computer Literacy"
+      ],
+      "vocationalSubjects": [
+        { "subject": "Electrical Principles and Practice",         "levels": "2-4", "optional": false },
+        { "subject": "Workshop Practice",                          "levels": "2",   "optional": false },
+        { "subject": "Electronic Control and Digital Electronics", "levels": "2-4", "optional": false },
+        { "subject": "Electrical Systems and Construction",        "levels": "2-4", "optional": true  },
+        { "subject": "Electrical Workmanship",                     "levels": "3-4", "optional": false },
+        { "subject": "Physical Science",                           "levels": "2-4", "optional": true  }
+      ]
+    },
+    "campuses": [
+      { "institution": "Ekurhuleni East TVET College — Boksburg Campus",     "excludeVocational": ["Physical Science"] },
+      { "institution": "Ekurhuleni East TVET College — Germiston Campus",    "excludeVocational": ["Physical Science"] },
+      { "institution": "Ekurhuleni East TVET College — Kathorus Campus",     "excludeVocational": ["Physical Science"] },
+      { "institution": "Ekurhuleni East TVET College — Kempton Park Campus", "excludeVocational": [] },
+      { "institution": "Ekurhuleni East TVET College — Tembisa Campus",      "excludeVocational": ["Physical Science"] }
+    ]
+  }
+]

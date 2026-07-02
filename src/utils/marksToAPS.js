@@ -1,3 +1,5 @@
+import { subjectMatches } from "./subjectMatch.js";
+
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function clamp(p) {
@@ -46,6 +48,41 @@ export function convertMarkToAPS(mark) {
   if (p >= 40) return 3;
   if (p >= 30) return 2;
   return 1;
+}
+
+// ─── NSC achievement level ↔ percentage ────────────────────────────────────
+//
+// The NSC reports subject results as an achievement level (1–7), each
+// corresponding to a percentage band. Admins author subject requirements as
+// a level (matching how requirements are actually published, e.g. "Level 4
+// for Mathematics"); the app converts that to the minimum percentage under
+// the hood and matches it against the learner's entered percentage mark.
+
+export const NSC_LEVEL_OPTIONS = [
+  { level: 7, minMark: 80, label: "Level 7 (80–100%)" },
+  { level: 6, minMark: 70, label: "Level 6 (70–79%)" },
+  { level: 5, minMark: 60, label: "Level 5 (60–69%)" },
+  { level: 4, minMark: 50, label: "Level 4 (50–59%)" },
+  { level: 3, minMark: 40, label: "Level 3 (40–49%)" },
+  { level: 2, minMark: 30, label: "Level 2 (30–39%)" },
+  { level: 1, minMark: 0,  label: "Level 1 (0–29%)"  },
+];
+
+/**
+ * Minimum percentage mark represented by an NSC achievement level (1–7).
+ * e.g. levelToMinMark(4) === 50
+ */
+export function levelToMinMark(level) {
+  const match = NSC_LEVEL_OPTIONS.find((o) => o.level === Number(level));
+  return match ? match.minMark : 0;
+}
+
+/**
+ * The NSC achievement level a given percentage mark falls into (1–7).
+ * Alias of convertMarkToAPS, exposed under a clearer name for level-based UI.
+ */
+export function markToLevel(mark) {
+  return convertMarkToAPS(mark);
 }
 
 // Wits-specific band table for non-LO subjects (0–8) + bonus for Maths/English
@@ -230,6 +267,48 @@ export function calculateAPSForUniversity(universityName, subjects) {
  */
 export function calculateGeneralAPS(subjects) {
   return aps_nsc_42(subjects);
+}
+
+// ─── Alternate APS (subject-dependent minimum) ─────────────────────────────────
+//
+// Some courses set a different minimum APS depending on which "track" subject
+// the learner took — most commonly Mathematics vs Mathematical Literacy, e.g.
+// "APS 30 with Mathematics, but APS 34 with Mathematical Literacy".
+//
+// This is stored on the course document as:
+//   minAPS:          30                                      // default / base
+//   apsAlternatives: [{ subject: "Mathematical Literacy", minAPS: 34 }]
+//
+// A learner only ever "has" one of the alternative subjects (they can't have
+// taken both Mathematics and Mathematical Literacy), so the first matching
+// alternative found is used. If none of the learner's subjects match any
+// listed alternative, the course's base minAPS applies.
+
+/**
+ * Work out the minimum APS that actually applies to this learner for this
+ * course, taking any subject-dependent alternatives into account.
+ *
+ * @param {object} course - course doc, may have minAPS and apsAlternatives
+ * @param {Array<{subject: string, mark: number|string}>} userSubjects
+ * @returns {number}
+ */
+export function getEffectiveMinAPS(course, userSubjects) {
+  const base = Number(course?.minAPS) || 0;
+  const alternatives = course?.apsAlternatives;
+  if (!alternatives || alternatives.length === 0) return base;
+
+  const subjects = userSubjects || [];
+  for (const alt of alternatives) {
+    if (!alt?.subject) continue;
+    const hasSubject = subjects.some(
+      (s) =>
+        subjectMatches(s.subject, alt.subject) &&
+        s.mark !== null && s.mark !== undefined && s.mark !== "" &&
+        Number.isFinite(Number(s.mark))
+    );
+    if (hasSubject) return Number(alt.minAPS);
+  }
+  return base;
 }
 
 // ─── College / NQF eligibility ─────────────────────────────────────────────────

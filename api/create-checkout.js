@@ -8,7 +8,7 @@ const CORS_HEADERS = {
 };
 
 const PLAN_CONFIG = {
-  apply_for_me: { amount: 15000, name: "Course Finder – Apply For Me" },
+  apply_for_me: { amount: 1000, name: "Course Finder – Apply For Me" }, // TEMP: R10 for Yoco testing — was 15000 (R150)
 };
 
 export default async function handler(req, res) {

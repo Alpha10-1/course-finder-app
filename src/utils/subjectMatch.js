@@ -61,6 +61,13 @@ export function subjectMatches(userSubject, reqSubject) {
   // "mathematical literacy" requirement must not match plain "mathematics"
   if (req === "mathematical literacy" && user === "mathematics") return false;
 
+  // "mathematics" requirement must NOT match "technical mathematics" — these
+  // are distinct NSC subjects and most courses that require pure Mathematics
+  // do not accept Technical Mathematics as a substitute. (The reverse — a
+  // course requiring Technical Mathematics being satisfied by a user who did
+  // plain Mathematics — is allowed via the general containment rule below.)
+  if (req === "mathematics" && user === "technical mathematics") return false;
+
   // General: requirement is a prefix of, or fully contained in, the user subject
   // e.g. req="English" matches user="English Home Language"
   if (user.startsWith(req)) return true;

@@ -10,7 +10,7 @@ const APP_URL = "https://mycoursefinder.web.app";
 
 const PLAN_CONFIG = {
   ad_free:      { amount: 3000,  name: "Course Finder – Ad-Free"      },
-  apply_for_me: { amount: 15000, name: "Course Finder – Apply For Me" },
+  apply_for_me: { amount: 1000,  name: "Course Finder – Apply For Me" }, // TEMP: R10 for Yoco testing — was 15000 (R150)
 };
 
 // ── Verify Yoco webhook signature ─────────────────────────────────────────────
