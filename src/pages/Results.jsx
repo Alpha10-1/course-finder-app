@@ -776,7 +776,7 @@ export default function Results() {
           <div className="bg-gradient-to-r from-purple-600 to-pink-500 rounded-2xl p-5 mb-6 flex items-center justify-between gap-4">
             <div>
               <p className="text-white font-bold">🚀 Apply For Me</p>
-              <p className="text-white/80 text-sm mt-0.5">Let us apply to up to 6 universities on your behalf — R10 once-off</p>
+              <p className="text-white/80 text-sm mt-0.5">Let us apply to up to 6 universities on your behalf — R100 once-off</p>
             </div>
             <button onClick={() => setShowPricing(true)}
               className="bg-white text-purple-700 font-semibold text-sm px-4 py-2 rounded-xl hover:bg-purple-50 transition shrink-0">

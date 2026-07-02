@@ -4,9 +4,9 @@ import { auth } from "../firebase";
 // Your Vercel deployment URL — update after deploying to Vercel
 const API_BASE = "https://course-finder-app-zeta.vercel.app";
 
-// TEMP: R10 for Yoco payment testing — revert to "R150" once verified
+
 // (must stay in sync with the `amount` in api/create-checkout.js / functions/index.js)
-const APPLY_FOR_ME_PRICE = "R10";
+const APPLY_FOR_ME_PRICE = "R100";
 
 export default function PricingModal({ onClose }) {
   const [step,    setStep]    = useState("main"); // main | confirm | loading | awaiting | error
