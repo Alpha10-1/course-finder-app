@@ -9,6 +9,7 @@ import {
 } from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import Seo from "../components/Seo";
 
 async function saveUserProfile(user, { firstName, lastName, dob, email }) {
   await updateProfile(user, { displayName: `${firstName} ${lastName}` });
@@ -152,7 +153,13 @@ export default function SignUp() {
 
   /* ── Main sign-up form ── */
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-blue-50 px-4 py-10">
+    <>
+      <Seo
+        title="Sign Up"
+        path="/signup"
+        description="Create a free Course Finder account to discover South African university and college courses you qualify for, based on your Grade 11 or 12 marks."
+      />
+      <div className="min-h-screen flex flex-col items-center justify-center bg-blue-50 px-4 py-10">
       <div className="w-full max-w-sm bg-white rounded-2xl shadow-lg p-8 space-y-5">
 
         <div className="text-center">
@@ -214,6 +221,7 @@ export default function SignUp() {
         </p>
       </div>
     </div>
+    </>
   );
 }
 

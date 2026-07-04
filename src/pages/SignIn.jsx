@@ -9,6 +9,7 @@ import {
 } from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import Seo from "../components/Seo";
 
 async function ensureFirestoreDoc(user) {
   try {
@@ -195,7 +196,13 @@ export default function SignIn() {
 
   // ── Main sign-in form ────────────────────────────────────────────────────
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-100 to-purple-200 p-6">
+    <>
+      <Seo
+        title="Sign In"
+        path="/signin"
+        description="Sign in to Course Finder to view the university and college courses you qualify for based on your marks."
+      />
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-100 to-purple-200 p-6">
       <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-xl space-y-5">
         <h1 className="text-3xl font-bold text-center text-gray-900">Sign In</h1>
 
@@ -272,5 +279,6 @@ export default function SignIn() {
         <div id="recaptcha-container"></div>
       </div>
     </div>
+    </>
   );
 }

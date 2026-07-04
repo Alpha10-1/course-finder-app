@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { auth } from "../firebase";
 import { onAuthStateChanged } from "firebase/auth";
+import Seo from "../components/Seo";
 
 export default function Welcome() {
   const navigate = useNavigate();
@@ -14,7 +15,12 @@ export default function Welcome() {
   }, [navigate]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-100 via-blue-200 to-blue-300 p-4">
+    <>
+      <Seo
+        path="/"
+        description="Find the South African university and college courses you qualify for. Enter your Grade 11 or 12 marks and instantly see matching courses, APS scores, and admission requirements — free to use."
+      />
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-100 via-blue-200 to-blue-300 p-4">
       <div className="bg-white shadow-lg rounded-2xl p-10 w-full max-w-md text-center">
         <h1 className="text-3xl font-bold text-blue-700 mb-3">
           Welcome to Course Finder
@@ -37,11 +43,19 @@ export default function Welcome() {
             Sign In
           </Link>
         </div>
+
+        <Link
+          to="/courses"
+          className="inline-block mt-6 text-sm text-purple-600 hover:underline"
+        >
+          Or browse all courses first →
+        </Link>
       </div>
 
       <p className="mt-8 text-sm text-gray-400">
         &copy; 2026 Course Finder. All rights reserved.
       </p>
     </div>
+    </>
   );
 }
