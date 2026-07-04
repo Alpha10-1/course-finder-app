@@ -1,0 +1,13 @@
+{
+  "name": "Course Finder",
+  "short_name": "Course Finder",
+  "description": "Find the South African university and college courses you qualify for.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1e1147",
+  "theme_color": "#7e14ff",
+  "icons": [
+    { "src": "/favicon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/favicon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

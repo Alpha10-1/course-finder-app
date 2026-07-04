@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+Allow: /signin
+Allow: /signup
+
+# These routes require sign-in and just redirect anonymous visitors back to
+# "/" — there's nothing here for a crawler to index.
+Disallow: /home
+Disallow: /results
+Disallow: /enter-marks
+Disallow: /exam-number
+Disallow: /payment-success
+Disallow: /admin
+
+Sitemap: https://mycoursefinder.web.app/sitemap.xml
