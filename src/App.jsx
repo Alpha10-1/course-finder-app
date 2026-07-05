@@ -1,5 +1,5 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Suspense, lazy } from "react";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { Suspense, lazy, useEffect } from "react";
 import Home from "./pages/Home";
 import Results from "./pages/Results";
 import EnterMarks from "./pages/EnterMarks";
@@ -11,6 +11,7 @@ import Admin from "./pages/Admin";
 import RequireAuth from "./components/RequireAuth";
 import RequireAdmin from "./components/RequireAdmin";
 import PaymentSuccess from "./pages/PaymentSuccess";
+import { trackPageview } from "./utils/analytics";
 
 // Lazy-loaded: these pull in the full course dataset (~190KB of JSON), which
 // no other route needs. Splitting them into their own chunk keeps that data
@@ -27,9 +28,29 @@ function PageLoading() {
   );
 }
 
+// GA4's script (index.html) has send_page_view disabled — this fires a
+// page_view on the initial load AND on every client-side navigation, since
+// React Router doesn't trigger real page loads for route changes.
+function AnalyticsListener() {
+  const location = useLocation();
+
+  useEffect(() => {
+    // Deferred so react-helmet-async's <title> update (an effect itself)
+    // has a chance to run first — otherwise this can fire with the
+    // previous page's title still set.
+    const id = setTimeout(() => {
+      trackPageview(location.pathname + location.search);
+    }, 0);
+    return () => clearTimeout(id);
+  }, [location.pathname, location.search]);
+
+  return null;
+}
+
 function App() {
   return (
     <Router>
+      <AnalyticsListener />
       <Routes>
         <Route path="/" element={<Welcome />} />
         <Route path="/signin" element={<SignIn />} />

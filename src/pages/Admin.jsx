@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   collection, getDocs, doc, updateDoc, deleteDoc, setDoc, addDoc, getDoc,
-  query, orderBy, limit
+  query, orderBy, limit, arrayUnion, arrayRemove
 } from "firebase/firestore";
 import { sendPasswordResetEmail, onAuthStateChanged } from "firebase/auth";
 import { db, auth } from "../firebase";
@@ -127,6 +127,34 @@ function courseDedupeKey(c) {
     (c.campus      || "").trim().toLowerCase(),
     (c.faculty     || "").trim().toLowerCase(),
   ].join("|||");
+}
+
+// ─── Seed exclusions ("tombstones") ────────────────────────────────────────
+//
+// Deleting a course from the admin panel only removes it from the `courses`
+// collection — the seed scripts have no other memory of that deletion. Since
+// seeding just diffs "what's in the local JSON" against "what's currently in
+// Firestore", a deleted course that's still in courses.json / 
+// college-courses.json looks indistinguishable from a never-seeded one, and
+// silently comes back on the next seed. This doc is the fix: every deletion
+// records its dedupe key here, and both seed functions skip anything listed,
+// regardless of whether it's still present in the JSON file.
+const SEED_EXCLUSIONS_DOC = doc(db, "meta", "seedExclusions");
+
+async function getSeedExclusions() {
+  const snap = await getDoc(SEED_EXCLUSIONS_DOC);
+  return new Set(snap.exists() ? snap.data().keys || [] : []);
+}
+
+async function addSeedExclusion(key) {
+  await setDoc(SEED_EXCLUSIONS_DOC, { keys: arrayUnion(key) }, { merge: true });
+}
+
+async function removeSeedExclusion(key) {
+  await updateDoc(SEED_EXCLUSIONS_DOC, { keys: arrayRemove(key) }).catch(() =>
+    // doc might not exist yet if nothing's ever been excluded — fine, no-op
+    null
+  );
 }
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
@@ -707,6 +735,8 @@ export default function Admin() {
   const [addingCourse, setAddingCourse] = useState(false);
   const [newCourse, setNewCourse] = useState(BLANK_COURSE);
   const [confirmDeleteCourse, setConfirmDeleteCourse] = useState(null);
+  const [seedExclusions, setSeedExclusions] = useState([]);
+  const [showSeedExclusions, setShowSeedExclusions] = useState(false);
   const [selectedVarsity, setSelectedVarsity] = useState(null); // null = show varsity grid, else show that varsity's courses
 
   // Settings
@@ -906,28 +936,19 @@ export default function Admin() {
     try {
       showToast("Checking for new courses to add…");
 
-      // 1. Fetch what's already in Firestore
-      const snap = await getDocs(collection(db, "courses"));
-      const existing = new Set(
-        snap.docs.map((d) => {
-          const c = d.data();
-          return [
-            (c.courseName  || "").trim().toLowerCase(),
-            (c.institution || "").trim().toLowerCase(),
-            (c.faculty     || "").trim().toLowerCase(),
-          ].join("|||");
-        })
-      );
+      // 1. Fetch what's already in Firestore, plus what's been intentionally
+      //    deleted before (so it doesn't silently come back).
+      const [snap, excluded] = await Promise.all([
+        getDocs(collection(db, "courses")),
+        getSeedExclusions(),
+      ]);
+      const existing = new Set(snap.docs.map((d) => courseDedupeKey(d.data())));
 
-      // 2. Load local JSON and filter to only genuinely new courses
+      // 2. Load local JSON and filter to only genuinely new, non-excluded courses
       const { default: localCourses } = await import("../data/courses.json");
       const toAdd = localCourses.filter((c) => {
-        const key = [
-          (c.courseName  || "").trim().toLowerCase(),
-          (c.institution || "").trim().toLowerCase(),
-          (c.faculty     || "").trim().toLowerCase(),
-        ].join("|||");
-        return !existing.has(key);
+        const key = courseDedupeKey(c);
+        return !existing.has(key) && !excluded.has(key);
       });
 
       if (toAdd.length === 0) {
@@ -951,14 +972,21 @@ export default function Admin() {
     try {
       showToast("Checking for new college courses to add…");
 
-      // 1. Fetch what's already in Firestore
-      const snap = await getDocs(collection(db, "courses"));
+      // 1. Fetch what's already in Firestore, plus prior deletions
+      const [snap, excluded] = await Promise.all([
+        getDocs(collection(db, "courses")),
+        getSeedExclusions(),
+      ]);
       const existing = new Set(snap.docs.map((d) => courseDedupeKey(d.data())));
 
-      // 2. Load local JSON, expand any multi-campus entries, filter to genuinely new ones
+      // 2. Load local JSON, expand any multi-campus entries, filter to
+      //    genuinely new, non-excluded ones
       const { default: localCollegeCourses } = await import("../data/college-courses.json");
       const expanded = localCollegeCourses.flatMap(expandCollegeCourse);
-      const toAdd = expanded.filter((c) => !existing.has(courseDedupeKey(c)));
+      const toAdd = expanded.filter((c) => {
+        const key = courseDedupeKey(c);
+        return !existing.has(key) && !excluded.has(key);
+      });
 
       if (toAdd.length === 0) {
         showToast("✓ No new college courses to add — Firestore is already up to date.");
@@ -1009,10 +1037,26 @@ export default function Admin() {
     } catch (err) { showToast(err.message, "error"); }
   };
 
+  const loadSeedExclusions = async () => {
+    const snap = await getDoc(SEED_EXCLUSIONS_DOC);
+    setSeedExclusions(snap.exists() ? snap.data().keys || [] : []);
+  };
+
+  const handleRestoreSeedExclusion = async (key) => {
+    try {
+      await removeSeedExclusion(key);
+      setSeedExclusions((prev) => prev.filter((k) => k !== key));
+      showToast("Restored — it'll be re-added next time you seed.");
+    } catch (err) {
+      showToast(err.message, "error");
+    }
+  };
+
   const handleDeleteCourse = async (id, name) => {
     try {
       const deletedCourse = courses.find((c) => c.id === id) || { id, courseName: name };
       await deleteDoc(doc(db, "courses", id));
+      await addSeedExclusion(courseDedupeKey(deletedCourse));
       setCourses((prev) => prev.filter((c) => c.id !== id));
       await writeAuditLog("delete", deletedCourse, null);
       loadAuditLogs();
@@ -1527,6 +1571,10 @@ export default function Admin() {
                       className="text-xs bg-amber-700 hover:bg-amber-600 text-amber-200 px-3 py-1.5 rounded-lg transition font-medium">
                       🏫 Seed Colleges from JSON
                     </button>
+                    <button onClick={async () => { await loadSeedExclusions(); setShowSeedExclusions((v) => !v); }}
+                      className="text-xs bg-gray-700 hover:bg-gray-600 text-gray-300 px-3 py-1.5 rounded-lg transition font-medium">
+                      🚫 Seed Exclusions
+                    </button>
                     <button onClick={() => { setNewCourse(BLANK_COURSE); setAddingCourse(true); }}
                       className="text-xs bg-green-700 hover:bg-green-600 text-green-200 px-3 py-1.5 rounded-lg transition font-medium">
                       + Add Course
@@ -1537,6 +1585,41 @@ export default function Admin() {
                     </button>
                   </div>
                 </div>
+
+                {showSeedExclusions && (
+                  <div className="bg-gray-800 border border-gray-700 rounded-xl p-4">
+                    <p className="text-sm font-semibold text-gray-300 mb-1">
+                      Excluded from seeding ({seedExclusions.length})
+                    </p>
+                    <p className="text-xs text-gray-500 mb-3">
+                      Courses deleted from here are remembered, so seeding never silently re-adds them —
+                      even if they're still in the local JSON file. Restore one if you want it back next
+                      time you seed.
+                    </p>
+                    {seedExclusions.length === 0 ? (
+                      <p className="text-sm text-gray-500">Nothing excluded right now.</p>
+                    ) : (
+                      <ul className="space-y-1.5 max-h-64 overflow-y-auto">
+                        {seedExclusions.map((key) => {
+                          const [courseName, institution] = key.split("|||");
+                          return (
+                            <li key={key} className="flex items-center justify-between bg-gray-900 rounded-lg px-3 py-2">
+                              <span className="text-sm text-gray-300 truncate">
+                                {courseName || "(unnamed)"} <span className="text-gray-500">· {institution}</span>
+                              </span>
+                              <button
+                                onClick={() => handleRestoreSeedExclusion(key)}
+                                className="text-xs text-purple-400 hover:text-purple-300 shrink-0 ml-3"
+                              >
+                                ↺ Restore
+                              </button>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    )}
+                  </div>
+                )}
 
                 {loadingCourses ? (
                   <p className="text-gray-500 text-sm py-8 text-center">Loading courses…</p>

@@ -10,6 +10,18 @@
     <meta name="theme-color" content="#7e14ff" />
     <link rel="canonical" href="https://mycoursefinder.web.app/" />
 
+    <!-- Google tag (gtag.js) — send_page_view is disabled here because this
+         is a client-side-routed SPA; page views are sent manually on each
+         route change instead (see src/utils/analytics.js), otherwise every
+         navigation after the first load would go untracked. -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-492GC5RHNH"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag("js", new Date());
+      gtag("config", "G-492GC5RHNH", { send_page_view: false });
+    </script>
+
     <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
