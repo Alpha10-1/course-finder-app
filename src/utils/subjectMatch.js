@@ -22,6 +22,27 @@ function normalize(str) {
   return String(str ?? "").trim().toLowerCase();
 }
 
+// Matches "20 Credit Subject", "20 Credit Subject 1", "20-credit subject 2", etc.
+// DUT (and several other institutions) use this as a generic placeholder in their
+// prospectus meaning "any recognised 20-credit NSC subject", i.e. any Grade 12
+// subject at all, EXCLUDING Life Orientation (which carries only 10 credits and
+// is explicitly excluded from APS/subject-requirement counting).
+const GENERIC_CREDIT_SUBJECT_RE = /^20[\s-]*credit\s*subjects?(\s*\d+)?$/i;
+
+function isGenericCreditSubject(reqSubject) {
+  return GENERIC_CREDIT_SUBJECT_RE.test(String(reqSubject ?? "").trim());
+}
+
+// Exported so UI code (e.g. the per-requirement status breakdown in Results.jsx)
+// can apply the same "any subject but LO" rule instead of re-implementing it.
+export { isGenericCreditSubject };
+
+function isLifeOrientationName(name) {
+  const n = normalize(name);
+  return n === "life orientation" || n.includes("life orientation");
+}
+
+
 // Pairs of subject names treated as equivalent regardless of substring overlap.
 // Each pair is checked both directions.
 const SYNONYM_PAIRS = [
@@ -99,11 +120,23 @@ export function meetsKeySubjects(userSubjects, keySubjects) {
     // subjectGroup: user must satisfy at least one option in the group
     if (req.subjectGroup) {
       return req.subjectGroup.some((opt) =>
-        userSubjects.some(
-          (s) =>
-            subjectMatches(s.subject, opt.subject) &&
-            safeMark(s.mark) >= opt.minMark
-        )
+        isGenericCreditSubject(opt.subject)
+          ? userSubjects.some(
+              (s) => !isLifeOrientationName(s.subject) && safeMark(s.mark) >= opt.minMark
+            )
+          : userSubjects.some(
+              (s) =>
+                subjectMatches(s.subject, opt.subject) &&
+                safeMark(s.mark) >= opt.minMark
+            )
+      );
+    }
+
+    // Generic "20 Credit Subject [N]" placeholder: any NSC subject other than
+    // Life Orientation, at or above the stated mark, satisfies this slot.
+    if (isGenericCreditSubject(req.subject)) {
+      return userSubjects.some(
+        (s) => !isLifeOrientationName(s.subject) && safeMark(s.mark) >= req.minMark
       );
     }
 

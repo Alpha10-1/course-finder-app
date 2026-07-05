@@ -110,9 +110,30 @@ function witsBandLO(percent) {
 // ─── University models ────────────────────────────────────────────────────────
 
 /**
+ * APS_UNIVEN — University of Venda's own points scale (2027 prospectus).
+ * Each subject's score is its percentage mark divided by 10 (e.g. 82% = 8.2,
+ * 95% = 9.5), NOT the standard 1–7 NSC achievement level. Subjects below 40%
+ * score 0 and are excluded entirely from the calculation. Life Orientation is
+ * always excluded. If a learner has more than 7 qualifying subjects, only the
+ * best 7 (by mark) are used.
+ * Used by: University of Venda (UNIVEN)
+ */
+function aps_univen(subjects) {
+  const pool = subjects.filter((s) =>
+    !isLifeOrientation(s.subject) &&
+    s.mark !== null && s.mark !== undefined && s.mark !== "" &&
+    Number.isFinite(Number(s.mark)) &&
+    Number(s.mark) >= 40
+  );
+  const chosen = bestN(pool, 7, (s) => Number(s.mark));
+  const total = chosen.reduce((sum, s) => sum + Number(s.mark) / 10, 0);
+  return Math.round(total * 10) / 10;
+}
+
+/**
  * APS_NSC_42 — best 6 NSC levels, Life Orientation excluded.
  * Used by: UJ, UFS, NWU, UKZN, UL, UZ, WSU, TUT, UNISA, DUT, CUT, CPUT,
- *          NMU, RU, SMU, SPU, UFH, MUT, UMP, UWC, UNIVEN, VUT, UP, UKZN
+ *          NMU, RU, SMU, SPU, UFH, MUT, UMP, UWC, VUT, UP, UKZN
  */
 function aps_nsc_42(subjects) {
   const pool = subjects.filter((s) =>
@@ -210,7 +231,7 @@ const UNIVERSITY_MODELS = {
   "University of the Free State":                    "APS_NSC_42",
   "University of Limpopo":                           "APS_NSC_42",
   "University of Zululand":                          "APS_NSC_42",
-  "University of Venda":                             "APS_NSC_42",
+  "University of Venda":                             "APS_UNIVEN",
   "University of Fort Hare":                         "APS_NSC_42",
   "University of Mpumalanga":                        "APS_NSC_42",
   "University of South Africa":                      "APS_NSC_42",
@@ -247,6 +268,7 @@ export function calculateAPSForUniversity(universityName, subjects) {
     case "APS_WITS":        score = aps_wits(subjects);       break;
     case "UCT_FPS_600":     score = uct_fps_600(subjects);    break;
     case "STELLIES_NSC_AVG": score = stellies_nsc_avg(subjects); break;
+    case "APS_UNIVEN":      score = aps_univen(subjects);     break;
     default:                score = aps_nsc_42(subjects);
   }
 
@@ -256,6 +278,7 @@ export function calculateAPSForUniversity(universityName, subjects) {
     APS_WITS:         "Wits APS (weighted + Maths/English bonus)",
     UCT_FPS_600:      "UCT Faculty Points Score (out of 600)",
     STELLIES_NSC_AVG: "Stellenbosch NSC average (%)",
+    APS_UNIVEN:       "UNIVEN APS (% ÷ 10 per subject, best 7, LO excluded)",
   };
 
   return { score, model, label: labels[model] };
