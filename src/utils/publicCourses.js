@@ -26,7 +26,18 @@ function normalizeUniversityCourse(entry) {
 const allCourses = [
   ...universityCoursesRaw.map(normalizeUniversityCourse),
   ...collegeCoursesRaw.map(normalizeCollegeCourse),
-];
+].filter((course, i) => {
+  const okInstitution = typeof course.institution === "string" && course.institution.trim().length > 0;
+  const okCourseName = typeof course.courseName === "string" && course.courseName.trim().length > 0;
+  if (!okInstitution || !okCourseName) {
+    console.warn(
+      `[publicCourses] Skipping malformed course entry at index ${i}: ` +
+      `institution=${JSON.stringify(course.institution)}, courseName=${JSON.stringify(course.courseName)}`
+    );
+    return false;
+  }
+  return true;
+});
 
 // Assign stable, unique slugs: institution slug + course slug (deduped with
 // a numeric suffix if two courses at the same institution would collide).
@@ -71,7 +82,7 @@ export function getInstitutions() {
   }
   return Array.from(map.values())
     .map((e) => ({ ...e, faculties: Array.from(e.faculties).sort() }))
-    .sort((a, b) => a.name.localeCompare(b.name));
+    .sort((a, b) => String(a.name || "").localeCompare(String(b.name || "")));
 }
 
 export function getInstitutionBySlug(slug) {
@@ -80,7 +91,7 @@ export function getInstitutionBySlug(slug) {
 
 export function getCoursesByInstitution(slug) {
   return COURSES.filter((c) => c.institutionSlug === slug).sort((a, b) =>
-    a.courseName.localeCompare(b.courseName)
+    String(a.courseName || "").localeCompare(String(b.courseName || ""))
   );
 }
 
