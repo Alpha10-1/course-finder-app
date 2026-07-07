@@ -93,6 +93,17 @@ export default function PricingModal({ onClose }) {
             </li>
           ))}
         </ul>
+        <div className="text-left bg-amber-50 border border-amber-200 rounded-xl p-3 space-y-1.5">
+          <p className="text-xs text-amber-800 leading-relaxed">
+            <span className="font-semibold">{APPLY_FOR_ME_PRICE} covers our service only.</span>{" "}
+            Any application fee an institution charges directly is your own responsibility, separate from this payment.
+          </p>
+          <p className="text-xs text-amber-800 leading-relaxed">
+            <span className="font-semibold">We can't guarantee acceptance</span> — that decision is entirely up to
+            each institution's own admissions process. What we do ensure is that every course we apply to on
+            your behalf is one you meet the minimum requirements for.
+          </p>
+        </div>
         <button onClick={handlePay}
           className="w-full bg-gradient-to-r from-purple-600 to-pink-500 text-white py-3 rounded-xl font-semibold hover:opacity-90 transition">
           Pay {APPLY_FOR_ME_PRICE} with Yoco →
@@ -159,6 +170,12 @@ export default function PricingModal({ onClose }) {
                 className="w-full bg-gradient-to-r from-purple-600 to-pink-500 text-white py-3 rounded-xl font-semibold hover:opacity-90 transition">
                 Get Apply For Me — {APPLY_FOR_ME_PRICE}
               </button>
+
+              <p className="text-gray-400 text-[11px] leading-relaxed mt-3">
+                {APPLY_FOR_ME_PRICE} is our service fee only — institution application fees (if any) are separate
+                and your responsibility. We ensure you meet the minimum requirements; final acceptance is always
+                up to the institution.
+              </p>
             </div>
           </div>
 

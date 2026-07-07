@@ -2,13 +2,18 @@ import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   collection, getDocs, doc, updateDoc, deleteDoc, setDoc, addDoc, getDoc,
-  query, orderBy, limit, arrayUnion, arrayRemove
+  query, orderBy, limit, arrayUnion, arrayRemove, writeBatch
 } from "firebase/firestore";
 import { sendPasswordResetEmail, onAuthStateChanged } from "firebase/auth";
 import { db, auth } from "../firebase";
 import { isSuperAdmin, PERMISSIONS, ADMIN_ROLES, getRoleInfo } from "../utils/adminConfig";
 import { HOME_LANGUAGE_SUBJECTS, FAL_SUBJECTS } from "../utils/languages";
 import { NSC_LEVEL_OPTIONS, levelToMinMark, markToLevel } from "../utils/marksToAPS";
+import {
+  getInstitutionApplicationStatus,
+  fetchInstitutionSettingsMap,
+  saveInstitutionSettings,
+} from "../utils/institutionStatus";
 
 const FIREBASE_API_KEY = "AIzaSyDgSKlh9_3pBI9_IggS3C9aGh7I2edX484";
 const ALL_TABS = ["Dashboard", "Users", "Courses", "Audit Log", "Settings"];
@@ -120,12 +125,20 @@ function expandCollegeCourse(entry) {
   });
 }
 
+// qualificationCode is included when present so that distinct qualification
+// variants that otherwise share the same name/institution/campus/faculty
+// (e.g. two different UP "BSc (Biochemistry)" streams with different
+// qualificationCode values) are treated as separate courses rather than
+// collapsing into one. This matters more now that a dedupe-key match causes
+// seeding to OVERWRITE the existing doc (see handleSeedCourses) rather than
+// just skip it — an incorrect match here would silently destroy real data.
 function courseDedupeKey(c) {
   return [
-    (c.courseName  || "").trim().toLowerCase(),
-    (c.institution || "").trim().toLowerCase(),
-    (c.campus      || "").trim().toLowerCase(),
-    (c.faculty     || "").trim().toLowerCase(),
+    (c.courseName       || "").trim().toLowerCase(),
+    (c.institution       || "").trim().toLowerCase(),
+    (c.campus            || "").trim().toLowerCase(),
+    (c.faculty            || "").trim().toLowerCase(),
+    (c.qualificationCode || "").trim().toLowerCase(),
   ].join("|||");
 }
 
@@ -722,6 +735,7 @@ export default function Admin() {
   const [filterAuthOnly, setFilterAuthOnly] = useState("");
 
   // Course filters
+  const [filterFaculty, setFilterFaculty] = useState("");
   const [filterInstitution, setFilterInstitution] = useState("");
   const [filterQualType, setFilterQualType] = useState("");
   const [filterMinAPS, setFilterMinAPS] = useState("");
@@ -738,6 +752,17 @@ export default function Admin() {
   const [seedExclusions, setSeedExclusions] = useState([]);
   const [showSeedExclusions, setShowSeedExclusions] = useState(false);
   const [selectedVarsity, setSelectedVarsity] = useState(null); // null = show varsity grid, else show that varsity's courses
+
+  // Institution application windows (open/close dates)
+  const [institutionSettings, setInstitutionSettings] = useState({}); // { [institution]: { openDate, closeDate } }
+  const [editingInstitutionDates, setEditingInstitutionDates] = useState(null); // institution name | null
+  const [datesForm, setDatesForm] = useState({ openDate: "", closeDate: "" });
+
+  // Bulk delete mode
+  const [bulkMode, setBulkMode] = useState(false);
+  const [bulkSelectedIds, setBulkSelectedIds] = useState(() => new Set());
+  const [confirmBulkDelete, setConfirmBulkDelete] = useState(false);
+  const [bulkDeleting, setBulkDeleting] = useState(false);
 
   // Settings
   const [adminEmailInput, setAdminEmailInput] = useState("");
@@ -800,7 +825,17 @@ export default function Admin() {
 
 
 
-  useEffect(() => { loadUsers(); loadCourses(); }, [loadUsers, loadCourses]);
+  // ── Load institution application-window settings ─────────────────────────
+  const loadInstitutionSettings = useCallback(async () => {
+    try {
+      const map = await fetchInstitutionSettingsMap();
+      setInstitutionSettings(map);
+    } catch (err) {
+      showToast("Failed to load application windows: " + err.message, "error");
+    }
+  }, []);
+
+  useEffect(() => { loadUsers(); loadCourses(); loadInstitutionSettings(); }, [loadUsers, loadCourses, loadInstitutionSettings]);
 
   // ── Stats ────────────────────────────────────────────────────────────────
   const stats = {
@@ -932,36 +967,87 @@ export default function Admin() {
     return diff;
   };
 
+  // Firestore batched writes are capped at 500 operations each; chunk to stay
+  // safely under that regardless of how large courses.json grows.
+  const SEED_BATCH_LIMIT = 400;
+
+  // Shared add-or-replace logic for both seed buttons below.
+  //
+  // Behavior: for every course in the local JSON, look it up in Firestore by
+  // dedupeKey (courseName + institution + campus + faculty + qualificationCode).
+  //   - No match, not tombstoned  -> ADD as a new doc.
+  //   - Match found               -> REPLACE the existing doc's fields with
+  //                                   the JSON version (this is what makes
+  //                                   editing a course in courses.json and
+  //                                   re-seeding actually push the fix live,
+  //                                   instead of the old behavior of treating
+  //                                   any dedupe-key match as "already seeded"
+  //                                   and silently skipping it forever).
+  //   - Tombstoned (previously
+  //     deleted via the admin panel) -> always skipped, regardless of match,
+  //                                      so intentional deletions don't come back.
+  // If the same dedupeKey matches more than one existing doc (a leftover from
+  // before this dedupe key included qualificationCode), all of them are
+  // updated to the same JSON data rather than picking one arbitrarily.
+  async function seedCoursesInto(localCourses) {
+    const [snap, excluded] = await Promise.all([
+      getDocs(collection(db, "courses")),
+      getSeedExclusions(),
+    ]);
+
+    const existingByKey = new Map(); // dedupeKey -> [docId, ...]
+    for (const d of snap.docs) {
+      const key = courseDedupeKey(d.data());
+      if (!existingByKey.has(key)) existingByKey.set(key, []);
+      existingByKey.get(key).push(d.id);
+    }
+
+    let added = 0, updated = 0, skippedExcluded = 0;
+    const ops = [];
+
+    for (const course of localCourses) {
+      const key = courseDedupeKey(course);
+      if (excluded.has(key)) { skippedExcluded++; continue; }
+
+      const existingIds = existingByKey.get(key);
+      if (existingIds && existingIds.length > 0) {
+        for (const id of existingIds) {
+          ops.push({ ref: doc(db, "courses", id), data: course });
+          updated++;
+        }
+      } else {
+        ops.push({ ref: doc(collection(db, "courses")), data: course });
+        added++;
+      }
+    }
+
+    for (let i = 0; i < ops.length; i += SEED_BATCH_LIMIT) {
+      const batch = writeBatch(db);
+      for (const op of ops.slice(i, i + SEED_BATCH_LIMIT)) {
+        batch.set(op.ref, op.data);
+      }
+      await batch.commit();
+    }
+
+    return { added, updated, skippedExcluded };
+  }
+
   const handleSeedCourses = async () => {
     try {
-      showToast("Checking for new courses to add…");
-
-      // 1. Fetch what's already in Firestore, plus what's been intentionally
-      //    deleted before (so it doesn't silently come back).
-      const [snap, excluded] = await Promise.all([
-        getDocs(collection(db, "courses")),
-        getSeedExclusions(),
-      ]);
-      const existing = new Set(snap.docs.map((d) => courseDedupeKey(d.data())));
-
-      // 2. Load local JSON and filter to only genuinely new, non-excluded courses
+      showToast("Syncing courses from courses.json…");
       const { default: localCourses } = await import("../data/courses.json");
-      const toAdd = localCourses.filter((c) => {
-        const key = courseDedupeKey(c);
-        return !existing.has(key) && !excluded.has(key);
-      });
+      const { added, updated, skippedExcluded } = await seedCoursesInto(localCourses);
 
-      if (toAdd.length === 0) {
-        showToast("✓ No new courses to add — Firestore is already up to date.");
+      if (added === 0 && updated === 0) {
+        showToast("✓ No changes — Firestore is already up to date.");
         return;
       }
 
-      showToast(`Adding ${toAdd.length} new course(s)…`);
-      for (const course of toAdd) {
-        await addDoc(collection(db, "courses"), course);
-      }
-
-      showToast(`✓ Added ${toAdd.length} new course(s). ${existing.size} already existed.`);
+      const parts = [];
+      if (added) parts.push(`${added} added`);
+      if (updated) parts.push(`${updated} updated`);
+      if (skippedExcluded) parts.push(`${skippedExcluded} skipped (previously deleted)`);
+      showToast(`✓ Sync complete — ${parts.join(", ")}.`);
       loadCourses();
     } catch (err) {
       showToast("Seed failed: " + err.message, "error");
@@ -970,35 +1056,21 @@ export default function Admin() {
 
   const handleSeedCollegeCourses = async () => {
     try {
-      showToast("Checking for new college courses to add…");
-
-      // 1. Fetch what's already in Firestore, plus prior deletions
-      const [snap, excluded] = await Promise.all([
-        getDocs(collection(db, "courses")),
-        getSeedExclusions(),
-      ]);
-      const existing = new Set(snap.docs.map((d) => courseDedupeKey(d.data())));
-
-      // 2. Load local JSON, expand any multi-campus entries, filter to
-      //    genuinely new, non-excluded ones
+      showToast("Syncing college courses from college-courses.json…");
       const { default: localCollegeCourses } = await import("../data/college-courses.json");
       const expanded = localCollegeCourses.flatMap(expandCollegeCourse);
-      const toAdd = expanded.filter((c) => {
-        const key = courseDedupeKey(c);
-        return !existing.has(key) && !excluded.has(key);
-      });
+      const { added, updated, skippedExcluded } = await seedCoursesInto(expanded);
 
-      if (toAdd.length === 0) {
-        showToast("✓ No new college courses to add — Firestore is already up to date.");
+      if (added === 0 && updated === 0) {
+        showToast("✓ No changes — Firestore is already up to date.");
         return;
       }
 
-      showToast(`Adding ${toAdd.length} new college course(s)…`);
-      for (const course of toAdd) {
-        await addDoc(collection(db, "courses"), course);
-      }
-
-      showToast(`✓ Added ${toAdd.length} new college course(s). ${existing.size} already existed.`);
+      const parts = [];
+      if (added) parts.push(`${added} added`);
+      if (updated) parts.push(`${updated} updated`);
+      if (skippedExcluded) parts.push(`${skippedExcluded} skipped (previously deleted)`);
+      showToast(`✓ Sync complete — ${parts.join(", ")}.`);
       loadCourses();
     } catch (err) {
       showToast("Seed failed: " + err.message, "error");
@@ -1063,6 +1135,89 @@ export default function Admin() {
       setConfirmDeleteCourse(null);
       showToast(`"${name}" deleted`);
     } catch (err) { showToast(err.message, "error"); }
+  };
+
+  // ── Institution application windows ──────────────────────────────────────
+  const openInstitutionDatesEditor = (institution) => {
+    const s = institutionSettings[institution] || {};
+    setDatesForm({ openDate: s.openDate || "", closeDate: s.closeDate || "" });
+    setEditingInstitutionDates(institution);
+  };
+
+  const handleSaveInstitutionDates = async () => {
+    if (!editingInstitutionDates) return;
+    try {
+      await saveInstitutionSettings(editingInstitutionDates, datesForm, auth.currentUser?.email);
+      setInstitutionSettings((prev) => ({
+        ...prev,
+        [editingInstitutionDates]: {
+          openDate: datesForm.openDate || null,
+          closeDate: datesForm.closeDate || null,
+        },
+      }));
+      showToast(`Application window saved for ${editingInstitutionDates}`);
+      setEditingInstitutionDates(null);
+    } catch (err) { showToast(err.message, "error"); }
+  };
+
+  const handleClearInstitutionDates = async () => {
+    if (!editingInstitutionDates) return;
+    try {
+      await saveInstitutionSettings(editingInstitutionDates, { openDate: null, closeDate: null }, auth.currentUser?.email);
+      setInstitutionSettings((prev) => ({ ...prev, [editingInstitutionDates]: { openDate: null, closeDate: null } }));
+      showToast(`${editingInstitutionDates} is now always open (dates cleared)`);
+      setEditingInstitutionDates(null);
+    } catch (err) { showToast(err.message, "error"); }
+  };
+
+  // ── Bulk delete ───────────────────────────────────────────────────────────
+  const toggleBulkSelected = (id) => {
+    setBulkSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id); else next.add(id);
+      return next;
+    });
+  };
+
+  const selectAllBulkMatches = (matches) => setBulkSelectedIds(new Set(matches.map((c) => c.id)));
+  const clearBulkSelection = () => setBulkSelectedIds(new Set());
+
+  const handleBulkDelete = async () => {
+    setBulkDeleting(true);
+    try {
+      const toDelete = courses.filter((c) => bulkSelectedIds.has(c.id));
+
+      // Delete the Firestore docs in batches (500-op cap per batch).
+      for (let i = 0; i < toDelete.length; i += SEED_BATCH_LIMIT) {
+        const batch = writeBatch(db);
+        for (const c of toDelete.slice(i, i + SEED_BATCH_LIMIT)) {
+          batch.delete(doc(db, "courses", c.id));
+        }
+        await batch.commit();
+      }
+
+      // Tombstone all of them in one write so re-seeding from courses.json
+      // doesn't silently bring any of them back.
+      const keys = toDelete.map((c) => courseDedupeKey(c));
+      if (keys.length > 0) {
+        await setDoc(SEED_EXCLUSIONS_DOC, { keys: arrayUnion(...keys) }, { merge: true });
+      }
+
+      // One audit log entry per deleted course, same as a single delete.
+      await Promise.all(toDelete.map((c) => writeAuditLog("delete", c, null)));
+
+      setCourses((prev) => prev.filter((c) => !bulkSelectedIds.has(c.id)));
+      setBulkSelectedIds(new Set());
+      setConfirmBulkDelete(false);
+      setBulkMode(false);
+      showToast(`Deleted ${toDelete.length} course(s)`);
+      loadAuditLogs();
+      loadSeedExclusions();
+    } catch (err) {
+      showToast(err.message, "error");
+    } finally {
+      setBulkDeleting(false);
+    }
   };
 
   const handleGrantAdminByEmail = async () => {
@@ -1132,11 +1287,12 @@ export default function Admin() {
     const matchSearch = !courseSearch ||
       c.courseName?.toLowerCase().includes(courseSearch.toLowerCase()) ||
       c.institution?.toLowerCase().includes(courseSearch.toLowerCase());
+    const matchFaculty = !filterFaculty || c.faculty === filterFaculty;
     const matchInstitution = !filterInstitution || c.institution === filterInstitution;
     const matchQualType = !filterQualType || c.qualificationType === filterQualType;
     const matchMinAPS = !filterMinAPS || c.minAPS >= Number(filterMinAPS);
     const matchMaxAPS = !filterMaxAPS || c.minAPS <= Number(filterMaxAPS);
-    return matchSearch && matchInstitution && matchQualType && matchMinAPS && matchMaxAPS;
+    return matchSearch && matchFaculty && matchInstitution && matchQualType && matchMinAPS && matchMaxAPS;
   });
 
   // ── Sub-renders ───────────────────────────────────────────────────────────
@@ -1249,6 +1405,63 @@ export default function Admin() {
             <div className="flex gap-3 px-6 py-4 border-t border-gray-800 shrink-0">
               <button onClick={() => setAddingCourse(false)} className="flex-1 py-2 rounded-xl bg-gray-700 hover:bg-gray-600 text-sm transition">Cancel</button>
               <button onClick={handleAddCourse} className="flex-1 py-2 rounded-xl bg-green-600 hover:bg-green-700 text-sm font-semibold transition">Add Course</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Institution application-window editor */}
+      {editingInstitutionDates && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
+          <div className="bg-gray-900 border border-gray-700 rounded-2xl shadow-2xl w-full max-w-sm p-6 space-y-4">
+            <h3 className="text-lg font-bold text-white">Application Window</h3>
+            <p className="text-sm text-gray-300">{editingInstitutionDates}</p>
+            <p className="text-xs text-gray-500">
+              Leave both fields blank to keep this institution always open. While a student is
+              selecting institutions to apply to, any institution outside its window shows as
+              closed and can't be picked.
+            </p>
+            <div>
+              <label className="block text-xs text-gray-400 mb-1">Opens on</label>
+              <input type="date" value={datesForm.openDate}
+                onChange={(e) => setDatesForm((f) => ({ ...f, openDate: e.target.value }))}
+                className="w-full bg-gray-800 border border-gray-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500" />
+            </div>
+            <div>
+              <label className="block text-xs text-gray-400 mb-1">Closes on</label>
+              <input type="date" value={datesForm.closeDate}
+                onChange={(e) => setDatesForm((f) => ({ ...f, closeDate: e.target.value }))}
+                className="w-full bg-gray-800 border border-gray-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500" />
+            </div>
+            <div className="flex gap-3 pt-1">
+              <button onClick={() => setEditingInstitutionDates(null)}
+                className="flex-1 py-2 rounded-xl bg-gray-700 hover:bg-gray-600 text-sm transition">Cancel</button>
+              <button onClick={handleSaveInstitutionDates}
+                className="flex-1 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-sm font-semibold transition">Save</button>
+            </div>
+            {(institutionSettings[editingInstitutionDates]?.openDate || institutionSettings[editingInstitutionDates]?.closeDate) && (
+              <button onClick={handleClearInstitutionDates}
+                className="w-full text-xs text-red-400 hover:text-red-300 transition">
+                Clear dates (always open)
+              </button>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Confirm bulk delete */}
+      {confirmBulkDelete && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
+          <div className="bg-gray-900 border border-gray-700 rounded-2xl p-6 w-80 text-center space-y-4">
+            <p className="text-lg font-bold text-red-400">Delete {bulkSelectedIds.size} Course{bulkSelectedIds.size !== 1 ? "s" : ""}?</p>
+            <p className="text-gray-400 text-sm">This permanently removes all selected courses and can't be undone.</p>
+            <div className="flex gap-3">
+              <button onClick={() => setConfirmBulkDelete(false)} disabled={bulkDeleting}
+                className="flex-1 py-2 rounded-xl bg-gray-700 hover:bg-gray-600 text-sm transition disabled:opacity-60">Cancel</button>
+              <button onClick={handleBulkDelete} disabled={bulkDeleting}
+                className="flex-1 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-sm font-semibold transition disabled:opacity-60">
+                {bulkDeleting ? "Deleting…" : "Delete"}
+              </button>
             </div>
           </div>
         </div>
@@ -1579,12 +1792,37 @@ export default function Admin() {
                       className="text-xs bg-green-700 hover:bg-green-600 text-green-200 px-3 py-1.5 rounded-lg transition font-medium">
                       + Add Course
                     </button>
+                    <button onClick={() => { setBulkMode((v) => !v); clearBulkSelection(); }}
+                      className={`text-xs px-3 py-1.5 rounded-lg transition font-medium ${
+                        bulkMode ? "bg-red-700 hover:bg-red-600 text-red-100" : "bg-red-900 hover:bg-red-800 text-red-300"
+                      }`}>
+                      {bulkMode ? "✕ Exit Bulk Delete" : "🗑️ Bulk Delete"}
+                    </button>
                     <button onClick={loadCourses}
                       className="text-xs text-purple-400 hover:text-purple-300 border border-gray-700 px-3 py-1.5 rounded-lg transition">
                       ↻ Refresh
                     </button>
                   </div>
                 </div>
+
+                {bulkMode ? (
+                  <BulkDeleteCoursesPanel
+                    courses={filteredCourses}
+                    allCourses={courses}
+                    institutionSettings={institutionSettings}
+                    filterFaculty={filterFaculty} setFilterFaculty={setFilterFaculty}
+                    filterInstitution={filterInstitution} setFilterInstitution={setFilterInstitution}
+                    filterQualType={filterQualType} setFilterQualType={setFilterQualType}
+                    filterMinAPS={filterMinAPS} setFilterMinAPS={setFilterMinAPS}
+                    filterMaxAPS={filterMaxAPS} setFilterMaxAPS={setFilterMaxAPS}
+                    bulkSelectedIds={bulkSelectedIds}
+                    toggleBulkSelected={toggleBulkSelected}
+                    selectAllBulkMatches={selectAllBulkMatches}
+                    clearBulkSelection={clearBulkSelection}
+                    onDeleteClick={() => setConfirmBulkDelete(true)}
+                  />
+                ) : (
+                <>
 
                 {showSeedExclusions && (
                   <div className="bg-gray-800 border border-gray-700 rounded-xl p-4">
@@ -1642,12 +1880,21 @@ export default function Admin() {
                           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                             {uniInstitutions.map((inst) => {
                               const count = courses.filter((c) => c.institution === inst).length;
+                              const status = getInstitutionApplicationStatus(institutionSettings[inst]);
                               return (
-                                <button key={inst} onClick={() => setSelectedVarsity(inst)}
-                                  className="bg-gray-900 hover:bg-gray-800 border border-gray-800 hover:border-purple-600 rounded-2xl p-4 text-left transition group">
-                                  <p className="text-white font-semibold text-sm group-hover:text-purple-400 transition truncate">{inst}</p>
-                                  <p className="text-gray-500 text-xs mt-1">{count} course{count !== 1 ? "s" : ""}</p>
-                                </button>
+                                <div key={inst} className="relative bg-gray-900 hover:bg-gray-800 border border-gray-800 hover:border-purple-600 rounded-2xl p-4 transition group">
+                                  <button onClick={() => setSelectedVarsity(inst)} className="text-left w-full">
+                                    <p className="text-white font-semibold text-sm group-hover:text-purple-400 transition truncate pr-16">{inst}</p>
+                                    <p className="text-gray-500 text-xs mt-1">{count} course{count !== 1 ? "s" : ""}</p>
+                                  </button>
+                                  <div className="absolute top-4 right-4 flex flex-col items-end gap-1">
+                                    <InstitutionStatusBadge status={status} />
+                                    <button onClick={() => openInstitutionDatesEditor(inst)}
+                                      className="text-[10px] text-gray-500 hover:text-purple-400 underline">
+                                      Set dates
+                                    </button>
+                                  </div>
+                                </div>
                               );
                             })}
                           </div>
@@ -1667,12 +1914,21 @@ export default function Admin() {
                           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                             {collegeInstitutions.map((inst) => {
                               const count = courses.filter((c) => c.institution === inst).length;
+                              const status = getInstitutionApplicationStatus(institutionSettings[inst]);
                               return (
-                                <button key={inst} onClick={() => setSelectedVarsity(inst)}
-                                  className="bg-gray-900 hover:bg-gray-800 border border-gray-800 hover:border-amber-600 rounded-2xl p-4 text-left transition group">
-                                  <p className="text-white font-semibold text-sm group-hover:text-amber-400 transition truncate">{inst}</p>
-                                  <p className="text-gray-500 text-xs mt-1">{count} course{count !== 1 ? "s" : ""}</p>
-                                </button>
+                                <div key={inst} className="relative bg-gray-900 hover:bg-gray-800 border border-gray-800 hover:border-amber-600 rounded-2xl p-4 transition group">
+                                  <button onClick={() => setSelectedVarsity(inst)} className="text-left w-full">
+                                    <p className="text-white font-semibold text-sm group-hover:text-amber-400 transition truncate pr-16">{inst}</p>
+                                    <p className="text-gray-500 text-xs mt-1">{count} course{count !== 1 ? "s" : ""}</p>
+                                  </button>
+                                  <div className="absolute top-4 right-4 flex flex-col items-end gap-1">
+                                    <InstitutionStatusBadge status={status} />
+                                    <button onClick={() => openInstitutionDatesEditor(inst)}
+                                      className="text-[10px] text-gray-500 hover:text-amber-400 underline">
+                                      Set dates
+                                    </button>
+                                  </div>
+                                </div>
                               );
                             })}
                           </div>
@@ -1680,6 +1936,8 @@ export default function Admin() {
                       );
                     })()}
                   </>
+                )}
+                </>
                 )}
               </>
             )}
@@ -1698,8 +1956,13 @@ export default function Admin() {
                         className="text-xs text-gray-400 hover:text-white transition mb-1">
                         ← All Institutions
                       </button>
-                      <h2 className="text-xl font-bold text-white">
+                      <h2 className="text-xl font-bold text-white flex items-center gap-2 flex-wrap">
                         {selectedVarsity}
+                        <InstitutionStatusBadge status={getInstitutionApplicationStatus(institutionSettings[selectedVarsity])} />
+                        <button onClick={() => openInstitutionDatesEditor(selectedVarsity)}
+                          className="text-xs font-normal text-gray-500 hover:text-purple-400 underline">
+                          Set dates
+                        </button>
                         <span className="text-gray-500 font-normal text-base ml-2">({filtered.length} of {varsityCourses.length})</span>
                       </h2>
                     </div>
@@ -1729,6 +1992,7 @@ export default function Admin() {
                             <th className="text-left px-4 py-3">Course</th>
                             <th className="text-left px-4 py-3 hidden md:table-cell">Type</th>
                             <th className="text-left px-4 py-3">APS</th>
+                            <th className="text-left px-4 py-3">Status</th>
                             <th className="px-4 py-3 text-right">Actions</th>
                           </tr>
                         </thead>
@@ -1748,6 +2012,9 @@ export default function Admin() {
                                 <span className="text-xs bg-gray-800 text-gray-300 px-2 py-0.5 rounded-full">{course.qualificationType}</span>
                               </td>
                               <td className="px-4 py-3 text-purple-400 font-semibold">{course.minAPS}</td>
+                              <td className="px-4 py-3">
+                                <InstitutionStatusBadge status={getInstitutionApplicationStatus(institutionSettings[course.institution])} />
+                              </td>
                               <td className="px-4 py-3">
                                 <div className="flex gap-2 justify-end">
                                   <button onClick={() => setEditingCourse({ ...course })}
@@ -1914,6 +2181,149 @@ function InfoCell({ label, value, mono }) {
     <div className="bg-gray-800 rounded-lg p-2">
       <p className="text-gray-500 text-xs mb-0.5">{label}</p>
       <p className={`text-white text-xs truncate ${mono ? "font-mono" : ""}`}>{value || "—"}</p>
+    </div>
+  );
+}
+
+function InstitutionStatusBadge({ status }) {
+  return status === "open" ? (
+    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-green-900 text-green-300 whitespace-nowrap">OPEN</span>
+  ) : (
+    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-red-900 text-red-300 whitespace-nowrap">CLOSED</span>
+  );
+}
+
+// Faculty/qualification-type/min-APS filter panel + checkbox list used to
+// select a batch of courses (across every institution) for bulk deletion.
+function BulkDeleteCoursesPanel({
+  courses, allCourses, institutionSettings,
+  filterFaculty, setFilterFaculty,
+  filterInstitution, setFilterInstitution,
+  filterQualType, setFilterQualType,
+  filterMinAPS, setFilterMinAPS,
+  filterMaxAPS, setFilterMaxAPS,
+  bulkSelectedIds, toggleBulkSelected, selectAllBulkMatches, clearBulkSelection,
+  onDeleteClick,
+}) {
+  const faculties = [...new Set(allCourses.map((c) => c.faculty).filter(Boolean))].sort();
+  const institutions = [...new Set(allCourses.map((c) => c.institution).filter(Boolean))].sort();
+  const qualTypes = [...new Set(allCourses.map((c) => c.qualificationType).filter(Boolean))].sort();
+
+  const allMatchesSelected = courses.length > 0 && courses.every((c) => bulkSelectedIds.has(c.id));
+
+  return (
+    <div className="space-y-4">
+      <p className="text-xs text-gray-500 bg-gray-900 border border-gray-800 rounded-xl px-4 py-3">
+        Narrow down with the filters below, then use "Select all matching" (or tick individual
+        rows) and delete them all at once. This deletes from Firestore immediately and tombstones
+        each one so re-seeding from courses.json won't bring them back.
+      </p>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <select value={filterFaculty} onChange={(e) => setFilterFaculty(e.target.value)}
+          className="bg-gray-900 border border-gray-700 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+          <option value="">All Faculties</option>
+          {faculties.map((f) => <option key={f} value={f}>{f}</option>)}
+        </select>
+        <select value={filterInstitution} onChange={(e) => setFilterInstitution(e.target.value)}
+          className="bg-gray-900 border border-gray-700 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+          <option value="">All Institutions</option>
+          {institutions.map((i) => <option key={i} value={i}>{i}</option>)}
+        </select>
+        <select value={filterQualType} onChange={(e) => setFilterQualType(e.target.value)}
+          className="bg-gray-900 border border-gray-700 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+          <option value="">All Qualification Types</option>
+          {qualTypes.map((q) => <option key={q} value={q}>{q}</option>)}
+        </select>
+        <div className="flex gap-2">
+          <input type="number" placeholder="Min APS ≥" value={filterMinAPS}
+            onChange={(e) => setFilterMinAPS(e.target.value)}
+            className="w-1/2 bg-gray-900 border border-gray-700 rounded-xl px-3 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500" />
+          <input type="number" placeholder="Max APS ≤" value={filterMaxAPS}
+            onChange={(e) => setFilterMaxAPS(e.target.value)}
+            className="w-1/2 bg-gray-900 border border-gray-700 rounded-xl px-3 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500" />
+        </div>
+      </div>
+
+      <div className="flex items-center justify-between flex-wrap gap-2">
+        <button
+          onClick={() => {
+            setFilterFaculty("");
+            setFilterInstitution("");
+            setFilterQualType("");
+            setFilterMinAPS("");
+            setFilterMaxAPS("");
+          }}
+          className="text-xs bg-gray-800 hover:bg-gray-700 text-gray-300 px-3 py-1.5 rounded-lg transition">
+          Reset Filters
+        </button>
+        <p className="text-sm text-gray-400">
+          <span className="font-bold text-white">{courses.length}</span> course{courses.length !== 1 ? "s" : ""} match ·{" "}
+          <span className="font-bold text-purple-400">{bulkSelectedIds.size}</span> selected
+        </p>
+      </div>
+
+      <div className="flex gap-2">
+        <button
+          onClick={() => allMatchesSelected ? clearBulkSelection() : selectAllBulkMatches(courses)}
+          className="text-xs bg-purple-900 hover:bg-purple-800 text-purple-300 px-3 py-1.5 rounded-lg transition font-medium">
+          {allMatchesSelected ? "Deselect All Matching" : `Select All Matching (${courses.length})`}
+        </button>
+        {bulkSelectedIds.size > 0 && (
+          <button onClick={onDeleteClick}
+            className="text-xs bg-red-700 hover:bg-red-600 text-white px-3 py-1.5 rounded-lg transition font-medium">
+            🗑️ Delete Selected ({bulkSelectedIds.size})
+          </button>
+        )}
+      </div>
+
+      {courses.length === 0 ? (
+        <p className="text-gray-500 text-sm py-8 text-center">No courses match these filters.</p>
+      ) : (
+        <div className="overflow-x-auto rounded-2xl border border-gray-800 max-h-[60vh] overflow-y-auto">
+          <table className="w-full text-sm">
+            <thead className="bg-gray-900 text-gray-400 text-xs uppercase tracking-wider sticky top-0">
+              <tr>
+                <th className="px-4 py-3 w-8"></th>
+                <th className="text-left px-4 py-3">Course</th>
+                <th className="text-left px-4 py-3 hidden md:table-cell">Institution</th>
+                <th className="text-left px-4 py-3 hidden lg:table-cell">Type</th>
+                <th className="text-left px-4 py-3">APS</th>
+                <th className="text-left px-4 py-3">Status</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-800">
+              {courses.map((course) => {
+                const selected = bulkSelectedIds.has(course.id);
+                const status = getInstitutionApplicationStatus(institutionSettings[course.institution]);
+                return (
+                  <tr key={course.id}
+                    onClick={() => toggleBulkSelected(course.id)}
+                    className={`cursor-pointer transition ${selected ? "bg-red-950/40" : "bg-gray-950 hover:bg-gray-900"}`}>
+                    <td className="px-4 py-3">
+                      <input type="checkbox" checked={selected} onChange={() => toggleBulkSelected(course.id)}
+                        onClick={(e) => e.stopPropagation()}
+                        className="accent-red-600" />
+                    </td>
+                    <td className="px-4 py-3 font-medium text-white max-w-xs">
+                      <p className="truncate">{course.courseName}</p>
+                      <p className="text-xs text-gray-500 truncate">{course.faculty}</p>
+                    </td>
+                    <td className="px-4 py-3 hidden md:table-cell text-gray-300 max-w-[16rem] truncate">{course.institution}</td>
+                    <td className="px-4 py-3 hidden lg:table-cell">
+                      <span className="text-xs bg-gray-800 text-gray-300 px-2 py-0.5 rounded-full">{course.qualificationType}</span>
+                    </td>
+                    <td className="px-4 py-3 text-purple-400 font-semibold">{course.minAPS}</td>
+                    <td className="px-4 py-3">
+                      <InstitutionStatusBadge status={status} />
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 }

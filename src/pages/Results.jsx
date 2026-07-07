@@ -4,6 +4,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc, setDoc, collection, getDocs } from "firebase/firestore";
 import { calculateAPSForUniversity, calculateGeneralAPS, meetsCollegeRequirement, getCompletionLabel, getEffectiveMinAPS } from "../utils/marksToAPS";
 import { meetsKeySubjects, subjectMatches, isGenericCreditSubject } from "../utils/subjectMatch";
+import { getInstitutionApplicationStatus, fetchInstitutionSettingsMap } from "../utils/institutionStatus";
 import { db, auth } from "../firebase";
 import PricingModal from "../components/PricingModal";
 
@@ -39,6 +40,10 @@ export default function Results() {
   const [selectedFaculty,     setSelectedFaculty]     = useState("");
   const [selectedInstitution, setSelectedInstitution] = useState("");
   const [selectedQualification,setSelectedQualification]=useState("");
+  const [openOnly,            setOpenOnly]            = useState(false);
+
+  // Institution application windows — { [institution]: { openDate, closeDate } }
+  const [institutionSettings, setInstitutionSettings] = useState({});
 
   // ── Selection mode ────────────────────────────────────────────────────────
   const [selectionMode,  setSelectionMode]  = useState(false);
@@ -140,7 +145,11 @@ export default function Results() {
         setGradeStatus(userGradeStatus);
 
         const gAps = calculateGeneralAPS(loadedSubjects);
-        const coursesData = await fetchCourses();
+        const [coursesData, instSettings] = await Promise.all([
+          fetchCourses(),
+          fetchInstitutionSettingsMap().catch(() => ({})),
+        ]);
+        setInstitutionSettings(instSettings);
         const qualified = coursesData.filter((course) => {
           const isCollegeCourse = course.institutionType === "college";
 
@@ -196,14 +205,17 @@ export default function Results() {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── Filter logic ──────────────────────────────────────────────────────────
+  const isInstOpen = (institution) => getInstitutionApplicationStatus(institutionSettings[institution]) === "open";
+
   const applyFilters = (courses) => {
     return courses.filter((c) => {
       const matchSearch = !searchTerm || c.courseName.toLowerCase().includes(searchTerm.toLowerCase());
       const matchFaculty = !selectedFaculty || c.faculty === selectedFaculty;
       const matchInst = !selectedInstitution || c.institution === selectedInstitution;
       const matchQual = !selectedQualification || c.qualificationType === selectedQualification;
+      const matchOpen = !openOnly || isInstOpen(c.institution);
 
-      if (!matchSearch || !matchFaculty || !matchInst || !matchQual) return false;
+      if (!matchSearch || !matchFaculty || !matchInst || !matchQual || !matchOpen) return false;
       if (!selectionMode) return true;
 
       const chosenInstitutions = Object.keys(selections);
@@ -244,6 +256,10 @@ export default function Results() {
 
   const handlePickCourse = (course) => {
     if (!selectionMode) return;
+    // Lock: a new institution can't be added to the application list while
+    // it's outside its application window. (Institutions already chosen in
+    // round 1 stay pickable in rounds 2/3 even if they close in the meantime.)
+    if (round === 1 && !isInstOpen(course.institution)) return;
     const inst = course.institution;
     const newSelections = {
       ...selections,
@@ -353,6 +369,10 @@ export default function Results() {
     const isCollege = colorScheme === "college";
     const selectedRound = getCourseSelectionRound(course);
     const isSelected = selectedRound !== null;
+    const instOpen = isInstOpen(course.institution);
+    // Locked = actively picking round-1 institutions right now, and this one
+    // is currently outside its application window.
+    const isLocked = selectionMode && round === 1 && !isSelected && !instOpen;
 
     const baseBg = isCollege ? "bg-amber-50" : isGreen ? "bg-green-50" : "bg-blue-50";
     const titleColor = isCollege ? "text-amber-800" : isGreen ? "text-green-800" : "text-purple-800";
@@ -360,14 +380,16 @@ export default function Results() {
 
     return (
       <div
-        onClick={() => selectionMode && !isSelected && handlePickCourse(course)}
+        onClick={() => selectionMode && !isSelected && !isLocked && handlePickCourse(course)}
         className={`
           p-5 rounded-xl shadow transition relative
-          ${isSelected
-            ? "bg-purple-100 border-2 border-purple-500 ring-2 ring-purple-300"
-            : selectionMode
-              ? "bg-white border-2 border-dashed border-gray-200 hover:border-purple-400 hover:bg-purple-50 cursor-pointer"
-              : baseBg
+          ${isLocked
+            ? "bg-gray-100 border-2 border-gray-200 opacity-60 cursor-not-allowed"
+            : isSelected
+              ? "bg-purple-100 border-2 border-purple-500 ring-2 ring-purple-300"
+              : selectionMode
+                ? "bg-white border-2 border-dashed border-gray-200 hover:border-purple-400 hover:bg-purple-50 cursor-pointer"
+                : baseBg
           }
         `}
       >
@@ -378,8 +400,15 @@ export default function Results() {
           </div>
         )}
 
+        {/* Locked — applications closed */}
+        {isLocked && (
+          <div className="absolute top-3 right-3 text-xs text-gray-500 font-medium flex items-center gap-1">
+            🔒 Applications closed
+          </div>
+        )}
+
         {/* Select prompt in selection mode */}
-        {selectionMode && !isSelected && (
+        {selectionMode && !isSelected && !isLocked && (
           <div className="absolute top-3 right-3 text-xs text-purple-400 font-medium">
             Tap to select →
           </div>
@@ -392,6 +421,11 @@ export default function Results() {
         <p className="text-gray-700 text-sm">
           Institution: {course.institution}
           {course.campus && <span className="text-gray-500"> — {course.campus}</span>}
+          {!instOpen && (
+            <span className="ml-2 text-[10px] font-bold text-red-600 bg-red-100 px-1.5 py-0.5 rounded-full align-middle">
+              APPLICATIONS CLOSED
+            </span>
+          )}
         </p>
         <p className="text-gray-700 text-sm">Duration: {course.duration}</p>
         <p className="text-gray-700 text-sm">Qualification: {course.qualificationType}</p>
@@ -787,7 +821,7 @@ export default function Results() {
           <div className="bg-gradient-to-r from-purple-600 to-pink-500 rounded-2xl p-5 mb-6 flex items-center justify-between gap-4">
             <div>
               <p className="text-white font-bold">🚀 Apply For Me</p>
-              <p className="text-white/80 text-sm mt-0.5">Let us apply to up to 6 universities on your behalf — R100 once-off</p>
+              <p className="text-white/80 text-sm mt-0.5">Let us apply to up to 6 universities on your behalf — R100 service fee</p>
             </div>
             <button onClick={() => setShowPricing(true)}
               className="bg-white text-purple-700 font-semibold text-sm px-4 py-2 rounded-xl hover:bg-purple-50 transition shrink-0">
@@ -845,7 +879,13 @@ export default function Results() {
           </select>
         </div>
 
-        <button onClick={() => { setSearchTerm(""); setSelectedFaculty(""); setSelectedInstitution(""); setSelectedQualification(""); }}
+        <label className="flex items-center gap-2 mb-4 text-sm text-gray-700 select-none cursor-pointer">
+          <input type="checkbox" checked={openOnly} onChange={(e) => setOpenOnly(e.target.checked)}
+            className="w-4 h-4 accent-purple-600" />
+          Show only institutions currently open for applications
+        </label>
+
+        <button onClick={() => { setSearchTerm(""); setSelectedFaculty(""); setSelectedInstitution(""); setSelectedQualification(""); setOpenOnly(false); }}
           className="bg-gray-100 text-gray-700 py-2 px-4 rounded-xl hover:bg-gray-200 transition text-sm mb-4">
           Reset Filters
         </button>

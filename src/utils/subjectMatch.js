@@ -22,12 +22,21 @@ function normalize(str) {
   return String(str ?? "").trim().toLowerCase();
 }
 
-// Matches "20 Credit Subject", "20 Credit Subject 1", "20-credit subject 2", etc.
-// DUT (and several other institutions) use this as a generic placeholder in their
-// prospectus meaning "any recognised 20-credit NSC subject", i.e. any Grade 12
+// Matches "20 Credit Subject", "20 Credit Subject 1", "20-credit subject 2",
+// "Other Subject", "Other Subjects (2)", "Other Subjects 3", etc.
+// Different institutions use different generic wording in their prospectus for
+// the same idea: "any recognised 20-credit NSC subject", i.e. any Grade 12
 // subject at all, EXCLUDING Life Orientation (which carries only 10 credits and
 // is explicitly excluded from APS/subject-requirement counting).
-const GENERIC_CREDIT_SUBJECT_RE = /^20[\s-]*credit\s*subjects?(\s*\d+)?$/i;
+//
+// Note: a numbered/parenthesised suffix (e.g. the "(2)" in "Other Subjects (2)")
+// is only there so multiple placeholder rows can appear side by side in the
+// JSON without literally duplicating a dict key — meetsKeySubjects checks each
+// row independently ("does the learner have *some* qualifying subject for this
+// row"), so it does not by itself guarantee the learner has that many *distinct*
+// subjects satisfying the requirement. This mirrors how DUT's numbered
+// "20 Credit Subject 1/2/3" placeholders already behave.
+const GENERIC_CREDIT_SUBJECT_RE = /^(20[\s-]*credit\s*subjects?|other\s*subjects?)(\s*\(?\d+\)?)?$/i;
 
 function isGenericCreditSubject(reqSubject) {
   return GENERIC_CREDIT_SUBJECT_RE.test(String(reqSubject ?? "").trim());
