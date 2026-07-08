@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   collection, getDocs, doc, updateDoc, deleteDoc, setDoc, addDoc, getDoc,
@@ -8,12 +8,47 @@ import { sendPasswordResetEmail, onAuthStateChanged } from "firebase/auth";
 import { db, auth } from "../firebase";
 import { isSuperAdmin, PERMISSIONS, ADMIN_ROLES, getRoleInfo } from "../utils/adminConfig";
 import { HOME_LANGUAGE_SUBJECTS, FAL_SUBJECTS } from "../utils/languages";
-import { NSC_LEVEL_OPTIONS, levelToMinMark, markToLevel } from "../utils/marksToAPS";
+import {
+  NSC_LEVEL_OPTIONS, levelToMinMark, markToLevel,
+  calculateAPSForCourse, getEffectiveMinAPS, meetsCollegeRequirement,
+} from "../utils/marksToAPS";
+import { meetsKeySubjects } from "../utils/subjectMatch";
 import {
   getInstitutionApplicationStatus,
   fetchInstitutionSettingsMap,
   saveInstitutionSettings,
 } from "../utils/institutionStatus";
+
+// Given a learner's saved subjects/grade and the full course catalog, returns
+// every course they currently qualify for — mirrors the matching logic used
+// on the learner-facing Results page (see src/pages/Results.jsx) so the admin
+// view always agrees with what the learner themselves would see.
+function getQualifiedCourses(user, allCourses) {
+  if (!user?.subjects?.length || !allCourses?.length) return [];
+  const { subjects, grade, gradeStatus } = user;
+  return allCourses.filter((course) => {
+    if (course.institutionType === "college") {
+      if (!meetsCollegeRequirement(grade, gradeStatus, course)) return false;
+    } else {
+      const { score: uniAps } = calculateAPSForCourse(course, subjects);
+      const requiredAPS = getEffectiveMinAPS(course, subjects);
+      if (uniAps < requiredAPS) return false;
+    }
+    return meetsKeySubjects(subjects, course.keySubjects);
+  });
+}
+
+// Derives per-institution + overall "Apply For Me" application progress from
+// a user's saved course selections and the admin-maintained applicationProgress
+// map (which institutions an admin has actually submitted the application for).
+function getApplicationProgress(user) {
+  const institutions = Object.keys(user?.applySelections || {});
+  if (institutions.length === 0) return { status: null, appliedCount: 0, total: 0 };
+  const progress = user.applicationProgress || {};
+  const appliedCount = institutions.filter((inst) => progress[inst]?.applied).length;
+  const status = appliedCount === 0 ? "not_started" : appliedCount === institutions.length ? "complete" : "in_progress";
+  return { status, appliedCount, total: institutions.length };
+}
 
 const FIREBASE_API_KEY = "AIzaSyDgSKlh9_3pBI9_IggS3C9aGh7I2edX484";
 const ALL_TABS = ["Dashboard", "Users", "Courses", "Audit Log", "Settings"];
@@ -908,6 +943,22 @@ export default function Admin() {
     } catch (err) { showToast(err.message, "error"); }
   };
 
+  // Mark (or unmark) a specific institution as "applied for" on the user's
+  // behalf, as part of the paid Apply For Me concierge flow. Stored under
+  // applicationProgress so it's independent of the learner's own
+  // applyStatus (draft/submitted), which only tracks whether *they've*
+  // finished picking courses, not whether an admin has actually applied.
+  const handleToggleInstitutionApplied = async (uid, institution, applied) => {
+    const target = users.find((u) => u.uid === uid);
+    const entry = { applied, appliedAt: applied ? new Date().toISOString() : null };
+    const nextProgress = { ...(target?.applicationProgress || {}), [institution]: entry };
+    try {
+      await setDoc(doc(db, "users", uid), { applicationProgress: nextProgress }, { merge: true });
+      setUsers((prev) => prev.map((u) => u.uid === uid ? { ...u, applicationProgress: nextProgress } : u));
+      showToast(applied ? `Marked ${institution} as applied` : `Unmarked ${institution}`);
+    } catch (err) { showToast(err.message, "error"); }
+  };
+
   // ── Course actions ────────────────────────────────────────────────────────
   // ── Audit log ──────────────────────────────────────────────────────────────
   // Records every course change with who, what, when. Only the super admin
@@ -1283,6 +1334,13 @@ export default function Admin() {
     return matchSearch && matchPlan && matchAdmin && matchAuthOnly;
   });
 
+  // Only computed for whichever user row is currently expanded — the full
+  // catalog × matching rules isn't worth recomputing for every user on load.
+  const expandedUserQualified = useMemo(() => {
+    const user = users.find((u) => u.uid === expandedUser);
+    return getQualifiedCourses(user, courses);
+  }, [expandedUser, users, courses]);
+
   const filteredCourses = courses.filter((c) => {
     const matchSearch = !courseSearch ||
       c.courseName?.toLowerCase().includes(courseSearch.toLowerCase()) ||
@@ -1653,38 +1711,79 @@ export default function Admin() {
                           </div>
                         )}
 
+                        {/* Qualified courses — computed live from this user's subjects/grade
+                            against the full course catalog, same rules as the learner-facing
+                            Results page. Only calculated for the expanded user. */}
+                        {user.subjects?.length > 0 && (
+                          <QualifiedCoursesPanel
+                            courses={expandedUser === user.uid ? expandedUserQualified : []}
+                          />
+                        )}
+
                         {/* Apply For Me selections */}
-                        {user.applySelections && (
-                          <div>
-                            <div className="flex items-center justify-between mb-2">
-                              <p className="text-xs text-gray-400 font-medium">
-                                Apply For Me Selections
-                                {user.applyStatus && (
-                                  <span className={`ml-2 px-2 py-0.5 rounded-full text-xs ${
-                                    user.applyStatus === "complete" ? "bg-green-900 text-green-300" :
-                                    user.applyStatus === "in_progress" ? "bg-blue-900 text-blue-300" :
+                        {user.applySelections && (() => {
+                          const progress = getApplicationProgress(user);
+                          return (
+                            <div>
+                              <div className="flex items-center justify-between mb-2">
+                                <p className="text-xs text-gray-400 font-medium">
+                                  Apply For Me Selections
+                                  {user.applyStatus && (
+                                    <span className={`ml-2 px-2 py-0.5 rounded-full text-xs ${
+                                      user.applyStatus === "submitted" ? "bg-green-900 text-green-300" : "bg-yellow-900 text-yellow-300"
+                                    }`}>
+                                      {user.applyStatus === "submitted" ? "Submitted by learner" : "Draft"}
+                                    </span>
+                                  )}
+                                </p>
+                                {progress.status && (
+                                  <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+                                    progress.status === "complete" ? "bg-green-900 text-green-300" :
+                                    progress.status === "in_progress" ? "bg-blue-900 text-blue-300" :
                                     "bg-yellow-900 text-yellow-300"
                                   }`}>
-                                    {user.applyStatus === "complete" ? "✓ Complete" :
-                                     user.applyStatus === "in_progress" ? "In Progress" : "Pending"}
+                                    {progress.status === "complete" ? "✓ Applications complete" :
+                                     progress.status === "in_progress" ? `Applied ${progress.appliedCount}/${progress.total}` :
+                                     "Not started"}
                                   </span>
                                 )}
-                              </p>
+                              </div>
+                              <div className="space-y-2">
+                                {Object.entries(user.applySelections).map(([inst, choices]) => {
+                                  const applied = !!user.applicationProgress?.[inst]?.applied;
+                                  const appliedAt = user.applicationProgress?.[inst]?.appliedAt;
+                                  return (
+                                    <div key={inst} className="bg-gray-800 rounded-xl p-3">
+                                      <div className="flex items-center justify-between gap-2 mb-1">
+                                        <p className="text-white text-xs font-semibold">{inst}</p>
+                                        <button
+                                          onClick={() => handleToggleInstitutionApplied(user.uid, inst, !applied)}
+                                          className={`text-xs px-2 py-1 rounded-lg transition font-medium shrink-0 ${
+                                            applied
+                                              ? "bg-green-900 text-green-300 hover:bg-green-800"
+                                              : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+                                          }`}
+                                        >
+                                          {applied ? "✓ Applied" : "Mark as Applied"}
+                                        </button>
+                                      </div>
+                                      {[1, 2, 3].map((r) => choices[r] && (
+                                        <p key={r} className="text-gray-400 text-xs">
+                                          <span className="text-purple-400">Choice {r}:</span> {choices[r].courseName}
+                                        </p>
+                                      ))}
+                                      {applied && appliedAt && (
+                                        <p className="text-green-500 text-[10px] mt-1">
+                                          Applied on {new Date(appliedAt).toLocaleDateString("en-ZA")}
+                                        </p>
+                                      )}
+                                    </div>
+                                  );
+                                })}
+                              </div>
                             </div>
-                            <div className="space-y-2">
-                              {Object.entries(user.applySelections).map(([inst, choices]) => (
-                                <div key={inst} className="bg-gray-800 rounded-xl p-3">
-                                  <p className="text-white text-xs font-semibold mb-1">{inst}</p>
-                                  {[1, 2, 3].map((r) => choices[r] && (
-                                    <p key={r} className="text-gray-400 text-xs">
-                                      <span className="text-purple-400">Choice {r}:</span> {choices[r].courseName}
-                                    </p>
-                                  ))}
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        )}
+                          );
+                        })()}
 
                         {/* Application contact details */}
                         {(user.applyPhone || user.applyEmail) && (
@@ -2181,6 +2280,73 @@ function InfoCell({ label, value, mono }) {
     <div className="bg-gray-800 rounded-lg p-2">
       <p className="text-gray-500 text-xs mb-0.5">{label}</p>
       <p className={`text-white text-xs truncate ${mono ? "font-mono" : ""}`}>{value || "—"}</p>
+    </div>
+  );
+}
+
+// Shows every course a learner currently qualifies for (computed live from
+// their saved subjects/grade against the full catalog), grouped by
+// institution, with a small search box since some learners qualify for
+// dozens of courses.
+function QualifiedCoursesPanel({ courses }) {
+  const [search, setSearch] = useState("");
+  const [collapsed, setCollapsed] = useState(true);
+
+  const filtered = courses.filter((c) => {
+    if (!search) return true;
+    const term = search.toLowerCase();
+    return c.courseName?.toLowerCase().includes(term) || c.institution?.toLowerCase().includes(term);
+  });
+
+  const byInstitution = filtered.reduce((acc, c) => {
+    (acc[c.institution] ||= []).push(c);
+    return acc;
+  }, {});
+  const institutions = Object.keys(byInstitution).sort();
+  const uniCount = courses.filter((c) => c.institutionType !== "college").length;
+  const collegeCount = courses.filter((c) => c.institutionType === "college").length;
+
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-2 cursor-pointer" onClick={() => setCollapsed((v) => !v)}>
+        <p className="text-xs text-gray-400 font-medium">
+          Qualified Courses <span className="text-white font-semibold">({courses.length})</span>
+          <span className="text-gray-600 ml-1">— {uniCount} uni · {collegeCount} college</span>
+        </p>
+        <span className="text-gray-600 text-xs">{collapsed ? "▼" : "▲"}</span>
+      </div>
+
+      {!collapsed && (
+        courses.length === 0 ? (
+          <p className="text-gray-500 text-xs bg-gray-800 rounded-xl p-3">
+            No qualifying courses found for this learner's current subjects/grade.
+          </p>
+        ) : (
+          <div className="space-y-2">
+            <input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search qualified courses…"
+              className="w-full bg-gray-800 border border-gray-700 text-gray-200 text-xs rounded-lg px-3 py-1.5 focus:outline-none focus:border-purple-600"
+            />
+            <div className="max-h-72 overflow-y-auto space-y-2 pr-1">
+              {institutions.map((inst) => (
+                <div key={inst} className="bg-gray-800 rounded-xl p-3">
+                  <p className="text-white text-xs font-semibold mb-1">{inst}</p>
+                  <div className="space-y-0.5">
+                    {byInstitution[inst].map((c) => (
+                      <p key={c.id} className="text-gray-400 text-xs">
+                        {c.courseName}
+                        <span className="text-gray-600"> · {c.qualificationType}{c.faculty ? ` · ${c.faculty}` : ""}</span>
+                      </p>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )
+      )}
     </div>
   );
 }
