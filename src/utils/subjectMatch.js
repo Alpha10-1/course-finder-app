@@ -51,6 +51,28 @@ function isLifeOrientationName(name) {
   return n === "life orientation" || n.includes("life orientation");
 }
 
+// Matches "Another Language", "Another Official Language", "Second Language", etc.
+// Several institutions (e.g. UWC) phrase their second-official-language requirement
+// this way rather than naming a specific language, since a learner could offer any
+// one of the 11 official languages as Home or First Additional Language alongside
+// English. This mirrors GENERIC_CREDIT_SUBJECT_RE's placeholder pattern, but is
+// restricted to language subjects (excluding English) rather than any NSC subject.
+const ANOTHER_LANGUAGE_RE = /^(another|second|additional)\s+(official\s+)?language$/i;
+
+function isAnotherLanguagePlaceholder(reqSubject) {
+  return ANOTHER_LANGUAGE_RE.test(String(reqSubject ?? "").trim());
+}
+
+export { isAnotherLanguagePlaceholder };
+
+// The 11 official NSC languages, each offered as Home Language or First
+// Additional Language — matches the subject list authored in EnterMarks.jsx.
+const LANGUAGE_SUBJECT_RE = /(home language|first additional language)$/i;
+
+function isLanguageSubjectName(name) {
+  return LANGUAGE_SUBJECT_RE.test(normalize(name));
+}
+
 
 // Pairs of subject names treated as equivalent regardless of substring overlap.
 // Each pair is checked both directions.
@@ -128,17 +150,26 @@ export function meetsKeySubjects(userSubjects, keySubjects) {
   return keySubjects.every((req) => {
     // subjectGroup: user must satisfy at least one option in the group
     if (req.subjectGroup) {
-      return req.subjectGroup.some((opt) =>
-        isGenericCreditSubject(opt.subject)
-          ? userSubjects.some(
-              (s) => !isLifeOrientationName(s.subject) && safeMark(s.mark) >= opt.minMark
-            )
-          : userSubjects.some(
-              (s) =>
-                subjectMatches(s.subject, opt.subject) &&
-                safeMark(s.mark) >= opt.minMark
-            )
-      );
+      return req.subjectGroup.some((opt) => {
+        if (isGenericCreditSubject(opt.subject)) {
+          return userSubjects.some(
+            (s) => !isLifeOrientationName(s.subject) && safeMark(s.mark) >= opt.minMark
+          );
+        }
+        if (isAnotherLanguagePlaceholder(opt.subject)) {
+          return userSubjects.some(
+            (s) =>
+              isLanguageSubjectName(s.subject) &&
+              !subjectMatches(s.subject, "English") &&
+              safeMark(s.mark) >= opt.minMark
+          );
+        }
+        return userSubjects.some(
+          (s) =>
+            subjectMatches(s.subject, opt.subject) &&
+            safeMark(s.mark) >= opt.minMark
+        );
+      });
     }
 
     // Generic "20 Credit Subject [N]" placeholder: any NSC subject other than
@@ -146,6 +177,17 @@ export function meetsKeySubjects(userSubjects, keySubjects) {
     if (isGenericCreditSubject(req.subject)) {
       return userSubjects.some(
         (s) => !isLifeOrientationName(s.subject) && safeMark(s.mark) >= req.minMark
+      );
+    }
+
+    // Generic "Another Language" placeholder: any official NSC language subject
+    // (Home or First Additional) other than English, at or above the stated mark.
+    if (isAnotherLanguagePlaceholder(req.subject)) {
+      return userSubjects.some(
+        (s) =>
+          isLanguageSubjectName(s.subject) &&
+          !subjectMatches(s.subject, "English") &&
+          safeMark(s.mark) >= req.minMark
       );
     }
 
