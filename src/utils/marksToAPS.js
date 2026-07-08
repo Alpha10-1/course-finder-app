@@ -215,6 +215,173 @@ function stellies_nsc_avg(subjects) {
   return Math.round(avg * 10) / 10;
 }
 
+/**
+ * APS_UWC — University of the Western Cape's own weighted "UWC Points" table
+ * (2027 Admissions Criteria brochure). Unlike the generic best-6 NSC model,
+ * UWC scores English, Mathematics, Life Orientation, and "All Other Subjects"
+ * on FOUR DIFFERENT scales, and extends the top percentage band (90–100%) as
+ * its own tier above the standard NSC level 7 (80–100%):
+ *
+ *   %        | NSC lvl | English | Maths | Life Orient. | All Other Subjects
+ *   90–100   |   7     |   15    |  15   |      3       |         8
+ *   80–89    |   7     |   13    |  13   |      3       |         7
+ *   70–79    |   6     |   11    |  11   |      2       |         6
+ *   60–69    |   5     |    9    |   9   |      2       |         5
+ *   50–59    |   4     |    7    |   5   |      1       |         4
+ *   40–49    |   3     |    5    |   3   |      1       |         3
+ *   30–39    |   2     |    3    |   2   |      1       |         2
+ *   20–29    |   1     |    1    |   1   |      0       |         1
+ *   <20      |   0     |    0    |   0   |      0       |         0
+ *
+ * All of a learner's subjects are summed (the brochure does not describe a
+ * "best N" reduction the way the generic APS model does). English is scored
+ * on the English column; Mathematics is scored on the Maths column; Life
+ * Orientation is capped via its own column; every other subject (including,
+ * as a documented assumption, Mathematical Literacy — the source brochure
+ * flags that "Mathematics or Mathematics Literacy... have different point
+ * scores" but does not print a separate Maths Literacy scale on this page)
+ * uses the "All Other Subjects" column.
+ *
+ * NOTE on Mathematical Literacy: the shared isMaths() helper only matches
+ * "Mathematics" (and near-variants), not "Mathematical Literacy" — so Maths
+ * Literacy is scored on the "All Other Subjects" column here, not the Maths
+ * column. This is a deliberate, documented assumption filling a gap in the
+ * source brochure (which flags that Maths and Maths Literacy score
+ * differently but only prints one "Mathematics" column on this page, with no
+ * separate Maths Literacy scale given). Verify against UWC's full published
+ * prospectus if precision here matters for a specific learner.
+ *
+ * NOTE: this "UWC points" total is a different number from the per-subject
+ * NSC achievement level (1–7) used elsewhere for course subject requirements
+ * like "Maths Code 4" — those still convert via convertMarkToAPS/levelToMinMark
+ * as usual. Only the *summed total* compared against a course's minAPS (e.g.
+ * "Minimum of 30 UWC points") uses this weighted scale.
+ */
+const UWC_BANDS = [
+  { min: 90, english: 15, maths: 15, lo: 3, other: 8 },
+  { min: 80, english: 13, maths: 13, lo: 3, other: 7 },
+  { min: 70, english: 11, maths: 11, lo: 2, other: 6 },
+  { min: 60, english: 9,  maths: 9,  lo: 2, other: 5 },
+  { min: 50, english: 7,  maths: 5,  lo: 1, other: 4 },
+  { min: 40, english: 5,  maths: 3,  lo: 1, other: 3 },
+  { min: 30, english: 3,  maths: 2,  lo: 1, other: 2 },
+  { min: 20, english: 1,  maths: 1,  lo: 0, other: 1 },
+  { min: 0,  english: 0,  maths: 0,  lo: 0, other: 0 },
+];
+
+function uwcBandFor(percent) {
+  const p = clamp(Number(percent));
+  return UWC_BANDS.find((b) => p >= b.min) || UWC_BANDS[UWC_BANDS.length - 1];
+}
+
+function aps_uwc(subjects) {
+  let total = 0;
+  subjects.forEach((s) => {
+    const band = uwcBandFor(s.mark);
+    let category;
+    if (isLifeOrientation(s.subject)) category = "lo";
+    else if (isEnglish(s.subject)) category = "english";
+    else if (isMaths(s.subject)) category = "maths"; // includes Mathematical Literacy — see note above
+    else category = "other";
+    total += band[category];
+  });
+  return total;
+}
+
+/**
+ * CPUT (Cape Peninsula University of Technology) uses THREE different APS
+ * methods depending on the qualification (2027 Prospectus, "Calculating the
+ * APS Score"). Crucially, all three methods sum raw NSC PERCENTAGES (not the
+ * 1–7 achievement level used by aps_nsc_42) and divide by 10 — a materially
+ * different, higher-ceilinged scale (roughly 0–70) from the generic
+ * level-based APS_NSC_42 scale (0–42). CPUT was previously mapped to
+ * APS_NSC_42 by mistake; that model would silently under- or over-score
+ * every CPUT applicant against thresholds like "30.4" or "45.8" that only
+ * make sense on the percent-sum scale.
+ *
+ * Because the method varies PER QUALIFICATION rather than per institution,
+ * these are selected via an optional `apsMethod` field on the course record
+ * ("method1" | "method2" | "method3"), resolved by calculateAPSForCourse()
+ * below — NOT via the institution-wide UNIVERSITY_MODELS map.
+ */
+
+// METHOD 1: Best of six subjects (excluding Life Orientation), raw % summed ÷ 10.
+function cput_method1(subjects) {
+  const pool = subjects.filter((s) =>
+    !isLifeOrientation(s.subject) &&
+    s.mark !== null && s.mark !== undefined && s.mark !== "" &&
+    Number.isFinite(Number(s.mark))
+  );
+  const chosen = bestN(pool, 6, (s) => clamp(Number(s.mark)));
+  const total = chosen.reduce((sum, s) => sum + clamp(Number(s.mark)), 0);
+  return Math.round((total / 10) * 10) / 10;
+}
+
+// METHOD 2: Mathematics and Physical Science doubled, plus English and the
+// next-best remaining subject (excluding LO), raw % summed ÷ 10.
+function cput_method2(subjects) {
+  const pool = subjects.filter((s) =>
+    s.mark !== null && s.mark !== undefined && s.mark !== "" &&
+    Number.isFinite(Number(s.mark)) && !isLifeOrientation(s.subject)
+  );
+  const english = pool.find((s) => isEnglish(s.subject));
+  const maths = pool.find((s) => isMaths(s.subject) && !normalizeName(s.subject).includes("literacy"));
+  const physSci = pool.find((s) => normalizeName(s.subject).includes("physical science"));
+  const used = new Set([english, maths, physSci].filter(Boolean));
+  const rest = pool.filter((s) => !used.has(s));
+  const next = bestN(rest, 1, (s) => clamp(Number(s.mark)))[0];
+
+  let total = 0;
+  if (english) total += clamp(Number(english.mark));
+  if (maths) total += clamp(Number(maths.mark)) * 2;
+  if (physSci) total += clamp(Number(physSci.mark)) * 2;
+  if (next) total += clamp(Number(next.mark));
+  return Math.round((total / 10) * 10) / 10;
+}
+
+// METHOD 3: Mathematics and Accounting doubled, plus English and the 3
+// next-best remaining subjects (excluding LO), raw % summed ÷ 10.
+function cput_method3(subjects) {
+  const pool = subjects.filter((s) =>
+    s.mark !== null && s.mark !== undefined && s.mark !== "" &&
+    Number.isFinite(Number(s.mark)) && !isLifeOrientation(s.subject)
+  );
+  const english = pool.find((s) => isEnglish(s.subject));
+  const maths = pool.find((s) => isMaths(s.subject) && !normalizeName(s.subject).includes("literacy"));
+  const accounting = pool.find((s) => normalizeName(s.subject).includes("accounting"));
+  const used = new Set([english, maths, accounting].filter(Boolean));
+  const rest = pool.filter((s) => !used.has(s));
+  const nextThree = bestN(rest, 3, (s) => clamp(Number(s.mark)));
+
+  let total = 0;
+  if (english) total += clamp(Number(english.mark));
+  if (maths) total += clamp(Number(maths.mark)) * 2;
+  if (accounting) total += clamp(Number(accounting.mark)) * 2;
+  total += nextThree.reduce((sum, s) => sum + clamp(Number(s.mark)), 0);
+  return Math.round((total / 10) * 10) / 10;
+}
+
+const CPUT_METHOD_LABELS = {
+  method1: "CPUT APS Method 1 (best 6 subjects, % ÷ 10)",
+  method2: "CPUT APS Method 2 (Maths + Physical Science doubled, % ÷ 10)",
+  method3: "CPUT APS Method 3 (Maths + Accounting doubled, % ÷ 10)",
+};
+
+/**
+ * Resolve the correct APS score for a specific COURSE, not just its
+ * institution. Most institutions use one fixed model, so this simply
+ * delegates to calculateAPSForUniversity — except when the course itself
+ * declares an `apsMethod` (currently only CPUT courses do), in which case
+ * that per-qualification method takes priority over the institution default.
+ */
+export function calculateAPSForCourse(course, subjects) {
+  const method = course?.apsMethod;
+  if (method === "method1") return { score: cput_method1(subjects), model: "CPUT_METHOD1", label: CPUT_METHOD_LABELS.method1 };
+  if (method === "method2") return { score: cput_method2(subjects), model: "CPUT_METHOD2", label: CPUT_METHOD_LABELS.method2 };
+  if (method === "method3") return { score: cput_method3(subjects), model: "CPUT_METHOD3", label: CPUT_METHOD_LABELS.method3 };
+  return calculateAPSForUniversity(course?.institution, subjects);
+}
+
 // ─── University → model map ────────────────────────────────────────────────────
 
 const UNIVERSITY_MODELS = {
@@ -235,7 +402,7 @@ const UNIVERSITY_MODELS = {
   "University of Fort Hare":                         "APS_NSC_42",
   "University of Mpumalanga":                        "APS_NSC_42",
   "University of South Africa":                      "APS_NSC_42",
-  "University of the Western Cape":                  "APS_NSC_42",
+  "University of the Western Cape":                  "APS_UWC",
   "Nelson Mandela University":                       "APS_NSC_42",
   "Rhodes University":                               "APS_NSC_42",
   "Walter Sisulu University":                        "APS_NSC_42",
@@ -269,6 +436,7 @@ export function calculateAPSForUniversity(universityName, subjects) {
     case "UCT_FPS_600":     score = uct_fps_600(subjects);    break;
     case "STELLIES_NSC_AVG": score = stellies_nsc_avg(subjects); break;
     case "APS_UNIVEN":      score = aps_univen(subjects);     break;
+    case "APS_UWC":         score = aps_uwc(subjects);        break;
     default:                score = aps_nsc_42(subjects);
   }
 
@@ -279,6 +447,7 @@ export function calculateAPSForUniversity(universityName, subjects) {
     UCT_FPS_600:      "UCT Faculty Points Score (out of 600)",
     STELLIES_NSC_AVG: "Stellenbosch NSC average (%)",
     APS_UNIVEN:       "UNIVEN APS (% ÷ 10 per subject, best 7, LO excluded)",
+    APS_UWC:          "UWC Points (weighted English/Maths/LO/Other scale, all subjects summed)",
   };
 
   return { score, model, label: labels[model] };

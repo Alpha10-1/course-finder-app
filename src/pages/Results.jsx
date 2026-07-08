@@ -2,8 +2,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc, setDoc, collection, getDocs } from "firebase/firestore";
-import { calculateAPSForUniversity, calculateGeneralAPS, meetsCollegeRequirement, getCompletionLabel, getEffectiveMinAPS } from "../utils/marksToAPS";
-import { meetsKeySubjects, subjectMatches, isGenericCreditSubject } from "../utils/subjectMatch";
+import { calculateAPSForUniversity, calculateAPSForCourse, calculateGeneralAPS, meetsCollegeRequirement, getCompletionLabel, getEffectiveMinAPS } from "../utils/marksToAPS";
+import { meetsKeySubjects, subjectMatches, isGenericCreditSubject, isAnotherLanguagePlaceholder } from "../utils/subjectMatch";
 import { getInstitutionApplicationStatus, fetchInstitutionSettingsMap } from "../utils/institutionStatus";
 import { db, auth } from "../firebase";
 import PricingModal from "../components/PricingModal";
@@ -158,7 +158,7 @@ export default function Results() {
             if (!meetsCollegeRequirement(userGrade, userGradeStatus, course)) return false;
           } else {
             // Universities: eligibility based on per-institution APS model
-            const { score: uniAps } = calculateAPSForUniversity(course.institution, loadedSubjects);
+            const { score: uniAps } = calculateAPSForCourse(course, loadedSubjects);
             const requiredAPS = getEffectiveMinAPS(course, loadedSubjects);
             if (uniAps < requiredAPS) return false;
           }
@@ -310,22 +310,42 @@ export default function Results() {
   };
 
   // ── APS & subject helpers ─────────────────────────────────────────────────
-  const getUniAps = (institution) => calculateAPSForUniversity(institution, subjects);
+  // Takes the whole course (not just institution) so per-qualification APS
+  // methods — e.g. CPUT's Method 1/2/3 — are used instead of always falling
+  // back to the institution's default model.
+  const getUniAps = (courseOrInstitution) =>
+    typeof courseOrInstitution === "string"
+      ? calculateAPSForUniversity(courseOrInstitution, subjects)
+      : calculateAPSForCourse(courseOrInstitution, subjects);
 
   const getKeySubjectStatus = (keySubjects) => {
     if (!keySubjects || keySubjects.length === 0) return [];
     return keySubjects.map((req) => {
       if (req.subjectGroup) {
-        const met = req.subjectGroup.some((opt) =>
-          isGenericCreditSubject(opt.subject)
-            ? subjects.some((s) => !subjectMatches(s.subject, "Life Orientation") && parseInt(s.mark, 10) >= opt.minMark)
-            : subjects.some((s) => subjectMatches(s.subject, opt.subject) && parseInt(s.mark, 10) >= opt.minMark)
-        );
+        const met = req.subjectGroup.some((opt) => {
+          if (isGenericCreditSubject(opt.subject)) {
+            return subjects.some((s) => !subjectMatches(s.subject, "Life Orientation") && parseInt(s.mark, 10) >= opt.minMark);
+          }
+          if (isAnotherLanguagePlaceholder(opt.subject)) {
+            return subjects.some(
+              (s) => /(home language|first additional language)$/i.test(s.subject.trim()) &&
+                !subjectMatches(s.subject, "English") && parseInt(s.mark, 10) >= opt.minMark
+            );
+          }
+          return subjects.some((s) => subjectMatches(s.subject, opt.subject) && parseInt(s.mark, 10) >= opt.minMark);
+        });
         return { label: req.subjectGroup.map((o) => `${o.subject} ≥${o.minMark}%`).join(" or "), met };
       }
       if (isGenericCreditSubject(req.subject)) {
         const userSubj = subjects.find(
           (s) => !subjectMatches(s.subject, "Life Orientation") && parseInt(s.mark, 10) >= req.minMark
+        );
+        return { label: `${req.subject} ≥${req.minMark}%`, met: !!userSubj, userMark: userSubj ? parseInt(userSubj.mark, 10) : null };
+      }
+      if (isAnotherLanguagePlaceholder(req.subject)) {
+        const userSubj = subjects.find(
+          (s) => /(home language|first additional language)$/i.test(s.subject.trim()) &&
+            !subjectMatches(s.subject, "English") && parseInt(s.mark, 10) >= req.minMark
         );
         return { label: `${req.subject} ≥${req.minMark}%`, met: !!userSubj, userMark: userSubj ? parseInt(userSubj.mark, 10) : null };
       }
@@ -361,7 +381,7 @@ export default function Results() {
 
   // ── Course card ───────────────────────────────────────────────────────────
   const CourseCard = ({ course, colorScheme }) => {
-    const { score: uniScore, label: uniLabel } = getUniAps(course.institution);
+    const { score: uniScore, label: uniLabel } = getUniAps(course);
     const keyStatus = getKeySubjectStatus(course.keySubjects);
     const requiredAPS = getEffectiveMinAPS(course, subjects);
     const usingAltAPS = requiredAPS !== (Number(course.minAPS) || 0);

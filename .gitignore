@@ -22,3 +22,15 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Secrets / credentials — never commit these
+.env
+.env.*
+!.env.example
+functions/.env
+functions/.env.*
+!functions/.env.example
+serviceAccountKey.json
+**/serviceAccountKey.json
+*.pem
+*.key
