@@ -382,6 +382,37 @@ export function calculateAPSForCourse(course, subjects) {
   return calculateAPSForUniversity(course?.institution, subjects);
 }
 
+/**
+ * APS_UNIZULU — University of Zululand's own points system (2026 Undergraduate
+ * Programmes brochure). Two things make it different from the generic
+ * APS_NSC_42 model it was previously (incorrectly) mapped to:
+ *
+ * 1. It sums ALL subjects the learner took (not just the best 6) — though for
+ *    a standard 7-subject NSC certificate (6 non-LO + LO) this is usually
+ *    equivalent in practice, since there's nothing to drop.
+ * 2. It awards an extra "bonus" 8th point for any subject scored at 90–100%,
+ *    one band above the normal level-7 ceiling (80–100%). This is not stated
+ *    in UNIZULU's own conversion table (which only lists levels 1–7), but is
+ *    directly demonstrated by the brochure's own worked example: IsiZulu at
+ *    90% is awarded 8 points, while Mathematics at 80% (also nominally
+ *    "band 7") is awarded only 7 — confirmed by reproducing their example
+ *    exactly (English 75%→6, IsiZulu FAL 90%→8, Maths 80%→7, Life Science
+ *    62%→5, Physical Sciences 72%→6, Life Orientation 68%→0, total 32).
+ *
+ * Life Orientation always contributes 0 and is excluded from the sum
+ * entirely (matching the brochure's example, where it's listed but
+ * contributes nothing to the total).
+ */
+function aps_unizulu(subjects) {
+  let total = 0;
+  subjects.forEach((s) => {
+    if (isLifeOrientation(s.subject)) return;
+    const mark = clamp(Number(s.mark));
+    total += mark >= 90 ? 8 : convertMarkToAPS(mark);
+  });
+  return total;
+}
+
 // ─── University → model map ────────────────────────────────────────────────────
 
 const UNIVERSITY_MODELS = {
@@ -397,7 +428,7 @@ const UNIVERSITY_MODELS = {
   "University of KwaZulu-Natal":                     "APS_NSC_42",
   "University of the Free State":                    "APS_NSC_42",
   "University of Limpopo":                           "APS_NSC_42",
-  "University of Zululand":                          "APS_NSC_42",
+  "University of Zululand":                          "APS_UNIZULU",
   "University of Venda":                             "APS_UNIVEN",
   "University of Fort Hare":                         "APS_NSC_42",
   "University of Mpumalanga":                        "APS_NSC_42",
@@ -437,6 +468,7 @@ export function calculateAPSForUniversity(universityName, subjects) {
     case "STELLIES_NSC_AVG": score = stellies_nsc_avg(subjects); break;
     case "APS_UNIVEN":      score = aps_univen(subjects);     break;
     case "APS_UWC":         score = aps_uwc(subjects);        break;
+    case "APS_UNIZULU":     score = aps_unizulu(subjects);    break;
     default:                score = aps_nsc_42(subjects);
   }
 
@@ -448,6 +480,7 @@ export function calculateAPSForUniversity(universityName, subjects) {
     STELLIES_NSC_AVG: "Stellenbosch NSC average (%)",
     APS_UNIVEN:       "UNIVEN APS (% ÷ 10 per subject, best 7, LO excluded)",
     APS_UWC:          "UWC Points (weighted English/Maths/LO/Other scale, all subjects summed)",
+    APS_UNIZULU:      "UNIZULU Points (all subjects summed, LO excluded, 90%+ bonus point)",
   };
 
   return { score, model, label: labels[model] };
