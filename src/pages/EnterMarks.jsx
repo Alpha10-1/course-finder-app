@@ -99,6 +99,26 @@ function getAccessLevel(grade, status) {
 
 const inputCls = "w-full p-3 border border-gray-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-purple-300 text-gray-800";
 
+// ── Mark-edit restriction rules ───────────────────────────────────────────────
+// Users get MAX_MARK_EDITS "real" edits. An edit only counts against that limit
+// when it changes MORE than FREE_CHANGE_LIMIT subjects at once (changing up to
+// FREE_CHANGE_LIMIT subjects — e.g. fixing a typo — is always free and doesn't
+// need confirmation). Comparison is done by subject name so reordering rows
+// doesn't falsely count as a change.
+const MAX_MARK_EDITS = 2;
+const FREE_CHANGE_LIMIT = 3;
+
+function countChangedSubjects(baseline, current) {
+  const baseMap = new Map(baseline.map((s) => [s.subject, String(s.mark)]));
+  const curMap = new Map(current.map((s) => [s.subject, String(s.mark)]));
+  const allKeys = new Set([...baseMap.keys(), ...curMap.keys()]);
+  let changed = 0;
+  for (const key of allKeys) {
+    if (baseMap.get(key) !== curMap.get(key)) changed++;
+  }
+  return changed;
+}
+
 export default function EnterMarks() {
   // ── Grade / status step ────────────────────────────────────────────────────
   const [step,        setStep]        = useState("grade"); // "grade" | "marks"
@@ -112,6 +132,13 @@ export default function EnterMarks() {
   const [aps,       setAps]       = useState(null);
   const [loading,   setLoading]   = useState(true);
   const [restored,  setRestored]  = useState(false);
+
+  // ── Mark-edit restriction state ───────────────────────────────────────────
+  const [savedSubjects, setSavedSubjects] = useState([]); // last committed snapshot from Firestore
+  const [editCount,     setEditCount]     = useState(0);  // "real" edits used so far
+  const [confirmState,  setConfirmState]  = useState(null); // { subjects, total, changedCount } | null
+  const [lockedNotice,  setLockedNotice]  = useState(false);
+  const [saving,        setSaving]        = useState(false);
 
   const navigate = useNavigate();
 
@@ -138,7 +165,9 @@ export default function EnterMarks() {
                 mark: (s.mark !== undefined && s.mark !== null) ? String(s.mark) : "",
               })));
               setRestored(true);
+              setSavedSubjects(data.subjects);
             }
+            setEditCount(typeof data.marksEditCount === "number" ? data.marksEditCount : 0);
           }
         } catch (err) {
           console.error("Error loading saved data:", err);
@@ -193,10 +222,10 @@ export default function EnterMarks() {
     setAps(calculateGeneralAPS(subjects));
   };
 
-  const handleViewCourses = async () => {
-    const subjects = getFilledSubjects();
-    const total = calculateGeneralAPS(subjects);
-
+  // Actually writes to Firestore (and navigates). newEditCount is only bumped
+  // when this save consumed one of the user's limited "real" edits.
+  const commitSave = async (subjects, total, newEditCount) => {
+    setSaving(true);
     const user = auth.currentUser;
     if (user) {
       try {
@@ -207,14 +236,54 @@ export default function EnterMarks() {
           gradeStatus: status,
           marksSource: marksSource || null,
           accessLevel,
+          marksEditCount: newEditCount,
         }, { merge: true });
       } catch (err) {
         console.error("Error saving:", err);
       }
     }
-
+    setSavedSubjects(subjects);
+    setEditCount(newEditCount);
+    setSaving(false);
     navigate("/results", { state: { subjects, aps: total, grade, gradeStatus: status, marksSource, accessLevel } });
   };
+
+  const handleViewCourses = async () => {
+    const subjects = getFilledSubjects();
+    const total = calculateGeneralAPS(subjects);
+    const changedCount = countChangedSubjects(savedSubjects, subjects);
+
+    // Nothing changed since the last save — just continue, no save needed.
+    if (changedCount === 0) {
+      navigate("/results", { state: { subjects, aps: total, grade, gradeStatus: status, marksSource, accessLevel } });
+      return;
+    }
+
+    // Small touch-ups (up to FREE_CHANGE_LIMIT subjects) are always free —
+    // no confirmation, doesn't use up an edit.
+    if (changedCount <= FREE_CHANGE_LIMIT) {
+      await commitSave(subjects, total, editCount);
+      return;
+    }
+
+    // A "real" edit (more than FREE_CHANGE_LIMIT subjects changed at once).
+    if (editCount >= MAX_MARK_EDITS) {
+      setLockedNotice(true);
+      return;
+    }
+
+    // Ask for confirmation before using up one of the limited edits.
+    setConfirmState({ subjects, total, changedCount });
+  };
+
+  const handleConfirmEdit = async () => {
+    if (!confirmState) return;
+    const { subjects, total } = confirmState;
+    setConfirmState(null);
+    await commitSave(subjects, total, editCount + 1);
+  };
+
+  const handleCancelEdit = () => setConfirmState(null);
 
   // ── Loading ───────────────────────────────────────────────────────────────
   if (loading) return (
@@ -395,6 +464,14 @@ export default function EnterMarks() {
           <p className="text-center text-green-600 text-sm mb-4">✓ Your previous marks have been restored</p>
         )}
 
+        {savedSubjects.length > 0 && (
+          <p className={`text-center text-xs mb-4 ${editCount >= MAX_MARK_EDITS ? "text-red-500" : "text-gray-400"}`}>
+            {editCount >= MAX_MARK_EDITS
+              ? `You've used all ${MAX_MARK_EDITS} major mark edits. You can still fix up to ${FREE_CHANGE_LIMIT} subjects at a time.`
+              : `Major edits remaining: ${MAX_MARK_EDITS - editCount} of ${MAX_MARK_EDITS} (changing up to ${FREE_CHANGE_LIMIT} subjects at once is always free)`}
+          </p>
+        )}
+
         <form onSubmit={handleCalculate} className="space-y-3 mt-2">
           {rows.map((row, index) => (
             <div key={index} className="flex items-center gap-2">
@@ -434,13 +511,57 @@ export default function EnterMarks() {
             <p className="text-center text-gray-400 text-xs mt-1">
               General APS (best 6 subjects, LO excluded) — per-institution scores calculated on results page
             </p>
-            <button onClick={handleViewCourses}
-              className="w-full mt-4 bg-green-500 hover:bg-green-600 text-white py-3 rounded-xl font-semibold shadow-md transition">
-              View Courses
+            <button onClick={handleViewCourses} disabled={saving}
+              className="w-full mt-4 bg-green-500 hover:bg-green-600 text-white py-3 rounded-xl font-semibold shadow-md transition disabled:opacity-50">
+              {saving ? "Saving..." : "View Courses"}
             </button>
           </>
         )}
       </div>
+
+      {/* Confirm-edit modal (shown before edit #1 and edit #2) */}
+      {confirmState && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-6 z-50">
+          <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-sm">
+            <h2 className="text-lg font-bold text-gray-900 mb-2">Are you sure?</h2>
+            <p className="text-sm text-gray-600 mb-4">
+              You're changing {confirmState.changedCount} subjects. Please confirm your marks are
+              accurate — this will be edit {editCount + 1} of {MAX_MARK_EDITS}.
+              {editCount + 1 >= MAX_MARK_EDITS
+                ? " After this, you won't be able to make further major changes."
+                : ` You'll have ${MAX_MARK_EDITS - (editCount + 1)} edit remaining after this.`}
+            </p>
+            <div className="flex gap-3">
+              <button onClick={handleCancelEdit}
+                className="flex-1 py-2.5 rounded-xl border border-gray-200 text-gray-600 font-medium hover:bg-gray-50 transition">
+                Go back
+              </button>
+              <button onClick={handleConfirmEdit} disabled={saving}
+                className="flex-1 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-medium transition disabled:opacity-50">
+                {saving ? "Saving..." : "Yes, I'm sure"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Locked-out modal (shown once both edits are used up) */}
+      {lockedNotice && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-6 z-50">
+          <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-sm">
+            <h2 className="text-lg font-bold text-gray-900 mb-2">Edit limit reached</h2>
+            <p className="text-sm text-gray-600 mb-4">
+              You've already used your {MAX_MARK_EDITS} major mark edits, so this change (more than{" "}
+              {FREE_CHANGE_LIMIT} subjects) can't be saved. You can still fix up to {FREE_CHANGE_LIMIT}{" "}
+              subjects at a time, or contact support if you need further changes.
+            </p>
+            <button onClick={() => setLockedNotice(false)}
+              className="w-full py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-medium transition">
+              Okay
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

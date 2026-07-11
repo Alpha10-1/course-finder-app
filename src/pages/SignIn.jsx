@@ -26,11 +26,17 @@ async function ensureFirestoreDoc(user) {
         plan: "free",
         createdAt: new Date().toISOString(),
         newUser: false,
+        lastActivityAt: new Date().toISOString(),
       });
     } else {
       await setDoc(ref, {
         email: user.email || snap.data().email || "",
         lastLoginAt: new Date().toISOString(),
+        // Kept alongside (not instead of) lastLoginAt: EnterMarks.jsx also
+        // stamps this field, so "most recent activity" can reflect either
+        // logging in OR entering marks, whichever happened more recently —
+        // a genuinely different signal from "most recent login" alone.
+        lastActivityAt: new Date().toISOString(),
       }, { merge: true });
     }
   } catch (err) {

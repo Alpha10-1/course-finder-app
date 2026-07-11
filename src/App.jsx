@@ -11,6 +11,7 @@ import Admin from "./pages/Admin";
 import RequireAuth from "./components/RequireAuth";
 import RequireAdmin from "./components/RequireAdmin";
 import PaymentSuccess from "./pages/PaymentSuccess";
+import WhatsAppButton from "./components/WhatsAppButton";
 import { trackPageview } from "./utils/analytics";
 
 // Lazy-loaded: these pull in the full course dataset (~190KB of JSON), which
@@ -65,6 +66,7 @@ function App() {
         <Route path="/admin" element={<RequireAdmin><Admin /></RequireAdmin>} />
         <Route path="/payment-success" element={<RequireAuth><PaymentSuccess /></RequireAuth>} />
       </Routes>
+      <WhatsAppButton />
     </Router>
   );
 }

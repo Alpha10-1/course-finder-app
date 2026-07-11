@@ -11,6 +11,7 @@ import { HOME_LANGUAGE_SUBJECTS, FAL_SUBJECTS } from "../utils/languages";
 import {
   NSC_LEVEL_OPTIONS, levelToMinMark, markToLevel,
   calculateAPSForCourse, getEffectiveMinAPS, meetsCollegeRequirement,
+  calculateGeneralAPS,
 } from "../utils/marksToAPS";
 import { meetsKeySubjects } from "../utils/subjectMatch";
 import {
@@ -51,7 +52,7 @@ function getApplicationProgress(user) {
 }
 
 const FIREBASE_API_KEY = "AIzaSyDgSKlh9_3pBI9_IggS3C9aGh7I2edX484";
-const ALL_TABS = ["Dashboard", "Users", "Courses", "Audit Log", "Settings"];
+const ALL_TABS = ["Dashboard", "Quick Check", "Users", "Courses", "Audit Log", "Settings"];
 
 const QUAL_TYPES = ["Bachelor", "Bachelor (Extended)", "Diploma", "Extended Diploma", "Higher Certificate"];
 const INSTITUTIONS = [
@@ -798,6 +799,10 @@ export default function Admin() {
   const [bulkSelectedIds, setBulkSelectedIds] = useState(() => new Set());
   const [confirmBulkDelete, setConfirmBulkDelete] = useState(false);
   const [bulkDeleting, setBulkDeleting] = useState(false);
+
+  // APS search mode — cross-institution course search/filter by APS range
+  const [apsSearchMode, setApsSearchMode] = useState(false);
+  const [apsSortDir, setApsSortDir] = useState("asc"); // "asc" | "desc"
 
   // Settings
   const [adminEmailInput, setAdminEmailInput] = useState("");
@@ -1582,6 +1587,22 @@ export default function Admin() {
           </div>
         )}
 
+        {/* ── QUICK CHECK ── */}
+        {/* Walk-in / no-account eligibility check: enter subjects + marks
+            directly (no sign-up, no grade-selection step) and see which
+            courses qualify — same matching rules as the learner-facing
+            Results page, via the shared getQualifiedCourses() helper. */}
+        {tab === "Quick Check" && (
+          <div className="space-y-4">
+            <h2 className="text-xl font-bold text-white">Quick Check</h2>
+            <p className="text-sm text-gray-400 -mt-2">
+              Check qualifying courses for someone on the spot — no account needed. Enter subjects
+              and marks below and hit Check.
+            </p>
+            <QuickCheckPanel courses={courses} />
+          </div>
+        )}
+
         {/* ── USERS ── */}
         {tab === "Users" && (
           <div className="space-y-4">
@@ -1891,11 +1912,17 @@ export default function Admin() {
                       className="text-xs bg-green-700 hover:bg-green-600 text-green-200 px-3 py-1.5 rounded-lg transition font-medium">
                       + Add Course
                     </button>
-                    <button onClick={() => { setBulkMode((v) => !v); clearBulkSelection(); }}
+                    <button onClick={() => { setBulkMode((v) => !v); setApsSearchMode(false); clearBulkSelection(); }}
                       className={`text-xs px-3 py-1.5 rounded-lg transition font-medium ${
                         bulkMode ? "bg-red-700 hover:bg-red-600 text-red-100" : "bg-red-900 hover:bg-red-800 text-red-300"
                       }`}>
                       {bulkMode ? "✕ Exit Bulk Delete" : "🗑️ Bulk Delete"}
+                    </button>
+                    <button onClick={() => { setApsSearchMode((v) => !v); setBulkMode(false); clearBulkSelection(); }}
+                      className={`text-xs px-3 py-1.5 rounded-lg transition font-medium ${
+                        apsSearchMode ? "bg-purple-700 hover:bg-purple-600 text-purple-100" : "bg-purple-900 hover:bg-purple-800 text-purple-300"
+                      }`}>
+                      {apsSearchMode ? "✕ Exit APS Search" : "🎯 Search by APS"}
                     </button>
                     <button onClick={loadCourses}
                       className="text-xs text-purple-400 hover:text-purple-300 border border-gray-700 px-3 py-1.5 rounded-lg transition">
@@ -1919,6 +1946,21 @@ export default function Admin() {
                     selectAllBulkMatches={selectAllBulkMatches}
                     clearBulkSelection={clearBulkSelection}
                     onDeleteClick={() => setConfirmBulkDelete(true)}
+                  />
+                ) : apsSearchMode ? (
+                  <ApsSearchPanel
+                    courses={filteredCourses}
+                    allCourses={courses}
+                    institutionSettings={institutionSettings}
+                    courseSearch={courseSearch} setCourseSearch={setCourseSearch}
+                    filterFaculty={filterFaculty} setFilterFaculty={setFilterFaculty}
+                    filterInstitution={filterInstitution} setFilterInstitution={setFilterInstitution}
+                    filterQualType={filterQualType} setFilterQualType={setFilterQualType}
+                    filterMinAPS={filterMinAPS} setFilterMinAPS={setFilterMinAPS}
+                    filterMaxAPS={filterMaxAPS} setFilterMaxAPS={setFilterMaxAPS}
+                    apsSortDir={apsSortDir} setApsSortDir={setApsSortDir}
+                    setEditingCourse={setEditingCourse}
+                    setConfirmDeleteCourse={setConfirmDeleteCourse}
                   />
                 ) : (
                 <>
@@ -2288,9 +2330,9 @@ function InfoCell({ label, value, mono }) {
 // their saved subjects/grade against the full catalog), grouped by
 // institution, with a small search box since some learners qualify for
 // dozens of courses.
-function QualifiedCoursesPanel({ courses }) {
+function QualifiedCoursesPanel({ courses, defaultOpen = false }) {
   const [search, setSearch] = useState("");
-  const [collapsed, setCollapsed] = useState(true);
+  const [collapsed, setCollapsed] = useState(!defaultOpen);
 
   const filtered = courses.filter((c) => {
     if (!search) return true;
@@ -2346,6 +2388,129 @@ function QualifiedCoursesPanel({ courses }) {
             </div>
           </div>
         )
+      )}
+    </div>
+  );
+}
+
+// Subject list for Quick Check — mirrors SUBJECTS in EnterMarks.jsx (the
+// learner-facing marks form) so results agree with what a real signed-up
+// user would see. Duplicated here rather than imported since EnterMarks.jsx
+// doesn't currently export it; keep the two in sync if subjects change.
+const QUICK_CHECK_SUBJECTS = [
+  "Afrikaans Home Language", "Afrikaans First Additional Language",
+  "English Home Language", "English First Additional Language",
+  "isiNdebele Home Language", "isiNdebele First Additional Language",
+  "isiXhosa Home Language", "isiXhosa First Additional Language",
+  "isiZulu Home Language", "isiZulu First Additional Language",
+  "Sepedi Home Language", "Sepedi First Additional Language",
+  "Sesotho Home Language", "Sesotho First Additional Language",
+  "Setswana Home Language", "Setswana First Additional Language",
+  "Siswati Home Language", "Siswati First Additional Language",
+  "South African Sign Language Home Language", "South African Sign Language First Additional Language",
+  "Tshivenda Home Language", "Tshivenda First Additional Language",
+  "Xitsonga Home Language", "Xitsonga First Additional Language",
+  "Accounting", "Agricultural Management Practices", "Agricultural Sciences",
+  "Agricultural Technology", "Business Studies", "CAT (Computer Applications Technology)",
+  "Civil Technology", "Consumer Studies", "Dance Studies", "Design", "Dramatic Arts",
+  "Economics", "Electrical Technology", "Engineering Graphics and Design", "Geography",
+  "History", "Hospitality Studies", "IT (Information Technology)", "Life Orientation",
+  "Life Sciences", "Marine Sciences", "Maritime Economics", "Mathematical Literacy",
+  "Mathematics", "Mechanical Technology", "Music", "Physical Sciences", "Religion Studies",
+  "Technical Mathematics", "Technical Science", "Tourism", "Visual Arts",
+];
+
+const QUICK_CHECK_DEFAULT_ROWS = [
+  { subject: "English Home Language", mark: "" },
+  { subject: "Mathematics", mark: "" },
+  { subject: "Life Orientation", mark: "" },
+  { subject: "Accounting", mark: "" },
+  { subject: "Business Studies", mark: "" },
+  { subject: "Geography", mark: "" },
+  { subject: "Physical Sciences", mark: "" },
+];
+
+// Walk-in eligibility check: no account, no grade-selection step — just
+// subjects + marks in, qualifying courses out. College-course eligibility
+// (which depends on highest grade/NQF completed) assumes a completed
+// Matric, since that's the overwhelmingly common walk-in case; flagged
+// in the UI so it's never a silent assumption.
+function QuickCheckPanel({ courses }) {
+  const [rows, setRows] = useState(QUICK_CHECK_DEFAULT_ROWS);
+  const [results, setResults] = useState(null); // null until first Check
+
+  const updateRow = (index, field, value) => {
+    setRows((prev) => prev.map((r, i) => (i === index ? { ...r, [field]: value } : r)));
+  };
+  const addRow = () => setRows((prev) => [...prev, { subject: "English Home Language", mark: "" }]);
+  const removeRow = (index) => setRows((prev) => prev.filter((_, i) => i !== index));
+  const resetAll = () => { setRows(QUICK_CHECK_DEFAULT_ROWS); setResults(null); };
+
+  const validSubjects = rows
+    .filter((r) => r.subject && r.mark !== "" && Number.isFinite(Number(r.mark)))
+    .map((r) => ({ subject: r.subject, mark: Number(r.mark) }));
+
+  const handleCheck = () => {
+    const quickUser = { subjects: validSubjects, grade: "Grade 12", gradeStatus: "completed" };
+    const qualified = getQualifiedCourses(quickUser, courses);
+    const aps = validSubjects.length > 0 ? calculateGeneralAPS(validSubjects) : 0;
+    setResults({ qualified, aps });
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4 space-y-3">
+        <p className="text-xs text-yellow-500 bg-yellow-900/20 border border-yellow-900/50 rounded-lg px-3 py-2">
+          ⚠️ Assumes a completed Matric for college eligibility (there's no grade-selection step
+          here). University matches are based purely on subjects/marks, same as always.
+        </p>
+
+        {rows.map((row, index) => (
+          <div key={index} className="flex items-center gap-2">
+            <div className="relative flex-1">
+              <select value={row.subject} onChange={(e) => updateRow(index, "subject", e.target.value)}
+                className="w-full bg-gray-950 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white appearance-none focus:outline-none focus:ring-2 focus:ring-purple-500">
+                {QUICK_CHECK_SUBJECTS.map((s) => <option key={s} value={s}>{s}</option>)}
+              </select>
+            </div>
+            <input type="number" value={row.mark} min="0" max="100" placeholder="Mark"
+              onChange={(e) => updateRow(index, "mark", e.target.value)}
+              className="w-24 bg-gray-950 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500" />
+            {rows.length > 1 && (
+              <button type="button" onClick={() => removeRow(index)}
+                className="text-red-500 hover:text-red-400 font-bold text-lg px-1">✕</button>
+            )}
+          </div>
+        ))}
+
+        <div className="flex items-center justify-between flex-wrap gap-2 pt-1">
+          <button type="button" onClick={addRow}
+            className="text-purple-400 hover:text-purple-300 text-sm font-medium">
+            + Add subject
+          </button>
+          <div className="flex gap-2">
+            <button type="button" onClick={resetAll}
+              className="text-xs text-gray-400 hover:text-white border border-gray-700 px-3 py-1.5 rounded-lg transition">
+              Reset
+            </button>
+            <button type="button" onClick={handleCheck} disabled={validSubjects.length === 0}
+              className="text-sm bg-purple-600 hover:bg-purple-700 disabled:opacity-40 disabled:hover:bg-purple-600 text-white px-4 py-1.5 rounded-lg font-semibold transition">
+              Check Courses
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {results && (
+        <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4 space-y-3">
+          <p className="text-center text-purple-400 font-bold text-xl">
+            APS: {results.aps}
+            <span className="block text-gray-500 text-xs font-normal mt-0.5">
+              General APS (best 6 subjects, LO excluded) — actual per-institution APS may differ
+            </span>
+          </p>
+          <QualifiedCoursesPanel courses={results.qualified} defaultOpen />
+        </div>
       )}
     </div>
   );
@@ -2486,6 +2651,150 @@ function BulkDeleteCoursesPanel({
                   </tr>
                 );
               })}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Cross-institution course search/filter, built around APS: narrow by min/max
+// APS (plus faculty/institution/qualification type/name as a bonus), sort by
+// APS ascending or descending, and edit/delete straight from the results —
+// same course data (`filteredCourses`) the bulk-delete panel already uses,
+// just presented as a browsable, sortable table instead of a checkbox list.
+function ApsSearchPanel({
+  courses, allCourses, institutionSettings,
+  courseSearch, setCourseSearch,
+  filterFaculty, setFilterFaculty,
+  filterInstitution, setFilterInstitution,
+  filterQualType, setFilterQualType,
+  filterMinAPS, setFilterMinAPS,
+  filterMaxAPS, setFilterMaxAPS,
+  apsSortDir, setApsSortDir,
+  setEditingCourse, setConfirmDeleteCourse,
+}) {
+  const faculties = [...new Set(allCourses.map((c) => c.faculty).filter(Boolean))].sort();
+  const institutions = [...new Set(allCourses.map((c) => c.institution).filter(Boolean))].sort();
+  const qualTypes = [...new Set(allCourses.map((c) => c.qualificationType).filter(Boolean))].sort();
+
+  const sorted = [...courses].sort((a, b) => {
+    const av = Number(a.minAPS) || 0;
+    const bv = Number(b.minAPS) || 0;
+    return apsSortDir === "asc" ? av - bv : bv - av;
+  });
+
+  const anyFilterActive = courseSearch || filterFaculty || filterInstitution || filterQualType || filterMinAPS || filterMaxAPS;
+
+  return (
+    <div className="space-y-4">
+      <p className="text-xs text-gray-500 bg-gray-900 border border-gray-800 rounded-xl px-4 py-3">
+        Search every course across every institution by APS range (and optionally faculty,
+        institution, qualification type or name). Useful for things like "which courses can a
+        student with APS 28 actually get into?"
+      </p>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <input value={courseSearch} onChange={(e) => setCourseSearch(e.target.value)}
+          placeholder="Search by course/institution name…"
+          className="lg:col-span-2 bg-gray-900 border border-gray-700 rounded-xl px-3 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500" />
+        <select value={filterFaculty} onChange={(e) => setFilterFaculty(e.target.value)}
+          className="bg-gray-900 border border-gray-700 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+          <option value="">All Faculties</option>
+          {faculties.map((f) => <option key={f} value={f}>{f}</option>)}
+        </select>
+        <select value={filterInstitution} onChange={(e) => setFilterInstitution(e.target.value)}
+          className="bg-gray-900 border border-gray-700 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+          <option value="">All Institutions</option>
+          {institutions.map((i) => <option key={i} value={i}>{i}</option>)}
+        </select>
+        <select value={filterQualType} onChange={(e) => setFilterQualType(e.target.value)}
+          className="bg-gray-900 border border-gray-700 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+          <option value="">All Qualification Types</option>
+          {qualTypes.map((q) => <option key={q} value={q}>{q}</option>)}
+        </select>
+        <div className="flex gap-2">
+          <input type="number" placeholder="Min APS ≥" value={filterMinAPS}
+            onChange={(e) => setFilterMinAPS(e.target.value)}
+            className="w-1/2 bg-gray-900 border border-gray-700 rounded-xl px-3 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500" />
+          <input type="number" placeholder="Max APS ≤" value={filterMaxAPS}
+            onChange={(e) => setFilterMaxAPS(e.target.value)}
+            className="w-1/2 bg-gray-900 border border-gray-700 rounded-xl px-3 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500" />
+        </div>
+      </div>
+
+      <div className="flex items-center justify-between flex-wrap gap-2">
+        <p className="text-sm text-gray-400">
+          <span className="font-bold text-purple-400">{courses.length}</span> of {allCourses.length} courses match
+        </p>
+        <div className="flex gap-2">
+          {anyFilterActive && (
+            <button
+              onClick={() => {
+                setCourseSearch("");
+                setFilterFaculty("");
+                setFilterInstitution("");
+                setFilterQualType("");
+                setFilterMinAPS("");
+                setFilterMaxAPS("");
+              }}
+              className="text-xs text-gray-400 hover:text-white border border-gray-700 px-3 py-1.5 rounded-lg transition">
+              Clear filters
+            </button>
+          )}
+          <button
+            onClick={() => setApsSortDir((d) => (d === "asc" ? "desc" : "asc"))}
+            className="text-xs bg-gray-800 hover:bg-gray-700 text-gray-300 px-3 py-1.5 rounded-lg transition">
+            Sort APS: {apsSortDir === "asc" ? "Low → High ↑" : "High → Low ↓"}
+          </button>
+        </div>
+      </div>
+
+      {sorted.length === 0 ? (
+        <p className="text-gray-500 text-sm py-8 text-center">No courses match these filters.</p>
+      ) : (
+        <div className="overflow-x-auto rounded-2xl border border-gray-800">
+          <table className="w-full text-sm">
+            <thead className="bg-gray-900 text-gray-400 text-xs uppercase tracking-wider">
+              <tr>
+                <th className="text-left px-4 py-3">Course</th>
+                <th className="text-left px-4 py-3 hidden md:table-cell">Institution</th>
+                <th className="text-left px-4 py-3 hidden lg:table-cell">Type</th>
+                <th className="text-left px-4 py-3">APS</th>
+                <th className="text-left px-4 py-3 hidden sm:table-cell">Status</th>
+                <th className="px-4 py-3 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-800">
+              {sorted.map((course) => (
+                <tr key={course.id} className="bg-gray-950 hover:bg-gray-900 transition">
+                  <td className="px-4 py-3 font-medium text-white max-w-xs">
+                    <p className="truncate">{course.courseName}</p>
+                    <p className="text-xs text-gray-500 truncate">{course.faculty}</p>
+                  </td>
+                  <td className="px-4 py-3 hidden md:table-cell text-gray-300 max-w-[16rem] truncate">{course.institution}</td>
+                  <td className="px-4 py-3 hidden lg:table-cell">
+                    <span className="text-xs bg-gray-800 text-gray-300 px-2 py-0.5 rounded-full">{course.qualificationType}</span>
+                  </td>
+                  <td className="px-4 py-3 text-purple-400 font-semibold">{course.minAPS}</td>
+                  <td className="px-4 py-3 hidden sm:table-cell">
+                    <InstitutionStatusBadge status={getInstitutionApplicationStatus(institutionSettings[course.institution])} />
+                  </td>
+                  <td className="px-4 py-3">
+                    <div className="flex gap-2 justify-end">
+                      <button onClick={() => setEditingCourse({ ...course })}
+                        className="text-xs bg-purple-900 hover:bg-purple-800 text-purple-300 px-3 py-1 rounded-lg transition">
+                        Edit
+                      </button>
+                      <button onClick={() => setConfirmDeleteCourse(course)}
+                        className="text-xs bg-red-900 hover:bg-red-800 text-red-300 px-3 py-1 rounded-lg transition">
+                        Delete
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

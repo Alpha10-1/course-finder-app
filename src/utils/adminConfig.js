@@ -15,9 +15,9 @@ export const ADMIN_ROLES = {
 
 // What each role can access
 export const PERMISSIONS = {
-  super:     ["dashboard", "users", "courses", "settings", "audit log"],
-  admin:     ["dashboard", "users", "courses", "settings"],
-  moderator: ["courses"],
+  super:     ["dashboard", "quick check", "users", "courses", "settings", "audit log"],
+  admin:     ["dashboard", "quick check", "users", "courses", "settings"],
+  moderator: ["quick check", "courses"],
 };
 
 export function isSuperAdmin(email) {

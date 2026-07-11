@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import OnboardingModal from "../components/OnboardingModal";
 import PricingModal from "../components/PricingModal";
+import SocialLinks from "../components/SocialLinks";
 import { isSuperAdmin, getRoleInfo } from "../utils/adminConfig";
 
 export default function Home() {
@@ -137,6 +138,8 @@ export default function Home() {
           Sign Out
         </button>
       </div>
+
+      <SocialLinks className="mt-4" />
     </div>
   );
 }

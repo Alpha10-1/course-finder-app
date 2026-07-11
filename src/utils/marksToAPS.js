@@ -1,4 +1,4 @@
-import { subjectMatches } from "./subjectMatch.js";
+import { subjectMatches, isGenericCreditSubject, isAnotherLanguagePlaceholder } from "./subjectMatch.js";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -379,6 +379,13 @@ export function calculateAPSForCourse(course, subjects) {
   if (method === "method1") return { score: cput_method1(subjects), model: "CPUT_METHOD1", label: CPUT_METHOD_LABELS.method1 };
   if (method === "method2") return { score: cput_method2(subjects), model: "CPUT_METHOD2", label: CPUT_METHOD_LABELS.method2 };
   if (method === "method3") return { score: cput_method3(subjects), model: "CPUT_METHOD3", label: CPUT_METHOD_LABELS.method3 };
+  if (course?.institution === "Nelson Mandela University") {
+    return {
+      score: aps_nmu_for_course(course, subjects),
+      model: "APS_NMU",
+      label: "NMU Applicant Score (fundamentals + course-required subjects locked in, best-of-rest fills remaining slots, out of 600)",
+    };
+  }
   return calculateAPSForUniversity(course?.institution, subjects);
 }
 
@@ -413,6 +420,277 @@ function aps_unizulu(subjects) {
   return total;
 }
 
+/**
+ * APS_RHODES — Rhodes University's own points scale (RU Ready! Undergraduate
+ * Prospectus, "How to Calculate your Admission Point Score"). Each subject's
+ * score is its raw percentage mark divided by 10 (e.g. 78% = 7.8), NOT the
+ * standard 1–7 NSC achievement level — confirmed by reproducing the
+ * brochure's own worked example exactly (English HL 78%→7.8, isiXhosa 74%→7.4,
+ * Maths 65%→6.5, Life Sciences 75%→7.5, Accounting 72%→7.2, History 69%→6.9,
+ * total 43.3). Life Orientation is excluded from the total entirely (shown in
+ * the example with a "-" in the Points column) but a learner must still score
+ * at least Level 4 (50%) in it to be considered. Unlike APS_UNIVEN, there's no
+ * stated minimum-mark cutoff for inclusion and no "best 7" reduction — the
+ * brochure's instructions and example both use exactly 6 non-LO subjects (a
+ * standard NSC certificate has 6 non-LO subjects + LO), so all non-LO
+ * subjects are summed.
+ */
+function aps_rhodes(subjects) {
+  const pool = subjects.filter((s) =>
+    !isLifeOrientation(s.subject) &&
+    s.mark !== null && s.mark !== undefined && s.mark !== "" &&
+    Number.isFinite(Number(s.mark))
+  );
+  const chosen = bestN(pool, 6, (s) => Number(s.mark));
+  const total = chosen.reduce((sum, s) => sum + Number(s.mark) / 10, 0);
+  return Math.round(total * 10) / 10;
+}
+
+/**
+ * APS_SPU — Sol Plaatje University's own points scale (2027 Undergraduate
+ * Prospectus, "How to Calculate the SPU Admission Point Score (APS)"). This
+ * is NOT the generic best-6/LO-excluded model it was previously (incorrectly)
+ * mapped to. Differences, taken directly from the brochure's table:
+ *
+ * 1. Each subject's own score tops out at 8 (for 90–100%), not 7 — the top
+ *    NSC achievement level (7) is split into two SPU bands: 90–100% → 8
+ *    points, 80–89% → 7 points. Bands below that match the standard NSC
+ *    achievement levels 1–6.
+ * 2. Mathematics AND whichever official language a learner takes as Home
+ *    Language earn extra "Additional Points" — the brochure states these
+ *    apply "to any of the official languages taken as HL", not just English.
+ *    The bonus itself is banded, not a flat amount: +2 for 60%+, +1 for
+ *    40–59%, +0 below 40%.
+ * 3. Life Orientation is NOT excluded the way it is at most universities —
+ *    it contributes to the total via its own separate, much lower-ceilinged
+ *    scale (max 4 points at 90–100%, 0 below 60%), rather than the main
+ *    subject scale and rather than being dropped entirely.
+ * 4. The brochure gives no "best N subjects" instruction (unlike the
+ *    generic APS_NSC_42 model's "best 6"), so all of a learner's subjects
+ *    are summed — consistent with how a standard 7-subject NSC certificate
+ *    (6 subjects + Life Orientation) is used at face value elsewhere in this
+ *    codebase (e.g. APS_UNIZULU, APS_UWC) when a source doesn't state a
+ *    reduction.
+ */
+function spuMainBand(percent) {
+  const p = clamp(Number(percent));
+  if (p >= 90) return 8;
+  if (p >= 80) return 7;
+  if (p >= 70) return 6;
+  if (p >= 60) return 5;
+  if (p >= 50) return 4;
+  if (p >= 40) return 3;
+  if (p >= 30) return 2;
+  return 1;
+}
+
+function spuBonusBand(percent) {
+  const p = clamp(Number(percent));
+  if (p >= 60) return 2;
+  if (p >= 40) return 1;
+  return 0;
+}
+
+function spuLOBand(percent) {
+  const p = clamp(Number(percent));
+  if (p >= 90) return 4;
+  if (p >= 80) return 3;
+  if (p >= 70) return 2;
+  if (p >= 60) return 1;
+  return 0;
+}
+
+function isHomeLanguage(name) {
+  return normalizeName(name).endsWith("home language");
+}
+
+function aps_spu(subjects) {
+  let total = 0;
+  subjects.forEach((s) => {
+    if (s.mark === null || s.mark === undefined || s.mark === "" || !Number.isFinite(Number(s.mark))) return;
+    if (isLifeOrientation(s.subject)) {
+      total += spuLOBand(s.mark);
+      return;
+    }
+    let pts = spuMainBand(s.mark);
+    if (isMaths(s.subject) || isHomeLanguage(s.subject)) {
+      pts += spuBonusBand(s.mark);
+    }
+    total += pts;
+  });
+  return total;
+}
+
+/**
+ * APS_MUT — Mangosuthu University of Technology's own points scale (MUT
+ * Undergraduate Prospectus, "Admission Points Calculation Guide"). This is
+ * NOT identical to the generic APS_NSC_42 model it was previously mapped to.
+ * The brochure's own NSC-to-points table matches the standard 1–7 NSC
+ * achievement level for every band EXCEPT the top one, which it splits in
+ * two: 90–100% earns 8 points (one point above the standard Level 7 ceiling
+ * of 7), while 80–89% still earns 7 — the same split used by APS_UNIZULU and
+ * APS_SPU above. MUT's general admission requirements state the aggregate is
+ * "calculated from the best six subjects presented by the prospective
+ * student", so — unlike APS_UNIZULU, which sums all subjects — this keeps
+ * the "best 6" reduction from the generic model. Life Orientation is not
+ * mentioned in the brochure's calculation guide at all; it is excluded here
+ * as a documented assumption, consistent with how LO is excluded from the
+ * "best 6" at every other South African university in this codebase that
+ * uses a best-6 model.
+ */
+function mutBand(percent) {
+  const p = clamp(Number(percent));
+  if (p >= 90) return 8;
+  return convertMarkToAPS(p);
+}
+
+function aps_mut(subjects) {
+  const pool = subjects.filter((s) =>
+    !isLifeOrientation(s.subject) &&
+    s.mark !== null && s.mark !== undefined && s.mark !== "" &&
+    Number.isFinite(Number(s.mark))
+  );
+  const chosen = bestN(pool, 6, (s) => mutBand(s.mark));
+  return chosen.reduce((sum, s) => sum + mutBand(s.mark), 0);
+}
+
+/**
+ * APS_NMU — Nelson Mandela University's own "Applicant Score" (AS) (NMU
+ * Undergraduate Guide, "Admission Requirements" / "How to calculate your
+ * Applicant Score (AS)"). This is NOT the generic level-based APS_NSC_42
+ * model it was previously (incorrectly) mapped to — NMU sums raw NSC
+ * PERCENTAGES, not 1–7 achievement levels, giving a score out of 600 rather
+ * than 42. Confirmed by reproducing the guide's own worked examples exactly:
+ *
+ *   Applicant 1 (7 subjects): isiXhosa HL 78, English FAL 60, Maths 65,
+ *   Life Science 62, Physical Science 50, Geography 55, LO 88 (excluded)
+ *   → 78+60+65+62+50+55 = 370.
+ *
+ *   Applicant 2 (8 subjects, i.e. 7 non-LO subjects incl. both History 60
+ *   and Geography 55): best 6 of the 7 non-LO subjects are used (History
+ *   beats Geography) → 78+60+65+62+50+60 = 375.
+ *
+ * So far this matches a simple "best 6 non-LO subjects by percentage,
+ * summed" model (no conversion to achievement level) — that's what
+ * aps_nmu_generic() below does, used only as a fallback when no specific
+ * course/qualification is known (see calculateAPSForUniversity).
+ *
+ * BUT a second worked example in the same guide (an 8-subject applicant
+ * applying to a programme that requires Life Science AND Physical Science)
+ * shows the selection is NOT simply "top 6 by mark": that applicant's
+ * subjects were isiXhosa HL 78, English FAL 60, Maths 65, Life Science 62,
+ * Physical Science 50, History 60, Geography 55, LO 88. A pure top-6-by-value
+ * selection would drop Physical Science (the lowest, 50) in favour of
+ * Geography (55) — but the guide's total (375) only works if Geography is
+ * dropped and Physical Science is KEPT, even though it scores lower. The
+ * only way that's consistent is if the three fundamental subjects (Home
+ * Language, First Additional Language, Maths/Technical Maths/Maths Literacy)
+ * PLUS whichever subjects the target programme specifically requires
+ * (Life Science and Physical Science, for that example) are locked in
+ * regardless of rank, and only the remaining slots (to reach 6 total) are
+ * filled by best-of-the-rest:
+ *   locked = {isiXhosa 78, English 60, Maths 65, Life Science 62, Physical
+ *             Science 50} (5 locked: 3 fundamentals + 2 programme-required)
+ *   1 slot left, filled by the better of {History 60, Geography 55} → History
+ *   total = 78+60+65+62+50+60 = 375 ✓ (reproduces the guide exactly)
+ * This is why aps_nmu_for_course() below takes the COURSE's keySubjects into
+ * account, not just the raw subject list — the correct AS is qualification-
+ * dependent, similar to how CPUT's method varies per qualification.
+ *
+ * KNOWN GAP — quintile bonus not applied: the guide also states that
+ * applicants from quintile 1–3 (no-fee) schools who score 50%+ in Life
+ * Orientation get +7 added to this total (a third worked example: 370 + 7 =
+ * 377). This app does not currently capture a learner's school quintile
+ * anywhere in the marks-entry flow, so that bonus cannot be applied
+ * automatically yet — both functions below return the un-bonused base score
+ * out of 600. If quintile capture is added to EnterMarks.jsx, these should
+ * take that as a parameter and add the +7 when eligible.
+ *
+ * Per-programme "AS for Maths" / "AS for Technical Maths" / "AS for Maths
+ * Literacy" columns in the guide map directly onto this app's existing
+ * minAPS + apsAlternatives mechanism: minAPS = AS for Mathematics (Technical
+ * Mathematics uses the same figure in every programme observed in the
+ * guide, so it doesn't need its own alternative entry unless a specific
+ * programme differs), apsAlternatives = [{ subject: "Mathematical Literacy",
+ * minAPS: <AS for Maths Literacy> }].
+ *
+ * Used by: Nelson Mandela University
+ */
+function isNmuHomeLanguage(name) {
+  return normalizeName(name).endsWith("home language");
+}
+function isNmuFirstAddLanguage(name) {
+  return normalizeName(name).endsWith("first additional language");
+}
+function isNmuMathsTrack(name) {
+  const n = normalizeName(name);
+  return n.includes("mathematics") || n.includes("mathematical literacy") || n === "maths";
+}
+
+// Generic fallback (no course context available): best 6 non-LO subjects by
+// raw percentage, summed. Used only when just an institution name is known
+// (e.g. displaying an approximate AS before a specific course is picked).
+function aps_nmu_generic(subjects) {
+  const pool = subjects.filter((s) =>
+    !isLifeOrientation(s.subject) &&
+    s.mark !== null && s.mark !== undefined && s.mark !== "" &&
+    Number.isFinite(Number(s.mark))
+  );
+  const chosen = bestN(pool, 6, (s) => Number(s.mark));
+  return Math.round(chosen.reduce((sum, s) => sum + Number(s.mark), 0) * 10) / 10;
+}
+
+// Course-aware version: locks in the 3 fundamental subjects plus whichever
+// subjects the specific course requires (via keySubjects), then fills any
+// remaining slots (up to 6 total) with the best-of-the-rest by percentage.
+function aps_nmu_for_course(course, subjects) {
+  const pool = subjects.filter((s) =>
+    !isLifeOrientation(s.subject) &&
+    s.mark !== null && s.mark !== undefined && s.mark !== "" &&
+    Number.isFinite(Number(s.mark))
+  );
+
+  const locked = [];
+  const lockedSet = new Set();
+  const lock = (s) => {
+    if (s && !lockedSet.has(s)) {
+      lockedSet.add(s);
+      locked.push(s);
+    }
+  };
+
+  // 3 fundamentals: Home Language, First Additional Language, Maths track
+  lock(pool.find((s) => isNmuHomeLanguage(s.subject)));
+  lock(pool.find((s) => isNmuFirstAddLanguage(s.subject)));
+  lock(pool.find((s) => isNmuMathsTrack(s.subject)));
+
+  // Course-required subjects (skip generic placeholders and LO)
+  (course?.keySubjects || []).forEach((req) => {
+    if (req.subjectGroup) {
+      for (const opt of req.subjectGroup) {
+        if (isGenericCreditSubject(opt.subject) || isAnotherLanguagePlaceholder(opt.subject)) continue;
+        if (isLifeOrientation(opt.subject)) continue;
+        const match = pool.find((s) => subjectMatches(s.subject, opt.subject));
+        if (match) { lock(match); break; }
+      }
+    } else if (
+      req.subject &&
+      !isGenericCreditSubject(req.subject) &&
+      !isAnotherLanguagePlaceholder(req.subject) &&
+      !isLifeOrientation(req.subject)
+    ) {
+      lock(pool.find((s) => subjectMatches(s.subject, req.subject)));
+    }
+  });
+
+  const remaining = pool.filter((s) => !lockedSet.has(s));
+  const slotsLeft = Math.max(0, 6 - locked.length);
+  const filler = bestN(remaining, slotsLeft, (s) => Number(s.mark));
+  const chosen = [...locked, ...filler].slice(0, 6);
+
+  return Math.round(chosen.reduce((sum, s) => sum + Number(s.mark), 0) * 10) / 10;
+}
+
 // ─── University → model map ────────────────────────────────────────────────────
 
 const UNIVERSITY_MODELS = {
@@ -434,17 +712,17 @@ const UNIVERSITY_MODELS = {
   "University of Mpumalanga":                        "APS_NSC_42",
   "University of South Africa":                      "APS_NSC_42",
   "University of the Western Cape":                  "APS_UWC",
-  "Nelson Mandela University":                       "APS_NSC_42",
-  "Rhodes University":                               "APS_NSC_42",
+  "Nelson Mandela University":                       "APS_NMU",
+  "Rhodes University":                               "APS_RHODES",
   "Walter Sisulu University":                        "APS_NSC_42",
   "Tshwane University of Technology":                "APS_NSC_42",
   "Durban University of Technology":                 "APS_NSC_42",
   "Central University of Technology":                "APS_NSC_42",
   "Cape Peninsula University of Technology":         "APS_NSC_42",
-  "Mangosuthu University of Technology":             "APS_NSC_42",
+  "Mangosuthu University of Technology":             "APS_MUT",
   "Vaal University of Technology":                   "APS_NSC_42",
-  "Sefako Makgatho Health Sciences University":      "APS_NSC_42",
-  "Sol Plaatje University":                          "APS_NSC_42",
+  "Sefako Makgatho Health Sciences University":      "APS_NSC_49",
+  "Sol Plaatje University":                          "APS_SPU",
 };
 
 // ─── Main export ──────────────────────────────────────────────────────────────
@@ -469,6 +747,10 @@ export function calculateAPSForUniversity(universityName, subjects) {
     case "APS_UNIVEN":      score = aps_univen(subjects);     break;
     case "APS_UWC":         score = aps_uwc(subjects);        break;
     case "APS_UNIZULU":     score = aps_unizulu(subjects);    break;
+    case "APS_RHODES":      score = aps_rhodes(subjects);     break;
+    case "APS_SPU":         score = aps_spu(subjects);        break;
+    case "APS_MUT":         score = aps_mut(subjects);        break;
+    case "APS_NMU":         score = aps_nmu_generic(subjects); break;
     default:                score = aps_nsc_42(subjects);
   }
 
@@ -481,6 +763,10 @@ export function calculateAPSForUniversity(universityName, subjects) {
     APS_UNIVEN:       "UNIVEN APS (% ÷ 10 per subject, best 7, LO excluded)",
     APS_UWC:          "UWC Points (weighted English/Maths/LO/Other scale, all subjects summed)",
     APS_UNIZULU:      "UNIZULU Points (all subjects summed, LO excluded, 90%+ bonus point)",
+    APS_RHODES:       "Rhodes APS (% ÷ 10 per subject, best 6, LO excluded)",
+    APS_SPU:          "SPU Points (own 1–8 scale, Maths/Home Language bonus, LO included on reduced scale)",
+    APS_MUT:          "MUT Points (best 6 subjects, LO excluded, 90%+ earns 8 points)",
+    APS_NMU:          "NMU Applicant Score (% sum, best 6 subjects, LO excluded, out of 600)",
   };
 
   return { score, model, label: labels[model] };
