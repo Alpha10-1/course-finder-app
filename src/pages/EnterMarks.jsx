@@ -237,6 +237,10 @@ export default function EnterMarks() {
           marksSource: marksSource || null,
           accessLevel,
           marksEditCount: newEditCount,
+          // Lets the Admin dashboard's "Most Recent Activity" sort reflect
+          // marks entry, not just logins (see lastActivityAt in SignIn.jsx —
+          // whichever of the two happened more recently wins).
+          lastActivityAt: new Date().toISOString(),
         }, { merge: true });
       } catch (err) {
         console.error("Error saving:", err);

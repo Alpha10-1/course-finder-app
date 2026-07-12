@@ -769,6 +769,8 @@ export default function Admin() {
   const [filterPlan, setFilterPlan] = useState("");
   const [filterAdmin, setFilterAdmin] = useState("");
   const [filterAuthOnly, setFilterAuthOnly] = useState("");
+  const [filterEnteredMarks, setFilterEnteredMarks] = useState("");
+  const [userSortBy, setUserSortBy] = useState(""); // "" | "lastActivityAt" | "lastLoginAt"
 
   // Course filters
   const [filterFaculty, setFilterFaculty] = useState("");
@@ -1336,8 +1338,25 @@ export default function Admin() {
     const matchPlan = !filterPlan || (u.plan || "free") === filterPlan;
     const matchAdmin = filterAdmin === "" || String(!!u.isAdmin) === filterAdmin;
     const matchAuthOnly = filterAuthOnly === "" || String(!!u.authOnly) === filterAuthOnly;
-    return matchSearch && matchPlan && matchAdmin && matchAuthOnly;
+    // "Entered marks" = they've been through EnterMarks.jsx at least once,
+    // which always writes a `subjects` array alongside the aps/grade fields.
+    const hasEnteredMarks = Array.isArray(u.subjects) && u.subjects.length > 0;
+    const matchEnteredMarks =
+      filterEnteredMarks === "" ||
+      (filterEnteredMarks === "true" ? hasEnteredMarks : !hasEnteredMarks);
+    return matchSearch && matchPlan && matchAdmin && matchAuthOnly && matchEnteredMarks;
   });
+
+  // Most-recent-first sort, applied on top of the filters above. Both fields
+  // are ISO date strings (or absent) — users missing the field sort last
+  // rather than crashing Date parsing or floating to the top as "newest".
+  const sortedFilteredUsers = userSortBy
+    ? [...filteredUsers].sort((a, b) => {
+        const aTime = a[userSortBy] ? new Date(a[userSortBy]).getTime() : -Infinity;
+        const bTime = b[userSortBy] ? new Date(b[userSortBy]).getTime() : -Infinity;
+        return bTime - aTime;
+      })
+    : filteredUsers;
 
   // Only computed for whichever user row is currently expanded — the full
   // catalog × matching rules isn't worth recomputing for every user on load.
@@ -1651,8 +1670,23 @@ export default function Admin() {
                 <option value="true">Auth-Only (no profile)</option>
                 <option value="false">Has Profile</option>
               </select>
-              {(filterPlan || filterAdmin || filterAuthOnly) && (
-                <button onClick={() => { setFilterPlan(""); setFilterAdmin(""); setFilterAuthOnly(""); }}
+              <select value={filterEnteredMarks} onChange={(e) => setFilterEnteredMarks(e.target.value)}
+                className="bg-gray-900 border border-gray-700 text-gray-300 text-xs rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                <option value="">All (Marks or Not)</option>
+                <option value="true">Entered Marks</option>
+                <option value="false">Haven't Entered Marks</option>
+              </select>
+              <select value={userSortBy} onChange={(e) => setUserSortBy(e.target.value)}
+                className="bg-gray-900 border border-gray-700 text-gray-300 text-xs rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                <option value="">Sort: Default</option>
+                <option value="lastActivityAt">Most Recent Activity</option>
+                <option value="lastLoginAt">Most Recent Login</option>
+              </select>
+              {(filterPlan || filterAdmin || filterAuthOnly || filterEnteredMarks || userSortBy) && (
+                <button onClick={() => {
+                  setFilterPlan(""); setFilterAdmin(""); setFilterAuthOnly("");
+                  setFilterEnteredMarks(""); setUserSortBy("");
+                }}
                   className="text-xs text-red-400 hover:text-red-300 border border-red-900 px-2 py-1 rounded-lg transition">
                   Clear filters
                 </button>
@@ -1666,7 +1700,7 @@ export default function Admin() {
               <p className="text-gray-500 text-sm py-8 text-center">No users found.</p>
             ) : (
               <div className="space-y-2">
-                {filteredUsers.map((user) => (
+                {sortedFilteredUsers.map((user) => (
                   <div key={user.uid} className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden">
                     <div className="flex items-center justify-between px-5 py-3 cursor-pointer hover:bg-gray-800/40 transition"
                       onClick={() => setExpandedUser(expandedUser === user.uid ? null : user.uid)}>
@@ -1715,6 +1749,8 @@ export default function Admin() {
                             <InfoCell label="Admin" value={user.isAdmin ? "Yes" : "No"} />
                             <InfoCell label="Joined" value={user.createdAt ? new Date(user.createdAt).toLocaleDateString("en-ZA") : "—"} />
                             <InfoCell label="Last Login" value={user.lastLoginAt ? new Date(user.lastLoginAt).toLocaleDateString("en-ZA") : "—"} />
+                            <InfoCell label="Last Activity" value={user.lastActivityAt ? new Date(user.lastActivityAt).toLocaleDateString("en-ZA") : "—"} />
+                            <InfoCell label="Entered Marks" value={Array.isArray(user.subjects) && user.subjects.length > 0 ? "Yes" : "No"} />
                             <InfoCell label="Email Verified" value={user.emailVerified ? "Yes" : "No"} />
                           </div>
                         </div>
