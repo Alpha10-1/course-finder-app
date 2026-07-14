@@ -50523,5 +50523,4069 @@
       }
     ],
     "additionalRequirements": "George Campus."
+  },
+  {
+    "courseName": "Diploma in Commercial Photography",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Arts and Design",
+    "campus": "Arts Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 22,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 40
+      }
+    ],
+    "applicationDeadline": "31 July"
+  },
+  {
+    "courseName": "Diploma in Fashion Design and Technology",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Arts and Design",
+    "campus": "Arts Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 20,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 40
+      }
+    ],
+    "applicationDeadline": "31 July"
+  },
+  {
+    "courseName": "Diploma in Fine and Applied Arts",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Arts and Design",
+    "campus": "Arts Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 20,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 40
+      }
+    ],
+    "applicationDeadline": "31 July"
+  },
+  {
+    "courseName": "Diploma in Integrated Communication Design",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Arts and Design",
+    "campus": "Arts Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      }
+    ],
+    "applicationDeadline": "31 July"
+  },
+  {
+    "courseName": "Diploma in Interior Design",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Arts and Design",
+    "campus": "Arts Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 22,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      }
+    ],
+    "applicationDeadline": "31 July",
+    "additionalRequirements": "Recommended subjects: Civil Technology, Design Studies, Engineering Graphics and Design, Visual Arts"
+  },
+  {
+    "courseName": "Diploma in Jewellery Design and Manufacture",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Arts and Design",
+    "campus": "Arts Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 20,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 40
+      }
+    ],
+    "applicationDeadline": "31 July"
+  },
+  {
+    "courseName": "Diploma in Motion Picture Production",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Arts and Design",
+    "campus": "Arts Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 22,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      }
+    ],
+    "applicationDeadline": "31 July"
+  },
+  {
+    "courseName": "Diploma in Performing Arts (Dance)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Arts and Design",
+    "campus": "Arts Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 20,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      }
+    ],
+    "applicationDeadline": "31 July"
+  },
+  {
+    "courseName": "Diploma in Performing Arts (Jazz Music)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Arts and Design",
+    "campus": "Arts Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 20,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      }
+    ],
+    "applicationDeadline": "31 July"
+  },
+  {
+    "courseName": "Diploma in Performing Arts (Opera)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Arts and Design",
+    "campus": "Arts Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 20,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      }
+    ],
+    "applicationDeadline": "31 July"
+  },
+  {
+    "courseName": "Diploma in Performing Arts (Technical Theatre and Design)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Arts and Design",
+    "campus": "Arts Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 20,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      }
+    ],
+    "applicationDeadline": "31 July"
+  },
+  {
+    "courseName": "Diploma in Performing Arts (Theatre Arts and Performance)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Arts and Design",
+    "campus": "Arts Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 20,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      }
+    ],
+    "applicationDeadline": "31 July"
+  },
+  {
+    "courseName": "Higher Certificate in Music",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Arts and Design",
+    "campus": "Arts Campus",
+    "duration": "1 year",
+    "qualificationType": "Higher Certificate",
+    "minAPS": 18,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 40
+      }
+    ],
+    "applicationDeadline": "31 July"
+  },
+  {
+    "courseName": "Diploma in Accounting",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Economics and Finance",
+    "campus": "GaRankuwa Campus (also Mbombela, Polokwane)",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 22,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Accounting",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "apsAlternatives": [
+      {
+        "subject": "Mathematical Literacy",
+        "minAPS": 24
+      }
+    ],
+    "additionalRequirements": "Mathematical Literacy minimum level 5"
+  },
+  {
+    "courseName": "Diploma in Economics",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Economics and Finance",
+    "campus": "GaRankuwa Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 22,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "31 July",
+    "apsAlternatives": [
+      {
+        "subject": "Mathematical Literacy",
+        "minAPS": 24
+      }
+    ],
+    "additionalRequirements": "Mathematical Literacy minimum level 6"
+  },
+  {
+    "courseName": "Diploma in Financial Management",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Economics and Finance",
+    "campus": "GaRankuwa Campus (also Mbombela, Polokwane)",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 22,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Accounting",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "apsAlternatives": [
+      {
+        "subject": "Mathematical Literacy",
+        "minAPS": 24
+      }
+    ],
+    "additionalRequirements": "Mathematical Literacy minimum level 5"
+  },
+  {
+    "courseName": "Diploma in Financial Planning",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Economics and Finance",
+    "campus": "GaRankuwa Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 22,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Accounting",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "apsAlternatives": [
+      {
+        "subject": "Mathematical Literacy",
+        "minAPS": 24
+      }
+    ],
+    "additionalRequirements": "Mathematical Literacy minimum level 5"
+  },
+  {
+    "courseName": "Diploma in Internal Auditing",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Economics and Finance",
+    "campus": "GaRankuwa Campus (also Mbombela, Polokwane)",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 22,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Accounting",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "apsAlternatives": [
+      {
+        "subject": "Mathematical Literacy",
+        "minAPS": 24
+      }
+    ],
+    "additionalRequirements": "Mathematical Literacy minimum level 5"
+  },
+  {
+    "courseName": "Diploma in Public Finance",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Economics and Finance",
+    "campus": "GaRankuwa Campus (also Mbombela, Polokwane)",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 22,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "apsAlternatives": [
+      {
+        "subject": "Accounting",
+        "minAPS": 23
+      },
+      {
+        "subject": "Mathematical Literacy",
+        "minAPS": 24
+      }
+    ],
+    "additionalRequirements": "Accounting minimum level 3; Mathematical Literacy minimum level 5"
+  },
+  {
+    "courseName": "Higher Certificate in Accounting",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Economics and Finance",
+    "campus": "GaRankuwa Campus",
+    "duration": "1 year",
+    "qualificationType": "Higher Certificate",
+    "minAPS": 22,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "apsAlternatives": [
+      {
+        "subject": "Mathematical Literacy",
+        "minAPS": 23
+      }
+    ],
+    "additionalRequirements": "Mathematical Literacy minimum level 4"
+  },
+  {
+    "courseName": "Bachelor of Architecture (BArch)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Engineering and the Built Environment",
+    "campus": "Pretoria Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 25,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "31 July"
+  },
+  {
+    "courseName": "Bachelor of Architecture (BArch) (Extended)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Engineering and the Built Environment",
+    "campus": "Pretoria Campus",
+    "duration": "5 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 25,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "31 July"
+  },
+  {
+    "courseName": "Bachelor of Geomatics (BGeomatics)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Engineering and the Built Environment",
+    "campus": "Pretoria Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 25,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Physical Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Sciences",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "31 July"
+  },
+  {
+    "courseName": "BEngTech (Chemical Engineering)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Engineering and the Built Environment",
+    "campus": "Pretoria Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Physical Sciences",
+            "minMark": 60
+          },
+          {
+            "subject": "Technical Sciences",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "additionalRequirements": "Recommended: Engineering Graphics and Design, Mechanical Technology"
+  },
+  {
+    "courseName": "BEngTech (Civil Engineering)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Engineering and the Built Environment",
+    "campus": "Pretoria Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Physical Sciences",
+            "minMark": 60
+          },
+          {
+            "subject": "Technical Sciences",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "additionalRequirements": "Recommended: Engineering Graphics and Design, Civil Technology"
+  },
+  {
+    "courseName": "BEngTech (Electrical Engineering)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Engineering and the Built Environment",
+    "campus": "Pretoria Campus (also eMalahleni)",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Physical Sciences",
+            "minMark": 60
+          },
+          {
+            "subject": "Technical Sciences",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "additionalRequirements": "Requires any three additional subjects at level 4; recommended: Engineering Graphics and Design, Electrical Technology"
+  },
+  {
+    "courseName": "BEngTech (Industrial Engineering)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Engineering and the Built Environment",
+    "campus": "Pretoria Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Physical Sciences",
+            "minMark": 60
+          },
+          {
+            "subject": "Technical Sciences",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "additionalRequirements": "Recommended: Engineering Graphics and Design, Mechanical Technology"
+  },
+  {
+    "courseName": "BEng (Materials Engineering) (Polymer Technology)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Engineering and the Built Environment",
+    "campus": "Pretoria Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Physical Sciences",
+            "minMark": 60
+          },
+          {
+            "subject": "Technical Sciences",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "additionalRequirements": "Recommended: Engineering Graphics and Design, Mechanical Technology"
+  },
+  {
+    "courseName": "BEngTech (Mechanical Engineering)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Engineering and the Built Environment",
+    "campus": "Pretoria Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Physical Sciences",
+            "minMark": 60
+          },
+          {
+            "subject": "Technical Sciences",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "additionalRequirements": "Recommended: Engineering Graphics and Design, Mechanical Technology"
+  },
+  {
+    "courseName": "BEngTech (Mechatronics Engineering)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Engineering and the Built Environment",
+    "campus": "Pretoria Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Physical Sciences",
+            "minMark": 60
+          },
+          {
+            "subject": "Technical Sciences",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "additionalRequirements": "Recommended: Engineering Graphics and Design, Mechanical Technology"
+  },
+  {
+    "courseName": "BEngTech (Metallurgical Engineering)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Engineering and the Built Environment",
+    "campus": "Pretoria Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Physical Sciences",
+            "minMark": 60
+          },
+          {
+            "subject": "Technical Sciences",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "additionalRequirements": "Recommended: Engineering Graphics and Design, Mechanical Technology"
+  },
+  {
+    "courseName": "Diploma in Building Science",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Engineering and the Built Environment",
+    "campus": "Pretoria Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 26,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          }
+        ]
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Physical Sciences",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Sciences",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September"
+  },
+  {
+    "courseName": "Diploma in Civil Engineering",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Engineering and the Built Environment",
+    "campus": "Pretoria Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 26,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 50
+          }
+        ]
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Physical Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Sciences",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "additionalRequirements": "Recommended: Engineering Graphics"
+  },
+  {
+    "courseName": "Diploma in Electrical Engineering",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Engineering and the Built Environment",
+    "campus": "Pretoria Campus (also eMalahleni)",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 26,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 50
+          }
+        ]
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Physical Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Sciences",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "additionalRequirements": "Recommended: Electrical Technology, Engineering Graphics and Design"
+  },
+  {
+    "courseName": "Diploma in Geomatics",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Engineering and the Built Environment",
+    "campus": "Pretoria Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 23,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 50
+          }
+        ]
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Physical Sciences",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Sciences",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September"
+  },
+  {
+    "courseName": "Diploma in Industrial Design",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Engineering and the Built Environment",
+    "campus": "Pretoria Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 21,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "31 July"
+  },
+  {
+    "courseName": "Higher Certificate in Construction Engineering (Material Test)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Engineering and the Built Environment",
+    "campus": "Pretoria Campus",
+    "duration": "1 year",
+    "qualificationType": "Higher Certificate",
+    "minAPS": 20,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 50
+          }
+        ]
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Physical Sciences",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Sciences",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "additionalRequirements": "Recommended: Civil Technology, Engineering Graphics and Design"
+  },
+  {
+    "courseName": "Higher Certificate in Construction Engineering (Water and Waste)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Engineering and the Built Environment",
+    "campus": "Pretoria Campus",
+    "duration": "1 year",
+    "qualificationType": "Higher Certificate",
+    "minAPS": 20,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 50
+          }
+        ]
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Physical Sciences",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Sciences",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "additionalRequirements": "Recommended: Civil Technology, Engineering Graphics and Design"
+  },
+  {
+    "courseName": "Higher Certificate in Electrical Engineering",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Engineering and the Built Environment",
+    "campus": "Pretoria Campus (also eMalahleni)",
+    "duration": "1 year",
+    "qualificationType": "Higher Certificate",
+    "minAPS": 20,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 50
+          }
+        ]
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Physical Sciences",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Sciences",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "additionalRequirements": "Recommended: Electrical Technology"
+  },
+  {
+    "courseName": "Higher Certificate in Industrial Engineering",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Engineering and the Built Environment",
+    "campus": "Pretoria Campus",
+    "duration": "1 year",
+    "qualificationType": "Higher Certificate",
+    "minAPS": 20,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 50
+          }
+        ]
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Physical Sciences",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Sciences",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "additionalRequirements": "Recommended: Mechanical Technology"
+  },
+  {
+    "courseName": "Higher Certificate in Mechanical Engineering",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Engineering and the Built Environment",
+    "campus": "Pretoria Campus",
+    "duration": "1 year",
+    "qualificationType": "Higher Certificate",
+    "minAPS": 20,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 50
+          }
+        ]
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Physical Sciences",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Sciences",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "additionalRequirements": "Recommended: Mechanical Technology or Technical: Mechanical Technology"
+  },
+  {
+    "courseName": "BEd (Foundation Phase Teaching)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Humanities",
+    "campus": "Soshanguve Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 25,
+    "keySubjects": [
+      {
+        "subject": "Home Language",
+        "minMark": 60
+      },
+      {
+        "subject": "First Additional Language",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "31 July"
+  },
+  {
+    "courseName": "BEd (Intermediate Phase Teaching)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Humanities",
+    "campus": "Soshanguve Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 25,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Home Language",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "31 July",
+    "additionalRequirements": "Also requires Life Sciences and Physical Sciences OR History and Geography (level 4)"
+  },
+  {
+    "courseName": "BEd (Senior Phase and FET Teaching) (Specialisation in Agriculture)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Humanities",
+    "campus": "Soshanguve Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 50
+          }
+        ]
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Agricultural Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Life Sciences",
+            "minMark": 50
+          }
+        ]
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Agricultural Technology",
+            "minMark": 50
+          },
+          {
+            "subject": "Physical Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Sciences",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "31 July"
+  },
+  {
+    "courseName": "BEd (Senior Phase and FET Teaching) (Specialisation in Consumer Sciences)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Humanities",
+    "campus": "Soshanguve Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 50
+          }
+        ]
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Consumer Studies",
+            "minMark": 50
+          },
+          {
+            "subject": "Hospitality Studies",
+            "minMark": 50
+          },
+          {
+            "subject": "Tourism",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "31 July"
+  },
+  {
+    "courseName": "BEd (Senior Phase and FET Teaching) (Specialisation in Economic and Management Sciences)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Humanities",
+    "campus": "Soshanguve Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 50
+          }
+        ]
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Accounting",
+            "minMark": 50
+          },
+          {
+            "subject": "Business Studies",
+            "minMark": 50
+          },
+          {
+            "subject": "Economics",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "31 July"
+  },
+  {
+    "courseName": "BEd (Senior Phase and FET Teaching) (Specialisation in Information Technology)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Humanities",
+    "campus": "Soshanguve Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Information Technology",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "31 July"
+  },
+  {
+    "courseName": "BEd (Senior Phase and FET Teaching) (Specialisation in Mathematics)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Humanities",
+    "campus": "Soshanguve Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Life Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Physical Sciences",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "31 July"
+  },
+  {
+    "courseName": "BEd (Senior Phase and FET Teaching) (Specialisation in Physical Education)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Humanities",
+    "campus": "Soshanguve Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 50
+          }
+        ]
+      },
+      {
+        "subject": "Life Sciences",
+        "minMark": 50
+      }
+    ],
+    "applicationDeadline": "31 July"
+  },
+  {
+    "courseName": "BEd (Senior Phase and FET Teaching) (Specialisation in Sciences)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Humanities",
+    "campus": "Soshanguve Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Life Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Physical Sciences",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "31 July"
+  },
+  {
+    "courseName": "BEd (Senior Phase and FET Teaching) (Specialisation in Technology)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Humanities",
+    "campus": "Soshanguve Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "31 July",
+    "additionalRequirements": "Also requires one or more of: Civil Technology, Electrical Technology, Mechanical Technology, Engineering Graphics and Design, Physical Sciences/Technical Sciences (level 4)"
+  },
+  {
+    "courseName": "Diploma in Adult and Community Education and Training (Specialisation in Civil Technology)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Humanities",
+    "campus": "Soshanguve Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 22,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Engineering Graphics Design",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          }
+        ]
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Civil Technology",
+            "minMark": 40
+          },
+          {
+            "subject": "Physical Sciences",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Sciences",
+            "minMark": 40
+          }
+        ]
+      },
+      {
+        "subject": "Additional language",
+        "minMark": 40
+      }
+    ],
+    "applicationDeadline": "31 July"
+  },
+  {
+    "courseName": "Diploma in Adult and Community Education and Training (Specialisation in Consumer Sciences)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Humanities",
+    "campus": "Soshanguve Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 22,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 50
+          }
+        ]
+      },
+      {
+        "subject": "Additional language",
+        "minMark": 40
+      }
+    ],
+    "applicationDeadline": "31 July",
+    "additionalRequirements": "Possible careers include child care, elder care, food and nutrition education, fashion design, catering/baking, community service work"
+  },
+  {
+    "courseName": "Diploma in Adult and Community Education and Training (Specialisation in Electrical and Mechanical)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Humanities",
+    "campus": "Soshanguve Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 22,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          }
+        ]
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Physical Sciences",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Sciences",
+            "minMark": 40
+          }
+        ]
+      },
+      {
+        "subject": "Additional language",
+        "minMark": 40
+      }
+    ],
+    "applicationDeadline": "31 July"
+  },
+  {
+    "courseName": "Diploma in Correctional and Rehabilitation Studies",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Humanities",
+    "campus": "Soshanguve South",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 20,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 40
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "15 June"
+  },
+  {
+    "courseName": "Diploma in Integrated Communication",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Humanities",
+    "campus": "Soshanguve Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 20,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Engineering Mathematics N3",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "31 July",
+    "apsAlternatives": [
+      {
+        "subject": "Mathematical Literacy",
+        "minAPS": 21
+      }
+    ],
+    "additionalRequirements": "Preference given to applicants with English level 5 or higher; Mathematical Literacy option requires level 4"
+  },
+  {
+    "courseName": "Diploma in Journalism",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Humanities",
+    "campus": "Soshanguve Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      }
+    ],
+    "applicationDeadline": "31 July",
+    "additionalRequirements": "Recommended: Geography, History, third language or any art-related subject"
+  },
+  {
+    "courseName": "Diploma in Language Practice",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Humanities",
+    "campus": "Soshanguve South",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 20,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Another Language",
+        "minMark": 60
+      }
+    ],
+    "applicationDeadline": "31 July",
+    "additionalRequirements": "Recommended: Afrikaans, Sepedi, Setswana, IsiZulu, Tshivenda or Xitsonga"
+  },
+  {
+    "courseName": "Diploma in Law",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Humanities",
+    "campus": "Soshanguve South (also Mbombela)",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 20,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      }
+    ],
+    "applicationDeadline": "31 July"
+  },
+  {
+    "courseName": "Diploma in Legal Support",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Humanities",
+    "campus": "Soshanguve South",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 20,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Additional Language",
+        "minMark": 40
+      }
+    ],
+    "applicationDeadline": "31 July"
+  },
+  {
+    "courseName": "Diploma in Policing (employed in law enforcement)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Humanities",
+    "campus": "Soshanguve South",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": null,
+    "keySubjects": [],
+    "applicationDeadline": "31 July",
+    "additionalRequirements": "For applicants employed in a law enforcement department: Senior Certificate or National Senior Certificate with bachelor's/diploma endorsement, relevant NQF Level 5/6 qualification in law enforcement, and at least 5 years' confirmed working experience as a law enforcement official. Proof of employment required."
+  },
+  {
+    "courseName": "Diploma in Policing (not employed in law enforcement)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Humanities",
+    "campus": "Soshanguve South",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 20,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 40
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "31 July",
+    "additionalRequirements": "For applicants not employed in law enforcement, with a National Senior Certificate obtained in or after 2008"
+  },
+  {
+    "courseName": "Diploma in Public Affairs (Admin of State)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Humanities",
+    "campus": "Soshanguve South (also Mbombela, Polokwane)",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 20,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 40
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "31 July"
+  },
+  {
+    "courseName": "Diploma in Public Affairs (Local Government)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Humanities",
+    "campus": "Soshanguve South (also Mbombela, Polokwane)",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 20,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 40
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "31 July"
+  },
+  {
+    "courseName": "Diploma in Traffic Safety and Municipal Police Management (employed in law enforcement)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Humanities",
+    "campus": "Soshanguve South (also Polokwane)",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": null,
+    "keySubjects": [],
+    "applicationDeadline": "15 June",
+    "additionalRequirements": "For applicants employed in a law enforcement department: Senior Certificate or National Senior Certificate with bachelor's/diploma endorsement, relevant NQF Level 5/6 qualification in law enforcement, and at least 5 years' confirmed working experience as a law enforcement official. Proof of employment required."
+  },
+  {
+    "courseName": "Diploma in Traffic Safety and Municipal Police Management (not employed in law enforcement)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Humanities",
+    "campus": "Soshanguve South (also Polokwane)",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 20,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 40
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "15 June",
+    "additionalRequirements": "For applicants not employed in law enforcement, with a National Senior Certificate obtained in or after 2008"
+  },
+  {
+    "courseName": "Diploma in Computer Science",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Information and Communication Technology",
+    "campus": "Soshanguve Campus (also eMalahleni, Polokwane)",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 26,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 60
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "apsAlternatives": [
+      {
+        "subject": "Mathematical Literacy",
+        "minAPS": 28
+      }
+    ],
+    "additionalRequirements": "Mathematical Literacy requires level 7; recommended: Information Technology"
+  },
+  {
+    "courseName": "Diploma in Computer Science (Extended)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Information and Communication Technology",
+    "campus": "Soshanguve Campus (also eMalahleni, Polokwane)",
+    "duration": "4 years",
+    "qualificationType": "Diploma",
+    "minAPS": 23,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 40
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "apsAlternatives": [
+      {
+        "subject": "Mathematical Literacy",
+        "minAPS": 25
+      }
+    ],
+    "additionalRequirements": "Mathematical Literacy requires level 6; recommended: Information Technology"
+  },
+  {
+    "courseName": "Diploma in Computer Systems Engineering",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Information and Communication Technology",
+    "campus": "Soshanguve Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 26,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Physical Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Sciences",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September"
+  },
+  {
+    "courseName": "Diploma in Computer Systems Engineering (Extended)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Information and Communication Technology",
+    "campus": "Soshanguve Campus",
+    "duration": "4 years",
+    "qualificationType": "Diploma",
+    "minAPS": 23,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 40
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Physical Sciences",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Sciences",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September"
+  },
+  {
+    "courseName": "Diploma in Informatics",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Information and Communication Technology",
+    "campus": "Soshanguve Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 26,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 60
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "apsAlternatives": [
+      {
+        "subject": "Mathematical Literacy",
+        "minAPS": 28
+      }
+    ],
+    "additionalRequirements": "Mathematical Literacy requires level 7"
+  },
+  {
+    "courseName": "Diploma in Informatics (Extended)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Information and Communication Technology",
+    "campus": "Soshanguve Campus",
+    "duration": "4 years",
+    "qualificationType": "Diploma",
+    "minAPS": 23,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 40
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "apsAlternatives": [
+      {
+        "subject": "Mathematical Literacy",
+        "minAPS": 25
+      }
+    ],
+    "additionalRequirements": "Mathematical Literacy requires level 6"
+  },
+  {
+    "courseName": "Diploma in Information Technology",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Information and Communication Technology",
+    "campus": "Soshanguve Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 26,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 60
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 60
+          }
+        ]
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Physical Sciences",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Sciences",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "apsAlternatives": [
+      {
+        "subject": "Mathematical Literacy",
+        "minAPS": 28
+      }
+    ],
+    "additionalRequirements": "Mathematical Literacy requires level 7"
+  },
+  {
+    "courseName": "Diploma in Information Technology (Extended)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Information and Communication Technology",
+    "campus": "Soshanguve Campus",
+    "duration": "4 years",
+    "qualificationType": "Diploma",
+    "minAPS": 23,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 40
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 50
+          }
+        ]
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Physical Sciences",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Sciences",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "apsAlternatives": [
+      {
+        "subject": "Mathematical Literacy",
+        "minAPS": 25
+      }
+    ],
+    "additionalRequirements": "Mathematical Literacy requires level 6"
+  },
+  {
+    "courseName": "Diploma in Multimedia Computing",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Information and Communication Technology",
+    "campus": "Soshanguve Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 26,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 60
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "apsAlternatives": [
+      {
+        "subject": "Mathematical Literacy",
+        "minAPS": 28
+      }
+    ],
+    "additionalRequirements": "Mathematical Literacy requires level 7; recommended: Information Technology"
+  },
+  {
+    "courseName": "Diploma in Multimedia Computing (Extended)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Information and Communication Technology",
+    "campus": "Soshanguve Campus",
+    "duration": "4 years",
+    "qualificationType": "Diploma",
+    "minAPS": 23,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 40
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "apsAlternatives": [
+      {
+        "subject": "Mathematical Literacy",
+        "minAPS": 25
+      }
+    ],
+    "additionalRequirements": "Mathematical Literacy requires level 6; recommended: Information Technology"
+  },
+  {
+    "courseName": "Diploma in Administrative Information Management",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Management Sciences",
+    "campus": "Pretoria Campus (also eMalahleni, Polokwane)",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September"
+  },
+  {
+    "courseName": "Diploma in Adventure Tourism Management",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Management Sciences",
+    "campus": "Mbombela Campus only",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "additionalRequirements": "Recommended: Business Studies, Geography, Tourism Studies"
+  },
+  {
+    "courseName": "Diploma in Casino Resort Management",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Management Sciences",
+    "campus": "Pretoria Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "additionalRequirements": "Recommended: Business Studies, Geography, Hospitality Studies, Tourism"
+  },
+  {
+    "courseName": "Diploma in Contact Centre Management",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Management Sciences",
+    "campus": "Pretoria Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September"
+  },
+  {
+    "courseName": "Diploma in Credit Management",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Management Sciences",
+    "campus": "Pretoria Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 50
+          }
+        ]
+      },
+      {
+        "subject": "Accounting",
+        "minMark": 40
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "additionalRequirements": "Recommended: Mathematics and Commercial subjects"
+  },
+  {
+    "courseName": "Diploma in Ecotourism Management",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Management Sciences",
+    "campus": "Mbombela Campus only",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "additionalRequirements": "Recommended: Business Studies, Geography, Hospitality Studies, Life Sciences, Tourism"
+  },
+  {
+    "courseName": "Diploma in Entrepreneurship",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Management Sciences",
+    "campus": "Pretoria Campus (also eMalahleni, Polokwane)",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "additionalRequirements": "Recommended: Commercial subjects"
+  },
+  {
+    "courseName": "Diploma in Event Management",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Management Sciences",
+    "campus": "Pretoria Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "additionalRequirements": "Recommended: Business Studies, Hospitality Studies, Tourism"
+  },
+  {
+    "courseName": "Diploma in Food Operations Management",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Management Sciences",
+    "campus": "Pretoria Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 40
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September"
+  },
+  {
+    "courseName": "Diploma in Hospitality Management",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Management Sciences",
+    "campus": "Pretoria Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 40
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September"
+  },
+  {
+    "courseName": "Diploma in Human Resource Management",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Management Sciences",
+    "campus": "Pretoria Campus (also eMalahleni, Polokwane)",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September"
+  },
+  {
+    "courseName": "Diploma in Marketing",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Management Sciences",
+    "campus": "Pretoria Campus (also Mbombela)",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "additionalRequirements": "Recommended: Accounting, Business Studies, Economics"
+  },
+  {
+    "courseName": "Diploma in Operations Management",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Management Sciences",
+    "campus": "Pretoria Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 40
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September"
+  },
+  {
+    "courseName": "Diploma in Retail Business Management",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Management Sciences",
+    "campus": "Online",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September"
+  },
+  {
+    "courseName": "Diploma in Sport Management",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Management Sciences",
+    "campus": "Pretoria Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "additionalRequirements": "Recommended: Accounting, Business Studies, Economics"
+  },
+  {
+    "courseName": "Diploma in Supply Chain Management",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Management Sciences",
+    "campus": "Pretoria Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "additionalRequirements": "Recommended: Commercial subjects"
+  },
+  {
+    "courseName": "Diploma in Tourism Management",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Management Sciences",
+    "campus": "Pretoria Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "additionalRequirements": "Recommended: Business Studies, Geography, Hospitality Studies, Travel and Tourism"
+  },
+  {
+    "courseName": "Diploma in Work Study",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Management Sciences",
+    "campus": "Pretoria Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 40
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September"
+  },
+  {
+    "courseName": "Higher Certificate in Administrative Information Management",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Management Sciences",
+    "campus": "Online",
+    "duration": "1 year",
+    "qualificationType": "Higher Certificate",
+    "minAPS": 20,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 40
+      }
+    ]
+  },
+  {
+    "courseName": "Higher Certificate in Contact Centre Management",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Management Sciences",
+    "campus": "Online",
+    "duration": "1 year",
+    "qualificationType": "Higher Certificate",
+    "minAPS": 20,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 40
+      }
+    ]
+  },
+  {
+    "courseName": "Diploma in Animal Sciences",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Science",
+    "campus": "Pretoria Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 19,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 40
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 40
+      }
+    ],
+    "applicationDeadline": "31 July",
+    "additionalRequirements": "Recommended: Agricultural Sciences, Life Sciences"
+  },
+  {
+    "courseName": "Diploma in Crop Production",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Science",
+    "campus": "Pretoria Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 19,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "31 July",
+    "apsAlternatives": [
+      {
+        "subject": "Mathematical Literacy",
+        "minAPS": 20
+      }
+    ],
+    "additionalRequirements": "Recommended: Agricultural subjects, Life Sciences and/or Physical Sciences"
+  },
+  {
+    "courseName": "Diploma in Equine Science",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Science",
+    "campus": "Pretoria Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 19,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 40
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 40
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "additionalRequirements": "Recommended: Agricultural Sciences, Life Sciences"
+  },
+  {
+    "courseName": "Diploma in Horticulture",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Science",
+    "campus": "Pretoria Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 25,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          }
+        ]
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Life Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Physical Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Sciences",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "apsAlternatives": [
+      {
+        "subject": "Mathematical Literacy",
+        "minAPS": 26
+      }
+    ]
+  },
+  {
+    "courseName": "Diploma in Landscape Technology",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Science",
+    "campus": "Pretoria Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 25,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          }
+        ]
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Life Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Physical Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Sciences",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "apsAlternatives": [
+      {
+        "subject": "Mathematical Literacy",
+        "minAPS": 26
+      }
+    ]
+  },
+  {
+    "courseName": "Diploma in Nature Conservation",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Science",
+    "campus": "Pretoria Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "31 July",
+    "apsAlternatives": [
+      {
+        "subject": "Mathematical Literacy",
+        "minAPS": 25
+      }
+    ],
+    "additionalRequirements": "Recommended: Agricultural Sciences, Geography, Life Sciences, Physical Sciences or Technical Sciences"
+  },
+  {
+    "courseName": "Diploma in Wildlife Management",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Science",
+    "campus": "Pretoria Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "31 July",
+    "apsAlternatives": [
+      {
+        "subject": "Mathematical Literacy",
+        "minAPS": 25
+      }
+    ],
+    "additionalRequirements": "Recommended: Agricultural Sciences, Geography, Life Sciences, Physical Sciences or Technical Sciences"
+  },
+  {
+    "courseName": "Higher Certificate in Forestry Management",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Science",
+    "campus": "Mbombela Campus only",
+    "duration": "2 years",
+    "qualificationType": "Higher Certificate",
+    "minAPS": 18,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 40
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "apsAlternatives": [
+      {
+        "subject": "Mathematical Literacy",
+        "minAPS": 21
+      }
+    ]
+  },
+  {
+    "courseName": "Bachelor of Environmental Health",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Science",
+    "campus": "Pretoria Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Sciences",
+        "minMark": 50
+      }
+    ],
+    "applicationDeadline": "31 July",
+    "additionalRequirements": "Requires two other subjects at level 4"
+  },
+  {
+    "courseName": "Bachelor of Nursing (BNursing)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Science",
+    "campus": "Pretoria Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 27,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Sciences",
+        "minMark": 50
+      }
+    ],
+    "applicationDeadline": "15 June"
+  },
+  {
+    "courseName": "Bachelor of Pharmacy (BPharm)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Science",
+    "campus": "Arcadia Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Sciences",
+        "minMark": 50
+      }
+    ],
+    "applicationDeadline": "15 June",
+    "additionalRequirements": "Requires two other subjects at level 4"
+  },
+  {
+    "courseName": "Bachelor of Radiography in Diagnostics (BRad)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Science",
+    "campus": "Arcadia Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Sciences",
+        "minMark": 50
+      }
+    ],
+    "applicationDeadline": "15 June"
+  },
+  {
+    "courseName": "Bachelor of Health Sciences (Biokinetics)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Science",
+    "campus": "Pretoria Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Sciences",
+        "minMark": 50
+      }
+    ],
+    "applicationDeadline": "31 July"
+  },
+  {
+    "courseName": "Bachelor of Health Sciences (Clinical Technology)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Science",
+    "campus": "Arcadia Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Sciences",
+        "minMark": 50
+      }
+    ],
+    "applicationDeadline": "31 July"
+  },
+  {
+    "courseName": "Bachelor of Health Sciences (Medical Laboratory Science)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Science",
+    "campus": "Arcadia Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Sciences",
+        "minMark": 50
+      }
+    ],
+    "applicationDeadline": "15 June"
+  },
+  {
+    "courseName": "Bachelor of Health Sciences (Medical Orthotics and Prosthetics)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Science",
+    "campus": "Pretoria Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Sciences",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 50
+      }
+    ],
+    "applicationDeadline": "15 June"
+  },
+  {
+    "courseName": "Bachelor of Health Sciences (Veterinary Technology)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Science",
+    "campus": "Arcadia Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Life Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Agricultural Sciences",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "31 July"
+  },
+  {
+    "courseName": "Diploma in Kinesiology and Coaching Science",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Science",
+    "campus": "Pretoria Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 40
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 50
+          }
+        ]
+      },
+      {
+        "subject": "Life Sciences",
+        "minMark": 40
+      }
+    ],
+    "applicationDeadline": "31 July"
+  },
+  {
+    "courseName": "Diploma in Somatic Therapy",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Science",
+    "campus": "Arcadia Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 22,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 50
+          }
+        ]
+      },
+      {
+        "subject": "Life Sciences",
+        "minMark": 50
+      }
+    ],
+    "applicationDeadline": "31 July",
+    "apsAlternatives": [
+      {
+        "subject": "Mathematical Literacy",
+        "minAPS": 23
+      }
+    ]
+  },
+  {
+    "courseName": "Higher Certificate in Dental Assisting",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Science",
+    "campus": "Pretoria Campus",
+    "duration": "1 year",
+    "qualificationType": "Higher Certificate",
+    "minAPS": 20,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "31 July",
+    "additionalRequirements": "Requires any other additional subjects at level 3"
+  },
+  {
+    "courseName": "Bachelor of Science in Industrial Chemistry (BSc)",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Science",
+    "campus": "Arcadia Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 60
+      }
+    ],
+    "applicationDeadline": "31 July"
+  },
+  {
+    "courseName": "Diploma in Analytical Chemistry",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Science",
+    "campus": "Arcadia Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 21,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 50
+          }
+        ]
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Physical Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Sciences",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "31 July"
+  },
+  {
+    "courseName": "Diploma in Biotechnology",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Science",
+    "campus": "Arcadia Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 50
+          }
+        ]
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Physical Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Sciences",
+            "minMark": 50
+          }
+        ]
+      },
+      {
+        "subject": "Life Sciences",
+        "minMark": 40
+      }
+    ],
+    "applicationDeadline": "31 July"
+  },
+  {
+    "courseName": "Diploma in Environmental Sciences",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Science",
+    "campus": "Arcadia Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 50
+          }
+        ]
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Physical Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Sciences",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "additionalRequirements": "Recommended: Geography and Life Sciences"
+  },
+  {
+    "courseName": "Diploma in Fire Technology",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Science",
+    "campus": "Arcadia Campus / Distance Education",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": null,
+    "keySubjects": [],
+    "applicationDeadline": "31 July",
+    "additionalRequirements": "Only offered to Fire and Rescue Services personnel. Requires a National Senior Certificate with bachelor's/diploma endorsement (or equivalent), three years' relevant work experience, and HAZMAT Awareness, Fire Fighter I, HAZMAT Operational, and Fire Fighter II certificates. Proof of employment required."
+  },
+  {
+    "courseName": "Diploma in Food Technology",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Science",
+    "campus": "Arcadia Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 24,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Physical Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Sciences",
+            "minMark": 50
+          }
+        ]
+      },
+      {
+        "subject": "Life Sciences",
+        "minMark": 40
+      }
+    ],
+    "applicationDeadline": "30 September"
+  },
+  {
+    "courseName": "Diploma in Geology",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Science",
+    "campus": "Arcadia Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 21,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 50
+          }
+        ]
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Physical Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Sciences",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "31 July",
+    "additionalRequirements": "Recommended: Computer Applications Technology, Geography and/or Information Technology"
+  },
+  {
+    "courseName": "Diploma in Industrial Physics",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Science",
+    "campus": "Arcadia Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 21,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 50
+          }
+        ]
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Physical Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Sciences",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September"
+  },
+  {
+    "courseName": "Diploma in Water Science and Technology",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Science",
+    "campus": "Arcadia Campus",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 21,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 50
+          }
+        ]
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Physical Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Technical Sciences",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "additionalRequirements": "Recommended: Life Sciences"
+  },
+  {
+    "courseName": "Higher Certificate in Resource and Waste Management",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Science",
+    "campus": "Arcadia Campus",
+    "duration": "1 year",
+    "qualificationType": "Higher Certificate",
+    "minAPS": 18,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 40
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "apsAlternatives": [
+      {
+        "subject": "Mathematical Literacy",
+        "minAPS": 21
+      }
+    ]
+  },
+  {
+    "courseName": "Higher Certificate in Water Treatment",
+    "institution": "Tshwane University of Technology",
+    "faculty": "Faculty of Science",
+    "campus": "Arcadia Campus",
+    "duration": "1 year",
+    "qualificationType": "Higher Certificate",
+    "minAPS": 18,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 40
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Technical Mathematics",
+            "minMark": 40
+          }
+        ]
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 40
+      }
+    ],
+    "applicationDeadline": "30 September",
+    "apsAlternatives": [
+      {
+        "subject": "Mathematical Literacy",
+        "minAPS": 21
+      }
+    ]
   }
 ]

@@ -18,6 +18,10 @@ import {
   getInstitutionApplicationStatus,
   fetchInstitutionSettingsMap,
   saveInstitutionSettings,
+  fetchFacultySettingsMap,
+  saveFacultySettings,
+  facultySettingsKey,
+  getCourseDisplayStatus,
 } from "../utils/institutionStatus";
 
 // Given a learner's saved subjects/grade and the full course catalog, returns
@@ -796,6 +800,23 @@ export default function Admin() {
   const [editingInstitutionDates, setEditingInstitutionDates] = useState(null); // institution name | null
   const [datesForm, setDatesForm] = useState({ openDate: "", closeDate: "" });
 
+  // Faculty-level application windows (override the institution's window for
+  // just that faculty; falls back to the institution's dates when unset)
+  const [facultySettings, setFacultySettings] = useState({}); // { "institution|||faculty": { openDate, closeDate } }
+  const [editingFacultyDates, setEditingFacultyDates] = useState(null); // { institution, faculty } | null
+  const [facultyDatesForm, setFacultyDatesForm] = useState({ openDate: "", closeDate: "" });
+
+  // Which faculty groups are collapsed in the single-varsity view (by
+  // "institution|||faculty" key). Absent from the set = expanded (default).
+  const [collapsedFacultyGroups, setCollapsedFacultyGroups] = useState(new Set());
+  const toggleFacultyGroupCollapsed = (key) => {
+    setCollapsedFacultyGroups((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) next.delete(key); else next.add(key);
+      return next;
+    });
+  };
+
   // Bulk delete mode
   const [bulkMode, setBulkMode] = useState(false);
   const [bulkSelectedIds, setBulkSelectedIds] = useState(() => new Set());
@@ -877,7 +898,19 @@ export default function Admin() {
     }
   }, []);
 
-  useEffect(() => { loadUsers(); loadCourses(); loadInstitutionSettings(); }, [loadUsers, loadCourses, loadInstitutionSettings]);
+  // ── Load faculty-level application-window settings ────────────────────────
+  const loadFacultySettings = useCallback(async () => {
+    try {
+      const map = await fetchFacultySettingsMap();
+      setFacultySettings(map);
+    } catch (err) {
+      showToast("Failed to load faculty application windows: " + err.message, "error");
+    }
+  }, []);
+
+  useEffect(() => {
+    loadUsers(); loadCourses(); loadInstitutionSettings(); loadFacultySettings();
+  }, [loadUsers, loadCourses, loadInstitutionSettings, loadFacultySettings]);
 
   // ── Stats ────────────────────────────────────────────────────────────────
   const stats = {
@@ -1228,6 +1261,45 @@ export default function Admin() {
     } catch (err) { showToast(err.message, "error"); }
   };
 
+  // ── Faculty application windows ───────────────────────────────────────────
+  const openFacultyDatesEditor = (institution, faculty) => {
+    const key = facultySettingsKey(institution, faculty);
+    const s = facultySettings[key] || {};
+    setFacultyDatesForm({ openDate: s.openDate || "", closeDate: s.closeDate || "" });
+    setEditingFacultyDates({ institution, faculty });
+  };
+
+  const handleSaveFacultyDates = async () => {
+    if (!editingFacultyDates) return;
+    const { institution, faculty } = editingFacultyDates;
+    try {
+      await saveFacultySettings(institution, faculty, facultyDatesForm, auth.currentUser?.email);
+      setFacultySettings((prev) => ({
+        ...prev,
+        [facultySettingsKey(institution, faculty)]: {
+          openDate: facultyDatesForm.openDate || null,
+          closeDate: facultyDatesForm.closeDate || null,
+        },
+      }));
+      showToast(`Application window saved for ${faculty}`);
+      setEditingFacultyDates(null);
+    } catch (err) { showToast(err.message, "error"); }
+  };
+
+  const handleClearFacultyDates = async () => {
+    if (!editingFacultyDates) return;
+    const { institution, faculty } = editingFacultyDates;
+    try {
+      await saveFacultySettings(institution, faculty, { openDate: null, closeDate: null }, auth.currentUser?.email);
+      setFacultySettings((prev) => ({
+        ...prev,
+        [facultySettingsKey(institution, faculty)]: { openDate: null, closeDate: null },
+      }));
+      showToast(`${faculty} now follows ${institution}'s own dates`);
+      setEditingFacultyDates(null);
+    } catch (err) { showToast(err.message, "error"); }
+  };
+
   // ── Bulk delete ───────────────────────────────────────────────────────────
   const toggleBulkSelected = (id) => {
     setBulkSelectedIds((prev) => {
@@ -1527,6 +1599,50 @@ export default function Admin() {
                 Clear dates (always open)
               </button>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* Faculty application-window editor */}
+      {editingFacultyDates && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
+          <div className="bg-gray-900 border border-gray-700 rounded-2xl shadow-2xl w-full max-w-sm p-6 space-y-4">
+            <h3 className="text-lg font-bold text-white">Faculty Application Window</h3>
+            <p className="text-sm text-gray-300">
+              {editingFacultyDates.faculty}
+              <span className="block text-gray-500 text-xs mt-0.5">{editingFacultyDates.institution}</span>
+            </p>
+            <p className="text-xs text-gray-500">
+              Leave both fields blank to have this faculty simply follow {editingFacultyDates.institution}'s own
+              application window. Only set dates here if this faculty closes on a different schedule.
+            </p>
+            <div>
+              <label className="block text-xs text-gray-400 mb-1">Opens on</label>
+              <input type="date" value={facultyDatesForm.openDate}
+                onChange={(e) => setFacultyDatesForm((f) => ({ ...f, openDate: e.target.value }))}
+                className="w-full bg-gray-800 border border-gray-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500" />
+            </div>
+            <div>
+              <label className="block text-xs text-gray-400 mb-1">Closes on</label>
+              <input type="date" value={facultyDatesForm.closeDate}
+                onChange={(e) => setFacultyDatesForm((f) => ({ ...f, closeDate: e.target.value }))}
+                className="w-full bg-gray-800 border border-gray-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500" />
+            </div>
+            <div className="flex gap-3 pt-1">
+              <button onClick={() => setEditingFacultyDates(null)}
+                className="flex-1 py-2 rounded-xl bg-gray-700 hover:bg-gray-600 text-sm transition">Cancel</button>
+              <button onClick={handleSaveFacultyDates}
+                className="flex-1 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-sm font-semibold transition">Save</button>
+            </div>
+            {(() => {
+              const key = facultySettingsKey(editingFacultyDates.institution, editingFacultyDates.faculty);
+              return (facultySettings[key]?.openDate || facultySettings[key]?.closeDate) && (
+                <button onClick={handleClearFacultyDates}
+                  className="w-full text-xs text-red-400 hover:text-red-300 transition">
+                  Clear dates (follow {editingFacultyDates.institution}'s dates)
+                </button>
+              );
+            })()}
           </div>
         </div>
       )}
@@ -1972,6 +2088,7 @@ export default function Admin() {
                     courses={filteredCourses}
                     allCourses={courses}
                     institutionSettings={institutionSettings}
+                    facultySettings={facultySettings}
                     filterFaculty={filterFaculty} setFilterFaculty={setFilterFaculty}
                     filterInstitution={filterInstitution} setFilterInstitution={setFilterInstitution}
                     filterQualType={filterQualType} setFilterQualType={setFilterQualType}
@@ -1988,6 +2105,7 @@ export default function Admin() {
                     courses={filteredCourses}
                     allCourses={courses}
                     institutionSettings={institutionSettings}
+                    facultySettings={facultySettings}
                     courseSearch={courseSearch} setCourseSearch={setCourseSearch}
                     filterFaculty={filterFaculty} setFilterFaculty={setFilterFaculty}
                     filterInstitution={filterInstitution} setFilterInstitution={setFilterInstitution}
@@ -2161,55 +2279,110 @@ export default function Admin() {
 
                   {filtered.length === 0 ? (
                     <p className="text-gray-500 text-sm py-8 text-center">No courses match your search.</p>
-                  ) : (
-                    <div className="overflow-x-auto rounded-2xl border border-gray-800">
-                      <table className="w-full text-sm">
-                        <thead className="bg-gray-900 text-gray-400 text-xs uppercase tracking-wider">
-                          <tr>
-                            <th className="text-left px-4 py-3">Course</th>
-                            <th className="text-left px-4 py-3 hidden md:table-cell">Type</th>
-                            <th className="text-left px-4 py-3">APS</th>
-                            <th className="text-left px-4 py-3">Status</th>
-                            <th className="px-4 py-3 text-right">Actions</th>
-                          </tr>
-                        </thead>
-                        <tbody className="divide-y divide-gray-800">
-                          {filtered.map((course) => (
-                            <tr key={course.id} className="bg-gray-950 hover:bg-gray-900 transition">
-                              <td className="px-4 py-3 font-medium text-white max-w-md">
-                                <p className="truncate">
-                                  {course.courseName}
-                                  {course.campus && (
-                                    <span className="ml-2 text-xs font-normal bg-amber-900/50 text-amber-300 px-1.5 py-0.5 rounded">{course.campus}</span>
+                  ) : (() => {
+                    // Group courses by faculty. Courses with no faculty set
+                    // fall into a catch-all group so nothing is dropped.
+                    const groups = new Map(); // facultyName -> courses[]
+                    filtered.forEach((course) => {
+                      const key = course.faculty?.trim() || "(No Faculty Listed)";
+                      if (!groups.has(key)) groups.set(key, []);
+                      groups.get(key).push(course);
+                    });
+                    const facultyNames = [...groups.keys()].sort((a, b) => {
+                      if (a === "(No Faculty Listed)") return 1;
+                      if (b === "(No Faculty Listed)") return -1;
+                      return a.localeCompare(b);
+                    });
+
+                    return (
+                      <div className="space-y-4">
+                        {facultyNames.map((facultyName) => {
+                          const facultyCourses = groups.get(facultyName);
+                          const groupKey = facultySettingsKey(selectedVarsity, facultyName);
+                          const isCollapsed = collapsedFacultyGroups.has(groupKey);
+                          const hasOwnDates = facultyName !== "(No Faculty Listed)" &&
+                            (facultySettings[groupKey]?.openDate || facultySettings[groupKey]?.closeDate);
+                          const facultyStatus = facultyName === "(No Faculty Listed)"
+                            ? getInstitutionApplicationStatus(institutionSettings[selectedVarsity])
+                            : getCourseDisplayStatus({ institution: selectedVarsity, faculty: facultyName }, institutionSettings, facultySettings);
+
+                          return (
+                            <div key={facultyName} className="rounded-2xl border border-gray-800 overflow-hidden">
+                              <div className="flex items-center justify-between gap-2 bg-gray-900 px-4 py-3">
+                                <button onClick={() => toggleFacultyGroupCollapsed(groupKey)}
+                                  className="flex items-center gap-2 text-left min-w-0 flex-1">
+                                  <span className="text-gray-500 text-xs shrink-0">{isCollapsed ? "▶" : "▼"}</span>
+                                  <span className="text-white font-semibold text-sm truncate">{facultyName}</span>
+                                  <span className="text-gray-500 text-xs shrink-0">({facultyCourses.length})</span>
+                                </button>
+                                <div className="flex items-center gap-2 shrink-0">
+                                  <InstitutionStatusBadge status={facultyStatus} />
+                                  {hasOwnDates && (
+                                    <span className="text-[10px] text-purple-400 whitespace-nowrap">own dates</span>
                                   )}
-                                </p>
-                                <p className="text-xs text-gray-500 truncate">{course.faculty}</p>
-                              </td>
-                              <td className="px-4 py-3 hidden md:table-cell">
-                                <span className="text-xs bg-gray-800 text-gray-300 px-2 py-0.5 rounded-full">{course.qualificationType}</span>
-                              </td>
-                              <td className="px-4 py-3 text-purple-400 font-semibold">{course.minAPS}</td>
-                              <td className="px-4 py-3">
-                                <InstitutionStatusBadge status={getInstitutionApplicationStatus(institutionSettings[course.institution])} />
-                              </td>
-                              <td className="px-4 py-3">
-                                <div className="flex gap-2 justify-end">
-                                  <button onClick={() => setEditingCourse({ ...course })}
-                                    className="text-xs bg-purple-900 hover:bg-purple-800 text-purple-300 px-3 py-1 rounded-lg transition">
-                                    Edit
-                                  </button>
-                                  <button onClick={() => setConfirmDeleteCourse(course)}
-                                    className="text-xs bg-red-900 hover:bg-red-800 text-red-300 px-3 py-1 rounded-lg transition">
-                                    Delete
-                                  </button>
+                                  {facultyName !== "(No Faculty Listed)" && (
+                                    <button onClick={() => openFacultyDatesEditor(selectedVarsity, facultyName)}
+                                      className="text-xs text-gray-500 hover:text-purple-400 underline whitespace-nowrap">
+                                      Set dates
+                                    </button>
+                                  )}
                                 </div>
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  )}
+                              </div>
+
+                              {!isCollapsed && (
+                                <div className="overflow-x-auto">
+                                  <table className="w-full text-sm">
+                                    <thead className="bg-gray-950 text-gray-500 text-xs uppercase tracking-wider">
+                                      <tr>
+                                        <th className="text-left px-4 py-2">Course</th>
+                                        <th className="text-left px-4 py-2 hidden md:table-cell">Type</th>
+                                        <th className="text-left px-4 py-2">APS</th>
+                                        <th className="text-left px-4 py-2">Status</th>
+                                        <th className="px-4 py-2 text-right">Actions</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody className="divide-y divide-gray-800">
+                                      {facultyCourses.map((course) => (
+                                        <tr key={course.id} className="bg-gray-950 hover:bg-gray-900 transition">
+                                          <td className="px-4 py-3 font-medium text-white max-w-md">
+                                            <p className="truncate">
+                                              {course.courseName}
+                                              {course.campus && (
+                                                <span className="ml-2 text-xs font-normal bg-amber-900/50 text-amber-300 px-1.5 py-0.5 rounded">{course.campus}</span>
+                                              )}
+                                            </p>
+                                          </td>
+                                          <td className="px-4 py-3 hidden md:table-cell">
+                                            <span className="text-xs bg-gray-800 text-gray-300 px-2 py-0.5 rounded-full">{course.qualificationType}</span>
+                                          </td>
+                                          <td className="px-4 py-3 text-purple-400 font-semibold">{course.minAPS}</td>
+                                          <td className="px-4 py-3">
+                                            <InstitutionStatusBadge status={getCourseDisplayStatus(course, institutionSettings, facultySettings)} />
+                                          </td>
+                                          <td className="px-4 py-3">
+                                            <div className="flex gap-2 justify-end">
+                                              <button onClick={() => setEditingCourse({ ...course })}
+                                                className="text-xs bg-purple-900 hover:bg-purple-800 text-purple-300 px-3 py-1 rounded-lg transition">
+                                                Edit
+                                              </button>
+                                              <button onClick={() => setConfirmDeleteCourse(course)}
+                                                className="text-xs bg-red-900 hover:bg-red-800 text-red-300 px-3 py-1 rounded-lg transition">
+                                                Delete
+                                              </button>
+                                            </div>
+                                          </td>
+                                        </tr>
+                                      ))}
+                                    </tbody>
+                                  </table>
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    );
+                  })()}
                 </>
               );
             })()}
@@ -2552,7 +2725,13 @@ function QuickCheckPanel({ courses }) {
   );
 }
 
+// status: "open" | "closing-soon" | "closed". Institution-level callers only
+// ever pass "open"/"closed" (2-state); course/faculty-level callers can also
+// pass "closing-soon" from getCourseDisplayStatus.
 function InstitutionStatusBadge({ status }) {
+  if (status === "closing-soon") {
+    return <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-amber-900 text-amber-300 whitespace-nowrap">CLOSING SOON</span>;
+  }
   return status === "open" ? (
     <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-green-900 text-green-300 whitespace-nowrap">OPEN</span>
   ) : (
@@ -2563,7 +2742,7 @@ function InstitutionStatusBadge({ status }) {
 // Faculty/qualification-type/min-APS filter panel + checkbox list used to
 // select a batch of courses (across every institution) for bulk deletion.
 function BulkDeleteCoursesPanel({
-  courses, allCourses, institutionSettings,
+  courses, allCourses, institutionSettings, facultySettings,
   filterFaculty, setFilterFaculty,
   filterInstitution, setFilterInstitution,
   filterQualType, setFilterQualType,
@@ -2662,7 +2841,7 @@ function BulkDeleteCoursesPanel({
             <tbody className="divide-y divide-gray-800">
               {courses.map((course) => {
                 const selected = bulkSelectedIds.has(course.id);
-                const status = getInstitutionApplicationStatus(institutionSettings[course.institution]);
+                const status = getCourseDisplayStatus(course, institutionSettings, facultySettings);
                 return (
                   <tr key={course.id}
                     onClick={() => toggleBulkSelected(course.id)}
@@ -2701,7 +2880,7 @@ function BulkDeleteCoursesPanel({
 // same course data (`filteredCourses`) the bulk-delete panel already uses,
 // just presented as a browsable, sortable table instead of a checkbox list.
 function ApsSearchPanel({
-  courses, allCourses, institutionSettings,
+  courses, allCourses, institutionSettings, facultySettings,
   courseSearch, setCourseSearch,
   filterFaculty, setFilterFaculty,
   filterInstitution, setFilterInstitution,
@@ -2815,7 +2994,7 @@ function ApsSearchPanel({
                   </td>
                   <td className="px-4 py-3 text-purple-400 font-semibold">{course.minAPS}</td>
                   <td className="px-4 py-3 hidden sm:table-cell">
-                    <InstitutionStatusBadge status={getInstitutionApplicationStatus(institutionSettings[course.institution])} />
+                    <InstitutionStatusBadge status={getCourseDisplayStatus(course, institutionSettings, facultySettings)} />
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex gap-2 justify-end">

@@ -4,7 +4,8 @@ import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc, setDoc, collection, getDocs } from "firebase/firestore";
 import { calculateAPSForUniversity, calculateAPSForCourse, calculateGeneralAPS, meetsCollegeRequirement, getCompletionLabel, getEffectiveMinAPS } from "../utils/marksToAPS";
 import { meetsKeySubjects, subjectMatches, isGenericCreditSubject, isAnotherLanguagePlaceholder } from "../utils/subjectMatch";
-import { getInstitutionApplicationStatus, fetchInstitutionSettingsMap } from "../utils/institutionStatus";
+import { getInstitutionApplicationStatus, getCourseDisplayStatus, fetchApplicationWindowSettings } from "../utils/institutionStatus";
+import CourseStatusBadge from "../components/CourseStatusBadge";
 import { db, auth } from "../firebase";
 import PricingModal from "../components/PricingModal";
 
@@ -44,6 +45,7 @@ export default function Results() {
 
   // Institution application windows — { [institution]: { openDate, closeDate } }
   const [institutionSettings, setInstitutionSettings] = useState({});
+  const [facultySettings, setFacultySettings] = useState({});
 
   // ── Selection mode ────────────────────────────────────────────────────────
   const [selectionMode,  setSelectionMode]  = useState(false);
@@ -145,11 +147,12 @@ export default function Results() {
         setGradeStatus(userGradeStatus);
 
         const gAps = calculateGeneralAPS(loadedSubjects);
-        const [coursesData, instSettings] = await Promise.all([
+        const [coursesData, windowSettings] = await Promise.all([
           fetchCourses(),
-          fetchInstitutionSettingsMap().catch(() => ({})),
+          fetchApplicationWindowSettings().catch(() => ({ institutionSettings: {}, facultySettings: {} })),
         ]);
-        setInstitutionSettings(instSettings);
+        setInstitutionSettings(windowSettings.institutionSettings);
+        setFacultySettings(windowSettings.facultySettings);
         const qualified = coursesData.filter((course) => {
           const isCollegeCourse = course.institutionType === "college";
 
@@ -441,11 +444,8 @@ export default function Results() {
         <p className="text-gray-700 text-sm">
           Institution: {course.institution}
           {course.campus && <span className="text-gray-500"> — {course.campus}</span>}
-          {!instOpen && (
-            <span className="ml-2 text-[10px] font-bold text-red-600 bg-red-100 px-1.5 py-0.5 rounded-full align-middle">
-              APPLICATIONS CLOSED
-            </span>
-          )}
+          {" "}
+          <CourseStatusBadge status={getCourseDisplayStatus(course, institutionSettings, facultySettings)} className="align-middle" />
         </p>
         <p className="text-gray-700 text-sm">Duration: {course.duration}</p>
         <p className="text-gray-700 text-sm">Qualification: {course.qualificationType}</p>

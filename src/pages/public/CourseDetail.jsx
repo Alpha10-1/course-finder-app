@@ -1,7 +1,9 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Seo from "../../components/Seo";
+import CourseStatusBadge from "../../components/CourseStatusBadge";
 import { getCourseBySlugs, getInstitutionBySlug } from "../../utils/publicCourses";
+import { getCourseDisplayStatus, fetchApplicationWindowSettings } from "../../utils/institutionStatus";
 
 export default function CourseDetail() {
   const { institutionSlug, courseSlug } = useParams();
@@ -10,6 +12,21 @@ export default function CourseDetail() {
     [institutionSlug, courseSlug]
   );
   const institution = useMemo(() => getInstitutionBySlug(institutionSlug), [institutionSlug]);
+
+  // Application windows live in Firestore (admins can change them any time),
+  // so — unlike the rest of this page's data — they're fetched client-side
+  // rather than baked into the prerendered HTML at build time.
+  const [windowSettings, setWindowSettings] = useState(null);
+  useEffect(() => {
+    let cancelled = false;
+    fetchApplicationWindowSettings()
+      .then((s) => { if (!cancelled) setWindowSettings(s); })
+      .catch(() => { if (!cancelled) setWindowSettings({ institutionSettings: {}, facultySettings: {} }); });
+    return () => { cancelled = true; };
+  }, []);
+  const courseStatus = course && windowSettings
+    ? getCourseDisplayStatus(course, windowSettings.institutionSettings, windowSettings.facultySettings)
+    : null;
 
   if (!course || !institution) {
     return (
@@ -60,7 +77,10 @@ export default function CourseDetail() {
             <p className="text-sm font-semibold text-purple-600 uppercase tracking-wide">
               {institution.name}
             </p>
-            <h1 className="text-2xl font-bold text-gray-900 mt-1">{course.courseName}</h1>
+            <div className="flex items-center gap-2 mt-1 flex-wrap">
+              <h1 className="text-2xl font-bold text-gray-900">{course.courseName}</h1>
+              {courseStatus && <CourseStatusBadge status={courseStatus} />}
+            </div>
             <p className="text-gray-500 mt-1">{course.faculty}</p>
 
             <div className="grid grid-cols-2 gap-4 mt-6">

@@ -1,12 +1,30 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Seo from "../../components/Seo";
+import CourseStatusBadge from "../../components/CourseStatusBadge";
 import { getInstitutionBySlug, getCoursesByInstitution } from "../../utils/publicCourses";
+import { getCourseDisplayStatus, fetchApplicationWindowSettings } from "../../utils/institutionStatus";
 
 export default function InstitutionCourses() {
   const { institutionSlug } = useParams();
   const institution = useMemo(() => getInstitutionBySlug(institutionSlug), [institutionSlug]);
   const courses = useMemo(() => getCoursesByInstitution(institutionSlug), [institutionSlug]);
+
+  // Application windows live in Firestore and can change any time, so they're
+  // fetched client-side rather than baked into the prerendered HTML.
+  const [windowSettings, setWindowSettings] = useState(null);
+  useEffect(() => {
+    let cancelled = false;
+    fetchApplicationWindowSettings()
+      .then((s) => { if (!cancelled) setWindowSettings(s); })
+      .catch(() => { if (!cancelled) setWindowSettings({ institutionSettings: {}, facultySettings: {} }); });
+    return () => { cancelled = true; };
+  }, []);
+  // No faculty on this pseudo-course, so this reflects the institution's own
+  // window only — individual course rows below layer in any faculty override.
+  const institutionStatus = institution && windowSettings
+    ? getCourseDisplayStatus({ institution: institution.name }, windowSettings.institutionSettings, windowSettings.facultySettings)
+    : null;
 
   if (!institution) {
     return (
@@ -34,7 +52,10 @@ export default function InstitutionCourses() {
           <Link to="/courses" className="text-sm text-purple-700 hover:underline">← All institutions</Link>
 
           <div className="mt-3 mb-8">
-            <h1 className="text-3xl font-bold text-gray-900">{icon} {institution.name}</h1>
+            <div className="flex items-center gap-2 flex-wrap">
+              <h1 className="text-3xl font-bold text-gray-900">{icon} {institution.name}</h1>
+              {institutionStatus && <CourseStatusBadge status={institutionStatus} />}
+            </div>
             <p className="text-gray-600 mt-2">
               {institution.courseCount} course{institution.courseCount === 1 ? "" : "s"} across {institution.faculties.length} facult{institution.faculties.length === 1 ? "y" : "ies"}.
             </p>
@@ -47,7 +68,14 @@ export default function InstitutionCourses() {
                 to={`/courses/${institution.slug}/${c.courseSlug}`}
                 className="block bg-white rounded-xl shadow-sm hover:shadow-md p-4 transition border border-transparent hover:border-purple-200"
               >
-                <p className="font-semibold text-gray-900">{c.courseName}</p>
+                <div className="flex items-center justify-between gap-2">
+                  <p className="font-semibold text-gray-900">{c.courseName}</p>
+                  {windowSettings && (
+                    <CourseStatusBadge
+                      status={getCourseDisplayStatus(c, windowSettings.institutionSettings, windowSettings.facultySettings)}
+                    />
+                  )}
+                </div>
                 <p className="text-sm text-gray-500 mt-0.5">{c.faculty}{c.duration ? ` · ${c.duration}` : ""}</p>
                 {c.institutionType === "university" ? (
                   <p className="text-xs text-purple-600 font-medium mt-1">Min APS: {c.minAPS ?? "—"}</p>

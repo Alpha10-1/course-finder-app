@@ -1,12 +1,28 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import Seo from "../../components/Seo";
+import CourseStatusBadge from "../../components/CourseStatusBadge";
 import { getInstitutions } from "../../utils/publicCourses";
+import { getCourseDisplayStatus, fetchApplicationWindowSettings } from "../../utils/institutionStatus";
 
 export default function CoursesDirectory() {
   const institutions = useMemo(() => getInstitutions(), []);
   const [query, setQuery] = useState("");
   const [type, setType] = useState("all");
+
+  // Application windows live in Firestore and can change any time, so they're
+  // fetched client-side rather than baked into the prerendered HTML.
+  const [windowSettings, setWindowSettings] = useState(null);
+  useEffect(() => {
+    let cancelled = false;
+    fetchApplicationWindowSettings()
+      .then((s) => { if (!cancelled) setWindowSettings(s); })
+      .catch(() => { if (!cancelled) setWindowSettings({ institutionSettings: {}, facultySettings: {} }); });
+    return () => { cancelled = true; };
+  }, []);
+  const institutionStatus = (name) => windowSettings
+    ? getCourseDisplayStatus({ institution: name }, windowSettings.institutionSettings, windowSettings.facultySettings)
+    : null;
 
   const filtered = institutions.filter((i) => {
     const matchesQuery = !query || i.name.toLowerCase().includes(query.toLowerCase());
@@ -72,7 +88,10 @@ export default function CoursesDirectory() {
                     to={`/courses/${i.slug}`}
                     className="bg-white rounded-xl shadow-sm hover:shadow-md p-4 transition border border-transparent hover:border-purple-200"
                   >
-                    <p className="font-semibold text-gray-900">{i.name}</p>
+                    <div className="flex items-center justify-between gap-2">
+                      <p className="font-semibold text-gray-900">{i.name}</p>
+                      <CourseStatusBadge status={institutionStatus(i.name)} />
+                    </div>
                     <p className="text-sm text-gray-500 mt-0.5">{i.courseCount} course{i.courseCount === 1 ? "" : "s"}</p>
                   </Link>
                 ))}
@@ -90,7 +109,10 @@ export default function CoursesDirectory() {
                     to={`/courses/${i.slug}`}
                     className="bg-white rounded-xl shadow-sm hover:shadow-md p-4 transition border border-transparent hover:border-blue-200"
                   >
-                    <p className="font-semibold text-gray-900">{i.name}</p>
+                    <div className="flex items-center justify-between gap-2">
+                      <p className="font-semibold text-gray-900">{i.name}</p>
+                      <CourseStatusBadge status={institutionStatus(i.name)} />
+                    </div>
                     <p className="text-sm text-gray-500 mt-0.5">{i.courseCount} course{i.courseCount === 1 ? "" : "s"}</p>
                   </Link>
                 ))}
