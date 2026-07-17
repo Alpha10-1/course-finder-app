@@ -187,13 +187,46 @@ export default function Results() {
         setSelections(savedSelections);
         setSubmitted(alreadySubmitted);
 
-        // Resume round if partially complete
+        // Resume round if partially complete.
+        //
+        // Can't infer completion from savedSelections alone: round 1 can
+        // legitimately finish with fewer than 6 institutions (exhausted
+        // early), and rounds 2/3 silently skip an institution that has
+        // nothing left to offer rather than writing a selection for it — so
+        // a missing entry might mean "not started yet" or "already
+        // exhausted and skipped". This replicates the same pickable/complete
+        // logic as isRoundComplete() below, but self-contained with local
+        // variables, since the component's normalCourses/extendedCourses/
+        // collegeCourses/institutionSettings state hasn't committed yet at
+        // this point in the load — those closures would still see their
+        // empty initial values if used here.
         if (Object.keys(savedSelections).length > 0 && !alreadySubmitted) {
           const insts = Object.keys(savedSelections);
-          if (insts.length === 6) {
-            const r2done = insts.every((i) => savedSelections[i]?.[2]);
-            const r3done = insts.every((i) => savedSelections[i]?.[3]);
-            if (!r3done) setRound(r2done ? 3 : r2done ? 3 : 2);
+          const localPool = [...uniCourses, ...collCourses];
+          const localIsOpen = (inst) =>
+            getInstitutionApplicationStatus(windowSettings.institutionSettings[inst]) === "open";
+          const localPickable = (r) => {
+            if (r === 1) return localPool.filter((c) => !insts.includes(c.institution) && localIsOpen(c.institution));
+            return localPool.filter((c) => {
+              if (!insts.includes(c.institution)) return false;
+              const pickedIds = Object.values(savedSelections[c.institution] || {}).map((s) => s.id);
+              return !pickedIds.includes(c.id);
+            });
+          };
+          const localComplete = (r) => {
+            if (r === 1) return insts.length === 6 || localPickable(1).length === 0;
+            const pickable = localPickable(r);
+            return insts.every((i) => savedSelections[i]?.[r] || !pickable.some((c) => c.institution === i));
+          };
+
+          if (localComplete(1)) {
+            const targetRound = localComplete(2) ? 3 : 2;
+            setRound(targetRound);
+            // If the round we're resuming into is itself already exhausted
+            // (e.g. every remaining institution only had one course total,
+            // all used up earlier), don't leave the user staring at an empty
+            // browse screen — open the review screen immediately.
+            if (localComplete(targetRound)) setConfirming(true);
           }
         }
 
@@ -257,6 +290,40 @@ export default function Results() {
   // ── Selection helpers ─────────────────────────────────────────────────────
   const chosenInstitutions = Object.keys(selections);
 
+  // Courses actually pickable in a given round right now — deliberately built
+  // from the raw qualified pools (not the search/filter-narrowed lists), so a
+  // user's own search term or dropdown filters never look like "no options
+  // left". Round 1: any qualified, open institution not chosen yet. Rounds
+  // 2/3: only courses at already-chosen institutions that haven't already
+  // been used as an earlier choice for that same institution.
+  const getPickableForRound = (r, sels = selections, chosenInsts = chosenInstitutions) => {
+    const pool = [...normalCourses, ...extendedCourses, ...collegeCourses];
+    if (r === 1) {
+      return pool.filter((c) => !chosenInsts.includes(c.institution) && isInstOpen(c.institution));
+    }
+    return pool.filter((c) => {
+      if (!chosenInsts.includes(c.institution)) return false;
+      const pickedIds = Object.values(sels[c.institution] || {}).map((s) => s.id);
+      return !pickedIds.includes(c.id);
+    });
+  };
+
+  // Institutions still pickable in round 1 right now (see getPickableForRound).
+  const round1RemainingInstitutions = new Set(getPickableForRound(1).map((c) => c.institution));
+
+  // A round is complete once every chosen institution either already has a
+  // pick for it, or has genuinely nothing left to pick for it (e.g. an
+  // institution that only offers one course total, already used as an
+  // earlier choice, has nothing left to offer as a 2nd/3rd choice — that
+  // shouldn't block the round forever).
+  const isRoundComplete = (r, sels = selections, chosenInsts = chosenInstitutions) => {
+    if (r === 1) return chosenInsts.length === 6 || getPickableForRound(1, sels, chosenInsts).length === 0;
+    const pickable = getPickableForRound(r, sels, chosenInsts);
+    return chosenInsts.every((inst) => sels[inst]?.[r] || !pickable.some((c) => c.institution === inst));
+  };
+
+  const roundComplete = () => isRoundComplete(round);
+
   const handlePickCourse = (course) => {
     if (!selectionMode) return;
     // Lock: a new institution can't be added to the application list while
@@ -264,16 +331,29 @@ export default function Results() {
     // round 1 stay pickable in rounds 2/3 even if they close in the meantime.)
     if (round === 1 && !isInstOpen(course.institution)) return;
     const inst = course.institution;
+
+    // Hard cap: round 1 is exactly 6 institutions. Once 6 are chosen, round-1
+    // browsing only ever shows courses from institutions NOT yet chosen (see
+    // applyFilters above), so any further round-1 click here would always be
+    // a 7th+ institution — block it outright rather than letting the count
+    // overshoot 6 (which used to silently break roundComplete() and leave
+    // the user stuck with no way to undo a pick).
+    if (round === 1 && !selections[inst] && chosenInstitutions.length >= 6) return;
+
     const newSelections = {
       ...selections,
       [inst]: { ...(selections[inst] || {}), [round]: course },
     };
     setSelections(newSelections);
-  };
 
-  const roundComplete = () => {
-    if (round === 1) return chosenInstitutions.length === 6;
-    return chosenInstitutions.every((inst) => selections[inst]?.[round]);
+    // Auto-advance straight to the review screen the instant this round has
+    // nothing more it can offer — whether that's because round 1 hit 6, or
+    // because every chosen institution is out of further choices for this
+    // round (some institutions only offer 1-2 courses total). Without this,
+    // a round could sit permanently "incomplete" with no way to finish it.
+    if (isRoundComplete(round, newSelections)) {
+      setConfirming(true);
+    }
   };
 
   const handleSaveAndSubmit = async () => {
@@ -562,7 +642,16 @@ export default function Results() {
                 if (isLastRound) {
                   setContactStep(true); // collect contact info before final save
                 } else {
-                  setRound(round + 1);
+                  const nextRound = round + 1;
+                  setRound(nextRound);
+                  // If the next round has nothing left to offer at all (e.g.
+                  // every chosen institution only had one course total,
+                  // already used earlier), don't leave the user staring at
+                  // an empty browse screen — jump straight to its review
+                  // screen too, same as picking would have triggered.
+                  if (isRoundComplete(nextRound)) {
+                    setConfirming(true);
+                  }
                 }
               }}
               disabled={saving}

@@ -1,1081 +1,5 @@
 [
   {
-    "courseName": "NC (V) Engineering Studies — Electrical Infrastructure Construction",
-    "institution": "Ekurhuleni East TVET College",
-    "institutionType": "college",
-    "faculty": "Engineering Studies",
-    "qualificationType": "National Certificate (Vocational)",
-    "qualificationCode": "",
-    "duration": "One year per NQF Level for all programmes (Levels 2, 3 & 4)",
-    "minGrade": "Grade 9",
-    "minNQFLevel": null,
-    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at NQF Level 3/4 of the same sub-field/programme.",
-    "keySubjects": [],
-    "curriculum": {
-      "totalSubjects": 7,
-      "note": "To obtain a National Certificate: a total of 7 subjects — 3 fundamental and 4 vocational subjects. The following subjects are compulsory fundamental subjects for all NC(V) programmes.",
-      "fundamentalSubjects": [
-        "English First Additional Language",
-        "Mathematics",
-        "Life Skills and Computer Literacy"
-      ],
-      "vocationalSubjects": [
-        {
-          "subject": "Electrical Principles and Practice",
-          "levels": "2-4",
-          "optional": false
-        },
-        {
-          "subject": "Workshop Practice",
-          "levels": "2",
-          "optional": false
-        },
-        {
-          "subject": "Electronic Control and Digital Electronics",
-          "levels": "2-4",
-          "optional": false
-        },
-        {
-          "subject": "Electrical Systems and Construction",
-          "levels": "2-4",
-          "optional": true
-        },
-        {
-          "subject": "Electrical Workmanship",
-          "levels": "3-4",
-          "optional": false
-        },
-        {
-          "subject": "Physical Science",
-          "levels": "2-4",
-          "optional": true
-        }
-      ]
-    },
-    "campuses": [
-      {
-        "_comment": "Boksburg column: all 5 core vocational subjects, Physical Science not offered.",
-        "campus": "Boksburg Campus",
-        "excludeVocational": [
-          "Physical Science"
-        ]
-      },
-      {
-        "_comment": "Germiston column: same as Boksburg — Physical Science not offered.",
-        "campus": "Germiston Campus",
-        "excludeVocational": [
-          "Physical Science"
-        ]
-      },
-      {
-        "_comment": "Kathorus column: same as Boksburg — Physical Science not offered.",
-        "campus": "Kathorus Campus",
-        "excludeVocational": [
-          "Physical Science"
-        ]
-      },
-      {
-        "_comment": "Kempton (Park) column: the ONLY campus offering Physical Science (Level 2-4, optional) — nothing excluded.",
-        "campus": "Kempton Park Campus",
-        "excludeVocational": []
-      },
-      {
-        "_comment": "Tembisa column: same as Boksburg — Physical Science not offered.",
-        "campus": "Tembisa Campus",
-        "excludeVocational": [
-          "Physical Science"
-        ]
-      }
-    ]
-  },
-  {
-    "courseName": "NC (V) Engineering Studies — Civil Engineering and Building Construction",
-    "institution": "Ekurhuleni East TVET College",
-    "institutionType": "college",
-    "faculty": "Engineering Studies",
-    "qualificationType": "National Certificate (Vocational)",
-    "qualificationCode": "",
-    "duration": "One year per NQF Level for all programmes",
-    "minGrade": "Grade 9",
-    "minNQFLevel": null,
-    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at NQF Level 3/4 of the same sub-field/programme.",
-    "keySubjects": [],
-    "curriculum": {
-      "totalSubjects": 7,
-      "note": "To obtain a National Certificate: a total of 7 subjects — 3 fundamental and 4 vocational subjects. The following subjects are compulsory fundamental subjects for all NC(V) programmes.",
-      "fundamentalSubjects": [
-        "English First Additional Language",
-        "Mathematics",
-        "Life Skills and Computer Literacy"
-      ],
-      "vocationalSubjects": [
-        {
-          "subject": "Construction Planning",
-          "levels": "2-4",
-          "optional": false
-        },
-        {
-          "subject": "Plant and Equipment",
-          "levels": "2-3",
-          "optional": false
-        },
-        {
-          "subject": "Materials",
-          "levels": "2-4",
-          "optional": false
-        },
-        {
-          "subject": "Carpentry & Roof Work",
-          "levels": "2-4",
-          "optional": true
-        },
-        {
-          "subject": "Masonry",
-          "levels": "2-4",
-          "optional": true
-        },
-        {
-          "subject": "Construction Supervision",
-          "levels": "4",
-          "optional": false
-        }
-      ]
-    },
-    "campuses": [
-      {
-        "_comment": "As per the provided documentation, the vocational subjects listed are explicitly offered at the Tembisa Campus only.",
-        "campus": "Tembisa Campus",
-        "excludeVocational": []
-      }
-    ]
-  },
-  {
-    "courseName": "NC (V) Engineering Studies — Engineering and Related Design",
-    "institution": "Ekurhuleni East TVET College",
-    "institutionType": "college",
-    "faculty": "Engineering Studies",
-    "qualificationType": "National Certificate (Vocational)",
-    "qualificationCode": "",
-    "duration": "One year per NQF Level for all programmes",
-    "minGrade": "Grade 9",
-    "minNQFLevel": null,
-    "admissionRequirement": "NQF Level 2: Grade 9 or higher/ NQF Level 1 NQF Levels 3 & 4: Competency in learning outcomes at NQF Level 3/4 of the same sub-field/programme.",
-    "keySubjects": [],
-    "curriculum": {
-      "totalSubjects": 7,
-      "note": "To obtain a National Certificate: a total of 7 subjects — 3 fundamental and 4 vocational subjects. The following subjects are compulsory fundamental subjects for all NC(V) programmes.",
-      "fundamentalSubjects": [
-        "English First Additional Language",
-        "Mathematics",
-        "Life Skills and Computer Literacy"
-      ],
-      "vocationalSubjects": [
-        {
-          "subject": "Engineering Fundamentals",
-          "levels": "Level 2",
-          "optional": false
-        },
-        {
-          "subject": "Engineering Technology",
-          "levels": "Level 2",
-          "optional": false
-        },
-        {
-          "subject": "Engineering Systems",
-          "levels": "Level 2",
-          "optional": false
-        },
-        {
-          "subject": "Fitting and Turning",
-          "levels": "Level 2-4",
-          "optional": true
-        },
-        {
-          "subject": "Automotive Repair and Maintenance",
-          "levels": "Level 2-4",
-          "optional": true
-        },
-        {
-          "subject": "Engineering Fabrication (Boilermaking)",
-          "levels": "Level 2-4",
-          "optional": true
-        },
-        {
-          "subject": "Welding",
-          "levels": "Level 2-4",
-          "optional": false
-        },
-        {
-          "subject": "Physical Science",
-          "levels": "Level 2-4",
-          "optional": true
-        },
-        {
-          "subject": "Engineering Graphic and Design",
-          "levels": "Level 3",
-          "optional": false
-        },
-        {
-          "subject": "Material Technology",
-          "levels": "Level 3",
-          "optional": false
-        },
-        {
-          "subject": "Engineering Practice and Maintenance",
-          "levels": "Level 3",
-          "optional": false
-        },
-        {
-          "subject": "Applied Engineering Technology",
-          "levels": "Level 4",
-          "optional": false
-        },
-        {
-          "subject": "Engineering Processes",
-          "levels": "Level 4",
-          "optional": false
-        },
-        {
-          "subject": "Professional Engineering Practice",
-          "levels": "Level 4",
-          "optional": false
-        }
-      ]
-    },
-    "campuses": [
-      {
-        "_comment": "Boksburg Campus: does not offer Fitting and Turning, Engineering Fabrication, Welding, or Physical Science.",
-        "campus": "Boksburg Campus",
-        "excludeVocational": [
-          "Fitting and Turning",
-          "Engineering Fabrication (Boilermaking)",
-          "Welding",
-          "Physical Science"
-        ]
-      },
-      {
-        "_comment": "Germiston Campus: does not offer Engineering Fabrication, Welding, or Physical Science.",
-        "campus": "Germiston Campus",
-        "excludeVocational": [
-          "Engineering Fabrication (Boilermaking)",
-          "Welding",
-          "Physical Science"
-        ]
-      },
-      {
-        "_comment": "Kathorus Campus: does not offer Engineering Fabrication or Physical Science.",
-        "campus": "Kathorus Campus",
-        "excludeVocational": [
-          "Engineering Fabrication (Boilermaking)",
-          "Physical Science"
-        ]
-      },
-      {
-        "_comment": "Kempton Park Campus: does not offer Engineering Fabrication or Welding.",
-        "campus": "Kempton Park Campus",
-        "excludeVocational": [
-          "Engineering Fabrication (Boilermaking)",
-          "Welding"
-        ]
-      },
-      {
-        "_comment": "Tembisa Campus: does not offer Fitting and Turning, Welding, or Physical Science.",
-        "campus": "Tembisa Campus",
-        "excludeVocational": [
-          "Fitting and Turning",
-          "Welding",
-          "Physical Science"
-        ]
-      }
-    ]
-  },
-  {
-    "courseName": "NC (V) Engineering Studies — Information Technology and Computer Science (Software Design and Development)",
-    "institution": "Ekurhuleni East TVET College",
-    "institutionType": "college",
-    "faculty": "Engineering Studies",
-    "qualificationType": "National Certificate (Vocational)",
-    "qualificationCode": "",
-    "duration": "One year per NQF Level for all programmes",
-    "minGrade": "Grade 9",
-    "minNQFLevel": null,
-    "admissionRequirement": "NQF Level 2: Grade 9 or higher/ NQF Level 1 NQF Levels 3 & 4: Competency in learning out comes at NQF Level 3/4 of the same sub-field/programme.",
-    "keySubjects": [],
-    "curriculum": {
-      "totalSubjects": 7,
-      "note": "To obtain a National Certificate: a total of 7 subjects — 3 fundamental and 4 vocational subjects. The following subjects are compulsory fundamental subjects for all NC(V) programmes.",
-      "fundamentalSubjects": [
-        "English First Additional Language",
-        "Mathematics",
-        "Life Skills and Computer Literacy"
-      ],
-      "vocationalSubjects": [
-        {
-          "subject": "Introduction to Information Systems",
-          "levels": "Level 2",
-          "optional": false
-        },
-        {
-          "subject": "Introduction to Systems Development",
-          "levels": "Level 2",
-          "optional": false
-        },
-        {
-          "subject": "Electronics",
-          "levels": "Level 2",
-          "optional": false
-        },
-        {
-          "subject": "Entrepreneurship",
-          "levels": "Level 2",
-          "optional": true
-        },
-        {
-          "subject": "Computer Hardware and Software",
-          "levels": "Level 3",
-          "optional": false
-        },
-        {
-          "subject": "Principles of Computer Programming",
-          "levels": "Level 3",
-          "optional": false
-        },
-        {
-          "subject": "Computer Programming",
-          "levels": "Level 4",
-          "optional": false
-        },
-        {
-          "subject": "Systems Analysis and Design",
-          "levels": "Level 3-4",
-          "optional": false
-        },
-        {
-          "subject": "Project Management",
-          "levels": "Level 3-4",
-          "optional": true
-        },
-        {
-          "subject": "Data Communication and Networking",
-          "levels": "Level 4",
-          "optional": false
-        },
-        {
-          "subject": "Physical Science",
-          "levels": "Level 2-4",
-          "optional": true
-        }
-      ]
-    },
-    "campuses": [
-      {
-        "_comment": "Boksburg column: does not offer Physical Science.",
-        "campus": "Boksburg Campus",
-        "excludeVocational": [
-          "Physical Science"
-        ]
-      },
-      {
-        "_comment": "Germiston column: does not offer Physical Science.",
-        "campus": "Germiston Campus",
-        "excludeVocational": [
-          "Physical Science"
-        ]
-      },
-      {
-        "_comment": "Kathorus column: does not offer Physical Science.",
-        "campus": "Kathorus Campus",
-        "excludeVocational": [
-          "Physical Science"
-        ]
-      },
-      {
-        "_comment": "Kempton Park column: offers Physical Science.",
-        "campus": "Kempton Park Campus",
-        "excludeVocational": []
-      },
-      {
-        "_comment": "Tembisa column: does not offer Physical Science.",
-        "campus": "Tembisa Campus",
-        "excludeVocational": [
-          "Physical Science"
-        ]
-      }
-    ]
-  },
-  {
-    "courseName": "NC (V) Engineering Studies — Information Technology and Computer Science (Programming and Robotics)",
-    "institution": "Ekurhuleni East TVET College",
-    "institutionType": "college",
-    "faculty": "Engineering Studies",
-    "qualificationType": "National Certificate (Vocational)",
-    "qualificationCode": "",
-    "duration": "One year per NQF Level for all programmes",
-    "minGrade": "Grade 9",
-    "minNQFLevel": null,
-    "admissionRequirement": "NQF Level 2: Grade 9 or higher/ NQF Level 1 NQF Levels 3 & 4: Competency in learning out comes at NQF Level 3/4 of the same sub-field/programme.",
-    "keySubjects": [],
-    "curriculum": {
-      "totalSubjects": 7,
-      "note": "To obtain a National Certificate: A total of 7 subjects: 3 fundamental and 4 vocational subjects. The following subjects are compulsory fundamental subjects for all NC (V) programmes.",
-      "fundamentalSubjects": [
-        "English First Additional Language",
-        "Mathematics",
-        "Life Skills and Computer Literacy"
-      ],
-      "vocationalSubjects": [
-        {
-          "subject": "Electronics and Digital Concepts for Robotics",
-          "levels": "Level 2-4",
-          "optional": false
-        },
-        {
-          "subject": "Basic principles of Computer programming and Computer literacy",
-          "levels": "Level 2",
-          "optional": false
-        },
-        {
-          "subject": "Robotics Fundamentals",
-          "levels": "Level 2",
-          "optional": false
-        },
-        {
-          "subject": "Introduction to Robotics",
-          "levels": "Level 3",
-          "optional": false
-        },
-        {
-          "subject": "Robotics and Industrial Automation",
-          "levels": "Level 4",
-          "optional": false
-        },
-        {
-          "subject": "Introduction to Technical programming",
-          "levels": "Level 3",
-          "optional": false
-        },
-        {
-          "subject": "Technical Programming",
-          "levels": "Level 4",
-          "optional": false
-        },
-        {
-          "subject": "Electro-technology",
-          "levels": "Level 2-4",
-          "optional": false
-        }
-      ]
-    },
-    "campuses": [
-      {
-        "_comment": "As per the provided documentation, the vocational subjects listed are explicitly offered at the Germiston Campus only.",
-        "campus": "Germiston Campus",
-        "excludeVocational": []
-      }
-    ]
-  },
-  {
-    "courseName": "NC (V) Engineering Studies — MECHATRONICS",
-    "institution": "Ekurhuleni East TVET College",
-    "institutionType": "college",
-    "faculty": "Engineering Studies",
-    "qualificationType": "National Certificate (Vocational)",
-    "qualificationCode": "",
-    "duration": "One year per NQF Level for all programmes",
-    "minGrade": "Grade 9",
-    "minNQFLevel": null,
-    "admissionRequirement": "NQF Level 2: Grade 9 or higher/ NQF Level 1 NQF Levels 3 & 4: Competency in learning out comes at NQF Level 3/4 of the same sub-field/programme.",
-    "keySubjects": [],
-    "curriculum": {
-      "totalSubjects": 7,
-      "note": "To obtain a National Certificate: A total of 7 subjects: 3 fundamental and 4 vocational subjects. The following subjects are compulsory fundamental subjects for all NC (V) programmes.",
-      "fundamentalSubjects": [
-        "English First Additional Language",
-        "Mathematics",
-        "Life Skills and Computer Literacy"
-      ],
-      "vocationalSubjects": [
-        {
-          "subject": "Electrotechnology",
-          "levels": "Level 2-4",
-          "optional": false
-        },
-        {
-          "subject": "Introduction to Computers",
-          "levels": "Level 2",
-          "optional": false
-        },
-        {
-          "subject": "Manual Manufacturing",
-          "levels": "Level 2",
-          "optional": false
-        },
-        {
-          "subject": "Mechatronic Systems",
-          "levels": "Level 2-4",
-          "optional": false
-        },
-        {
-          "subject": "Stored Programme Systems",
-          "levels": "Level 3-4",
-          "optional": false
-        },
-        {
-          "subject": "Machine Manufacturing",
-          "levels": "Level 3",
-          "optional": false
-        },
-        {
-          "subject": "Computer Intergrated Manufacturing",
-          "levels": "Level 4",
-          "optional": false
-        }
-      ]
-    },
-    "campuses": [
-      {
-        "_comment": "As per the provided documentation, the vocational subjects listed are explicitly offered at the Germiston Campus only.",
-        "campus": "Germiston Campus",
-        "excludeVocational": []
-      }
-    ]
-  },
-  {
-    "courseName": "NC (V) Business Studies — Finance, Economics and Accounting",
-    "institution": "Ekurhuleni East TVET College",
-    "institutionType": "college",
-    "faculty": "Business Studies",
-    "qualificationType": "National Certificate (Vocational)",
-    "qualificationCode": "",
-    "duration": "One year per NQF Level for all programmes",
-    "minGrade": "Grade 9",
-    "minNQFLevel": null,
-    "admissionRequirement": "NQF Level 2: Grade 9 or higher/ NQF Level 1 NQF Levels 3 & 4: Competency in learning out comes at NQF Level 3/4 of the same sub-field/programme.",
-    "keySubjects": [],
-    "curriculum": {
-      "totalSubjects": 7,
-      "note": "To obtain a National Certificate: A total of 7 subjects: 3 fundamental and 4 vocational subjects. The following subjects are compulsory fundamental subjects for all NC (V) programmes.",
-      "fundamentalSubjects": [
-        "English First Additional Language",
-        "Mathematical Literacy",
-        "Life Skills and Computer Literacy"
-      ],
-      "vocationalSubjects": [
-        {
-          "subject": "Applied Accounting",
-          "levels": "Levels 2-4",
-          "optional": false
-        },
-        {
-          "subject": "Economic Environment",
-          "levels": "Levels 2-4",
-          "optional": false
-        },
-        {
-          "subject": "Financial Management",
-          "levels": "Levels 2-4",
-          "optional": false
-        },
-        {
-          "subject": "Entrepreneurship",
-          "levels": "Levels 2",
-          "optional": false
-        },
-        {
-          "subject": "Project Management",
-          "levels": "Levels 3-4",
-          "optional": false
-        }
-      ]
-    },
-    "campuses": [
-      {
-        "_comment": "Offers all vocational subjects at the standard full levels.",
-        "campus": "Alberton Campus",
-        "excludeVocational": []
-      },
-      {
-        "_comment": "Offers all vocational subjects, however Applied Accounting, Economic Environment, and Financial Management are limited to Levels 2-3, and Project Management is limited to Level 3.",
-        "campus": "Boksburg Campus",
-        "excludeVocational": []
-      },
-      {
-        "_comment": "Offers all vocational subjects at the standard full levels.",
-        "campus": "Germiston Campus",
-        "excludeVocational": []
-      },
-      {
-        "_comment": "Offers all vocational subjects at the standard full levels.",
-        "campus": "Kathorus Campus",
-        "excludeVocational": []
-      },
-      {
-        "_comment": "Offers all vocational subjects at the standard full levels.",
-        "campus": "Kempton Campus",
-        "excludeVocational": []
-      },
-      {
-        "_comment": "Offers all vocational subjects at the standard full levels.",
-        "campus": "Tembisa Campus",
-        "excludeVocational": []
-      }
-    ]
-  },
-  {
-    "courseName": "NC (V) Business Studies — Management",
-    "institution": "Ekurhuleni East TVET College",
-    "institutionType": "college",
-    "faculty": "Business Studies",
-    "qualificationType": "National Certificate (Vocational)",
-    "qualificationCode": "",
-    "duration": "One year per NQF Level for all programmes",
-    "minGrade": "Grade 9",
-    "minNQFLevel": null,
-    "admissionRequirement": "NQF Level 2: Grade 9 or higher/ NQF Level 1 NQF Levels 3 & 4: Competency in learning out comes at NQF Level 3/4 of the same sub-field/programme.",
-    "keySubjects": [],
-    "curriculum": {
-      "totalSubjects": 7,
-      "note": "To obtain a National Certificate: A total of 7 subjects: 3 fundamental and 4 vocational subjects. The following subjects are compulsory fundamental subjects for all NC (V) programmes.",
-      "fundamentalSubjects": [
-        "English First Additional Language",
-        "Mathematical Literacy",
-        "Life Skills and Computer Literacy"
-      ],
-      "vocationalSubjects": [
-        {
-          "subject": "Management Practice",
-          "levels": "Levels 2 - 4",
-          "optional": false
-        },
-        {
-          "subject": "Financial Management",
-          "levels": "Levels 2 - 4",
-          "optional": false
-        },
-        {
-          "subject": "Operations Management",
-          "levels": "Levels 2 - 4",
-          "optional": false
-        },
-        {
-          "subject": "Entrepreneurship",
-          "levels": "Levels 2",
-          "optional": false
-        },
-        {
-          "subject": "Project Management",
-          "levels": "Levels 3 - 4",
-          "optional": false
-        }
-      ]
-    },
-    "campuses": [
-      {
-        "_comment": "As per the provided documentation, these vocational subjects are offered at the Alberton Campus only.",
-        "campus": "Alberton Campus",
-        "excludeVocational": []
-      },
-      {
-        "_comment": "As per the provided documentation, these vocational subjects are offered at the Germiston Campus only.",
-        "campus": "Germiston Campus",
-        "excludeVocational": []
-      },
-      {
-        "_comment": "As per the provided documentation, these vocational subjects are offered at the Tembisa Campus only.",
-        "campus": "Tembisa Campus",
-        "excludeVocational": []
-      }
-    ]
-  },
-  {
-    "courseName": "NC (V) Business Studies — Marketing",
-    "institution": "Ekurhuleni East TVET College",
-    "institutionType": "college",
-    "faculty": "Business Studies",
-    "qualificationType": "National Certificate (Vocational)",
-    "qualificationCode": "",
-    "duration": "One year per NQF Level for all programmes",
-    "minGrade": "Grade 9",
-    "minNQFLevel": null,
-    "admissionRequirement": "NQF Level 2: Grade 9 or higher/ NQF Level 1 NQF Levels 3 & 4: Competency in learning out comes at NQF Level 3/4 of the same sub-field/programme.",
-    "keySubjects": [],
-    "curriculum": {
-      "totalSubjects": 7,
-      "note": "To obtain a National Certificate: A total of 7 subjects: 3 fundamental and 4 vocational subjects. The following subjects are compulsory fundamental subjects for all NC (V) programmes.",
-      "fundamentalSubjects": [
-        "English First Additional Language",
-        "Mathematical Literacy",
-        "Life Skills and Computer Literacy"
-      ],
-      "vocationalSubjects": [
-        {
-          "subject": "Marketing",
-          "levels": "Levels 2 - 4",
-          "optional": false
-        },
-        {
-          "subject": "Advertising and Promotions",
-          "levels": "Levels 2 - 4",
-          "optional": false
-        },
-        {
-          "subject": "Marketing Communication",
-          "levels": "Levels 2 - 4",
-          "optional": false
-        },
-        {
-          "subject": "Consumer Behaviour",
-          "levels": "Levels 2 - 4",
-          "optional": false
-        },
-        {
-          "subject": "Wholesale & Retail",
-          "levels": "Levels 2 - 3",
-          "optional": false
-        }
-      ]
-    },
-    "campuses": [
-      {
-        "_comment": "Alberton Campus: offers all subjects except Wholesale & Retail.",
-        "campus": "Alberton Campus",
-        "excludeVocational": [
-          "Wholesale & Retail"
-        ]
-      },
-      {
-        "_comment": "Boksburg Campus: offers all subjects except Consumer Behaviour.",
-        "campus": "Boksburg Campus",
-        "excludeVocational": [
-          "Consumer Behaviour"
-        ]
-      },
-      {
-        "_comment": "Germiston Campus: offers all subjects except Wholesale & Retail.",
-        "campus": "Germiston Campus",
-        "excludeVocational": [
-          "Wholesale & Retail"
-        ]
-      }
-    ]
-  },
-  {
-    "courseName": "NC (V) Business Studies — Office Administration",
-    "institution": "Ekurhuleni East TVET College",
-    "institutionType": "college",
-    "faculty": "Business Studies",
-    "qualificationType": "National Certificate (Vocational)",
-    "qualificationCode": "",
-    "duration": "One year per NQF Level for all programmes",
-    "minGrade": "Grade 9",
-    "minNQFLevel": null,
-    "admissionRequirement": "NQF Level 2: Grade 9 or higher/ NQF Level 1 NQF Levels 3 & 4: Competency in learning out comes at NQF Level 3/4 of the same sub-field/programme.",
-    "keySubjects": [],
-    "curriculum": {
-      "totalSubjects": 7,
-      "note": "To obtain a National Certificate: A total of 7 subjects: 3 fundamental and 4 vocational subjects. The following subjects are compulsory fundamental subjects for all NC (V) programmes.",
-      "fundamentalSubjects": [
-        "English First Additional Language",
-        "Mathematical Literacy",
-        "Life Skills and Computer Literacy"
-      ],
-      "vocationalSubjects": [
-        {
-          "subject": "Business Practice",
-          "levels": "Levels 2 - 4",
-          "optional": false
-        },
-        {
-          "subject": "Office Practice",
-          "levels": "Levels 2 - 4",
-          "optional": false
-        },
-        {
-          "subject": "Office Data Processing",
-          "levels": "Levels 2 - 4",
-          "optional": false
-        },
-        {
-          "subject": "New Venture Creation",
-          "levels": "Levels 2 - 4",
-          "optional": false
-        },
-        {
-          "subject": "Personal Assistance",
-          "levels": "Levels 2 - 4",
-          "optional": false
-        }
-      ]
-    },
-    "campuses": [
-      {
-        "_comment": "Alberton Campus offers all subjects. Note: New Venture Creation is offered at Level 2-3, and Personal Assistance is offered at Level 4 only.",
-        "campus": "Alberton Campus",
-        "excludeVocational": []
-      },
-      {
-        "_comment": "Boksburg Campus offers all core subjects, except Personal Assistance.",
-        "campus": "Boksburg Campus",
-        "excludeVocational": [
-          "Personal Assistance"
-        ]
-      },
-      {
-        "_comment": "Kathorus Campus offers all core subjects, except Personal Assistance.",
-        "campus": "Kathorus Campus",
-        "excludeVocational": [
-          "Personal Assistance"
-        ]
-      },
-      {
-        "_comment": "Kempton Campus offers all vocational subjects at standard levels.",
-        "campus": "Kempton Campus",
-        "excludeVocational": []
-      },
-      {
-        "_comment": "Tembisa Campus offers all core subjects, except Personal Assistance.",
-        "campus": "Tembisa Campus",
-        "excludeVocational": [
-          "Personal Assistance"
-        ]
-      }
-    ]
-  },
-  {
-    "courseName": "NC (V) Business Studies — Transport and Logistics",
-    "institution": "Ekurhuleni East TVET College",
-    "institutionType": "college",
-    "faculty": "Business Studies",
-    "qualificationType": "National Certificate (Vocational)",
-    "qualificationCode": "",
-    "duration": "One year per NQF Level for all programmes",
-    "minGrade": "Grade 9",
-    "minNQFLevel": null,
-    "admissionRequirement": "NQF Level 2: Grade 9 or higher/ NQF Level 1 NQF Levels 3 & 4: Competency in learning out comes at NQF Level 3/4 of the same sub-field/programme.",
-    "keySubjects": [],
-    "curriculum": {
-      "totalSubjects": 7,
-      "note": "To obtain a National Certificate: A total of 7 subjects: 3 fundamental and 4 vocational subjects. The following subjects are compulsory fundamental subjects for all NC (V) programmes.",
-      "fundamentalSubjects": [
-        "English First Additional Language",
-        "Mathematical Literacy",
-        "Life Skills and Computer Literacy"
-      ],
-      "vocationalSubjects": [
-        {
-          "subject": "Freight Logistics",
-          "levels": "Level 2- 4",
-          "optional": false
-        },
-        {
-          "subject": "Transport Economics",
-          "levels": "Level 2- 4",
-          "optional": false
-        },
-        {
-          "subject": "Transport Operations",
-          "levels": "Level 2- 4",
-          "optional": false
-        },
-        {
-          "subject": "Entrepreneurship",
-          "levels": "Level 2",
-          "optional": true
-        },
-        {
-          "subject": "Project Management",
-          "levels": "Level 3- 4",
-          "optional": true
-        }
-      ]
-    },
-    "campuses": [
-      {
-        "_comment": "As per the provided documentation, the vocational subjects listed are explicitly offered at the Kempton Campus only.",
-        "campus": "Kempton Campus",
-        "excludeVocational": []
-      }
-    ]
-  },
-  {
-    "courseName": "NC (V) Utility Studies — Hospitality",
-    "institution": "Ekurhuleni East TVET College",
-    "institutionType": "college",
-    "faculty": "Utility Studies",
-    "qualificationType": "National Certificate (Vocational)",
-    "qualificationCode": "",
-    "duration": "One year per NQF Level for all programmes",
-    "minGrade": "Grade 9",
-    "minNQFLevel": null,
-    "admissionRequirement": "NQF Level 2: Grade 9 or higher/ NQF Level 1 NQF Levels 3 & 4: Competency in learning out comes at NQF Level 3/4 of the same sub-field/programme.",
-    "keySubjects": [],
-    "curriculum": {
-      "totalSubjects": 7,
-      "note": "To obtain a National Certificate: A total of 7 subjects: 3 fundamental and 4 vocational subjects. The following subjects are compulsory fundamental subjects for all NC (V) programmes.",
-      "fundamentalSubjects": [
-        "English First Additional Language",
-        "Mathematical Literacy",
-        "Life Skills and Computer Literacy"
-      ],
-      "vocationalSubjects": [
-        {
-          "subject": "Hospitality Generics",
-          "levels": "Levels 2 - 4",
-          "optional": false
-        },
-        {
-          "subject": "Food Preparation",
-          "levels": "Levels 2 - 4",
-          "optional": false
-        },
-        {
-          "subject": "Client Services & Human Relations",
-          "levels": "Levels 2 - 4",
-          "optional": false
-        },
-        {
-          "subject": "Hospitality Services",
-          "levels": "Levels 2 - 4",
-          "optional": false
-        }
-      ]
-    },
-    "campuses": [
-      {
-        "_comment": "Alberton Campus offers all vocational subjects at Levels 2 - 4.",
-        "campus": "Alberton Campus",
-        "excludeVocational": []
-      },
-      {
-        "_comment": "Germiston Campus offers all vocational subjects at Levels 2 - 4.",
-        "campus": "Germiston Campus",
-        "excludeVocational": []
-      },
-      {
-        "_comment": "Kempton Campus offers all vocational subjects at Levels 2 - 4.",
-        "campus": "Kempton Campus",
-        "excludeVocational": []
-      }
-    ]
-  },
-  {
-    "courseName": "NC (V) Utility Studies — Tourism",
-    "institution": "Ekurhuleni East TVET College",
-    "institutionType": "college",
-    "faculty": "Utility Studies",
-    "qualificationType": "National Certificate (Vocational)",
-    "qualificationCode": "",
-    "duration": "One year per NQF Level for all programmes",
-    "minGrade": "Grade 9",
-    "minNQFLevel": null,
-    "admissionRequirement": "NQF Level 2: Grade 9 or higher/ NQF Level 1 NQF Levels 3 & 4: Competency in learning out comes at NQF Level 3/4 of the same sub-field/programme.",
-    "keySubjects": [],
-    "curriculum": {
-      "totalSubjects": 7,
-      "note": "To obtain a National Certificate: A total of 7 subjects: 3 fundamental and 4 vocational subjects. The following subjects are compulsory fundamental subjects for all NC (V) programmes.",
-      "fundamentalSubjects": [
-        "English First Additional Language",
-        "Mathematical Literacy",
-        "Life Skills and Computer Literacy"
-      ],
-      "vocationalSubjects": [
-        {
-          "subject": "Science of Tourism",
-          "levels": "Levels 2 - 4",
-          "optional": false
-        },
-        {
-          "subject": "Client Services and Human Relations",
-          "levels": "Levels 2 - 4",
-          "optional": false
-        },
-        {
-          "subject": "Sustainable Tourism in South Africa",
-          "levels": "Levels 2",
-          "optional": false
-        },
-        {
-          "subject": "Tourism Operations and Technology",
-          "levels": "Levels 2 - 4",
-          "optional": false
-        },
-        {
-          "subject": "Sustainable Tourism in SA & Regional Travel",
-          "levels": "Levels 3",
-          "optional": false
-        },
-        {
-          "subject": "Sustainable Tourism in SA and International Travel",
-          "levels": "Levels 4",
-          "optional": false
-        }
-      ]
-    },
-    "campuses": [
-      {
-        "_comment": "Alberton Campus offers all vocational subjects at the listed levels.",
-        "campus": "Alberton Campus",
-        "excludeVocational": []
-      },
-      {
-        "_comment": "Kempton Campus offers all vocational subjects at the listed levels.",
-        "campus": "Kempton Campus",
-        "excludeVocational": []
-      }
-    ]
-  },
-  {
-    "courseName": "NC (V) Utility Studies — Education and Development",
-    "institution": "Ekurhuleni East TVET College",
-    "institutionType": "college",
-    "faculty": "Utility Studies",
-    "qualificationType": "National Certificate (Vocational)",
-    "qualificationCode": "",
-    "duration": "One year per NQF Level for all programmes",
-    "minGrade": "Grade 9",
-    "minNQFLevel": null,
-    "admissionRequirement": "NQF Level 2: Grade 9 or higher/ NQF Level 1 NQF Levels 3 & 4: Competency in learning out comes at NQF Level 3/4 of the same sub-field/programme.",
-    "keySubjects": [],
-    "curriculum": {
-      "totalSubjects": 7,
-      "note": "To obtain a National Certificate: A total of 7 subjects: 3 fundamental and 4 vocational subjects. The following subjects are compulsory fundamental subjects for all NC (V) programmes.",
-      "fundamentalSubjects": [
-        "English First Additional Language",
-        "Mathematical Literacy",
-        "Life Skills and Computer Literacy"
-      ],
-      "vocationalSubjects": [
-        {
-          "subject": "Art and Science of Teaching",
-          "levels": "Level 2- 4",
-          "optional": false
-        },
-        {
-          "subject": "Human and Social Development",
-          "levels": "Level 2- 4",
-          "optional": false
-        },
-        {
-          "subject": "Learning Psychology",
-          "levels": "Level 2- 4",
-          "optional": false
-        },
-        {
-          "subject": "Early Childhood Development",
-          "levels": "Level 2- 4",
-          "optional": false
-        }
-      ]
-    },
-    "campuses": [
-      {
-        "_comment": "As per the provided documentation, the vocational subjects listed are explicitly offered at the Germiston Campus only.",
-        "campus": "Germiston Campus",
-        "excludeVocational": []
-      }
-    ]
-  },
-  {
     "courseName": "NC (V) Engineering Studies — Civil Engineering and Building Construction",
     "institution": "Ekurhuleni West TVET College",
     "institutionType": "college",
@@ -1351,185 +275,6 @@
           "Welding",
           "Physical Science"
         ]
-      }
-    ]
-  },
-  {
-    "courseName": "NC (V) Engineering Studies — Information Technology and Computer Science (Software Design and Development)",
-    "institution": "Ekurhuleni West TVET College",
-    "institutionType": "college",
-    "faculty": "Engineering Studies",
-    "qualificationType": "National Certificate (Vocational)",
-    "qualificationCode": "",
-    "duration": "One year per NQF Level for all programmes",
-    "minGrade": "Grade 9",
-    "minNQFLevel": null,
-    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at NQF Level 3/4 of the same sub-field/programme.",
-    "keySubjects": [],
-    "curriculum": {
-      "totalSubjects": 14,
-      "note": "To obtain a National Certificate: a total of 7 subjects — 3 fundamental and 4 vocational subjects. The following subjects are compulsory fundamental subjects for all NC(V) programmes.",
-      "fundamentalSubjects": [
-        "English First Additional Language",
-        "Mathematics",
-        "Life Skills and Computer Literacy"
-      ],
-      "vocationalSubjects": [
-        {
-          "subject": "Introduction to Information Systems",
-          "levels": "2",
-          "optional": false
-        },
-        {
-          "subject": "Introduction to Systems Development",
-          "levels": "2",
-          "optional": false
-        },
-        {
-          "subject": "Electronics",
-          "levels": "2",
-          "optional": false
-        },
-        {
-          "subject": "Entrepreneurship",
-          "levels": "2",
-          "optional": true
-        },
-        {
-          "subject": "Computer Hardware and Software",
-          "levels": "3",
-          "optional": false
-        },
-        {
-          "subject": "Principles of Computer Programming",
-          "levels": "3",
-          "optional": false
-        },
-        {
-          "subject": "Computer Programming",
-          "levels": "4",
-          "optional": false
-        },
-        {
-          "subject": "Systems Analysis and Design",
-          "levels": "3-4",
-          "optional": false
-        },
-        {
-          "subject": "Project Management",
-          "levels": "3-4",
-          "optional": true
-        },
-        {
-          "subject": "Data Communication and Networking",
-          "levels": "4",
-          "optional": false
-        },
-        {
-          "subject": "Physical Science",
-          "levels": "2-4",
-          "optional": true
-        }
-      ]
-    },
-    "campuses": [
-      {
-        "campus": "Boksburg Campus",
-        "excludeVocational": [
-          "Physical Science"
-        ]
-      },
-      {
-        "campus": "Germiston Campus",
-        "excludeVocational": [
-          "Physical Science"
-        ]
-      },
-      {
-        "campus": "Kathorus Campus",
-        "excludeVocational": [
-          "Physical Science"
-        ]
-      },
-      {
-        "campus": "Kempton Park Campus",
-        "excludeVocational": []
-      },
-      {
-        "campus": "Tembisa Campus",
-        "excludeVocational": [
-          "Physical Science"
-        ]
-      }
-    ]
-  },
-  {
-    "courseName": "NC (V) Engineering Studies — Information Technology and Computer Science (Programming and Robotics)",
-    "institution": "Ekurhuleni West TVET College",
-    "institutionType": "college",
-    "faculty": "Engineering Studies",
-    "qualificationType": "National Certificate (Vocational)",
-    "qualificationCode": "",
-    "duration": "One year per NQF Level for all programmes",
-    "minGrade": "Grade 9",
-    "minNQFLevel": null,
-    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at NQF Level 3/4 of the same sub-field/programme.",
-    "keySubjects": [],
-    "curriculum": {
-      "totalSubjects": 11,
-      "note": "To obtain a National Certificate: a total of 7 subjects — 3 fundamental and 4 vocational subjects. The following subjects are compulsory fundamental subjects for all NC(V) programmes.",
-      "fundamentalSubjects": [
-        "English First Additional Language",
-        "Mathematics",
-        "Life Skills and Computer Literacy"
-      ],
-      "vocationalSubjects": [
-        {
-          "subject": "Electronics and Digital Concepts for Robotics",
-          "levels": "2-4",
-          "optional": false
-        },
-        {
-          "subject": "Basic Principles of Computer Programming and Computer Literacy",
-          "levels": "2",
-          "optional": false
-        },
-        {
-          "subject": "Robotics Fundamentals",
-          "levels": "2",
-          "optional": false
-        },
-        {
-          "subject": "Introduction to Robotics",
-          "levels": "3",
-          "optional": false
-        },
-        {
-          "subject": "Robotics and Industrial Automation",
-          "levels": "4",
-          "optional": false
-        },
-        {
-          "subject": "Introduction to Technical Programming",
-          "levels": "3",
-          "optional": false
-        },
-        {
-          "subject": "Technical Programming",
-          "levels": "4",
-          "optional": false
-        },
-        {
-          "subject": "Electro-technology",
-          "levels": "2-4",
-          "optional": false
-        }
-      ]
-    },
-    "campuses": [
-      {
-        "campus": "Germiston Campus",
-        "excludeVocational": []
       }
     ]
   },
@@ -1857,20 +602,19 @@
     "campuses": [
       {
         "campus": "Alberton Campus",
-        "excludeVocational": [],
-        "_comment": "Per the prospectus, Alberton offers New Venture Creation at Levels 2-3 only (not 2-4), and Personal Assistance at Level 4 only (not the 2-4 range Kempton offers)."
+        "excludeVocational": []
       },
       {
         "campus": "Boksburg Campus",
-        "excludeVocational": [
-          "Personal Assistance"
-        ]
+        "excludeVocational": []
+      },
+      {
+        "campus": "Germiston Campus",
+        "excludeVocational": []
       },
       {
         "campus": "Kathorus Campus",
-        "excludeVocational": [
-          "Personal Assistance"
-        ]
+        "excludeVocational": []
       },
       {
         "campus": "Kempton Park Campus",
@@ -1878,9 +622,7 @@
       },
       {
         "campus": "Tembisa Campus",
-        "excludeVocational": [
-          "Personal Assistance"
-        ]
+        "excludeVocational": []
       }
     ]
   },
@@ -1992,6 +734,10 @@
         "excludeVocational": []
       },
       {
+        "campus": "Kathorus Campus",
+        "excludeVocational": []
+      },
+      {
         "campus": "Kempton Park Campus",
         "excludeVocational": []
       }
@@ -2052,10 +798,6 @@
     },
     "campuses": [
       {
-        "campus": "Alberton Campus",
-        "excludeVocational": []
-      },
-      {
         "campus": "Kempton Park Campus",
         "excludeVocational": []
       }
@@ -2106,7 +848,7 @@
     },
     "campuses": [
       {
-        "campus": "Germiston Campus",
+        "campus": "Kempton Park Campus",
         "excludeVocational": []
       }
     ]
@@ -2177,7 +919,7 @@
     "faculty": "Business Studies (NATED)",
     "qualificationType": "National N Diploma (Report 191)",
     "qualificationCode": "",
-    "duration": "N4–N6, offered on Full Time and Part Time basis",
+    "duration": "1 year and 6 months (N4–N6)",
     "minGrade": "Grade 12",
     "minNQFLevel": null,
     "admissionRequirement": "Grade 12 (or relevant NQF equivalent) — confirm specific subject requirements with the campus.",
@@ -2232,7 +974,7 @@
     "faculty": "Business Studies (NATED)",
     "qualificationType": "National N Diploma (Report 191)",
     "qualificationCode": "",
-    "duration": "Semesters/Trimesters as per subject level (N4–N6)",
+    "duration": "1 year and 6 months (N4–N6)",
     "minGrade": "Grade 12",
     "minNQFLevel": null,
     "admissionRequirement": "Grade 12 (or relevant NQF equivalent) — confirm specific subject requirements with the campus.",
@@ -2296,7 +1038,7 @@
     "faculty": "Business Studies (NATED)",
     "qualificationType": "National N Diploma (Report 191)",
     "qualificationCode": "",
-    "duration": "N4–N6, offered on Full Time and Part Time basis. Offered Part Time at Kempton Park.",
+    "duration": "1 year and 6 months (N4–N6)",
     "minGrade": "Grade 12",
     "minNQFLevel": null,
     "admissionRequirement": "Grade 12 (or relevant NQF equivalent) — confirm specific subject requirements with the campus.",
@@ -2360,7 +1102,7 @@
     "faculty": "Business Studies (NATED)",
     "qualificationType": "National N Diploma (Report 191)",
     "qualificationCode": "",
-    "duration": "N4–N6, offered on Full Time and Part Time basis",
+    "duration": "1 year and 6 months (N4–N6)",
     "minGrade": "Grade 12",
     "minNQFLevel": null,
     "admissionRequirement": "Grade 12 (or relevant NQF equivalent) — confirm specific subject requirements with the campus.",
@@ -2416,7 +1158,7 @@
     "faculty": "Business Studies (NATED)",
     "qualificationType": "National N Diploma (Report 191)",
     "qualificationCode": "",
-    "duration": "N4–N6, Part Time only",
+    "duration": "1 year and 6 months (N4–N6)",
     "minGrade": "Grade 12",
     "minNQFLevel": null,
     "admissionRequirement": "Grade 12 (or relevant NQF equivalent) — confirm specific subject requirements with the campus.",
@@ -2466,178 +1208,16 @@
     ]
   },
   {
-    "courseName": "Hospitality (NATED / Report 191)",
-    "institution": "Ekurhuleni West TVET College",
-    "institutionType": "college",
-    "faculty": "Business Studies (NATED)",
-    "qualificationType": "National N Diploma (Report 191)",
-    "qualificationCode": "",
-    "duration": "Semesters/Trimesters as per subject level (N4–N6)",
-    "minGrade": "Grade 12",
-    "minNQFLevel": null,
-    "admissionRequirement": "Grade 12 (or relevant NQF equivalent) — confirm specific subject requirements with the campus.",
-    "keySubjects": [],
-    "curriculum": {
-      "totalSubjects": 12,
-      "note": "NATED (Report 191) programme — subjects and campus availability as listed.",
-      "fundamentalSubjects": [],
-      "vocationalSubjects": [
-        {
-          "subject": "Sanitation & Safety",
-          "levels": "N4",
-          "optional": false
-        },
-        {
-          "subject": "Catering Theory and Practical",
-          "levels": "N4",
-          "optional": false
-        },
-        {
-          "subject": "Applied Management",
-          "levels": "N4",
-          "optional": false
-        },
-        {
-          "subject": "Nutrition and Menu Planning",
-          "levels": "N4",
-          "optional": false
-        },
-        {
-          "subject": "Catering Theory and Practical",
-          "levels": "N5",
-          "optional": false
-        },
-        {
-          "subject": "Entrepreneur & Business Management (for N6)",
-          "levels": "N5",
-          "optional": false
-        },
-        {
-          "subject": "Applied Management",
-          "levels": "N5",
-          "optional": false
-        },
-        {
-          "subject": "Food and Beverage Services",
-          "levels": "N5",
-          "optional": false
-        },
-        {
-          "subject": "Applied Management",
-          "levels": "N6",
-          "optional": false
-        },
-        {
-          "subject": "Communication and Human Relations",
-          "levels": "N6",
-          "optional": false
-        },
-        {
-          "subject": "Catering Theory & Practical",
-          "levels": "N6",
-          "optional": false
-        },
-        {
-          "subject": "Computers Practice (for N6)",
-          "levels": "N4",
-          "optional": false
-        }
-      ]
-    },
-    "campuses": [
-      {
-        "campus": "Germiston Campus",
-        "excludeVocational": []
-      }
-    ]
-  },
-  {
-    "courseName": "Aircraft Maintenance (NATED)",
-    "institution": "Ekurhuleni West TVET College",
-    "institutionType": "college",
-    "faculty": "Engineering Studies (NATED)",
-    "qualificationType": "National N Diploma (Engineering Studies, Report 191)",
-    "qualificationCode": "",
-    "duration": "N2–N6, offered on Full Time and Part Time basis. N2 offered Part Time only.",
-    "minGrade": "Grade 12",
-    "minNQFLevel": null,
-    "admissionRequirement": "Contact campus for specific N2 entry requirements. Offered Full Time and Part Time; N2 is Part Time only.",
-    "keySubjects": [],
-    "curriculum": {
-      "totalSubjects": 10,
-      "note": "NATED (Report 191) programme — subjects and campus availability as listed.",
-      "fundamentalSubjects": [],
-      "vocationalSubjects": [
-        {
-          "subject": "Aircraft Maintenance Theory",
-          "levels": "N2",
-          "optional": false
-        },
-        {
-          "subject": "Engineering Drawing",
-          "levels": "N3",
-          "optional": false
-        },
-        {
-          "subject": "Engineering Science",
-          "levels": "N2-N4",
-          "optional": false
-        },
-        {
-          "subject": "Fluid Mechanics",
-          "levels": "N5-N6",
-          "optional": false
-        },
-        {
-          "subject": "Mathematics",
-          "levels": "N2-N6",
-          "optional": false
-        },
-        {
-          "subject": "Mechanical Draughting",
-          "levels": "N4",
-          "optional": false
-        },
-        {
-          "subject": "Mechanotechnics",
-          "levels": "N4-N6",
-          "optional": false
-        },
-        {
-          "subject": "Power Machines",
-          "levels": "N5-N6",
-          "optional": false
-        },
-        {
-          "subject": "Strength of Materials and Structure",
-          "levels": "N5-N6",
-          "optional": false
-        },
-        {
-          "subject": "Supervisory Management",
-          "levels": "N4-N6",
-          "optional": false
-        }
-      ]
-    },
-    "campuses": [
-      {
-        "campus": "Germiston Campus",
-        "excludeVocational": []
-      }
-    ]
-  },
-  {
     "courseName": "Avionics (NATED)",
     "institution": "Ekurhuleni West TVET College",
     "institutionType": "college",
     "faculty": "Engineering Studies (NATED)",
     "qualificationType": "National N Diploma (Engineering Studies, Report 191)",
     "qualificationCode": "",
-    "duration": "N2–N6, offered on Full Time and Part Time basis. N2 offered Part Time only.",
+    "duration": "N3–N6, 11 weeks per N-level",
     "minGrade": "Grade 12",
     "minNQFLevel": null,
-    "admissionRequirement": "Contact campus for specific N2 entry requirements. Offered Full Time and Part Time; N2 is Part Time only.",
+    "admissionRequirement": "Grade 12 with Mathematics and Science recommended — confirm specific subject requirements with the campus.",
     "keySubjects": [],
     "curriculum": {
       "totalSubjects": 6,
@@ -2684,94 +1264,16 @@
     ]
   },
   {
-    "courseName": "Electrical Engineering (NATED)",
-    "institution": "Ekurhuleni West TVET College",
-    "institutionType": "college",
-    "faculty": "Engineering Studies (NATED)",
-    "qualificationType": "National N Diploma (Engineering Studies, Report 191)",
-    "qualificationCode": "",
-    "duration": "N2–N6, offered on Full Time and Part Time basis. N2 offered Part Time only.",
-    "minGrade": "Grade 12",
-    "minNQFLevel": null,
-    "admissionRequirement": "Contact campus for specific N2 entry requirements. Offered Full Time and Part Time; N2 is Part Time only.",
-    "keySubjects": [],
-    "curriculum": {
-      "totalSubjects": 8,
-      "note": "NATED (Report 191) programme — subjects and campus availability as listed.",
-      "fundamentalSubjects": [],
-      "vocationalSubjects": [
-        {
-          "subject": "Electrotechnics",
-          "levels": "N4-N6",
-          "optional": false
-        },
-        {
-          "subject": "Electro Technology",
-          "levels": "N3",
-          "optional": false
-        },
-        {
-          "subject": "Engineering Science",
-          "levels": "N2-N4",
-          "optional": false
-        },
-        {
-          "subject": "Industrial Electronics",
-          "levels": "N2-N6",
-          "optional": false
-        },
-        {
-          "subject": "Mathematics",
-          "levels": "N2-N6",
-          "optional": false
-        },
-        {
-          "subject": "Power Machines",
-          "levels": "N5-N6",
-          "optional": false
-        },
-        {
-          "subject": "Strength of Materials and Structure",
-          "levels": "N5-N6",
-          "optional": false
-        },
-        {
-          "subject": "Electrical Trade Theory",
-          "levels": "N2",
-          "optional": false
-        }
-      ]
-    },
-    "campuses": [
-      {
-        "campus": "Germiston Campus",
-        "excludeVocational": []
-      },
-      {
-        "campus": "Kathorus Campus",
-        "excludeVocational": [
-          "Strength of Materials and Structure"
-        ]
-      },
-      {
-        "campus": "Kempton Park Campus",
-        "excludeVocational": [
-          "Electro Technology"
-        ]
-      }
-    ]
-  },
-  {
     "courseName": "Mechanical Engineering (NATED)",
     "institution": "Ekurhuleni West TVET College",
     "institutionType": "college",
     "faculty": "Engineering Studies (NATED)",
     "qualificationType": "National N Diploma (Engineering Studies, Report 191)",
     "qualificationCode": "",
-    "duration": "N2–N6, offered on Full Time and Part Time basis. N2 offered Part Time only.",
+    "duration": "N4–N6, 11 weeks per N-level",
     "minGrade": "Grade 12",
     "minNQFLevel": null,
-    "admissionRequirement": "Contact campus for specific N2 entry requirements. Offered Full Time and Part Time; N2 is Part Time only.",
+    "admissionRequirement": "Grade 12 with Mathematics and Science recommended — confirm specific subject requirements with the campus.",
     "keySubjects": [],
     "curriculum": {
       "totalSubjects": 12,
@@ -3001,6 +1503,7 @@
     "faculty": "Occupational Programmes",
     "qualificationType": "Short Skills Programme",
     "qualificationCode": "",
+    "duration": "Short course (module-based, self-paced e-learning)",
     "minGrade": null,
     "minNQFLevel": null,
     "admissionRequirement": "Contact campus for specific admission requirements.",
@@ -3171,6 +1674,2301 @@
     "campuses": [
       {
         "campus": "Germiston Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Electronic Engineering (Light Current) (NATED)",
+    "institution": "Ekurhuleni West TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies (NATED)",
+    "qualificationType": "National N Diploma (Engineering Studies, Report 191)",
+    "qualificationCode": "",
+    "duration": "N3–N6, 11 weeks per N-level",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 12 with Mathematics and Physical Science recommended — confirm specific subject requirements with the campus.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 6,
+      "note": "NATED (Report 191) programme — standard N3–N6 Light Current / Electronic Engineering subjects (exact per-campus subject list not published on the source programmes page; confirm with campus).",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Industrial Electronics",
+          "levels": "N3-N6",
+          "optional": false
+        },
+        {
+          "subject": "Digital Electronics",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Analogue Electronics",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Science",
+          "levels": "N3-N4",
+          "optional": false
+        },
+        {
+          "subject": "Mathematics",
+          "levels": "N3-N6",
+          "optional": false
+        },
+        {
+          "subject": "Logic Systems",
+          "levels": "N5-N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Kempton Park Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Electrical Engineering (Heavy Current) (NATED)",
+    "institution": "Ekurhuleni West TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies (NATED)",
+    "qualificationType": "National N Diploma (Engineering Studies, Report 191)",
+    "qualificationCode": "",
+    "duration": "N3–N6, 11 weeks per N-level",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 12 with Mathematics and Physical Science recommended — confirm specific subject requirements with the campus.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 8,
+      "note": "NATED (Report 191) programme — subjects and campus availability as previously listed for this stream; carried over from the prior merged entry.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Electrotechnics",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Electro Technology",
+          "levels": "N3",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Science",
+          "levels": "N3-N4",
+          "optional": false
+        },
+        {
+          "subject": "Industrial Electronics",
+          "levels": "N3-N6",
+          "optional": false
+        },
+        {
+          "subject": "Mathematics",
+          "levels": "N3-N6",
+          "optional": false
+        },
+        {
+          "subject": "Power Machines",
+          "levels": "N5-N6",
+          "optional": false
+        },
+        {
+          "subject": "Strength of Materials and Structure",
+          "levels": "N5-N6",
+          "optional": false
+        },
+        {
+          "subject": "Electrical Trade Theory",
+          "levels": "N3",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Germiston Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Kathorus Campus",
+        "excludeVocational": [
+          "Strength of Materials and Structure"
+        ]
+      },
+      {
+        "campus": "Kempton Park Campus",
+        "excludeVocational": [
+          "Electro Technology"
+        ]
+      }
+    ]
+  },
+  {
+    "courseName": "Part-Time Engineering (NATED)",
+    "institution": "Ekurhuleni West TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies (NATED)",
+    "qualificationType": "National N Diploma (Engineering Studies, Report 191)",
+    "qualificationCode": "",
+    "duration": "N2–N6, 11 weeks per N-level, Part Time",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 9-11 for N1/N2 entry; Grade 12 or relevant N-level competency for higher levels — confirm specific subject requirements with the campus.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 0,
+      "note": "Part-time NATED engineering studies, N2–N6, covering the standard engineering N-course curriculum on a part-time basis. Specific subject list not published on the source programmes page — confirm with campus.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": []
+    },
+    "campuses": [
+      {
+        "campus": "Germiston Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Kempton Park Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Kathorus Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Engineering Studies — Information Technology and Computer Science",
+    "institution": "Ekurhuleni West TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level for all programmes",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at NQF Level 3/4 of the same sub-field/programme.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 14,
+      "note": "To obtain a National Certificate: a total of 7 subjects — 3 fundamental and 4 vocational subjects. The following subjects are compulsory fundamental subjects for all NC(V) programmes.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematics",
+        "Life Skills and Computer Literacy"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Introduction to Information Systems",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Introduction to Systems Development",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Electronics",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Entrepreneurship",
+          "levels": "2",
+          "optional": true
+        },
+        {
+          "subject": "Computer Hardware and Software",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Principles of Computer Programming",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Computer Programming",
+          "levels": "4",
+          "optional": false
+        },
+        {
+          "subject": "Systems Analysis and Design",
+          "levels": "3-4",
+          "optional": false
+        },
+        {
+          "subject": "Project Management",
+          "levels": "3-4",
+          "optional": true
+        },
+        {
+          "subject": "Data Communication and Networking",
+          "levels": "4",
+          "optional": false
+        },
+        {
+          "subject": "Physical Science",
+          "levels": "2-4",
+          "optional": true
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Boksburg Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Germiston Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Kathorus Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Kempton Park Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Tembisa Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Business Studies — Finance, Economics & Accounting",
+    "institution": "Ekurhuleni East TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level (Levels 2–4)",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at the preceding NQF Level of the same programme.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 8,
+      "note": "Core subjects shared across levels 2–4; Entrepreneurship (L2) is replaced by Project Management from L3 onward.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Life Orientation",
+        "Mathematical Literacy"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Applied Accounting",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Financial Management",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Economic Environment",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Entrepreneurship",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Project Management",
+          "levels": "3-4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Springs Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Benoni Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Brakpan Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Daveyton Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Kwa-Thema Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Business Studies — Information & Communication Technology",
+    "institution": "Ekurhuleni East TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level (Levels 2–4)",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at the preceding NQF Level of the same programme.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 12,
+      "note": "Curriculum changes significantly from L2 to L3/4 as the programme moves from IT foundations into systems analysis/programming. Electronic Control & Digital Electronics vs Basic Multimedia (L2) and Electronic Control & Digital Electronics vs Multimedia Content (L3/4) are alternative electives.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Life Orientation",
+        "Mathematical Literacy"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Electronics",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Introduction to Information Systems",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Introduction to Systems Development",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Electronic Control and Digital Electronics",
+          "levels": "2-4",
+          "optional": true
+        },
+        {
+          "subject": "Basic Multimedia",
+          "levels": "2",
+          "optional": true
+        },
+        {
+          "subject": "Systems Analysis and Design",
+          "levels": "3-4",
+          "optional": false
+        },
+        {
+          "subject": "Computer Hardware and Software",
+          "levels": "3-4",
+          "optional": false
+        },
+        {
+          "subject": "Principles of Computer Programming",
+          "levels": "3-4",
+          "optional": false
+        },
+        {
+          "subject": "Multimedia Content",
+          "levels": "3-4",
+          "optional": true
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Springs Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Benoni Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Brakpan Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Daveyton Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Kwa-Thema Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Business Studies — Management (Wholesale & Retail)",
+    "institution": "Ekurhuleni East TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level (Levels 2–4)",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at the preceding NQF Level of the same programme.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 7,
+      "note": "Same four core subjects across all levels.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Life Orientation",
+        "Mathematical Literacy"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Wholesale & Retail",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Management Practice",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Financial Management",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Operations Management",
+          "levels": "2-4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Springs Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Benoni Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Brakpan Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Daveyton Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Kwa-Thema Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Business Studies — Marketing",
+    "institution": "Ekurhuleni East TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level (Levels 2–4)",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at the preceding NQF Level of the same programme.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 8,
+      "note": "Same five core subjects across all levels. Contact Centre Operations is offered at the Springs Campus.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Life Orientation",
+        "Mathematical Literacy"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Marketing",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Graphic Design",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Contact Centre Operations",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Marketing Communication",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Advertising & Promotions",
+          "levels": "2-4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Springs Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Benoni Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Brakpan Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Daveyton Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Kwa-Thema Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Business Studies — Office Administration",
+    "institution": "Ekurhuleni East TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level (Levels 2–4)",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at the preceding NQF Level of the same programme.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 10,
+      "note": "Core vocational subjects are the same across levels; elective is Entrepreneurship + Applied Accounting at L2, Project Management + Applied Accounting from L3.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Life Orientation",
+        "Mathematical Literacy"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Business Practice",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "New Venture Creation",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Office Practice",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Office Data Capturing",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Entrepreneurship",
+          "levels": "2",
+          "optional": true
+        },
+        {
+          "subject": "Applied Accounting",
+          "levels": "2-4",
+          "optional": true
+        },
+        {
+          "subject": "Project Management",
+          "levels": "3-4",
+          "optional": true
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Springs Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Benoni Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Brakpan Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Daveyton Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Kwa-Thema Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Business Studies — Safety in Society",
+    "institution": "Ekurhuleni East TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level (Levels 2–4)",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at the preceding NQF Level of the same programme.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 14,
+      "note": "Distinct subject set at each level, building from policing/law fundamentals (L2) through criminal justice structures (L3) to applied policing practice (L4).",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Life Orientation",
+        "Mathematical Literacy"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Introduction to Policing Practice",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Introduction to Law",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Principles of Criminal Justice",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Introduction to Governance",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Criminal Law",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Criminal Justice Structure & Mandates",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Theory of Policing",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Criminal Justice Process",
+          "levels": "4",
+          "optional": false
+        },
+        {
+          "subject": "Law Procedure & Evidence",
+          "levels": "4",
+          "optional": false
+        },
+        {
+          "subject": "Applied Policing",
+          "levels": "4",
+          "optional": false
+        },
+        {
+          "subject": "Governance",
+          "levels": "3-4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Springs Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Benoni Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Brakpan Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Daveyton Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Kwa-Thema Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Service Sector — Hospitality",
+    "institution": "Ekurhuleni East TVET College",
+    "institutionType": "college",
+    "faculty": "Service Sector",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level (Levels 2–4)",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at the preceding NQF Level of the same programme.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 7,
+      "note": "Same four core subjects across all levels.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Life Orientation",
+        "Mathematical Literacy"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Hospitality Generics",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Hospitality Services",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Food Preparation",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Client Services and Human Relations",
+          "levels": "2-4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Springs Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Benoni Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Brakpan Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Daveyton Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Kwa-Thema Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Service Sector — Tourism",
+    "institution": "Ekurhuleni East TVET College",
+    "institutionType": "college",
+    "faculty": "Service Sector",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level (Levels 2–4)",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at the preceding NQF Level of the same programme.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 9,
+      "note": "The 'Sustainable Tourism' subject expands in scope each level: SA-only (L2) → SA and Regional Travel (L3) → SA and International Travel (L4).",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Life Orientation",
+        "Mathematical Literacy"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Tourism Operations",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Science of Tourism",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Client Services and Human Relations",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Sustainable Tourism in SA",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Sustainable Tourism in SA and Regional Travel",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Sustainable Tourism in SA and International Travel",
+          "levels": "4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Springs Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Benoni Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Brakpan Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Daveyton Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Kwa-Thema Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Engineering Studies — Civil Engineering and Building Construction",
+    "institution": "Ekurhuleni East TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level (Levels 2–4)",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at the preceding NQF Level of the same programme.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 7,
+      "note": "Same core vocational subjects and Masonry elective across all levels.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Life Orientation",
+        "Mathematics"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Construction Planning",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Plant & Equipment",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Materials",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Masonry",
+          "levels": "2-4",
+          "optional": true
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Springs Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Benoni Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Brakpan Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Daveyton Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Kwa-Thema Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Engineering Studies — Electrical Infrastructure Construction",
+    "institution": "Ekurhuleni East TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level (Levels 2–4)",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at the preceding NQF Level of the same programme.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 9,
+      "note": "Workshop Practice (L2 & L4) is called Electrical Workmanship at L3. Electrical Systems & Construction / Physical Science are alternative electives at every level.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Life Orientation",
+        "Mathematics"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Electrical Principles and Practice",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Electrical Control & Digital Electronics",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Workshop Practice",
+          "levels": "2,4",
+          "optional": false
+        },
+        {
+          "subject": "Electrical Workmanship",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Electrical Systems & Construction",
+          "levels": "2-4",
+          "optional": true
+        },
+        {
+          "subject": "Physical Science",
+          "levels": "2-4",
+          "optional": true
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Springs Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Benoni Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Brakpan Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Daveyton Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Kwa-Thema Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Engineering Studies — Engineering and Related Design",
+    "institution": "Ekurhuleni East TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level (Levels 2–4)",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at the preceding NQF Level of the same programme.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 15,
+      "note": "Curriculum changes substantially by level. Electives (Physical Science, Fitting & Turning, Automotive Repair & Maintenance, Engineering Fabrication—Boilermaking) are offered at L2 and L4; Engineering Fabrication—Boilermaking is offered at the Daveyton Campus.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Life Orientation",
+        "Mathematics"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Engineering Fundamentals",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Technology",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Systems",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Practice and Maintenance",
+          "levels": "3-4",
+          "optional": false
+        },
+        {
+          "subject": "Materials Technology",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Graphics and Design",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Professional Engineering Practice",
+          "levels": "4",
+          "optional": false
+        },
+        {
+          "subject": "Applied Engineering Technology",
+          "levels": "4",
+          "optional": false
+        },
+        {
+          "subject": "Physical Science",
+          "levels": "2,4",
+          "optional": true
+        },
+        {
+          "subject": "Fitting & Turning",
+          "levels": "2,4",
+          "optional": true
+        },
+        {
+          "subject": "Automotive Repair & Maintenance",
+          "levels": "2,4",
+          "optional": true
+        },
+        {
+          "subject": "Engineering Fabrication — Boilermaking",
+          "levels": "2,4",
+          "optional": true
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Springs Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Benoni Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Brakpan Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Daveyton Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Kwa-Thema Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Engineering Studies — Process Plant Operations",
+    "institution": "Ekurhuleni East TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level (Levels 2–4)",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at the preceding NQF Level of the same programme.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 8,
+      "note": "Physical Science, Process Technology and Pulp and Papermaking Technology run throughout; Engineering Fundamentals (L2) is replaced by Process Control from L3.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Life Orientation",
+        "Mathematics"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Physical Science",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Process Technology",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Pulp and Papermaking Technology",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Fundamentals",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Process Control",
+          "levels": "3-4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Springs Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Benoni Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Brakpan Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Daveyton Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Kwa-Thema Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Financial Management (NATED)",
+    "institution": "Ekurhuleni East TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "N4–N6, 1 year and 6 months typical (as per level)",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 12 (or relevant NQF equivalent) for N4 entry — confirm specific subject requirements with the campus.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 5,
+      "note": "Report 191 programme.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Financial Accounting",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Management Communication",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Entrepreneurship & Business Management",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Computerised Financial Systems",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Cost & Management Accounting",
+          "levels": "N5-N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Springs Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Benoni Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Brakpan Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Daveyton Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Kwa-Thema Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Marketing Management (NATED)",
+    "institution": "Ekurhuleni East TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "N4–N6, 1 year and 6 months typical (as per level)",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 12 (or relevant NQF equivalent) for N4 entry — confirm specific subject requirements with the campus.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 7,
+      "note": "Report 191 programme.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Marketing Management",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Management Communication",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Entrepreneurship & Business Management",
+          "levels": "N4-N5",
+          "optional": false
+        },
+        {
+          "subject": "Computer Practice",
+          "levels": "N4-N5",
+          "optional": false
+        },
+        {
+          "subject": "Sales Management",
+          "levels": "N5-N6",
+          "optional": false
+        },
+        {
+          "subject": "Marketing Communication",
+          "levels": "N6",
+          "optional": false
+        },
+        {
+          "subject": "Marketing Research",
+          "levels": "N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Springs Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Benoni Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Brakpan Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Daveyton Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Kwa-Thema Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Human Resources Management (NATED)",
+    "institution": "Ekurhuleni East TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "N4–N6, 1 year and 6 months typical (as per level)",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 12 (or relevant NQF equivalent) for N4 entry — confirm specific subject requirements with the campus.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 7,
+      "note": "Report 191 programme.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Computer Practice",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Entrepreneurship & Business Management",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Management Communication",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Personal Management",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Personnel Management",
+          "levels": "N5-N6",
+          "optional": false
+        },
+        {
+          "subject": "Personnel Training",
+          "levels": "N5-N6",
+          "optional": false
+        },
+        {
+          "subject": "Labour Relations",
+          "levels": "N5-N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Springs Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Benoni Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Brakpan Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Daveyton Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Kwa-Thema Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Management Assistant (NATED)",
+    "institution": "Ekurhuleni East TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "N4–N6, 1 year and 6 months typical (as per level)",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 12 (or relevant NQF equivalent) for N4 entry — confirm specific subject requirements with the campus.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 4,
+      "note": "Report 191 programme.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Office Practice",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Communication",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Information Processing",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Computer Practice",
+          "levels": "N4-N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Springs Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Benoni Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Brakpan Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Daveyton Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Kwa-Thema Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Tourism (NATED)",
+    "institution": "Ekurhuleni East TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "N4–N6, 1 year and 6 months typical (as per level)",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 12 (or relevant NQF equivalent) for N4 entry — confirm specific subject requirements with the campus.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 5,
+      "note": "Report 191 programme.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Travel Office Procedures",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Tourist Destination",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Travel Services",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Tourism Communication",
+          "levels": "N4-N5",
+          "optional": false
+        },
+        {
+          "subject": "Hotel Reception",
+          "levels": "N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Springs Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Benoni Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Brakpan Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Daveyton Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Kwa-Thema Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Hospitality (NATED)",
+    "institution": "Ekurhuleni East TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "N4–N6, 1 year and 6 months typical (as per level)",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 12 (or relevant NQF equivalent) for N4 entry — confirm specific subject requirements with the campus.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 8,
+      "note": "Report 191 programme.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Applied Management",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Catering Theory and Practical",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Sanitation and Safety",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Nutrition and Menu Planning",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Entrepreneurship and Business Management",
+          "levels": "N5",
+          "optional": false
+        },
+        {
+          "subject": "Food and Beverage Services",
+          "levels": "N5",
+          "optional": false
+        },
+        {
+          "subject": "Communication and Human Relations",
+          "levels": "N6",
+          "optional": false
+        },
+        {
+          "subject": "Computer Practice",
+          "levels": "N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Springs Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Benoni Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Brakpan Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Daveyton Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Kwa-Thema Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Electrical Engineering N1–N3 (NATED)",
+    "institution": "Ekurhuleni East TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "N1–N3",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 9-11 (or relevant NQF equivalent) for N1/N2 entry — confirm specific subject requirements with the campus.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 5,
+      "note": "Report 191 programme — entry-level engineering foundation (N1–N3).",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Mathematics",
+          "levels": "N1-N3",
+          "optional": false
+        },
+        {
+          "subject": "Industrial Electronics",
+          "levels": "N1-N3",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Science",
+          "levels": "N1-N3",
+          "optional": false
+        },
+        {
+          "subject": "Electrical Trade Theory",
+          "levels": "N1-N2",
+          "optional": false
+        },
+        {
+          "subject": "Electrotechnology",
+          "levels": "N3",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Springs Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Benoni Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Brakpan Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Daveyton Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Kwa-Thema Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Electrical Engineering N4–N6 (Light Current) (NATED)",
+    "institution": "Ekurhuleni East TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "N4–N6, 1 year and 6 months typical (as per level)",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 12 (or relevant NQF equivalent) for N4 entry — confirm specific subject requirements with the campus.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 5,
+      "note": "Report 191 programme.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Mathematics",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Industrial Electronics",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Science",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Electrotechnics",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Power Machines",
+          "levels": "N5-N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Springs Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Benoni Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Brakpan Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Daveyton Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Kwa-Thema Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Electrical Engineering N4–N6 (Heavy Current) (NATED)",
+    "institution": "Ekurhuleni East TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "N4–N6, 1 year and 6 months typical (as per level)",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 12 (or relevant NQF equivalent) for N4 entry — confirm specific subject requirements with the campus.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 6,
+      "note": "Report 191 programme.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Mathematics",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Industrial Electronics",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Science",
+          "levels": "N4-N5",
+          "optional": false
+        },
+        {
+          "subject": "Electrotechnics",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Power Machines",
+          "levels": "N6",
+          "optional": false
+        },
+        {
+          "subject": "Strength of Material",
+          "levels": "N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Springs Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Benoni Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Brakpan Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Daveyton Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Kwa-Thema Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Mechanical Engineering N1–N3 (NATED)",
+    "institution": "Ekurhuleni East TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "N1–N3",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 9-11 (or relevant NQF equivalent) for N1/N2 entry — confirm specific subject requirements with the campus.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 7,
+      "note": "Report 191 programme — entry-level engineering foundation (N1–N3).",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Mathematics",
+          "levels": "N1-N3",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Science",
+          "levels": "N1-N3",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Drawing",
+          "levels": "N1-N3",
+          "optional": false
+        },
+        {
+          "subject": "Fitting and Machinery Theory",
+          "levels": "N1-N2",
+          "optional": false
+        },
+        {
+          "subject": "Motor Trade Theory",
+          "levels": "N1",
+          "optional": false
+        },
+        {
+          "subject": "Diesel Trade Theory",
+          "levels": "N2-N3",
+          "optional": false
+        },
+        {
+          "subject": "Mechanotechnology",
+          "levels": "N3",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Springs Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Benoni Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Brakpan Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Daveyton Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Kwa-Thema Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Mechanical Engineering N4–N6 (NATED)",
+    "institution": "Ekurhuleni East TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "N4–N6, 1 year and 6 months typical (as per level)",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 12 (or relevant NQF equivalent) for N4 entry — confirm specific subject requirements with the campus.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 6,
+      "note": "Report 191 programme.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Mathematics",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Mechanotechnics",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Mechanical Draughting",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Science",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Power Machines",
+          "levels": "N5-N6",
+          "optional": false
+        },
+        {
+          "subject": "Mechanical Drawing and Design",
+          "levels": "N5-N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Springs Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Benoni Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Brakpan Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Daveyton Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Kwa-Thema Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Civil Engineering N4–N6 (NATED)",
+    "institution": "Ekurhuleni East TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "N4–N6, 1 year and 6 months typical (as per level)",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 12 (or relevant NQF equivalent) for N4 entry — confirm specific subject requirements with the campus.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 4,
+      "note": "Report 191 programme.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Building Administration",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Building and Structural Construction",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Building & Structural Surveying",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Quantity Surveying",
+          "levels": "N4-N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Springs Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Benoni Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Brakpan Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Daveyton Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Kwa-Thema Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Short Skills Programmes",
+    "institution": "Ekurhuleni East TVET College",
+    "institutionType": "college",
+    "faculty": "Short Courses",
+    "qualificationType": "Short Skills Programme",
+    "qualificationCode": "",
+    "duration": "1 month – 9 months",
+    "minGrade": null,
+    "minNQFLevel": null,
+    "admissionRequirement": "Contact campus for specific admission requirements per short course.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 10,
+      "note": "Each item is offered as its own standalone short skills programme (1–9 months); grouped here as one record listing all 10 titles offered.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Basic Boilermaking",
+          "levels": "Short course",
+          "optional": false
+        },
+        {
+          "subject": "Basic Air Conditioning and Refrigeration Maintainer",
+          "levels": "Short course",
+          "optional": false
+        },
+        {
+          "subject": "Arc and Gas Welding Assistant",
+          "levels": "Short course",
+          "optional": false
+        },
+        {
+          "subject": "Automotive Servicing Skills",
+          "levels": "Short course",
+          "optional": false
+        },
+        {
+          "subject": "Community House Building: Ceiling Installation",
+          "levels": "Short course",
+          "optional": false
+        },
+        {
+          "subject": "Community House Building: Glazing",
+          "levels": "Short course",
+          "optional": false
+        },
+        {
+          "subject": "Community House Building: Flooring & Tiling",
+          "levels": "Short course",
+          "optional": false
+        },
+        {
+          "subject": "Community House Building: Basic Plumbing",
+          "levels": "Short course",
+          "optional": false
+        },
+        {
+          "subject": "Installation, Repair and Maintenance: Plumbing & Solar Water Heating",
+          "levels": "Short course",
+          "optional": false
+        },
+        {
+          "subject": "Basic Electrical",
+          "levels": "Short course",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Springs Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Benoni Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Brakpan Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Daveyton Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Kwa-Thema Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Occupational Programmes (QCTO)",
+    "institution": "Ekurhuleni East TVET College",
+    "institutionType": "college",
+    "faculty": "Occupational Programmes",
+    "qualificationType": "QCTO-Accredited Occupational Qualification",
+    "qualificationCode": "",
+    "duration": "Varies by programme — contact campus for specific duration",
+    "minGrade": null,
+    "minNQFLevel": null,
+    "admissionRequirement": "QCTO-accredited, industry-aligned. Contact campus for specific admission requirements per programme.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 7,
+      "note": "Delivered primarily through the college's Artisan & Skills Development Centre (ASDC). Each item is its own standalone occupational qualification; grouped here as one record listing all 7 titles offered.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Centre of Specialisation — Boilermaking",
+          "levels": "Short course",
+          "optional": false
+        },
+        {
+          "subject": "Dual System Pilot Project — Electrical",
+          "levels": "Short course",
+          "optional": false
+        },
+        {
+          "subject": "Dual System Pilot Project — Plumbing",
+          "levels": "Short course",
+          "optional": false
+        },
+        {
+          "subject": "Aircon and Refrigeration",
+          "levels": "Short course",
+          "optional": false
+        },
+        {
+          "subject": "Foundry — Pattern Maker, Molder and Melter",
+          "levels": "Short course",
+          "optional": false
+        },
+        {
+          "subject": "Tool Making",
+          "levels": "Short course",
+          "optional": false
+        },
+        {
+          "subject": "Automotive",
+          "levels": "Short course",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Springs Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Benoni Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Brakpan Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Daveyton Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Kwa-Thema Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Learnership Programmes",
+    "institution": "Ekurhuleni East TVET College",
+    "institutionType": "college",
+    "faculty": "Occupational Programmes",
+    "qualificationType": "Learnership",
+    "qualificationCode": "",
+    "duration": "Varies by programme — contact campus for specific duration",
+    "minGrade": null,
+    "minNQFLevel": null,
+    "admissionRequirement": "Typically requires employer/workplace placement alongside college attendance — contact campus for specific admission requirements per learnership.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 5,
+      "note": "Each item is its own standalone learnership programme; grouped here as one record listing all 5 titles offered.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Furniture Making",
+          "levels": "Short course",
+          "optional": false
+        },
+        {
+          "subject": "Welding",
+          "levels": "Short course",
+          "optional": false
+        },
+        {
+          "subject": "Boilermaking",
+          "levels": "Short course",
+          "optional": false
+        },
+        {
+          "subject": "Community House Building",
+          "levels": "Short course",
+          "optional": false
+        },
+        {
+          "subject": "Specialised Industrial Facility (Sheet Metal Work)",
+          "levels": "Short course",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Springs Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Benoni Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Brakpan Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Daveyton Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Kwa-Thema Campus",
         "excludeVocational": []
       }
     ]

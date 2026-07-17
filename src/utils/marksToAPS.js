@@ -691,6 +691,77 @@ function aps_nmu_for_course(course, subjects) {
   return Math.round(chosen.reduce((sum, s) => sum + Number(s.mark), 0) * 10) / 10;
 }
 
+/**
+ * APS_UKZN — UKZN's own "Composite Academic Performance Score (NSC-Deg)".
+ * Confirmed from the 2027 Undergraduate Prospectus (p.17): each subject's
+ * NSC achievement level (1–7, same %-bands as the standard NSC scale) IS its
+ * points value directly — there is no 8-point bonus for 90–100% the way
+ * Wits/UWC award one. Life Orientation always scores 0 points regardless of
+ * its level (shown explicitly in the prospectus's worked example: LO at
+ * level 4 contributes 0, not 4).
+ *
+ * For a standard NSC candidate (exactly 6 non-LO subjects, i.e. 7 total incl.
+ * LO), the total is simply the sum of all 6 non-LO subjects' levels — the
+ * example in the prospectus (Home Language 5, FAL 6, LO 4→0, Maths 5,
+ * Accounting 6, Business Studies 6, CAT 7) sums to 5+6+5+6+6+7 = 35.
+ *
+ * For a learner with MORE than 7 subjects total (i.e. more than 6 non-LO
+ * subjects), the prospectus specifies a different, narrower rule: "the APS
+ * is calculated by adding the performance ratings of English (HL or FAL)
+ * plus Mathematics or Mathematical Literacy plus the best ratings of four
+ * other subjects (excluding LO or Maths Paper 3). No bonus points are
+ * awarded for additional subjects." That is: English and Maths/Maths Literacy
+ * are locked in regardless of rank, then the best 4 of whatever remains
+ * (excluding LO and Maths Paper 3) fill the rest — this can differ from a
+ * naive "best 6 of everything" if a learner's English or Maths mark isn't
+ * among their strongest subjects.
+ *
+ * This function applies that "locked English + locked Maths/Maths Literacy +
+ * best 4 of the rest" rule uniformly (it also reproduces the same 35-point
+ * result for the standard 6-non-LO-subject example above, since with only 6
+ * non-LO subjects "best 4 of the rest" is just "the remaining 4", so no
+ * separate branch is needed for the ≤7-subject case).
+ *
+ * Used by: University of KwaZulu-Natal
+ */
+function isUkznMathsTrack(name) {
+  const n = normalizeName(name);
+  return n.includes("mathematics") || n.includes("mathematical literacy") || n === "maths";
+}
+function isMathsPaper3(name) {
+  return normalizeName(name).includes("paper 3");
+}
+
+function aps_ukzn(subjects) {
+  const pool = subjects.filter((s) =>
+    !isLifeOrientation(s.subject) &&
+    !isMathsPaper3(s.subject) &&
+    s.mark !== null && s.mark !== undefined && s.mark !== "" &&
+    Number.isFinite(Number(s.mark))
+  );
+
+  const locked = [];
+  const lockedSet = new Set();
+  const lock = (s) => {
+    if (s && !lockedSet.has(s)) {
+      lockedSet.add(s);
+      locked.push(s);
+    }
+  };
+
+  // English (Home or First Additional Language) — best-scoring if more than one
+  lock(bestN(pool.filter((s) => isEnglish(s.subject)), 1, (s) => Number(s.mark))[0]);
+  // Mathematics or Mathematical Literacy — best-scoring if more than one
+  lock(bestN(pool.filter((s) => isUkznMathsTrack(s.subject)), 1, (s) => Number(s.mark))[0]);
+
+  const remaining = pool.filter((s) => !lockedSet.has(s));
+  const slotsLeft = Math.max(0, 6 - locked.length);
+  const filler = bestN(remaining, slotsLeft, (s) => convertMarkToAPS(s.mark));
+  const chosen = [...locked, ...filler].slice(0, 6);
+
+  return chosen.reduce((sum, s) => sum + convertMarkToAPS(s.mark), 0);
+}
+
 // ─── University → model map ────────────────────────────────────────────────────
 
 const UNIVERSITY_MODELS = {
@@ -700,10 +771,10 @@ const UNIVERSITY_MODELS = {
   "University of Cape Town":          "UCT_FPS_600",
   "Stellenbosch University":          "STELLIES_NSC_AVG",
   "North-West University":            "APS_NSC_42",
+  "University of KwaZulu-Natal":      "APS_UKZN",
 
   // Standard NSC best-6 (provisional / verified)
   "University of Pretoria":                          "APS_NSC_42",
-  "University of KwaZulu-Natal":                     "APS_NSC_42",
   "University of the Free State":                    "APS_NSC_42",
   "University of Limpopo":                           "APS_NSC_42",
   "University of Zululand":                          "APS_UNIZULU",
@@ -751,6 +822,7 @@ export function calculateAPSForUniversity(universityName, subjects) {
     case "APS_SPU":         score = aps_spu(subjects);        break;
     case "APS_MUT":         score = aps_mut(subjects);        break;
     case "APS_NMU":         score = aps_nmu_generic(subjects); break;
+    case "APS_UKZN":        score = aps_ukzn(subjects);        break;
     default:                score = aps_nsc_42(subjects);
   }
 
@@ -767,6 +839,7 @@ export function calculateAPSForUniversity(universityName, subjects) {
     APS_SPU:          "SPU Points (own 1–8 scale, Maths/Home Language bonus, LO included on reduced scale)",
     APS_MUT:          "MUT Points (best 6 subjects, LO excluded, 90%+ earns 8 points)",
     APS_NMU:          "NMU Applicant Score (% sum, best 6 subjects, LO excluded, out of 600)",
+    APS_UKZN:         "UKZN Composite APS (English + Maths/Maths Lit locked, best 4 of rest, LO excluded, out of 42)",
   };
 
   return { score, model, label: labels[model] };

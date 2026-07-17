@@ -54587,5 +54587,4373 @@
         "minAPS": 21
       }
     ]
+  },
+   {
+    "courseName": "BA in Humanities",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Arts and Social Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 63,
+    "keySubjects": [
+      {
+        "subject": "Home Language",
+        "minMark": 50
+      },
+      {
+        "subject": "First Additional Language",
+        "minMark": 40
+      }
+    ],
+    "additionalRequirements": "Extended Curriculum Programme (4 years) available. If Organisational Informatics is taken as a university subject, also Mathematics 50% OR Mathematical Literacy 70%. Fields of study: Human Thought, Language, Culture and Art; People and Society."
+  },
+  {
+    "courseName": "BA in Language and Culture",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Arts and Social Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 63,
+    "keySubjects": [
+      {
+        "subject": "Home Language",
+        "minMark": 50
+      },
+      {
+        "subject": "First Additional Language",
+        "minMark": 50
+      }
+    ],
+    "additionalRequirements": "Extended Curriculum Programme (4 years) available."
+  },
+  {
+    "courseName": "BA in Development and the Environment",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Arts and Social Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 63,
+    "keySubjects": [
+      {
+        "subject": "Home Language",
+        "minMark": 50
+      },
+      {
+        "subject": "First Additional Language",
+        "minMark": 40
+      }
+    ],
+    "additionalRequirements": "Extended Curriculum Programme (4 years) available. If Economics is taken as a university subject, also Mathematics 60%."
+  },
+  {
+    "courseName": "BA in Drama and Theatre Studies",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Arts and Social Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 65,
+    "keySubjects": [
+      {
+        "subject": "Home Language",
+        "minMark": 60
+      },
+      {
+        "subject": "First Additional Language",
+        "minMark": 50
+      }
+    ],
+    "selectionProcess": true,
+    "additionalRequirements": "Candidates must be available for auditions and/or interviews at the Drama Department in Stellenbosch during August. Fields of study: Acting and Performance Training; Technical and Management Training."
+  },
+  {
+    "courseName": "BA in Human Resource Management",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Arts and Social Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 63,
+    "keySubjects": [
+      {
+        "subject": "Home Language",
+        "minMark": 50
+      },
+      {
+        "subject": "First Additional Language",
+        "minMark": 40
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 70
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "Extended Curriculum Programme (4 years) available."
+  },
+  {
+    "courseName": "BA in International Studies",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Arts and Social Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 63,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          {
+            "subject": "English Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "Extended Curriculum Programme (4 years) available."
+  },
+  {
+    "courseName": "BA in Political, Philosophical and Economic Studies (PPE)",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Arts and Social Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 63,
+    "keySubjects": [
+      {
+        "subject": "Home Language",
+        "minMark": 50
+      },
+      {
+        "subject": "First Additional Language",
+        "minMark": 40
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      }
+    ]
+  },
+  {
+    "courseName": "Bachelor of Social Work",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Arts and Social Sciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 63,
+    "keySubjects": [
+      {
+        "subject": "Home Language",
+        "minMark": 50
+      },
+      {
+        "subject": "First Additional Language",
+        "minMark": 50
+      }
+    ],
+    "additionalRequirements": "100 places in the programme."
+  },
+  {
+    "courseName": "BA in Visual Arts",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Arts and Social Sciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 60,
+    "keySubjects": [
+      {
+        "subject": "Home Language",
+        "minMark": 50
+      },
+      {
+        "subject": "First Additional Language",
+        "minMark": 40
+      }
+    ],
+    "selectionProcess": true,
+    "additionalRequirements": "Place for 60 students. A prescribed portfolio of art must be handed in by 1 September. Fields of study: Fine Arts; Jewellery and Metal Design; Visual Communication Design."
+  },
+  {
+    "courseName": "Bachelor of Music (BMus)",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Arts and Social Sciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 60,
+    "keySubjects": [
+      {
+        "subject": "Home Language",
+        "minMark": 50
+      },
+      {
+        "subject": "First Additional Language",
+        "minMark": 40
+      }
+    ],
+    "selectionProcess": true,
+    "additionalRequirements": "In the main instrument (or singing), a practical standard equivalent to the Grade VII examination and theoretical knowledge equivalent to Grade V theory is required, tested via audition at the Department of Music. If Mathematics is taken as a university subject, also Mathematics 70%."
+  },
+  {
+    "courseName": "BA in Music",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Arts and Social Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 60,
+    "keySubjects": [
+      {
+        "subject": "Home Language",
+        "minMark": 50
+      },
+      {
+        "subject": "First Additional Language",
+        "minMark": 40
+      }
+    ],
+    "selectionProcess": true,
+    "additionalRequirements": "In the main instrument (or singing), a practical standard equivalent to the Grade VII examination and theoretical knowledge equivalent to Grade V theory is required, tested via audition at the Department of Music. If Mathematics is taken as a university subject, also Mathematics 70%."
+  },
+  {
+    "courseName": "Diploma in Practical Music",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Arts and Social Sciences",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "keySubjects": [],
+    "selectionProcess": true,
+    "additionalRequirements": "A National Senior Certificate with at least 40% in each of four school subjects (excluding Life Orientation). Practical standard equivalent to Grade VII and theory equivalent to Grade III/IV required, tested via audition at the Department of Music."
+  },
+  {
+    "courseName": "Advanced Diploma in Practical Music",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Arts and Social Sciences",
+    "duration": "1 year",
+    "qualificationType": "Advanced Diploma",
+    "keySubjects": [],
+    "selectionProcess": true,
+    "additionalRequirements": "Requires a Diploma in Practical Music, or another music qualification approved by Senate. Selection is based on a selection audition; applicants without the necessary qualifications may be accepted on condition of supplementary work."
+  },
+  {
+    "courseName": "Higher Certificate in Music",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Arts and Social Sciences",
+    "duration": "1 year",
+    "qualificationType": "Higher Certificate",
+    "keySubjects": [],
+    "selectionProcess": true,
+    "additionalRequirements": "Requires a National Senior Certificate. Practical standard equivalent to Grade V/VI and theory equivalent to Grade III/IV required in the main instrument or singing, tested via audition."
+  },
+  {
+    "courseName": "Bachelor of Data Science (BDatSci) – Geoinformatics",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Arts and Social Sciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 80,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 80
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Afrikaans Home Language",
+            "minMark": 60
+          },
+          {
+            "subject": "English Home Language",
+            "minMark": 60
+          },
+          {
+            "subject": "Afrikaans First Additional Language",
+            "minMark": 75
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 75
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "Interfaculty programme. Focal area: Geoinformatics."
+  },
+  {
+    "courseName": "Diploma in Sustainable Development",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Diploma",
+    "minAPS": 55,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          {
+            "subject": "English Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 60
+          }
+        ]
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 50
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "selectionProcess": true,
+    "additionalRequirements": "A committee selects applicants using a combined score derived from academic merit (NSC average) plus demonstrated interest/experience in sustainable development, social/environmental justice, entrepreneurial mindset, creativity and leadership (departmental application form). Language of instruction is English. Alternative Mathematics pathway: Mathematics 40% or Mathematical Literacy 50%, AND 60% in Business Studies, Economics or Accounting."
+  },
+  {
+    "courseName": "BCom (Economic Sciences)",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 65,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "English Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "Afrikaans Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "Afrikaans First Additional Language",
+            "minMark": 70
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 70
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "To register for the Econometrics or Financial Sector focal areas (or for Actuarial Science 112 in the general stream), a Grade 12 Mathematics mark of 70% or higher is required. Focal areas: Econometrics, Economic and Management Consultation, Financial Sector, Transport Economics."
+  },
+  {
+    "courseName": "BCom (Management Sciences)",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 65,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "English Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "Afrikaans Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "Afrikaans First Additional Language",
+            "minMark": 70
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 70
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "Focal areas: Agricultural Economics, Business Analytics, Entrepreneurship and Innovation Management, Financial Management, Financial Planning, Human Resource Management, Information Systems Management, Investment Management, Logistics and Supply Chain Management, Marketing Management, Public and Development Management."
+  },
+  {
+    "courseName": "BCom (Management Sciences) Extended Curriculum Programme (ECP)",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 60,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "English Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "Afrikaans Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "Afrikaans First Additional Language",
+            "minMark": 70
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 70
+          }
+        ]
+      }
+    ],
+    "selectionProcess": true,
+    "additionalRequirements": "Approximately 100 students accommodated per year; preference given to applicants meeting the University's socio-economic status (SES) admission policy. Only South African citizens may register. Not available to applicants who repeated Grade 12 subjects to improve marks, or to transferring applicants from another faculty/institution. Applicants are placed into this programme by the University rather than applying directly."
+  },
+  {
+    "courseName": "BCom (Mathematical Sciences)",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 70,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 75
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "English Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "Afrikaans Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "Afrikaans First Additional Language",
+            "minMark": 70
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 70
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "Focal areas: Data Science, Financial Risk Management, Operations Research."
+  },
+  {
+    "courseName": "BCom (Actuarial Science)",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 80,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 80
+      },
+      {
+        "subject": "Home Language",
+        "minMark": 60
+      }
+    ],
+    "additionalRequirements": "If the Home Language is not English, English First Additional Language 75% is also required."
+  },
+  {
+    "courseName": "BCom (Industrial Psychology)",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 65,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "English Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "Afrikaans Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "Afrikaans First Additional Language",
+            "minMark": 70
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 70
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "courseName": "BAcc",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 70,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "English Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "Afrikaans Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "Afrikaans First Additional Language",
+            "minMark": 70
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 70
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "Mathematics requirement: 70% OR (Mathematics 60% AND Accounting 70%). Presented in English and Afrikaans; first-year modules have separate English and Afrikaans groups."
+  },
+  {
+    "courseName": "BCom (International Business)",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 80,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 70
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "English Home Language",
+            "minMark": 70
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 80
+          }
+        ]
+      }
+    ],
+    "selectionProcess": true,
+    "additionalRequirements": "A limited number of students are selected via a special selection process with strict progression criteria between academic years. Third year includes an international exchange semester. Language of instruction is English."
+  },
+  {
+    "courseName": "Bachelor of Data Science (BDatSci) – Analytics, Behavioural Economics & Statistical Learning",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 80,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 80
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Afrikaans Home Language",
+            "minMark": 60
+          },
+          {
+            "subject": "English Home Language",
+            "minMark": 60
+          },
+          {
+            "subject": "Afrikaans First Additional Language",
+            "minMark": 75
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 75
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "Interfaculty programme. Focal areas: Analytics and Optimisation, Behavioural Economics, Statistical Learning."
+  },
+  {
+    "courseName": "BCom (Management Accounting)",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 65,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "English Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "Afrikaans Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "Afrikaans First Additional Language",
+            "minMark": 70
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 70
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "courseName": "BCom (Financial Accounting)",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Economic and Management Sciences",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 65,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "English Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "Afrikaans Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "Afrikaans First Additional Language",
+            "minMark": 70
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 70
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "courseName": "BEd (Foundation Phase Education)",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Education",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 60,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 60
+          }
+        ]
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "English Home Language",
+            "minMark": 60
+          },
+          {
+            "subject": "Afrikaans Home Language",
+            "minMark": 60
+          },
+          {
+            "subject": "IsiXhosa Home Language",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "125 places in the programme. Language requirement depends on medium of instruction: learners taught in English need English Home Language 60% AND Afrikaans OR isiXhosa (Home or First Additional Language) 50%; learners taught in Afrikaans need Afrikaans Home Language 60% AND English OR isiXhosa (Home or First Additional Language) 50%; learners taught in isiXhosa need isiXhosa Home Language 60% AND English OR Afrikaans (Home or First Additional Language) 50%."
+  },
+  {
+    "courseName": "BEd (Intermediate Phase Education)",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Education",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 60,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 60
+          }
+        ]
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "English Home Language",
+            "minMark": 60
+          },
+          {
+            "subject": "Afrikaans Home Language",
+            "minMark": 60
+          },
+          {
+            "subject": "IsiXhosa Home Language",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "125 places in the programme. Mathematics (Ed) is compulsory in the first year (pass with 60% average); choose two further teaching modules from Life Skills, Natural Sciences (Ed) [requires Life Sciences or Physical Sciences 50%], and Social Sciences (Ed) [requires History or Geography 50%]. Language requirement depends on medium of instruction: learners taught in English need English Home Language 60% AND Afrikaans OR isiXhosa (Home or First Additional Language) 50%; learners taught in Afrikaans need Afrikaans Home Language 60% AND English OR isiXhosa (Home or First Additional Language) 50%; learners taught in isiXhosa need isiXhosa Home Language 60% AND English OR Afrikaans (Home or First Additional Language) 50%."
+  },
+  {
+    "courseName": "Postgraduate Certificate in Education (PGCE)",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Education",
+    "duration": "1 year",
+    "qualificationType": "Postgraduate Certificate",
+    "keySubjects": [],
+    "additionalRequirements": "Entry requires a degree at NQF level 7 with two teaching subjects; each teaching subject must meet its specific entry requirements, and a minimum number of students per teaching module is required for it to run. Full time, on campus."
+  },
+  {
+    "courseName": "BEng (Chemical)",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Engineering",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 70,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 70
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 60
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "English Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "selectionProcess": true,
+    "additionalRequirements": "Selection mark = Mathematics % + Physical Sciences % + (6 × Matric average, out of 800, based on the six best Grade 11 subjects for conditional selection or Grade 12 subjects for final selection, excluding Life Orientation). A selection mark of 600+ has recently given a good chance of admission to some programmes, 620+ for others; some programmes need Mathematics 75%+/NSC average 75%+/Physical Sciences 65%+, others need Mathematics 80%+ and Physical Sciences 70%+. Language requirement: English Home Language 50% (no Afrikaans requirement) OR English First Additional Language 60% (no Afrikaans requirement) OR English First Additional Language 50% with Afrikaans Home Language 50% OR English First Additional Language 50% with Afrikaans Second Additional Language 60%. Extended Curriculum Programme (5 years) available; selection considers selection score and socio-economic status."
+  },
+  {
+    "courseName": "BEng (Civil)",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Engineering",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 70,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 70
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 60
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "English Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "selectionProcess": true,
+    "additionalRequirements": "Selection mark = Mathematics % + Physical Sciences % + (6 × Matric average, out of 800, based on the six best Grade 11 subjects for conditional selection or Grade 12 subjects for final selection, excluding Life Orientation). A selection mark of 600+ has recently given a good chance of admission to some programmes, 620+ for others; some programmes need Mathematics 75%+/NSC average 75%+/Physical Sciences 65%+, others need Mathematics 80%+ and Physical Sciences 70%+. Language requirement: English Home Language 50% (no Afrikaans requirement) OR English First Additional Language 60% (no Afrikaans requirement) OR English First Additional Language 50% with Afrikaans Home Language 50% OR English First Additional Language 50% with Afrikaans Second Additional Language 60%. Extended Curriculum Programme (5 years) available; selection considers selection score and socio-economic status."
+  },
+  {
+    "courseName": "BEng (Electrical and Electronic)",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Engineering",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 70,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 70
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 60
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "English Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "selectionProcess": true,
+    "additionalRequirements": "Selection mark = Mathematics % + Physical Sciences % + (6 × Matric average, out of 800, based on the six best Grade 11 subjects for conditional selection or Grade 12 subjects for final selection, excluding Life Orientation). A selection mark of 600+ has recently given a good chance of admission to some programmes, 620+ for others; some programmes need Mathematics 75%+/NSC average 75%+/Physical Sciences 65%+, others need Mathematics 80%+ and Physical Sciences 70%+. Language requirement: English Home Language 50% (no Afrikaans requirement) OR English First Additional Language 60% (no Afrikaans requirement) OR English First Additional Language 50% with Afrikaans Home Language 50% OR English First Additional Language 50% with Afrikaans Second Additional Language 60%. Extended Curriculum Programme (5 years) available; selection considers selection score and socio-economic status."
+  },
+  {
+    "courseName": "BEng (Electrical and Electronic) (Data Engineering)",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Engineering",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 70,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 70
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 60
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "English Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "selectionProcess": true,
+    "additionalRequirements": "Selection mark = Mathematics % + Physical Sciences % + (6 × Matric average, out of 800, based on the six best Grade 11 subjects for conditional selection or Grade 12 subjects for final selection, excluding Life Orientation). A selection mark of 600+ has recently given a good chance of admission to some programmes, 620+ for others; some programmes need Mathematics 75%+/NSC average 75%+/Physical Sciences 65%+, others need Mathematics 80%+ and Physical Sciences 70%+. Language requirement: English Home Language 50% (no Afrikaans requirement) OR English First Additional Language 60% (no Afrikaans requirement) OR English First Additional Language 50% with Afrikaans Home Language 50% OR English First Additional Language 50% with Afrikaans Second Additional Language 60%. Extended Curriculum Programme (5 years) available; selection considers selection score and socio-economic status."
+  },
+  {
+    "courseName": "BEng (Industrial)",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Engineering",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 70,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 70
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 60
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "English Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "selectionProcess": true,
+    "additionalRequirements": "Selection mark = Mathematics % + Physical Sciences % + (6 × Matric average, out of 800, based on the six best Grade 11 subjects for conditional selection or Grade 12 subjects for final selection, excluding Life Orientation). A selection mark of 600+ has recently given a good chance of admission to some programmes, 620+ for others; some programmes need Mathematics 75%+/NSC average 75%+/Physical Sciences 65%+, others need Mathematics 80%+ and Physical Sciences 70%+. Language requirement: English Home Language 50% (no Afrikaans requirement) OR English First Additional Language 60% (no Afrikaans requirement) OR English First Additional Language 50% with Afrikaans Home Language 50% OR English First Additional Language 50% with Afrikaans Second Additional Language 60%. Extended Curriculum Programme (5 years) available; selection considers selection score and socio-economic status."
+  },
+  {
+    "courseName": "BEng (Mechanical)",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Engineering",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 70,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 70
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 60
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "English Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "selectionProcess": true,
+    "additionalRequirements": "Selection mark = Mathematics % + Physical Sciences % + (6 × Matric average, out of 800, based on the six best Grade 11 subjects for conditional selection or Grade 12 subjects for final selection, excluding Life Orientation). A selection mark of 600+ has recently given a good chance of admission to some programmes, 620+ for others; some programmes need Mathematics 75%+/NSC average 75%+/Physical Sciences 65%+, others need Mathematics 80%+ and Physical Sciences 70%+. Language requirement: English Home Language 50% (no Afrikaans requirement) OR English First Additional Language 60% (no Afrikaans requirement) OR English First Additional Language 50% with Afrikaans Home Language 50% OR English First Additional Language 50% with Afrikaans Second Additional Language 60%. Extended Curriculum Programme (5 years) available; selection considers selection score and socio-economic status."
+  },
+  {
+    "courseName": "BEng (Mechatronic)",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Engineering",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 70,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 70
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 60
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "English Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "selectionProcess": true,
+    "additionalRequirements": "Selection mark = Mathematics % + Physical Sciences % + (6 × Matric average, out of 800, based on the six best Grade 11 subjects for conditional selection or Grade 12 subjects for final selection, excluding Life Orientation). A selection mark of 600+ has recently given a good chance of admission to some programmes, 620+ for others; some programmes need Mathematics 75%+/NSC average 75%+/Physical Sciences 65%+, others need Mathematics 80%+ and Physical Sciences 70%+. Language requirement: English Home Language 50% (no Afrikaans requirement) OR English First Additional Language 60% (no Afrikaans requirement) OR English First Additional Language 50% with Afrikaans Home Language 50% OR English First Additional Language 50% with Afrikaans Second Additional Language 60%. Extended Curriculum Programme (5 years) available; selection considers selection score and socio-economic status."
+  },
+  {
+    "courseName": "LLB (four-year)",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Law",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 70,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          {
+            "subject": "English Home Language",
+            "minMark": 60
+          },
+          {
+            "subject": "Afrikaans Home Language",
+            "minMark": 60
+          },
+          {
+            "subject": "Afrikaans First Additional Language",
+            "minMark": 70
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 70
+          }
+        ]
+      }
+    ],
+    "selectionProcess": true,
+    "additionalRequirements": "120 places in the programme. Must write the NBT AQL before 31 July. Selection is based on final Grade 11 (or Grade 12, if available) results and NBT results in an 80:20 ratio. If Economics is taken as a university subject, also Mathematics 60%."
+  },
+  {
+    "courseName": "LLB (three-year)",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Law",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "keySubjects": [],
+    "selectionProcess": true,
+    "additionalRequirements": "50 places in the programme. Only available as a second bachelor's degree for graduates from disciplines other than law. Selection is based on the prior bachelor's degree; only applicants with at least 60% aggregate in that degree are considered."
+  },
+  {
+    "courseName": "BA (Law)",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Law",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 70,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          {
+            "subject": "English Home Language",
+            "minMark": 60
+          },
+          {
+            "subject": "Afrikaans Home Language",
+            "minMark": 60
+          },
+          {
+            "subject": "Afrikaans First Additional Language",
+            "minMark": 70
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 70
+          }
+        ]
+      }
+    ],
+    "selectionProcess": true,
+    "additionalRequirements": "55 places in the programme. Interfaculty programme (Law + Arts and Social Sciences). Must write the NBT AQL before 31 July. If Economics is taken as a university subject, also Mathematics 60%. Selection based on final Grade 11 (or Grade 12) results and NBT results, 80:20 ratio."
+  },
+  {
+    "courseName": "BCom (Law)",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Law",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 70,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "English Home Language",
+            "minMark": 60
+          },
+          {
+            "subject": "Afrikaans Home Language",
+            "minMark": 60
+          },
+          {
+            "subject": "Afrikaans First Additional Language",
+            "minMark": 70
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 70
+          }
+        ]
+      }
+    ],
+    "selectionProcess": true,
+    "additionalRequirements": "80 places in the programme. Interfaculty programme (Law + Economic and Management Sciences). Must write the NBTs AQL and MAT before 31 July."
+  },
+  {
+    "courseName": "BAccLLB",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Law",
+    "duration": "5 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 80,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "English Home Language",
+            "minMark": 60
+          },
+          {
+            "subject": "Afrikaans Home Language",
+            "minMark": 60
+          },
+          {
+            "subject": "Afrikaans First Additional Language",
+            "minMark": 70
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 70
+          }
+        ]
+      }
+    ],
+    "selectionProcess": true,
+    "additionalRequirements": "35 places in the programme. Interfaculty programme (Law + Economic and Management Sciences). Must write the NBTs AQL and MAT before 31 July. Mathematics requirement: 70% OR (Mathematics 60% AND Accounting 70%)."
+  },
+  {
+    "courseName": "MBChB",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Medicine and Health Sciences",
+    "duration": "6 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 75,
+    "campus": "Tygerberg Campus",
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Sciences",
+        "minMark": 50
+      }
+    ],
+    "selectionProcess": true,
+    "additionalRequirements": "Approximately 280 candidates selected annually. Applicants are considered in one of three categories (current Grade 12 / recent school-leavers with no formal tertiary studies; registered SU students; applicants with tertiary qualifications and/or work experience), each assessed on academic and non-academic merit per the programme's selection guidelines."
+  },
+  {
+    "courseName": "Bachelor of Nursing",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Medicine and Health Sciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 60,
+    "campus": "Tygerberg Campus",
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 70
+          }
+        ]
+      },
+      {
+        "subject": "Life Sciences",
+        "minMark": 50
+      }
+    ],
+    "selectionProcess": true,
+    "additionalRequirements": "Approximately 50 candidates selected annually."
+  },
+  {
+    "courseName": "BSc in Dietetics",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Medicine and Health Sciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 60,
+    "campus": "Tygerberg Campus",
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Sciences",
+        "minMark": 50
+      }
+    ],
+    "selectionProcess": true,
+    "additionalRequirements": "Approximately 35 candidates selected annually."
+  },
+  {
+    "courseName": "Bachelor of Occupational Therapy",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Medicine and Health Sciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 60,
+    "campus": "Tygerberg Campus",
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Sciences",
+        "minMark": 50
+      }
+    ],
+    "selectionProcess": true,
+    "additionalRequirements": "Approximately 50 candidates selected annually."
+  },
+  {
+    "courseName": "BSc in Physiotherapy",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Medicine and Health Sciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 60,
+    "campus": "Tygerberg Campus",
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 50
+      }
+    ],
+    "selectionProcess": true,
+    "additionalRequirements": "Approximately 55 candidates selected annually."
+  },
+  {
+    "courseName": "Bachelor of Speech-Language and Hearing Therapy",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Medicine and Health Sciences",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 60,
+    "campus": "Tygerberg Campus",
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Physical Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Life Sciences",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "selectionProcess": true,
+    "additionalRequirements": "Approximately 30 candidates selected annually. At least TWO of English, Afrikaans, and a third South African language (Home Language or First Additional Language) at 60%."
+  },
+  {
+    "courseName": "BSc Biodiversity and Ecology",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Science",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 65,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          {
+            "subject": "Afrikaans Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "Afrikaans First Additional Language",
+            "minMark": 50
+          },
+          {
+            "subject": "English Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 50
+          }
+        ]
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      }
+    ],
+    "additionalRequirements": "Selection mark = [(Mathematics × 2) + 5 other subjects, of which at least one must be English or Afrikaans, excluding Life Orientation] ÷ 7. The actual selection threshold is higher than the minimum admission requirements listed here. Focal areas: Climate Change Ecology, Plant and Animal Biodiversity, Plants and Microbes."
+  },
+  {
+    "courseName": "BSc Human Life Sciences",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Science",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 65,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          {
+            "subject": "Afrikaans Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "Afrikaans First Additional Language",
+            "minMark": 50
+          },
+          {
+            "subject": "English Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 50
+          }
+        ]
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      }
+    ],
+    "additionalRequirements": "Selection mark = [(Mathematics × 2) + 5 other subjects, of which at least one must be English or Afrikaans, excluding Life Orientation] ÷ 7. The actual selection threshold is higher than the minimum admission requirements listed here. Mathematics requirement depends on first-year subject choice: 70% if taking Mathematics and Physics as first-year subjects, or 60% if taking Mathematics (Bio) and Physics (Bio). Focal areas: Biology, Biology with Psychology."
+  },
+  {
+    "courseName": "BSc Molecular Biology and Biotechnology",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Science",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 65,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          {
+            "subject": "Afrikaans Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "Afrikaans First Additional Language",
+            "minMark": 50
+          },
+          {
+            "subject": "English Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 50
+          }
+        ]
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      }
+    ],
+    "additionalRequirements": "Selection mark = [(Mathematics × 2) + 5 other subjects, of which at least one must be English or Afrikaans, excluding Life Orientation] ÷ 7. The actual selection threshold is higher than the minimum admission requirements listed here. Mathematics requirement depends on first-year subject choice: 70% if taking Mathematics and Physics as first-year subjects, or 60% if taking Mathematics (Bio) and Physics (Bio)."
+  },
+  {
+    "courseName": "BSc Sport Science",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Science",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 65,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          {
+            "subject": "Afrikaans Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "Afrikaans First Additional Language",
+            "minMark": 50
+          },
+          {
+            "subject": "English Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 50
+          }
+        ]
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      }
+    ],
+    "additionalRequirements": "Selection mark = [(Mathematics × 2) + 5 other subjects, of which at least one must be English or Afrikaans, excluding Life Orientation] ÷ 7. The actual selection threshold is higher than the minimum admission requirements listed here."
+  },
+  {
+    "courseName": "BSc Chemistry",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Science",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 65,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          {
+            "subject": "Afrikaans Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "Afrikaans First Additional Language",
+            "minMark": 50
+          },
+          {
+            "subject": "English Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 50
+          }
+        ]
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 70
+      }
+    ],
+    "additionalRequirements": "Selection mark = [(Mathematics × 2) + 5 other subjects, of which at least one must be English or Afrikaans, excluding Life Orientation] ÷ 7. The actual selection threshold is higher than the minimum admission requirements listed here. Focal areas: Chemistry and Polymer Science, Chemical Biology, Applied and Sustainable Chemistry, Chemistry with Chemical Engineering."
+  },
+  {
+    "courseName": "BSc Earth Science",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Science",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 65,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          {
+            "subject": "Afrikaans Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "Afrikaans First Additional Language",
+            "minMark": 50
+          },
+          {
+            "subject": "English Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 50
+          }
+        ]
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      }
+    ],
+    "additionalRequirements": "Selection mark = [(Mathematics × 2) + 5 other subjects, of which at least one must be English or Afrikaans, excluding Life Orientation] ÷ 7. The actual selection threshold is higher than the minimum admission requirements listed here. Mathematics requirement depends on first-year subject choice: 70% if taking Mathematics and Physics as first-year subjects, or 60% if taking Mathematics (Bio) and Physics (Bio). Focal areas: Applied Earth Science, Geo-environmental Science."
+  },
+  {
+    "courseName": "BSc GeoInformatics",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Science",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 65,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          {
+            "subject": "Afrikaans Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "Afrikaans First Additional Language",
+            "minMark": 50
+          },
+          {
+            "subject": "English Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 50
+          }
+        ]
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      }
+    ],
+    "additionalRequirements": "Selection mark = [(Mathematics × 2) + 5 other subjects, of which at least one must be English or Afrikaans, excluding Life Orientation] ÷ 7. The actual selection threshold is higher than the minimum admission requirements listed here. Mathematics 70% required if Computer Science is taken as a university subject."
+  },
+  {
+    "courseName": "BSc Physics",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Science",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 65,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          {
+            "subject": "Afrikaans Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "Afrikaans First Additional Language",
+            "minMark": 50
+          },
+          {
+            "subject": "English Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 50
+          }
+        ]
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 70
+      }
+    ],
+    "additionalRequirements": "Selection mark = [(Mathematics × 2) + 5 other subjects, of which at least one must be English or Afrikaans, excluding Life Orientation] ÷ 7. The actual selection threshold is higher than the minimum admission requirements listed here. Focal areas: Laser Physics (Physical), Laser Physics (Biological), Theoretical Physics."
+  },
+  {
+    "courseName": "BSc Mathematical Sciences",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Science",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 65,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          {
+            "subject": "Afrikaans Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "Afrikaans First Additional Language",
+            "minMark": 50
+          },
+          {
+            "subject": "English Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 50
+          }
+        ]
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 70
+      }
+    ],
+    "additionalRequirements": "Selection mark = [(Mathematics × 2) + 5 other subjects, of which at least one must be English or Afrikaans, excluding Life Orientation] ÷ 7. The actual selection threshold is higher than the minimum admission requirements listed here. If Chemistry or Physics is taken as a university subject, also Physical Sciences 50%. Focal areas: Applied Mathematics, Mathematics, Operations Research."
+  },
+  {
+    "courseName": "BSc Computer Science",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Science",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 65,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          {
+            "subject": "Afrikaans Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "Afrikaans First Additional Language",
+            "minMark": 50
+          },
+          {
+            "subject": "English Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 50
+          }
+        ]
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 70
+      }
+    ],
+    "additionalRequirements": "Selection mark = [(Mathematics × 2) + 5 other subjects, of which at least one must be English or Afrikaans, excluding Life Orientation] ÷ 7. The actual selection threshold is higher than the minimum admission requirements listed here. If Chemistry or Physics is taken as a university subject, also Physical Sciences 50%. Focal areas: General Computer Science, Computer Systems, Data Science."
+  },
+  {
+    "courseName": "BSc (Interdisciplinary)",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Science",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 65,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          {
+            "subject": "Afrikaans Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "Afrikaans First Additional Language",
+            "minMark": 50
+          },
+          {
+            "subject": "English Home Language",
+            "minMark": 50
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 50
+          }
+        ]
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 70
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 50
+      }
+    ],
+    "additionalRequirements": "Selection mark = [(Mathematics × 2) + 5 other subjects, of which at least one must be English or Afrikaans, excluding Life Orientation] ÷ 7. The actual selection threshold is higher than the minimum admission requirements listed here. Focal areas: Biomedical Mathematical Sciences, Applied Medicinal Chemistry, Bioinformatics and Computational Biology, Biomathematics."
+  },
+  {
+    "courseName": "Bachelor of Data Science (BDatSci) – Computer Science, Applied Mathematics & Statistical Physics",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Science",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 80,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 80
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Afrikaans Home Language",
+            "minMark": 60
+          },
+          {
+            "subject": "English Home Language",
+            "minMark": 60
+          },
+          {
+            "subject": "Afrikaans First Additional Language",
+            "minMark": 75
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 75
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "Interfaculty programme. Focal areas: Computer Science, Applied Mathematics, Statistical Physics."
+  },
+  {
+    "courseName": "BSc Extended Curriculum Programme (ECP)",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Science",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "keySubjects": [],
+    "selectionProcess": true,
+    "additionalRequirements": "An alternative route into Biological, Physical, Mathematical Sciences and interdisciplinary BSc programmes, with a foundational year followed by the curriculum for one of the mainstream BSc programmes. Applicants from designated diversity groups and socio-economic categories who don't meet the mainstream selection requirements may receive an offer to change to an ECP in October, or may submit a request for ECP admission in January if they didn't receive a final offer."
+  },
+  {
+    "courseName": "BTh (Bachelor of Theology)",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Theology",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 60,
+    "keySubjects": [],
+    "additionalRequirements": "Motivational letter from Church denomination/Minister required, pertaining to involvement in Church and reasons for the student being recommended for Theology studies."
+  },
+  {
+    "courseName": "BDiv (Bachelor of Divinity)",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Theology",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 60,
+    "keySubjects": [],
+    "additionalRequirements": "First step in ministerial training. To become a minister in the Dutch Reformed Church (DRC) or Uniting Reformed Church (URC), the BDiv and MDiv must be completed (DRC candidates also need the Postgraduate Diploma in Theology: Christian Ministry). Motivational letter from Church denomination/Minister required."
+  },
+  {
+    "courseName": "BTh / BDiv Extended Curriculum Programme",
+    "institution": "Stellenbosch University",
+    "faculty": "Faculty of Theology",
+    "duration": "4 years (BTh) / 5 years (BDiv)",
+    "qualificationType": "Bachelor",
+    "minAPS": 55,
+    "keySubjects": [],
+    "selectionProcess": true,
+    "additionalRequirements": "For applicants with an NSC aggregate of at least 55% but below 60% (excluding Life Orientation). An interview with the Dean or a representative may be required. Selection programme with limited spaces. Motivational letter from Church denomination/Minister required."
+  },
+  {
+    "courseName": "B Sc Eng: Agricultural",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Agriculture, Engineering and Science",
+    "campus": "Pietermaritzburg Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 33,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 60
+      },
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-P-BEA. Maths and Physical Science must each be passed with at least 65% (overriding the standard Level 5 band). APS range for selection: 33–48."
+  },
+  {
+    "courseName": "B Sc Eng: Chemical",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Agriculture, Engineering and Science",
+    "campus": "Howard College Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 33,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 60
+      },
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-H-BEC. Maths and Physical Science must each be passed with at least 65% (overriding the standard Level 5 band). APS range for selection: 33–48."
+  },
+  {
+    "courseName": "B Sc Eng: Civil",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Agriculture, Engineering and Science",
+    "campus": "Howard College Campus / Pietermaritzburg Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 33,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 60
+      },
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-H-BEV / KN-P-BEV. Maths and Physical Science must each be passed with at least 65% (overriding the standard Level 5 band). APS range for selection: 33–48."
+  },
+  {
+    "courseName": "B Sc Eng: Computer",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Agriculture, Engineering and Science",
+    "campus": "Howard College Campus / Pietermaritzburg Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 33,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 60
+      },
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-H-BEK / KN-P-BEK. Maths and Physical Science must each be passed with at least 65% (overriding the standard Level 5 band). APS range for selection: 33–48."
+  },
+  {
+    "courseName": "B Sc Eng: Electrical",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Agriculture, Engineering and Science",
+    "campus": "Howard College Campus / Pietermaritzburg Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 33,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 60
+      },
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-H-BEE / KN-P-BEE. Maths and Physical Science must each be passed with at least 65% (overriding the standard Level 5 band). APS range for selection: 33–48."
+  },
+  {
+    "courseName": "B Sc Eng: Electronic",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Agriculture, Engineering and Science",
+    "campus": "Howard College Campus / Pietermaritzburg Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 33,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 60
+      },
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-H-BEF / KN-P-BEF. Maths and Physical Science must each be passed with at least 65% (overriding the standard Level 5 band). APS range for selection: 33–48."
+  },
+  {
+    "courseName": "B Sc Eng: Mechanical",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Agriculture, Engineering and Science",
+    "campus": "Howard College Campus / Pietermaritzburg Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 33,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 60
+      },
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-H-BEM / KN-P-BEM. Maths and Physical Science must each be passed with at least 65% (overriding the standard Level 5 band). APS range for selection: 33–48."
+  },
+  {
+    "courseName": "B Sc Land Surveying",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Agriculture, Engineering and Science",
+    "campus": "Howard College Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 33,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 60
+      },
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-H-BSL. Maths and Physical Science must each be passed with at least 65% (overriding the standard Level 5 band). APS range for selection: 33–48."
+  },
+  {
+    "courseName": "B Architectural Studies",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Agriculture, Engineering and Science",
+    "campus": "Howard College Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      },
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Business Studies",
+            "minMark": 60
+          },
+          {
+            "subject": "Consumer Studies",
+            "minMark": 60
+          },
+          {
+            "subject": "Dramatic Arts",
+            "minMark": 60
+          },
+          {
+            "subject": "Economics",
+            "minMark": 60
+          },
+          {
+            "subject": "Geography",
+            "minMark": 60
+          },
+          {
+            "subject": "History",
+            "minMark": 60
+          },
+          {
+            "subject": "IT (Information Technology)",
+            "minMark": 60
+          },
+          {
+            "subject": "Life Sciences",
+            "minMark": 60
+          },
+          {
+            "subject": "Music",
+            "minMark": 60
+          },
+          {
+            "subject": "Religion Studies",
+            "minMark": 60
+          },
+          {
+            "subject": "Visual Arts",
+            "minMark": 60
+          },
+          {
+            "subject": "Home Language",
+            "minMark": 60
+          },
+          {
+            "subject": "First Additional Language",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "selectionProcess": true,
+    "additionalRequirements": "CAO Code: KN-H-BAR. APS range for selection: 30–48. Deserving applicants will be requested to submit a portfolio of creative work, write an essay, and complete a questionnaire."
+  },
+  {
+    "courseName": "B Sc Agric. Agricultural Economics",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Agriculture, Engineering and Science",
+    "campus": "Pietermaritzburg Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Agricultural Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Economics",
+            "minMark": 50
+          },
+          {
+            "subject": "Life Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Physical Sciences",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-P-SAE. APS range for selection: 28–48."
+  },
+  {
+    "courseName": "B Agricultural Management",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Agriculture, Engineering and Science",
+    "campus": "Pietermaritzburg Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Agricultural Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Economics",
+            "minMark": 50
+          },
+          {
+            "subject": "Life Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Physical Sciences",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-P-BAQ. APS range for selection: 28–48."
+  },
+  {
+    "courseName": "B Sc Agric. Agricultural Plant Sciences",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Agriculture, Engineering and Science",
+    "campus": "Pietermaritzburg Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Agricultural Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Life Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Physical Sciences",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-P-SAP. APS range for selection: 28–48."
+  },
+  {
+    "courseName": "B Sc Agric. Agribusiness",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Agriculture, Engineering and Science",
+    "campus": "Pietermaritzburg Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Agricultural Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Life Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Physical Sciences",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-P-BSB. APS range for selection: 28–48."
+  },
+  {
+    "courseName": "B Sc Agric. Plant Pathology",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Agriculture, Engineering and Science",
+    "campus": "Pietermaritzburg Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Agricultural Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Life Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Physical Sciences",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-P-BSP. APS range for selection: 28–48."
+  },
+  {
+    "courseName": "B Sc Agric. Soil Science",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Agriculture, Engineering and Science",
+    "campus": "Pietermaritzburg Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Agricultural Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Life Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Physical Sciences",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-P-BS1. APS range for selection: 30–48."
+  },
+  {
+    "courseName": "B Sc Agric. Animal & Poultry Science",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Agriculture, Engineering and Science",
+    "campus": "Pietermaritzburg Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Agricultural Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Life Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Physical Sciences",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-P-SAA. APS range for selection: 30–48."
+  },
+  {
+    "courseName": "B Sc Stream (LES) Life and Earth Sciences",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Agriculture, Engineering and Science",
+    "campus": "Pietermaritzburg Campus / Westville Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Agricultural Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Life Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Physical Sciences",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-P-BS2 / KN-W-BS2. APS range for selection: 30–48."
+  },
+  {
+    "courseName": "B Sc Stream M (Mathematics)",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Agriculture, Engineering and Science",
+    "campus": "Pietermaritzburg Campus / Westville Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      },
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Agricultural Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Life Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Physical Sciences",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-P-BS3 / KN-W-BS3. APS range for selection: 30–48."
+  },
+  {
+    "courseName": "B Sc Geographic Information Systems and Earth Observation",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Agriculture, Engineering and Science",
+    "campus": "Pietermaritzburg Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      },
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Agricultural Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Life Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Physical Sciences",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-P-GEO. APS range for selection: 30–48."
+  },
+  {
+    "courseName": "B Sc Applied Chemistry",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Agriculture, Engineering and Science",
+    "campus": "Westville Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Agricultural Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Life Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Physical Sciences",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-W-BSR. APS range for selection: 28–48."
+  },
+  {
+    "courseName": "B Sc Chemistry and Chemical Technology",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Agriculture, Engineering and Science",
+    "campus": "Pietermaritzburg Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Agricultural Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Life Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Physical Sciences",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-P-SIK. APS range for selection: 28–48."
+  },
+  {
+    "courseName": "B Sc Computer Science and Information Technology",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Agriculture, Engineering and Science",
+    "campus": "Pietermaritzburg Campus / Westville Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      },
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Agricultural Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Life Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Physical Sciences",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-P-BSU / KN-W-BSU. APS range for selection: 30–48."
+  },
+  {
+    "courseName": "B Sc Crop and Horticultural Science",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Agriculture, Engineering and Science",
+    "campus": "Pietermaritzburg Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Agricultural Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Life Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Physical Sciences",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-P-SIH. APS range for selection: 28–48."
+  },
+  {
+    "courseName": "B Sc Environmental Science",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Agriculture, Engineering and Science",
+    "campus": "Pietermaritzburg Campus / Westville Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Agricultural Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Life Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Physical Sciences",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-P-BSS / KN-W-BSS. APS range for selection: 28–48."
+  },
+  {
+    "courseName": "B Sc Environmental and Earth Science",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Agriculture, Engineering and Science",
+    "campus": "Pietermaritzburg Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Agricultural Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Life Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Physical Sciences",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-P-EES. APS range for selection: 28–48."
+  },
+  {
+    "courseName": "B Sc Geological Science",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Agriculture, Engineering and Science",
+    "campus": "Westville Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Agricultural Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Life Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Physical Sciences",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-W-BSG. APS range for selection: 28–48."
+  },
+  {
+    "courseName": "B Sc Marine Biology",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Agriculture, Engineering and Science",
+    "campus": "Westville Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Agricultural Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Life Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Physical Sciences",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-W-BSM. APS range for selection: 28–48."
+  },
+  {
+    "courseName": "B Sc Augmented Programme",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Agriculture, Engineering and Science",
+    "campus": "Pietermaritzburg Campus / Westville Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 26,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 40
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Agricultural Sciences",
+            "minMark": 40
+          },
+          {
+            "subject": "Life Sciences",
+            "minMark": 40
+          },
+          {
+            "subject": "Physical Sciences",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-P-BS4 / KN-W-BS4. APS range for selection: 26–48. Extended/augmented route into the Faculty of Science programmes above."
+  },
+  {
+    "courseName": "B Sc Engineering Access",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Agriculture, Engineering and Science",
+    "campus": "Howard College Campus",
+    "duration": "5 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 50
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-H-UNT. Fixed minimum APS of 28 (not a range). Extended/access route into the BSc Engineering programmes above."
+  },
+  {
+    "courseName": "Bachelor of Audiology",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Health Sciences",
+    "campus": "Westville Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 40
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Life Sciences",
+            "minMark": 40
+          },
+          {
+            "subject": "Physical Sciences",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-W-BPA. APS range for selection: 30–48. May only be selected among the applicant's first three programme choices."
+  },
+  {
+    "courseName": "Bachelor of Speech-Language Therapy",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Health Sciences",
+    "campus": "Westville Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 40
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Life Sciences",
+            "minMark": 40
+          },
+          {
+            "subject": "Physical Sciences",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-W-BPB. APS range for selection: 30–48. May only be selected among the applicant's first three programme choices."
+  },
+  {
+    "courseName": "B Dental Therapy",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Health Sciences",
+    "campus": "Westville Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Sciences",
+        "minMark": 40
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 40
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-W-BDT. APS range for selection: 30–48. May only be selected among the applicant's first three programme choices."
+  },
+  {
+    "courseName": "Bachelor of Medical Science, Innovation and Entrepreneurship",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Health Sciences",
+    "campus": "Westville Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Sciences",
+        "minMark": 50
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-W-BMS-IE. APS range for selection: 30–48. May only be selected among the applicant's first three programme choices."
+  },
+  {
+    "courseName": "B Occupational Therapy",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Health Sciences",
+    "campus": "Westville Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 40
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Life Sciences",
+            "minMark": 40
+          },
+          {
+            "subject": "Physical Sciences",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-W-BOT. APS range for selection: 30–48. May only be selected among the applicant's first three programme choices."
+  },
+  {
+    "courseName": "B Optometry",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Health Sciences",
+    "campus": "Westville Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 33,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Sciences",
+        "minMark": 50
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 50
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-W-BOP. APS range for selection: 33–48. May only be selected among the applicant's first three programme choices."
+  },
+  {
+    "courseName": "B Oral Hygiene",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Health Sciences",
+    "campus": "Westville Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Sciences",
+        "minMark": 40
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 40
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-W-BON. APS range for selection: 30–48. May only be selected among the applicant's first three programme choices."
+  },
+  {
+    "courseName": "B Pharmacy",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Health Sciences",
+    "campus": "Westville Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 33,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Sciences",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 50
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-W-BPR. APS range for selection: 33–48. May only be selected among the applicant's first three programme choices."
+  },
+  {
+    "courseName": "B Physiotherapy",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Health Sciences",
+    "campus": "Westville Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Sciences",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 50
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-W-BPH. APS range for selection: 30–48. May only be selected among the applicant's first three programme choices."
+  },
+  {
+    "courseName": "B Science Dietetics and Human Nutrition",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Health Sciences",
+    "campus": "Pietermaritzburg Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Agricultural Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Life Sciences",
+            "minMark": 50
+          },
+          {
+            "subject": "Physical Sciences",
+            "minMark": 50
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-P-BSD. APS range for selection: 28–48."
+  },
+  {
+    "courseName": "B Sport Science",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Health Sciences",
+    "campus": "Westville Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-W-BRT. APS range for selection: 30–48."
+  },
+  {
+    "courseName": "B Nursing",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Health Sciences",
+    "campus": "Howard College Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 40
+          }
+        ]
+      },
+      {
+        "subject": "Life Sciences",
+        "minMark": 50
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-H-BN1. APS range for selection: 30–48. May only be selected as first choice."
+  },
+  {
+    "courseName": "B Medicine & B Surgery",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Health Sciences",
+    "campus": "Medical School (Nelson R Mandela School of Medicine)",
+    "duration": "6 years",
+    "qualificationType": "Bachelor",
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 60
+      },
+      {
+        "subject": "Life Sciences",
+        "minMark": 60
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      },
+      {
+        "subject": "Physical Sciences",
+        "minMark": 60
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-M-MBC. APS range: N/A (not the primary selection criterion). Requires an overall NSC aggregate of at least 65%, in addition to the subject-level minimums."
+  },
+  {
+    "courseName": "B Ed (Foundation Phase)",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Humanities",
+    "campus": "Edgewood Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subject": "isiZulu",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 50
+          },
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-E-BFP. APS range for selection: 28–48. Mathematical Literacy must be at Level 4 (50–59%); alternatively, Mathematics at Level 3 (40–49%) is accepted."
+  },
+  {
+    "courseName": "B Ed (Intermediate Phase)",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Humanities",
+    "campus": "Edgewood Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 60
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 60
+          },
+          {
+            "subject": "Technology",
+            "minMark": 60
+          },
+          {
+            "subject": "Life Sciences",
+            "minMark": 60
+          },
+          {
+            "subject": "Physical Sciences",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-E-BIP. APS range for selection: 28–48. Requires Level 5 in ANY TWO of: Mathematics, Mathematical Literacy, Technology, Life Science, Physical Science — this app checks for at least one of these at Level 5, so confirm the second subject meets Level 5 too."
+  },
+  {
+    "courseName": "B Ed (Senior Phase/Further Education & Training)",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Humanities",
+    "campus": "Edgewood Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-E-BSN/FET. APS range for selection: 28–48. Requires Level 5 in any two NSC subjects relevant to the specific teaching package selected — contact UKZN for the package-specific subject pairs, as this isn't captured by this app's generic check."
+  },
+  {
+    "courseName": "B A (General Studies)",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Humanities",
+    "campus": "Howard College Campus / Pietermaritzburg Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Business Studies",
+            "minMark": 60
+          },
+          {
+            "subject": "Consumer Studies",
+            "minMark": 60
+          },
+          {
+            "subject": "Dramatic Arts",
+            "minMark": 60
+          },
+          {
+            "subject": "Economics",
+            "minMark": 60
+          },
+          {
+            "subject": "Geography",
+            "minMark": 60
+          },
+          {
+            "subject": "History",
+            "minMark": 60
+          },
+          {
+            "subject": "IT (Information Technology)",
+            "minMark": 60
+          },
+          {
+            "subject": "Life Sciences",
+            "minMark": 60
+          },
+          {
+            "subject": "Mathematics",
+            "minMark": 60
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 60
+          },
+          {
+            "subject": "Music",
+            "minMark": 60
+          },
+          {
+            "subject": "Religion Studies",
+            "minMark": 60
+          },
+          {
+            "subject": "Visual Arts",
+            "minMark": 60
+          },
+          {
+            "subject": "Home Language",
+            "minMark": 60
+          },
+          {
+            "subject": "First Additional Language",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-H-BA2 / KN-P-BA2. APS range for selection: 28–48."
+  },
+  {
+    "courseName": "B A in Music",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Humanities",
+    "campus": "Howard College Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      }
+    ],
+    "selectionProcess": true,
+    "additionalRequirements": "CAO Code: KN-H-BAM. Fixed minimum APS of 28. Audition required for music programmes."
+  },
+  {
+    "courseName": "B A in Music Foundation",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Humanities",
+    "campus": "Howard College Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 22,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      }
+    ],
+    "selectionProcess": true,
+    "additionalRequirements": "CAO Code: KN-H-BMX. Fixed minimum APS of 22. Extended/foundation route; audition required for music programmes."
+  },
+  {
+    "courseName": "B Soc Sc (General Studies)",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Humanities",
+    "campus": "Howard College Campus / Pietermaritzburg Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Business Studies",
+            "minMark": 60
+          },
+          {
+            "subject": "Consumer Studies",
+            "minMark": 60
+          },
+          {
+            "subject": "Dramatic Arts",
+            "minMark": 60
+          },
+          {
+            "subject": "Economics",
+            "minMark": 60
+          },
+          {
+            "subject": "Geography",
+            "minMark": 60
+          },
+          {
+            "subject": "History",
+            "minMark": 60
+          },
+          {
+            "subject": "IT (Information Technology)",
+            "minMark": 60
+          },
+          {
+            "subject": "Life Sciences",
+            "minMark": 60
+          },
+          {
+            "subject": "Mathematics",
+            "minMark": 60
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 60
+          },
+          {
+            "subject": "Music",
+            "minMark": 60
+          },
+          {
+            "subject": "Religion Studies",
+            "minMark": 60
+          },
+          {
+            "subject": "Visual Arts",
+            "minMark": 60
+          },
+          {
+            "subject": "Home Language",
+            "minMark": 60
+          },
+          {
+            "subject": "First Additional Language",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-H-SO2 / KN-P-SO2. APS range for selection: 28–48."
+  },
+  {
+    "courseName": "B Soc Sc Geography & Environmental Management",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Humanities",
+    "campus": "Howard College Campus / Pietermaritzburg Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Business Studies",
+            "minMark": 60
+          },
+          {
+            "subject": "Consumer Studies",
+            "minMark": 60
+          },
+          {
+            "subject": "Dramatic Arts",
+            "minMark": 60
+          },
+          {
+            "subject": "Economics",
+            "minMark": 60
+          },
+          {
+            "subject": "Geography",
+            "minMark": 60
+          },
+          {
+            "subject": "History",
+            "minMark": 60
+          },
+          {
+            "subject": "IT (Information Technology)",
+            "minMark": 60
+          },
+          {
+            "subject": "Life Sciences",
+            "minMark": 60
+          },
+          {
+            "subject": "Mathematics",
+            "minMark": 60
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 60
+          },
+          {
+            "subject": "Music",
+            "minMark": 60
+          },
+          {
+            "subject": "Religion Studies",
+            "minMark": 60
+          },
+          {
+            "subject": "Visual Arts",
+            "minMark": 60
+          },
+          {
+            "subject": "Home Language",
+            "minMark": 60
+          },
+          {
+            "subject": "First Additional Language",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-H-SGE / KN-P-SGE. APS range for selection: 28–48."
+  },
+  {
+    "courseName": "B Soc Sc (Housing)",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Humanities",
+    "campus": "Howard College Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-H-SOR. APS range for selection: 28–48. Prospectus text lists \"Eng and, Maths L4\" without repeating Life Orientation — likely a source formatting omission given every other UKZN programme requires it, but transcribed here without an LO requirement to match the text exactly; confirm directly with UKZN."
+  },
+  {
+    "courseName": "B Social Work",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Humanities",
+    "campus": "Howard College Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Business Studies",
+            "minMark": 60
+          },
+          {
+            "subject": "Consumer Studies",
+            "minMark": 60
+          },
+          {
+            "subject": "Dramatic Arts",
+            "minMark": 60
+          },
+          {
+            "subject": "Economics",
+            "minMark": 60
+          },
+          {
+            "subject": "Geography",
+            "minMark": 60
+          },
+          {
+            "subject": "History",
+            "minMark": 60
+          },
+          {
+            "subject": "IT (Information Technology)",
+            "minMark": 60
+          },
+          {
+            "subject": "Life Sciences",
+            "minMark": 60
+          },
+          {
+            "subject": "Mathematics",
+            "minMark": 60
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 60
+          },
+          {
+            "subject": "Music",
+            "minMark": 60
+          },
+          {
+            "subject": "Religion Studies",
+            "minMark": 60
+          },
+          {
+            "subject": "Visual Arts",
+            "minMark": 60
+          },
+          {
+            "subject": "Home Language",
+            "minMark": 60
+          },
+          {
+            "subject": "First Additional Language",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-H-BSX. APS range for selection: 28–48."
+  },
+  {
+    "courseName": "BA Philosophy, Politics & Law",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Humanities",
+    "campus": "Howard College Campus / Pietermaritzburg Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Business Studies",
+            "minMark": 60
+          },
+          {
+            "subject": "Consumer Studies",
+            "minMark": 60
+          },
+          {
+            "subject": "Dramatic Arts",
+            "minMark": 60
+          },
+          {
+            "subject": "Economics",
+            "minMark": 60
+          },
+          {
+            "subject": "Geography",
+            "minMark": 60
+          },
+          {
+            "subject": "History",
+            "minMark": 60
+          },
+          {
+            "subject": "IT (Information Technology)",
+            "minMark": 60
+          },
+          {
+            "subject": "Life Sciences",
+            "minMark": 60
+          },
+          {
+            "subject": "Mathematics",
+            "minMark": 60
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 60
+          },
+          {
+            "subject": "Music",
+            "minMark": 60
+          },
+          {
+            "subject": "Religion Studies",
+            "minMark": 60
+          },
+          {
+            "subject": "Visual Arts",
+            "minMark": 60
+          },
+          {
+            "subject": "Home Language",
+            "minMark": 60
+          },
+          {
+            "subject": "First Additional Language",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-H-ABP / KN-P-ABP. APS range for selection: 30–48."
+  },
+  {
+    "courseName": "BA Visual Art",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Humanities",
+    "campus": "Pietermaritzburg Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Business Studies",
+            "minMark": 60
+          },
+          {
+            "subject": "Consumer Studies",
+            "minMark": 60
+          },
+          {
+            "subject": "Dramatic Arts",
+            "minMark": 60
+          },
+          {
+            "subject": "Economics",
+            "minMark": 60
+          },
+          {
+            "subject": "Geography",
+            "minMark": 60
+          },
+          {
+            "subject": "History",
+            "minMark": 60
+          },
+          {
+            "subject": "IT (Information Technology)",
+            "minMark": 60
+          },
+          {
+            "subject": "Life Sciences",
+            "minMark": 60
+          },
+          {
+            "subject": "Mathematics",
+            "minMark": 60
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 60
+          },
+          {
+            "subject": "Music",
+            "minMark": 60
+          },
+          {
+            "subject": "Religion Studies",
+            "minMark": 60
+          },
+          {
+            "subject": "Visual Arts",
+            "minMark": 60
+          },
+          {
+            "subject": "Home Language",
+            "minMark": 60
+          },
+          {
+            "subject": "First Additional Language",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-P-AAV. APS range for selection: 28–48."
+  },
+  {
+    "courseName": "B Soc Sc Government, Business & Ethics",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Humanities",
+    "campus": "Pietermaritzburg Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Business Studies",
+            "minMark": 60
+          },
+          {
+            "subject": "Consumer Studies",
+            "minMark": 60
+          },
+          {
+            "subject": "Dramatic Arts",
+            "minMark": 60
+          },
+          {
+            "subject": "Economics",
+            "minMark": 60
+          },
+          {
+            "subject": "Geography",
+            "minMark": 60
+          },
+          {
+            "subject": "History",
+            "minMark": 60
+          },
+          {
+            "subject": "IT (Information Technology)",
+            "minMark": 60
+          },
+          {
+            "subject": "Life Sciences",
+            "minMark": 60
+          },
+          {
+            "subject": "Mathematics",
+            "minMark": 60
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 60
+          },
+          {
+            "subject": "Music",
+            "minMark": 60
+          },
+          {
+            "subject": "Religion Studies",
+            "minMark": 60
+          },
+          {
+            "subject": "Visual Arts",
+            "minMark": 60
+          },
+          {
+            "subject": "Home Language",
+            "minMark": 60
+          },
+          {
+            "subject": "First Additional Language",
+            "minMark": 60
+          }
+        ]
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-P-SOG. APS range for selection: 28–48."
+  },
+  {
+    "courseName": "Humanities Extended Curriculum",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Humanities",
+    "campus": "Howard College Campus / Pietermaritzburg Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 20,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      }
+    ],
+    "selectionProcess": true,
+    "additionalRequirements": "CAO Code: KN-H-SO4 / KN-P-SO4. APS range for selection: 20–27 (extended curriculum access route into College of Humanities programmes)."
+  },
+  {
+    "courseName": "Bachelor of Laws",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Law and Management Studies",
+    "campus": "Howard College Campus / Pietermaritzburg Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 32,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          {
+            "subject": "English Home Language",
+            "minMark": 60
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 70
+          }
+        ]
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 60
+          }
+        ]
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-H-BL1 / KN-P-BL1. APS range for selection: 32–48."
+  },
+  {
+    "courseName": "Bachelor of Laws (part-time)",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Law and Management Studies",
+    "campus": "Howard College Campus",
+    "duration": "6 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 32,
+    "keySubjects": [
+      {
+        "subjectGroup": [
+          {
+            "subject": "English Home Language",
+            "minMark": 60
+          },
+          {
+            "subject": "English First Additional Language",
+            "minMark": 70
+          }
+        ]
+      },
+      {
+        "subjectGroup": [
+          {
+            "subject": "Mathematics",
+            "minMark": 40
+          },
+          {
+            "subject": "Mathematical Literacy",
+            "minMark": 60
+          }
+        ]
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-H-BLZ. APS range for selection: 32–48. Part-time programme."
+  },
+  {
+    "courseName": "Bachelor of Administration",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Law and Management Studies",
+    "campus": "Westville Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 26,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 40
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-W-BAD. APS range for selection: 26–48."
+  },
+  {
+    "courseName": "Bachelor of Business Administration (Evening classes)",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Law and Management Studies",
+    "campus": "Westville Campus / Pietermaritzburg Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 26,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 40
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-W-BBA / KN-P-BBA. APS range for selection: 26–48. Evening classes."
+  },
+  {
+    "courseName": "Bachelor of Business Science in Finance",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Law and Management Studies",
+    "campus": "Westville Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 33,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 70
+      },
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-W-B5F. APS range for selection: 33–48."
+  },
+  {
+    "courseName": "Bachelor of Business Science in Investment Science",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Law and Management Studies",
+    "campus": "Westville Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 33,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 70
+      },
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-W-B5I. APS range for selection: 33–48."
+  },
+  {
+    "courseName": "B Com (General)",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Law and Management Studies",
+    "campus": "Pietermaritzburg Campus / Westville Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 30,
+    "keySubjects": [
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-P-BC1 / KN-W-BC1. APS range for selection: 30–48."
+  },
+  {
+    "courseName": "B Com (Accounting)",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Law and Management Studies",
+    "campus": "Pietermaritzburg Campus / Westville Campus",
+    "duration": "3 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 32,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 60
+      },
+      {
+        "subject": "English",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-P-BCN / KN-W-BCN. APS range for selection: 32–48."
+  },
+  {
+    "courseName": "B Com 4 General (Extended Curriculum)",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Law and Management Studies",
+    "campus": "Pietermaritzburg Campus / Westville Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 26,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 40
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subject": "English",
+        "minMark": 50
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-P-BCG / KN-W-BCG. APS range for selection: 26–48. Extended curriculum programme."
+  },
+  {
+    "courseName": "B Com 4 Accounting (Extended Curriculum)",
+    "institution": "University of KwaZulu-Natal",
+    "faculty": "College of Law and Management Studies",
+    "campus": "Pietermaritzburg Campus / Westville Campus",
+    "duration": "4 years",
+    "qualificationType": "Bachelor",
+    "minAPS": 28,
+    "keySubjects": [
+      {
+        "subject": "Mathematics",
+        "minMark": 50
+      },
+      {
+        "subject": "Life Orientation",
+        "minMark": 50
+      },
+      {
+        "subject": "English",
+        "minMark": 50
+      }
+    ],
+    "additionalRequirements": "CAO Code: KN-P-BCO / KN-W-BCO. APS range for selection: 28–48. Extended curriculum programme."
   }
 ]

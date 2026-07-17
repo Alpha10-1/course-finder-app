@@ -920,6 +920,19 @@ export default function Admin() {
     applyForMe: users.filter((u) => u.plan === "apply_for_me").length,
     admins: users.filter((u) => u.isAdmin).length,
     authOnly: users.filter((u) => u.authOnly).length,
+
+    // Real revenue, summed from each paying user's actual amountPaid (set by
+    // api/yoco-webhook.js from the real Yoco payment event) rather than a
+    // flat "count × price" guess. A flat guess goes stale the moment pricing
+    // changes and can't reflect promos/refunds — worse, the previous flat
+    // figure here (R150) didn't even match the real checkout price (R100,
+    // see PLAN_CONFIG.apply_for_me in api/create-checkout.js), so it was
+    // overstating revenue by 50% on every paying user.
+    // Fallback to R100 only for the rare legacy paid user whose record
+    // predates the amountPaid field being written.
+    revenue: users
+      .filter((u) => u.plan === "apply_for_me")
+      .reduce((sum, u) => sum + (u.amountPaid != null ? parseFloat(u.amountPaid) || 0 : 100), 0),
   };
 
   // ── User actions ─────────────────────────────────────────────────────────
@@ -1702,7 +1715,7 @@ export default function Admin() {
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               <StatCard label="Total Courses" value={courses.length} icon="📚" color="from-green-700 to-teal-700" />
               <StatCard label="Auth-Only Accounts" value={stats.authOnly} icon="👤" color="from-orange-700 to-red-700" />
-              <StatCard label="Est. Revenue" value={`R${stats.applyForMe * 150}`} icon="💰" color="from-yellow-600 to-orange-600" />
+              <StatCard label="Revenue" value={`R${stats.revenue.toLocaleString()}`} icon="💰" color="from-yellow-600 to-orange-600" />
             </div>
 
             {/* Plan distribution */}
