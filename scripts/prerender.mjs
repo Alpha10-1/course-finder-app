@@ -94,10 +94,53 @@ function writePage(routePath, doc) {
 
 const { institutions, courses } = getPublicRouteData();
 
+// Cap how many individual course-detail pages get statically prerendered per
+// build. Course pages aren't in the sitemap (see generate-sitemap.mjs) — they
+// rely on Googlebot crawling links from institution hub pages, and a brand
+// new site tends to get crawled and trusted faster when it isn't asking
+// Google to evaluate several thousand near-identical pages in one go.
+// Raise PRERENDER_COURSE_LIMIT (env var) in later deploys once the first
+// batch is showing up in Search Console.
+const COURSE_LIMIT = Number(process.env.PRERENDER_COURSE_LIMIT ?? 400);
+
+// Select round-robin across institutions rather than taking the first N in
+// list order, so every institution gets some statically rendered pages
+// instead of the cap being eaten entirely by whichever institution happens
+// to come first.
+function selectRoundRobin(allCourses, limit) {
+  if (allCourses.length <= limit) return allCourses;
+
+  const byInstitution = new Map();
+  for (const course of allCourses) {
+    const bucket = byInstitution.get(course.institutionSlug) || [];
+    bucket.push(course);
+    byInstitution.set(course.institutionSlug, bucket);
+  }
+  const buckets = Array.from(byInstitution.values());
+
+  const selected = [];
+  let i = 0;
+  while (selected.length < limit) {
+    let addedAny = false;
+    for (const bucket of buckets) {
+      if (i < bucket.length) {
+        selected.push(bucket[i]);
+        addedAny = true;
+        if (selected.length >= limit) break;
+      }
+    }
+    if (!addedAny) break; // exhausted every bucket
+    i += 1;
+  }
+  return selected;
+}
+
+const coursesToPrerender = selectRoundRobin(courses, COURSE_LIMIT);
+
 const routes = [
   "/courses",
   ...institutions.map((i) => `/courses/${i.slug}`),
-  ...courses.map((c) => `/courses/${c.institutionSlug}/${c.courseSlug}`),
+  ...coursesToPrerender.map((c) => `/courses/${c.institutionSlug}/${c.courseSlug}`),
 ];
 
 let count = 0;
@@ -107,5 +150,8 @@ for (const routePath of routes) {
   count += 1;
 }
 
-console.log(`Prerendered ${count} static course pages into dist/`);
-
+console.log(
+  `Prerendered ${count} static pages into dist/ ` +
+  `(${coursesToPrerender.length} of ${courses.length} course pages, capped at PRERENDER_COURSE_LIMIT=${COURSE_LIMIT}). ` +
+  `Remaining course pages are still fully functional and crawlable via the client-rendered SPA route.`
+);

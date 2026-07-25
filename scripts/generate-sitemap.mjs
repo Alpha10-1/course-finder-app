@@ -9,6 +9,16 @@ const SITE_URL = "https://mycoursefinder.web.app";
 
 const { institutions, courses } = getPublicRouteData();
 
+// lastmod is stamped with the date this file was generated. Since this
+// script runs at build/deploy time, that's the truth: it's genuinely when
+// the underlying data (and prerendered HTML, for pages that get it) was last
+// regenerated. Google treats a sitemap resubmission with a bumped lastmod as
+// a freshness signal — it doesn't guarantee a faster crawl, but it's one of
+// the few honest levers we have to nudge one along, especially right after
+// deploying a fix. Don't hardcode a fixed/fake date here; it should always
+// reflect an actual regeneration.
+const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+
 // Deliberately NOT listing every individual /courses/:institution/:course page
 // here. With 1,800+ courses that would bloat the sitemap to ~1,900 URLs,
 // which slows down how quickly Google can crawl and process it and dilutes
@@ -48,6 +58,7 @@ ${urls
   .map(
     (u) => `  <url>
     <loc>${u.loc}</loc>
+    <lastmod>${today}</lastmod>
     <changefreq>${u.changefreq}</changefreq>
     <priority>${u.priority}</priority>
   </url>`

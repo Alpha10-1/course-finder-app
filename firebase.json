@@ -5,6 +5,7 @@
   "hosting": {
     "public": "dist",
     "site": "mycoursefinder",
+    "trailingSlash": false,
     "ignore": [
       "firebase.json",
       "**/.*",

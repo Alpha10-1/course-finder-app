@@ -3972,5 +3972,3283 @@
         "excludeVocational": []
       }
     ]
+  },
+  {
+    "courseName": "NC (V) Business Studies — Finance, Economics and Accounting",
+    "institution": "Central Johannesburg TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "The duration of each NC(V) level is one calendar year (Levels 2–4).",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 9 or an equivalent qualification to start at NC(V) Level 2. Must have passed the previous level to progress to Level 3 and Level 4.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 7,
+      "note": "Sourced from CJC's official Finance, Economics and Accounting NC(V) L2–L4 programme page. Same four vocational subjects are compulsory at every level.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematical Literacy",
+        "Life Orientation"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Applied Accounting",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Financial Management",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Economic Environment",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "New Venture Creation",
+          "levels": "2-4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Langlaagte Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Business Studies — Marketing",
+    "institution": "Central Johannesburg TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "The duration of each NC(V) level is one calendar year (Levels 2–4).",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 9 or an equivalent qualification to start at NC(V) Level 2. Must have passed the previous level to progress to Level 3 and Level 4.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 7,
+      "note": "Sourced from CJC's official Marketing Management NC(V) L2–L4 programme page. Same four vocational subjects are compulsory at every level.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematical Literacy",
+        "Life Orientation"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Marketing",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Advertising & Promotions",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Marketing Communication",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Contact Centre Operations",
+          "levels": "2-4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Langlaagte Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Business Studies — Management",
+    "institution": "Central Johannesburg TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "The duration of each NC(V) level is one calendar year (Levels 2–4).",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 9 or an equivalent qualification to start at NC(V) Level 2. Must have passed the previous level to progress to Level 3 and Level 4.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 7,
+      "note": "Sourced from CJC's official Business Management NC(V) L2–L4 programme page. Same three vocational subjects are compulsory at every level.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematical Literacy",
+        "Life Orientation"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Management Practice",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Operations Management",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Financial Management",
+          "levels": "2-4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Langlaagte Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Business Studies — Office Administration",
+    "institution": "Central Johannesburg TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "The duration of each NC(V) level is one calendar year (Levels 2–4).",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 9 or an equivalent qualification to start at NC(V) Level 2. Must have passed the previous level to register for Level 3 and Level 4.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 7,
+      "note": "Sourced from CJC's official Office Administration NC(V) L2–L4 programme page. Same four vocational subjects are compulsory at every level.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematical Literacy",
+        "Life Orientation"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Business Practice",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Office Practice",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Office Data Processing",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "New Venture Creation",
+          "levels": "2-4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Langlaagte Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Utility Studies — Hospitality",
+    "institution": "Central Johannesburg TVET College",
+    "institutionType": "college",
+    "faculty": "Utility Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "The duration of each NC(V) level is one calendar year. Total programme duration is three years (Levels 2–4).",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 9 or an equivalent qualification to start at NC(V) Level 2. Must have passed the previous level to register for Level 3 and Level 4.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 7,
+      "note": "Sourced from CJC's official Hospitality Services NC(V) L2–L4 programme page. Same four vocational subjects are compulsory at every level.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematical Literacy",
+        "Life Orientation"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Hospitality Generics",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Food Preparation",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Client Services & Human Relations",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Hospitality Services",
+          "levels": "2-4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Smit Street Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Engineering Studies — Information Technology and Computer Science",
+    "institution": "Central Johannesburg TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "Full-time programme spread over three years (Levels 2–4), one year per level.",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "Level 2: Grade 9 or an NQF Level 1 qualification. Level 3: the Level 2 qualification in this programme. Level 4: the Level 3 qualification in this programme.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 7,
+      "note": "Sourced from CJC's official Information & Communication Technology programme page (Levels 2-3 confirmed there; Level 4 vocational subjects completed using the standard national NC(V) ICT & Computer Science subject matrix, since CJC's own page did not list Level 4 in full).",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematics",
+        "Life Orientation"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Introduction to Information Systems",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Introduction to Systems Development",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Electronics",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Entrepreneurship",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Computer Hardware & Software",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Principles of Computer Programming",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Systems Analysis & Design",
+          "levels": "3-4",
+          "optional": false
+        },
+        {
+          "subject": "Project Management",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Data Communication & Networking",
+          "levels": "4",
+          "optional": false
+        },
+        {
+          "subject": "Computer Programming",
+          "levels": "4",
+          "optional": false
+        },
+        {
+          "subject": "Multimedia Services",
+          "levels": "4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Troyeville Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Engineering Studies — Civil Engineering and Building Construction",
+    "institution": "Central Johannesburg TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "The duration of each NC(V) level is one calendar year (Levels 2–4).",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "Minimum Grade 9 year-end report, an NQF Level 1 qualification, or the Pre-Vocational Learning Programme (PLP). Level 3 requires the Level 2 qualification in this programme; Level 4 requires the Level 3 qualification.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 7,
+      "note": "CJC's own course page currently carries generic Engineering & Related Design overview text rather than a distinct subject table, so the vocational subjects below use the standard national NC(V) Civil Engineering & Building Construction subject matrix (the same one used at other TVET colleges, including the Ekurhuleni colleges already in this dataset).",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematics",
+        "Life Orientation"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Construction Planning",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Plant and Equipment",
+          "levels": "2-3",
+          "optional": false
+        },
+        {
+          "subject": "Materials",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Carpentry & Roof Work",
+          "levels": "2-4",
+          "optional": true
+        },
+        {
+          "subject": "Masonry",
+          "levels": "2-4",
+          "optional": true
+        },
+        {
+          "subject": "Construction Supervision",
+          "levels": "4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Ellis Park Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Engineering Studies — Engineering and Related Design (Electrical)",
+    "institution": "Central Johannesburg TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "The duration of each NC(V) level is one calendar year (Levels 2–4).",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "Minimum Grade 9 year-end report, an NQF Level 1 qualification, or the Pre-Vocational Learning Programme (PLP). Progression requires passing all subjects at the current level (pass mark 50% per vocational subject).",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 7,
+      "note": "CJC's own 'Engineering and Related Design - Electrical' course page carries generic overview/career text; vocational subjects below use the standard national NC(V) Electrical Infrastructure Construction subject matrix, which is what this CJC programme maps to.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematics",
+        "Life Orientation"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Electrical Principles & Practice",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Electronic Control & Digital Electronics",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Workshop Practice",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Electrical Systems & Construction",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Electrical Workmanship",
+          "levels": "3-4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Ellis Park Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Engineering Studies — Engineering and Related Design (Fitting & Turning)",
+    "institution": "Central Johannesburg TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "The duration of each NC(V) level is one calendar year (Levels 2–4).",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "Minimum Grade 9 year-end report, an NQF Level 1 qualification, or the Pre-Vocational Learning Programme (PLP). Pass mark is 50% per vocational subject; both ICASS and examination marks are required for certification.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 7,
+      "note": "Level 3 and Level 4 subject names confirmed from CJC's official 'Engineering and Related Design - Fitting & Turning' programme page; Level 2 completed from the standard national NC(V) Engineering & Related Design subject matrix. The Fitting & Turning specialisation subject runs at all three levels.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematics",
+        "Life Orientation"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Engineering Fundamentals",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Technology",
+          "levels": "2-3",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Systems",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Practice & Maintenance",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Graphics & Design (CAD)",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Processes",
+          "levels": "4",
+          "optional": false
+        },
+        {
+          "subject": "Applied Engineering Technology",
+          "levels": "4",
+          "optional": false
+        },
+        {
+          "subject": "Professional Engineering Practice",
+          "levels": "4",
+          "optional": false
+        },
+        {
+          "subject": "Fitting & Turning",
+          "levels": "2-4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Ellis Park Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Engineering Studies — Engineering and Related Design (Motor or Welding)",
+    "institution": "Central Johannesburg TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "The duration of each NC(V) level is one calendar year (Levels 2–4).",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "Minimum Grade 9 year-end report, an NQF Level 1 qualification, or the Pre-Vocational Learning Programme (PLP). Pass mark is 50% per vocational subject; both ICASS and examination marks are required for certification.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 7,
+      "note": "CJC's own 'Engineering and Related Design - Motor or Welding' page carries generic overview/career text without a subject table; vocational subjects below use the standard national NC(V) Engineering & Related Design subject matrix, with students choosing either the Automotive Repair & Maintenance ('Motor') or Engineering Fabrication/Boilermaking ('Welding') specialisation offered under this course name at CJC's Alexandra campus.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematics",
+        "Life Orientation"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Engineering Fundamentals",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Technology",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Systems",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Practice & Maintenance",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Materials Technology",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Graphics & Design (CAD)",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Process",
+          "levels": "4",
+          "optional": false
+        },
+        {
+          "subject": "Professional Engineering Practice",
+          "levels": "4",
+          "optional": false
+        },
+        {
+          "subject": "Automotive Repair & Maintenance",
+          "levels": "2-4",
+          "optional": true
+        },
+        {
+          "subject": "Engineering Fabrication (Boilermaking)",
+          "levels": "2-4",
+          "optional": true
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Alexandra Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Art and Design (NATED)",
+    "institution": "Central Johannesburg TVET College",
+    "institutionType": "college",
+    "faculty": "Utility Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "6 months per level (N4-N6) plus 18 months relevant practical experience for the National N Diploma.",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "A National Introductory Certificate: N4 Art and Design, or an equivalent NQF Level 4 occupational qualification, or an APS score of 24 (using double the English mark plus the four next-best NSC/NC(V) L4 subjects) and a Portfolio of Evidence of pencil or oil painting sketches.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 6,
+      "note": "Sourced from CJC's official Art and Design N4-N6 programme page.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Manual Painting",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Adobe Flash & Dreamweaver",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Drawing",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Graphic Design (Manual)",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Graphic Design (Computer)",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Entrepreneurship & Business Management",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "History of Art",
+          "levels": "N5-N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Smit Street Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Boiler Making (NATED)",
+    "institution": "Central Johannesburg TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies (NATED)",
+    "qualificationType": "National Certificate (Report 191, N1-N3 Artisan Development Programme)",
+    "qualificationCode": "",
+    "duration": "N1-N3, one trimester per level. Obtain N2 with three years' relevant work experience to sit the trade test.",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Preferably Grade 12 (National Senior Certificate) with Mathematics and Physical Science, not Mathematical Literacy. This N1-N3 artisan-pathway programme is in the process of being phased out nationally in favour of QCTO occupational qualifications.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 6,
+      "note": "Subjects sourced from CJC's own programme summary and the standard national NATED N1-N3 Boilermaking subject matrix.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Mathematics",
+          "levels": "N1-N3",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Science",
+          "levels": "N1-N3",
+          "optional": false
+        },
+        {
+          "subject": "Metal Workers Theory",
+          "levels": "N1",
+          "optional": false
+        },
+        {
+          "subject": "Platers Theory",
+          "levels": "N2",
+          "optional": false
+        },
+        {
+          "subject": "Plating & Structural Steel Drawing",
+          "levels": "N1-N2",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Drawing",
+          "levels": "N3",
+          "optional": false
+        },
+        {
+          "subject": "Mechanotechnology",
+          "levels": "N3",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Alexandra Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Building and Civil Engineering (NATED)",
+    "institution": "Central Johannesburg TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies (NATED)",
+    "qualificationType": "National N Diploma (Engineering Studies, Report 191)",
+    "qualificationCode": "",
+    "duration": "N4-N6, offered in three trimesters per year.",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Any of the following NC(V) L4 Certificates: Civil Engineering and Building Construction, Drawing and Building Construction, Electrical Infrastructure Construction, Engineering and Related Design, Information Technology and Computer Science, Mechatronics, Process Instrumentation, or Process Plant Operations; or a National Certificate N3 Engineering Studies; or an equivalent occupational qualification; or an APS score of 24 (using double Mathematics/Technical Mathematics plus one relevant technology or science subject).",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 5,
+      "note": "Sourced from CJC's official Building and Civil Engineering programme summary.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Plumbing/Bricklaying Theory",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Building Science",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Building & Structural Construction",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Quantity Surveying",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Mathematics",
+          "levels": "N4-N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Ellis Park Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Business Management (NATED)",
+    "institution": "Central Johannesburg TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "6 months per level full-time (3 semesters to N6) plus 18 months practical experience. Enrolment in January and July.",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 12 or an equivalent qualification. Any of the following NC(V) L4 Certificates: Management, Office Administration, Information Technology, Finance/Economics and Accounting, or Transport and Logistics; or a National Introductory Certificate N4 Business Studies; or an equivalent NQF Level 4 occupational qualification; or an APS score of 25 (using double English and Accounting/Mathematics/Mathematical Literacy/Economics/Business Studies, plus the two next-best NSC subjects).",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 6,
+      "note": "Full N4-N6 subject breakdown confirmed directly from CJC's official Business Management N4-N6 programme page.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Computer Practice",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Entrepreneurship & Business Management",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Introductory Accounting",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Management Communication",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Public Relations",
+          "levels": "N5-N6",
+          "optional": false
+        },
+        {
+          "subject": "Sales Management",
+          "levels": "N5-N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Parktown Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Langlaagte Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Clothing Production (NATED)",
+    "institution": "Central Johannesburg TVET College",
+    "institutionType": "college",
+    "faculty": "Utility Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "6 months for each level (N4-N6). After the N6 certificate and 18 months of relevant practical experience, students may apply for the National 3-year diploma.",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "A National Introductory Certificate N4 Clothing Production, or an equivalent NQF Level 4 occupational qualification, or an APS score of 24 (using double the English mark plus the four next-best NSC/NC(V) L4 subjects) and a Portfolio of Evidence showing design and construction of a variety of garments.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 6,
+      "note": "Sourced from CJC's official Clothing Production N4-N6 programme page.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Clothing Construction",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Pattern Construction",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Fashion Drawing",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Introductory Computer Practice",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Entrepreneurship & Business Management",
+          "levels": "N5",
+          "optional": false
+        },
+        {
+          "subject": "Computer Practice",
+          "levels": "N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Alexandra Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Cosmetology (Occupational Programme)",
+    "institution": "Central Johannesburg TVET College",
+    "institutionType": "college",
+    "faculty": "Occupational Programmes",
+    "qualificationType": "Occupational Qualification (Recognition of Prior Learning available)",
+    "qualificationCode": "",
+    "duration": "Approximately 3 months per level.",
+    "minGrade": null,
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 12 with Mathematics and Science is typically expected; CJC's own programme page notes the qualification can also be achieved in whole or in part through Recognition of Prior Learning (RPL) for learners with relevant informal, non-formal, or work experience.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 5,
+      "note": "Career opportunities: beautician/cosmetologist, salon owner, and related beauty-industry roles. Subject listing sourced from a secondary CJC-course aggregator; confirm the exact module list with the campus.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Mathematical Literacy",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Communication",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "HIV/AIDS",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Entrepreneurship & Business Management",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Cosmetology",
+          "levels": "N4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Alexandra Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Electrical Engineering (Heavy Current) (NATED)",
+    "institution": "Central Johannesburg TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies (NATED)",
+    "qualificationType": "National N Diploma (Engineering Studies, Report 191)",
+    "qualificationCode": "",
+    "duration": "Approximately 3 months per level (N1-N6).",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 12 with Mathematics and Physical Science recommended — confirm specific subject requirements with the campus.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 4,
+      "note": "Core subjects as listed on CJC's own programme summary. The fuller national Report 191 Heavy Current curriculum (used at other TVET colleges in this dataset) also includes Electrotechnics, Electro Technology, Power Machines and Strength of Materials and Structure at N4-N6 — confirm the exact per-level breakdown with the campus.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Electrical Trade Theory",
+          "levels": "N1-N6",
+          "optional": false
+        },
+        {
+          "subject": "Industrial Electronics",
+          "levels": "N1-N6",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Science",
+          "levels": "N1-N6",
+          "optional": false
+        },
+        {
+          "subject": "Mathematics",
+          "levels": "N1-N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Alexandra Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Ellis Park Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Riverlea Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Electrical Engineering (Light Current) (NATED)",
+    "institution": "Central Johannesburg TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies (NATED)",
+    "qualificationType": "National N Diploma (Engineering Studies, Report 191)",
+    "qualificationCode": "",
+    "duration": "Approximately 3 months per level (N1-N6).",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 12 with Mathematics and Physical Science recommended — confirm specific subject requirements with the campus.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 4,
+      "note": "Sourced from CJC's own programme summary.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Radio and Television Theory",
+          "levels": "N1-N6",
+          "optional": false
+        },
+        {
+          "subject": "Industrial Electronics",
+          "levels": "N1-N6",
+          "optional": false
+        },
+        {
+          "subject": "Logic Systems",
+          "levels": "N1-N6",
+          "optional": false
+        },
+        {
+          "subject": "Mathematics",
+          "levels": "N1-N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Ellis Park Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Financial Management (NATED)",
+    "institution": "Central Johannesburg TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "6 months per level full-time (3 semesters to N6) plus 18 months practical experience. Enrolment in January and July.",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Any of the following NC(V) L4 Certificates: Education and Development, Finance/Economics and Accounting, Information Technology, Management, Marketing, Office Administration, or Transport and Logistics; or an equivalent NQF Level 4 occupational qualification; or an APS score of 24 (using double English plus the four next-best NSC subjects).",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 4,
+      "note": "Sourced from CJC's official Financial Management N4-N6 programme page. Same four subjects run at every level.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Computerised Financial Systems",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Entrepreneurship & Business Management",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Financial Accounting",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Management Communication",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Cost and Management Accounting",
+          "levels": "N5-N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Parktown Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Hairdressing (Occupational Programme)",
+    "institution": "Central Johannesburg TVET College",
+    "institutionType": "college",
+    "faculty": "Occupational Programmes",
+    "qualificationType": "National Certificate: Hairdressing (NQF Level 2-3) / FET Certificate (Level 4), QCTO",
+    "qualificationCode": "",
+    "duration": "3 years total: 18 months full-time study at college plus 18 months practical training in a salon.",
+    "minGrade": null,
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 9 / NQF Level 1. Minimum age 16.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 5,
+      "note": "Subject list reused from the standard national Hairdressing occupational qualification curriculum (the same one used at other TVET colleges in this dataset); confirm the exact module list with the CJC campus. Career opportunities: hair stylist, salon owner, TV/theatre hair technician, sales representative for hair-care product manufacturers.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Hairdressing Services",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Salon Support Services",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Numeracy / Mathematical Literacy",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Salon Administration Services",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Communication Studies",
+          "levels": "2-4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Alexandra Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Human Resource Management (NATED)",
+    "institution": "Central Johannesburg TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "6 months per level full-time (3 semesters to N6). Enrolment in January and July.",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Any of the following NC(V) L4 Certificates: Education and Development, Finance/Economics and Accounting, Information Technology, Management, Marketing, or Office Administration; or an equivalent NQF Level 4 occupational qualification; or an APS score of 24 (using double English plus the four next-best NSC subjects).",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 4,
+      "note": "Sourced from CJC's official Human Resource Management N4-N6 programme page.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Computer Practice",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Entrepreneurship & Business Management",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Management Communication",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Personnel Management",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Labour Relations",
+          "levels": "N5-N6",
+          "optional": false
+        },
+        {
+          "subject": "Personnel Training",
+          "levels": "N5-N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Parktown Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Langlaagte Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Marketing Management (NATED)",
+    "institution": "Central Johannesburg TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "6 months per level full-time (3 semesters to N6) plus 18 months practical experience. Enrolment in January and July.",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Any of the following NC(V) L4 Certificates: Education and Development, Finance/Economics and Accounting, Information Technology, Management, Marketing, or Office Administration; or an equivalent NQF Level 4 occupational qualification; or an APS score of 24 (using double English plus the four next-best NSC subjects).",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 6,
+      "note": "Sourced from CJC's official Marketing Management N4-N6 programme page (listed there as 'Computer Science'; standardised here to 'Computer Practice', the equivalent Report 191 subject name used elsewhere in this dataset).",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Computer Practice",
+          "levels": "N4-N5",
+          "optional": false
+        },
+        {
+          "subject": "Entrepreneurship & Business Management",
+          "levels": "N4-N5",
+          "optional": false
+        },
+        {
+          "subject": "Management Communication",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Marketing Management",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Sales Management",
+          "levels": "N5-N6",
+          "optional": false
+        },
+        {
+          "subject": "Marketing Communication",
+          "levels": "N6",
+          "optional": false
+        },
+        {
+          "subject": "Market Research",
+          "levels": "N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Parktown Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Langlaagte Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Mechanical Engineering (NATED)",
+    "institution": "Central Johannesburg TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies (NATED)",
+    "qualificationType": "National N Diploma (Engineering Studies, Report 191)",
+    "qualificationCode": "",
+    "duration": "Approximately 3 months per level (N4-N6).",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 12 with Mathematics and Physical Science recommended — confirm specific subject requirements with the campus.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 6,
+      "note": "CJC's own programme page did not expose a full subject table in search results, so subjects use the standard national Report 191 N4-N6 Mechanical Engineering curriculum (the same one used at other TVET colleges in this dataset). Confirm the exact per-level breakdown with the campus.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Mathematics",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Science",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Mechanotechnics",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Mechanical Draughting",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Power Machines",
+          "levels": "N5-N6",
+          "optional": false
+        },
+        {
+          "subject": "Strength of Materials",
+          "levels": "N5-N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Alexandra Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Ellis Park Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Riverlea Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Motor Trade Engineering (NATED)",
+    "institution": "Central Johannesburg TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies (NATED)",
+    "qualificationType": "National Certificate (Report 191, N1-N3 Artisan Development Programme)",
+    "qualificationCode": "",
+    "duration": "Approximately 3 months per level (N1-N3).",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Preferably Grade 12 (National Senior Certificate) with Mathematics and Physical Science, not Mathematical Literacy. This N1-N3 artisan-pathway programme is in the process of being phased out nationally in favour of QCTO occupational qualifications.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 4,
+      "note": "Sourced from CJC's own programme summary (listed there as 'Motor Trading').",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Motor/Diesel Trade Theory",
+          "levels": "N1-N3",
+          "optional": false
+        },
+        {
+          "subject": "Industrial Electronics",
+          "levels": "N1-N3",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Science",
+          "levels": "N1-N3",
+          "optional": false
+        },
+        {
+          "subject": "Mathematics",
+          "levels": "N1-N3",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Alexandra Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Music Performance (NATED)",
+    "institution": "Central Johannesburg TVET College",
+    "institutionType": "college",
+    "faculty": "Utility Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "6 months per level (N4-N6).",
+    "minGrade": null,
+    "minNQFLevel": 4,
+    "admissionRequirement": "NQF Level 4 qualification and a successful audition.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 4,
+      "note": "Sourced from CJC's own programme summary.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Music Business",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Sound Engineering",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Arranging & Production",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Electronic Music & Keyboard Technique",
+          "levels": "N4-N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Smit Street Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Studio Work (NATED)",
+    "institution": "Central Johannesburg TVET College",
+    "institutionType": "college",
+    "faculty": "Utility Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "6 months per level (N4-N6).",
+    "minGrade": null,
+    "minNQFLevel": 4,
+    "admissionRequirement": "NQF Level 4 qualification and a successful audition.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 4,
+      "note": "Sourced from CJC's own programme summary, which lists the same core module set as its companion Music Performance programme; the practical specialisation (studio/production work) differs by elective — confirm details with the campus.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Music Business",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Sound Engineering",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Arranging & Production",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Electronic Music & Keyboard Technique",
+          "levels": "N4-N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Smit Street Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Travel and Tourism (NATED)",
+    "institution": "Central Johannesburg TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "6 months per level (N4-N6).",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "A Tourism NC(V) L4 Certificate; or an equivalent NQF Level 4 occupational qualification; or an APS score of 24 (using double English plus the three next-best NSC/NC(V) L4 subjects).",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 4,
+      "note": "Sourced from CJC's official Travel and Tourism N4-N6 programme page.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Travel Office Procedures",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Travel Service",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Tourism Communications",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Tourism Destinations",
+          "levels": "N4-N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Riverlea Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Hospitality Services (NATED)",
+    "institution": "Central Johannesburg TVET College",
+    "institutionType": "college",
+    "faculty": "Utility Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "6 months per level (N4-N6) plus 18 months practical training (in-service training) in the relevant field of study to complete the qualification.",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "You must pass a minimum of three subjects to be promoted to the next level.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 6,
+      "note": "Sourced from CJC's official Hospitality Services N4-N6 programme page. This is a separate NATED N4-N6 diploma track from the college's NC(V) L2-L4 Hospitality Services programme, also offered at Smit Street Campus.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Catering Theory & Practical",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Nutrition & Menu Planning",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Sanitation & Housekeeping",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Applied Management",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Food & Beverage Services",
+          "levels": "N5",
+          "optional": false
+        },
+        {
+          "subject": "Entrepreneurship & Business Management",
+          "levels": "N5",
+          "optional": false
+        },
+        {
+          "subject": "Communication & Human Relations",
+          "levels": "N6",
+          "optional": false
+        },
+        {
+          "subject": "Introductory Computer Practice",
+          "levels": "N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Smit Street Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Business Studies — Finance, Economics and Accounting",
+    "institution": "Tshwane North TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF level (Levels 2-4), three years full-time in total.",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 9 or higher pass, NQF Level 1, or AET Level 4, passed with Social Science and English. NC(V) Level 2 qualification required for Level 3; NC(V) Level 3 qualification required for Level 4.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 7,
+      "note": "Same national NC(V) Finance, Economics and Accounting subject matrix used at other TVET colleges in this dataset (e.g. Central Johannesburg TVET College).",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematical Literacy",
+        "Life Orientation"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Applied Accounting",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Financial Management",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Economic Environment",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "New Venture Creation",
+          "levels": "2-4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Pretoria Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Business Studies — Generic Management",
+    "institution": "Tshwane North TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF level (Levels 2-4), three years full-time in total.",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 9 or higher pass, NQF Level 1, or AET Level 4, passed with Social Science and English. NC(V) Level 2 qualification required for Level 3; NC(V) Level 3 qualification required for Level 4.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 7,
+      "note": "Same national NC(V) Management subject matrix used at other TVET colleges in this dataset (TNC lists this programme as 'Generic Management').",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematical Literacy",
+        "Life Orientation"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Management Practice",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Operations Management",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Financial Management",
+          "levels": "2-4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Pretoria Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Business Studies — Office Administration",
+    "institution": "Tshwane North TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF level (Levels 2-4), three years full-time in total.",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 9 or higher pass, NQF Level 1, or AET Level 4, passed with Social Science and English. NC(V) Level 2 qualification required for Level 3; NC(V) Level 3 qualification required for Level 4.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 7,
+      "note": "Vocational subjects confirmed against the Department of Basic Education's official NC(V) Level 2 assessment guideline list for Office Administration (Business Practice, Office Data Processing, Office Practice).",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematical Literacy",
+        "Life Orientation"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Business Practice",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Office Practice",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Office Data Processing",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "New Venture Creation",
+          "levels": "2-4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Soshanguve South Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Business Studies — Marketing",
+    "institution": "Tshwane North TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF level (Levels 2-4), three years full-time in total.",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 9 or higher pass, NQF Level 1, or AET Level 4, passed with Social Science and English. NC(V) Level 2 qualification required for Level 3; NC(V) Level 3 qualification required for Level 4.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 7,
+      "note": "Same national NC(V) Marketing subject matrix used at other TVET colleges in this dataset.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematical Literacy",
+        "Life Orientation"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Marketing",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Advertising & Promotions",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Marketing Communication",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Contact Centre Operations",
+          "levels": "2-4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Pretoria Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Soshanguve South Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Business Studies — Transport and Logistics",
+    "institution": "Tshwane North TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF level (Levels 2-4), three years full-time in total.",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 9 or higher pass, NQF Level 1, or AET Level 4, passed with Social Science and English. NC(V) Level 2 qualification required for Level 3; NC(V) Level 3 qualification required for Level 4.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 7,
+      "note": "Vocational subjects sourced from a TVET college's own Transport and Logistics NC(V) programme description (Freight Logistics, Transport Economics, Transport Operations run every level; Entrepreneurship is a Level 2 addition, replaced by Project Management at Levels 3-4).",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematical Literacy",
+        "Life Orientation"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Freight Logistics",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Transport Economics",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Transport Operations",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Entrepreneurship",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Project Management",
+          "levels": "3-4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Soshanguve South Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Engineering Studies — Electrical Infrastructure Construction",
+    "institution": "Tshwane North TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF level (Levels 2-4), three years full-time in total.",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 9 or higher pass, NQF Level 1, or AET Level 4, passed with Mathematics and English. NC(V) Level 2 qualification required for Level 3; NC(V) Level 3 qualification required for Level 4.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 7,
+      "note": "Same national NC(V) Electrical Infrastructure Construction subject matrix used for the equivalent programme at other TVET colleges in this dataset (listed there as 'Engineering and Related Design - Electrical').",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematics",
+        "Life Orientation"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Electrical Principles & Practice",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Electronic Control & Digital Electronics",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Workshop Practice",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Electrical Systems & Construction",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Electrical Workmanship",
+          "levels": "3-4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Mamelodi Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Soshanguve North Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Temba Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Engineering Studies — Information Technology and Computer Science",
+    "institution": "Tshwane North TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF level (Levels 2-4), three years full-time in total.",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 9 or higher pass, NQF Level 1, or AET Level 4, passed with Mathematics and English. NC(V) Level 2 qualification required for Level 3; NC(V) Level 3 qualification required for Level 4.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 7,
+      "note": "Same national NC(V) ICT & Computer Science subject matrix used for the equivalent programme at other TVET colleges in this dataset.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematics",
+        "Life Orientation"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Introduction to Information Systems",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Introduction to Systems Development",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Electronics",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Entrepreneurship",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Computer Hardware & Software",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Principles of Computer Programming",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Systems Analysis & Design",
+          "levels": "3-4",
+          "optional": false
+        },
+        {
+          "subject": "Project Management",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Data Communication & Networking",
+          "levels": "4",
+          "optional": false
+        },
+        {
+          "subject": "Computer Programming",
+          "levels": "4",
+          "optional": false
+        },
+        {
+          "subject": "Multimedia Services",
+          "levels": "4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Mamelodi Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Engineering Studies — Engineering and Related Design",
+    "institution": "Tshwane North TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF level (Levels 2-4), three years full-time in total.",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 9 or higher pass, NQF Level 1, or AET Level 4, passed with Mathematics and English. NC(V) Level 2 qualification required for Level 3; NC(V) Level 3 qualification required for Level 4.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 7,
+      "note": "TNC lists this programme without a named trade specialisation (unlike some colleges, which split it into Fitting & Turning / Motor / Welding streams). Core subjects use the standard national NC(V) Engineering & Related Design subject matrix; students choose a trade specialisation elective (e.g. Fitting & Turning, Automotive, or Fabrication) alongside it - confirm the specific elective on offer with the campus.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematics",
+        "Life Orientation"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Engineering Fundamentals",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Technology",
+          "levels": "2-3",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Systems",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Practice & Maintenance",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Materials Technology",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Graphics & Design (CAD)",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Process",
+          "levels": "4",
+          "optional": false
+        },
+        {
+          "subject": "Applied Engineering Technology",
+          "levels": "4",
+          "optional": false
+        },
+        {
+          "subject": "Professional Engineering Practice",
+          "levels": "4",
+          "optional": false
+        },
+        {
+          "subject": "Trade Specialisation (e.g. Fitting & Turning / Automotive / Fabrication)",
+          "levels": "2-4",
+          "optional": true
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Temba Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Engineering Studies — Civil Engineering and Building Construction",
+    "institution": "Tshwane North TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF level (Levels 2-4), three years full-time in total.",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 9 or higher pass, NQF Level 1, or AET Level 4, passed with Mathematics and English. NC(V) Level 2 qualification required for Level 3; NC(V) Level 3 qualification required for Level 4.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 7,
+      "note": "Same national NC(V) Civil Engineering & Building Construction subject matrix used for the equivalent programme at other TVET colleges in this dataset.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematics",
+        "Life Orientation"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Construction Planning",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Plant and Equipment",
+          "levels": "2-3",
+          "optional": false
+        },
+        {
+          "subject": "Materials",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Carpentry & Roof Work",
+          "levels": "2-4",
+          "optional": true
+        },
+        {
+          "subject": "Masonry",
+          "levels": "2-4",
+          "optional": true
+        },
+        {
+          "subject": "Construction Supervision",
+          "levels": "4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Mamelodi Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Soshanguve North Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Engineering Studies — Mechatronics",
+    "institution": "Tshwane North TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF level (Levels 2-4), three years full-time in total.",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 9 or higher pass, NQF Level 1, or AET Level 4, passed with Mathematics and Physical Science. Specific college selection criteria apply. NC(V) Level 2 qualification required for Level 3; NC(V) Level 3 qualification required for Level 4.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": null,
+      "note": "TNC's own programme page confirms this is offered (requiring Physical Science, unlike the other NC(V) Engineering Studies pathways), but a full official vocational subject breakdown was not found; the national NC(V) Mechatronics field covers mechanical, electrical/electronic control, and manufacturing systems integration. Confirm the detailed subject list with the campus.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematics",
+        "Life Orientation"
+      ],
+      "vocationalSubjects": []
+    },
+    "campuses": [
+      {
+        "campus": "Confirm campus with the college",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Utility Studies — Hospitality",
+    "institution": "Tshwane North TVET College",
+    "institutionType": "college",
+    "faculty": "Utility Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF level (Levels 2-4), three years full-time in total.",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 9 or higher pass, NQF Level 1, or AET Level 4, passed with Social Science and English. NC(V) Level 2 qualification required for Level 3; NC(V) Level 3 qualification required for Level 4.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 7,
+      "note": "Same national NC(V) Hospitality subject matrix used for the equivalent programme at other TVET colleges in this dataset.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematical Literacy",
+        "Life Orientation"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Hospitality Generics",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Food Preparation",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Client Services & Human Relations",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Hospitality Services",
+          "levels": "2-4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Pretoria Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Utility Studies — Tourism",
+    "institution": "Tshwane North TVET College",
+    "institutionType": "college",
+    "faculty": "Utility Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF level (Levels 2-4), three years full-time in total.",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 9 or higher pass, NQF Level 1, or AET Level 4, passed with Social Science and English. NC(V) Level 2 qualification required for Level 3; NC(V) Level 3 qualification required for Level 4.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 7,
+      "note": "Vocational subjects confirmed against the Department of Basic Education's official NC(V) Tourism assessment guideline list (Client Services, Science of Tourism, Sustainable Tourism in South Africa, Tourism Operations).",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematical Literacy",
+        "Life Orientation"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Client Services",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Science of Tourism",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Sustainable Tourism in South Africa",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Tourism Operations",
+          "levels": "2-4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Pretoria Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Utility Studies — Safety in Society",
+    "institution": "Tshwane North TVET College",
+    "institutionType": "college",
+    "faculty": "Utility Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF level (Levels 2-4), three years full-time in total.",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 9 or higher pass, NQF Level 1, or AET Level 4, passed with Social Science and English. NC(V) Level 2 qualification required for Level 3; NC(V) Level 3 qualification required for Level 4.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 8,
+      "note": "Vocational subjects confirmed against the Department of Basic Education's official NC(V) Safety in Society assessment guideline list. The official list contains five vocational subjects; how these are distributed across Levels 2-4 was not confirmed, so all are shown running across the full programme.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematical Literacy",
+        "Life Orientation"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Criminology",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Introduction to Governance",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Introduction to Law",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Introduction to Policing Practices",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Principles of Criminal Justice",
+          "levels": "2-4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Temba Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Utility Studies — Primary Agriculture",
+    "institution": "Tshwane North TVET College",
+    "institutionType": "college",
+    "faculty": "Utility Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF level (Levels 2-4), three years full-time in total.",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 9 or higher pass, NQF Level 1, or AET Level 4, passed with Social Science and English. NC(V) Level 2 qualification required for Level 3; NC(V) Level 3 qualification required for Level 4.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 7,
+      "note": "Vocational subjects sourced from the national Primary Agriculture NC(V) subject catalogue (Levels 2-3: Soil Science, Plant Production, Animal Production, Agribusiness; Level 4 replaces Soil Science with the more advanced Farm Planning and Mechanisation, and Plant Production becomes Advanced Plant Production). Exact TNC campus not confirmed - check with the college.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematical Literacy",
+        "Life Orientation"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Soil Science",
+          "levels": "2-3",
+          "optional": false
+        },
+        {
+          "subject": "Plant Production",
+          "levels": "2-3",
+          "optional": false
+        },
+        {
+          "subject": "Animal Production",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Agribusiness",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Farm Planning and Mechanisation",
+          "levels": "4",
+          "optional": false
+        },
+        {
+          "subject": "Advanced Plant Production",
+          "levels": "4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Confirm campus with the college",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Management Assistant (NATED)",
+    "institution": "Tshwane North TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "6 months per level full-time (3 semesters to N6) plus 18 months practical experience for the National N Diploma.",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "NC(V) Level 4 (Business and Utility Studies), or passed Matric/Grade 12, or NC(V) Level 4. Compulsory: minimum 40% in English; minimum 30% in Computer/Typing-related subjects is an advantage.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 12,
+      "note": "Sourced from the Department of Higher Education and Training's official Report 191 Part 2 (N4-N6) curriculum document, which specifies the exact compulsory and optional subjects for this programme nationally. DHET permits some subject choice among electives; the combination shown here (Communication, Office Practice, Information Processing, Computer Practice at N4-N5; Office Practice, Information Processing, Communication, Public Relations at N6) is the one most commonly taught in practice, as confirmed by multiple accredited providers of this NATED programme.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Communication",
+          "levels": "N4-N5",
+          "optional": false
+        },
+        {
+          "subject": "Office Practice",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Information Processing",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Computer Practice",
+          "levels": "N4-N5",
+          "optional": false
+        },
+        {
+          "subject": "Public Relations",
+          "levels": "N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Pretoria Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Soshanguve South Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Temba Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Financial Management (NATED)",
+    "institution": "Tshwane North TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "6 months per level full-time (3 semesters to N6) plus 18 months practical experience for the National N Diploma.",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "NC(V) Level 4 (Business and Utility Studies), or passed Matric/Grade 12, or NC(V) Level 4. Compulsory: minimum 40% in English AND minimum 30% in Accounting.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 4,
+      "note": "Sourced from the Department of Higher Education and Training's official Report 191 Part 2 (N4-N6) curriculum document, which specifies the exact compulsory and optional subjects for this programme nationally.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Computerised Financial Systems",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Entrepreneurship & Business Management",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Financial Accounting",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Management Communication",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Cost and Management Accounting",
+          "levels": "N5-N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Pretoria Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Mamelodi Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Soshanguve South Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Temba Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Business Management (NATED)",
+    "institution": "Tshwane North TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "6 months per level full-time (3 semesters to N6) plus 18 months practical experience for the National N Diploma.",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "NC(V) Level 4 (Business and Utility Studies), or passed Matric/Grade 12, or NC(V) Level 4. Compulsory: minimum 40% in English AND minimum 30% in Accounting.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 6,
+      "note": "Sourced from the Department of Higher Education and Training's official Report 191 Part 2 (N4-N6) curriculum document, which specifies the exact compulsory and optional subjects for this programme nationally. Full N4-N6 subject breakdown confirmed directly from an official Business Management N4-N6 programme page (same combination also confirmed at Central Johannesburg TVET College in this dataset).",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Computer Practice",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Entrepreneurship & Business Management",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Introductory Accounting",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Management Communication",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Public Relations",
+          "levels": "N5-N6",
+          "optional": false
+        },
+        {
+          "subject": "Sales Management",
+          "levels": "N5-N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Pretoria Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Public Management (NATED)",
+    "institution": "Tshwane North TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "6 months per level full-time (3 semesters to N6) plus 18 months practical experience for the National N Diploma.",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "NC(V) Level 4 (Business and Utility Studies), or passed Matric/Grade 12, or NC(V) Level 4. Compulsory: minimum 40% in English; minimum 30% in any Business Studies-related subject is an advantage.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 10,
+      "note": "Sourced from the Department of Higher Education and Training's official Report 191 Part 2 (N4-N6) curriculum document, which specifies the exact compulsory and optional subjects for this programme nationally.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Public Administration",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Computer Practice",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Management Communication",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Public Finance",
+          "levels": "N5",
+          "optional": false
+        },
+        {
+          "subject": "Municipal Administration",
+          "levels": "N5-N6",
+          "optional": false
+        },
+        {
+          "subject": "Public Law",
+          "levels": "N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Pretoria Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Mamelodi Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Soshanguve South Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Temba Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Legal Secretary (NATED)",
+    "institution": "Tshwane North TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "6 months per level full-time (3 semesters to N6) plus 18 months practical experience for the National N Diploma.",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "NC(V) Level 4 (Business and Utility Studies), or passed Matric/Grade 12, or NC(V) Level 4. Compulsory: minimum 40% in English; minimum 30% in Computer/Typing-related subjects is an advantage.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 8,
+      "note": "Sourced from the Department of Higher Education and Training's official Report 191 Part 2 (N4-N6) curriculum document, which specifies the exact compulsory and optional subjects for this programme nationally.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Office Practice",
+          "levels": "N4-N5",
+          "optional": false
+        },
+        {
+          "subject": "Information Processing",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Communication",
+          "levels": "N4-N5",
+          "optional": false
+        },
+        {
+          "subject": "Legal Practice",
+          "levels": "N5-N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Pretoria Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Public Relations (NATED)",
+    "institution": "Tshwane North TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "6 months per level full-time (3 semesters to N6) plus 18 months practical experience for the National N Diploma.",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "NC(V) Level 4 (Business and Utility Studies), or passed Matric/Grade 12, or NC(V) Level 4. Compulsory: minimum 50% in English; minimum 30% in Computer/Typing-related subjects is an advantage.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 8,
+      "note": "Sourced from the Department of Higher Education and Training's official Report 191 Part 2 (N4-N6) curriculum document, which specifies the exact compulsory and optional subjects for this programme nationally.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Office Practice",
+          "levels": "N4-N5",
+          "optional": false
+        },
+        {
+          "subject": "Information Processing",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Communication",
+          "levels": "N4-N5",
+          "optional": false
+        },
+        {
+          "subject": "Public Relations",
+          "levels": "N5-N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Soshanguve South Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Tourism (NATED)",
+    "institution": "Tshwane North TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "6 months per level full-time (3 semesters to N6) plus 18 months practical experience for the National N Diploma.",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "NC(V) Level 4 (Business and Utility Studies), or passed Matric/Grade 12, or NC(V) Level 4. Compulsory: minimum 50% in English AND minimum 50% in Tourism AND minimum 30% in Accounting, Mathematics, or Mathematical Literacy.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 4,
+      "note": "Sourced from the Department of Higher Education and Training's official Report 191 Part 2 (N4-N6) curriculum document, which specifies the exact compulsory and optional subjects for this programme nationally. All four subjects are compulsory at N4 and N5. At N6, Tourism Communication is replaced by Hotel Reception.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Travel Office Procedures",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Travel Services",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Tourist Destinations",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Tourism Communication",
+          "levels": "N4-N5",
+          "optional": false
+        },
+        {
+          "subject": "Hotel Reception",
+          "levels": "N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Pretoria Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Hospitality & Catering Services (NATED)",
+    "institution": "Tshwane North TVET College",
+    "institutionType": "college",
+    "faculty": "Utility Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "6 months per level full-time (3 semesters to N6) plus 18 months practical experience for the National N Diploma.",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "NC(V) Level 4 (Business and Utility Studies), or passed Matric/Grade 12, or NC(V) Level 4. Compulsory: minimum 40% in English AND minimum 40% in Consumer Studies, Home Economics, or Hospitality Studies.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 8,
+      "note": "Sourced from the Department of Higher Education and Training's official Report 191 Part 2 (N4-N6) curriculum document, which specifies the exact compulsory and optional subjects for this programme nationally. This is a separate NATED N4-N6 diploma track from the college's NC(V) Level 2-4 Hospitality programme.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Applied Management",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Catering: Theory and Practical",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Nutrition and Menu Planning",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Entrepreneurship & Business Management",
+          "levels": "N5",
+          "optional": false
+        },
+        {
+          "subject": "Food and Beverage Services",
+          "levels": "N5",
+          "optional": false
+        },
+        {
+          "subject": "Communication & Human Relations",
+          "levels": "N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Pretoria Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Art and Design (NATED)",
+    "institution": "Tshwane North TVET College",
+    "institutionType": "college",
+    "faculty": "Utility Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "6 months per level full-time (3 semesters to N6) plus 18 months practical experience for the National N Diploma.",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "NC(V) Level 4 (Business and Utility Studies), or passed Matric/Grade 12, or NC(V) Level 4, with an Art instructional offering and a portfolio. Compulsory: minimum 50% in English.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 5,
+      "note": "Sourced from the Department of Higher Education and Training's official Report 191 Part 2 (N4-N6) curriculum document, which specifies the exact compulsory and optional subjects for this programme nationally. Drawing and Entrepreneurship & Business Management (N4) / History of Art (N5-N6) are compulsory nationally; two further electives are chosen each level from Three-Dimensional Design, Painting, Ceramics, Graphic Design, Graphic Processes, Photography, Textile Design/Fibre Art, or Jewellery Design & Manufacturing. The specific electives offered at this campus were not confirmed.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Drawing",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Entrepreneurship & Business Management",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "History of Art",
+          "levels": "N5-N6",
+          "optional": false
+        },
+        {
+          "subject": "Elective (e.g. Graphic Design, Painting, Photography)",
+          "levels": "N4-N6",
+          "optional": true
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Pretoria Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Clothing Production (NATED)",
+    "institution": "Tshwane North TVET College",
+    "institutionType": "college",
+    "faculty": "Utility Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "6 months per level full-time (3 semesters to N6) plus 18 months practical experience for the National N Diploma.",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "NC(V) Level 4 (Business and Utility Studies), or passed Matric/Grade 12, or NC(V) Level 4. Compulsory: minimum 50% in English.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 6,
+      "note": "Sourced from the Department of Higher Education and Training's official Report 191 Part 2 (N4-N6) curriculum document, which specifies the exact compulsory and optional subjects for this programme nationally. Same national curriculum confirmed at Central Johannesburg TVET College in this dataset.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Clothing Construction",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Pattern Construction",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Fashion Drawing",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Introductory Computer Practice",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Entrepreneurship & Business Management",
+          "levels": "N5",
+          "optional": false
+        },
+        {
+          "subject": "Computer Practice",
+          "levels": "N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Pretoria Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Civil Engineering — Bricklaying (NATED)",
+    "institution": "Tshwane North TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies (NATED)",
+    "qualificationType": "National Certificate (Report 191, N1-N3 Artisan Development Programme)",
+    "qualificationCode": "",
+    "duration": "One trimester per level (N1-N3).",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Passed Matric/Grade 12/NC(V) Level 4. Compulsory: minimum 40% in Mathematics/Technical Mathematics OR minimum 40% in Mathematical Literacy, AND minimum 40% in Physical Science.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 4,
+      "note": "Subjects use the standard national NATED N1-N3 building trades curriculum (the same family of subjects as Boiler Making/Plumbing at other colleges in this dataset, adapted to the bricklaying/masonry trade). Confirm the exact subject titles with the campus.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Bricklaying and Plastering Theory",
+          "levels": "N1-N3",
+          "optional": false
+        },
+        {
+          "subject": "Building Science",
+          "levels": "N1-N3",
+          "optional": false
+        },
+        {
+          "subject": "Building Drawing",
+          "levels": "N1-N3",
+          "optional": false
+        },
+        {
+          "subject": "Mathematics",
+          "levels": "N1-N3",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Mamelodi Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Soshanguve North Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Civil Engineering — Plumbing (NATED)",
+    "institution": "Tshwane North TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies (NATED)",
+    "qualificationType": "National Certificate (Report 191, N1-N3 Artisan Development Programme)",
+    "qualificationCode": "",
+    "duration": "One trimester per level (N1-N3).",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Passed Matric/Grade 12/NC(V) Level 4. Compulsory: minimum 40% in Mathematics/Technical Mathematics OR minimum 40% in Mathematical Literacy, AND minimum 40% in Physical Science.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 4,
+      "note": "Subjects use the standard national NATED N1-N3 building trades curriculum. Confirm the exact subject titles with the campus.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Plumbing Theory",
+          "levels": "N1-N3",
+          "optional": false
+        },
+        {
+          "subject": "Building Science",
+          "levels": "N1-N3",
+          "optional": false
+        },
+        {
+          "subject": "Building Drawing",
+          "levels": "N1-N3",
+          "optional": false
+        },
+        {
+          "subject": "Mathematics",
+          "levels": "N1-N3",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Mamelodi Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Rosslyn Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Soshanguve North Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Temba Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Electrical Engineering (NATED)",
+    "institution": "Tshwane North TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies (NATED)",
+    "qualificationType": "National Certificate (Report 191, N1-N3 Artisan Development Programme)",
+    "qualificationCode": "",
+    "duration": "One trimester per level (N1-N3).",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Passed Matric/Grade 12/NC(V) Level 4. Compulsory: minimum 40% in Mathematics/Technical Mathematics OR minimum 40% in Mathematical Literacy, AND minimum 40% in Physical Science.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 4,
+      "note": "Same national NATED N1-N3 Electrical Engineering curriculum used for the equivalent programme at other TVET colleges in this dataset.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Electrical Trade Theory",
+          "levels": "N1-N3",
+          "optional": false
+        },
+        {
+          "subject": "Industrial Electronics",
+          "levels": "N1-N3",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Science",
+          "levels": "N1-N3",
+          "optional": false
+        },
+        {
+          "subject": "Mathematics",
+          "levels": "N1-N3",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Mamelodi Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Rosslyn Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Soshanguve North Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Temba Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Mechanical Engineering — Automotive (NATED)",
+    "institution": "Tshwane North TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies (NATED)",
+    "qualificationType": "National Certificate (Report 191, N1-N3 Artisan Development Programme)",
+    "qualificationCode": "",
+    "duration": "One trimester per level (N1-N3).",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Passed Matric/Grade 12/NC(V) Level 4. Compulsory: minimum 40% in Mathematics/Technical Mathematics OR minimum 40% in Mathematical Literacy, AND minimum 40% in Physical Science.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 4,
+      "note": "Same national NATED N1-N3 Motor Trade curriculum used for the equivalent programme at other TVET colleges in this dataset (listed there as 'Motor Trade Engineering').",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Motor/Diesel Trade Theory",
+          "levels": "N1-N3",
+          "optional": false
+        },
+        {
+          "subject": "Industrial Electronics",
+          "levels": "N1-N3",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Science",
+          "levels": "N1-N3",
+          "optional": false
+        },
+        {
+          "subject": "Mathematics",
+          "levels": "N1-N3",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Rosslyn Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Temba Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Mechanical Engineering — Fitting (NATED)",
+    "institution": "Tshwane North TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies (NATED)",
+    "qualificationType": "National Certificate (Report 191, N1-N3 Artisan Development Programme)",
+    "qualificationCode": "",
+    "duration": "One trimester per level (N1-N3).",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Passed Matric/Grade 12/NC(V) Level 4. Compulsory: minimum 40% in Mathematics/Technical Mathematics OR minimum 40% in Mathematical Literacy, AND minimum 30% in Physical Science.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 4,
+      "note": "Subjects use the standard national NATED N1-N3 Fitting and Machining curriculum. Confirm the exact subject titles with the campus.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Fitting and Machining Theory",
+          "levels": "N1-N3",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Drawing",
+          "levels": "N1-N3",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Science",
+          "levels": "N1-N3",
+          "optional": false
+        },
+        {
+          "subject": "Mathematics",
+          "levels": "N1-N3",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Rosslyn Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Temba Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Mechanical Engineering — Boiler Making (NATED)",
+    "institution": "Tshwane North TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies (NATED)",
+    "qualificationType": "National Certificate (Report 191, N1-N3 Artisan Development Programme)",
+    "qualificationCode": "",
+    "duration": "One trimester per level (N1-N3).",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Passed Matric/Grade 12/NC(V) Level 4. Compulsory: minimum 40% in Mathematics/Technical Mathematics OR minimum 40% in Mathematical Literacy, AND minimum 30% in Physical Science.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 4,
+      "note": "Same national NATED N1-N3 Boilermaking curriculum used for the equivalent programme at other TVET colleges in this dataset.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Mathematics",
+          "levels": "N1-N3",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Science",
+          "levels": "N1-N3",
+          "optional": false
+        },
+        {
+          "subject": "Metal Workers Theory",
+          "levels": "N1",
+          "optional": false
+        },
+        {
+          "subject": "Platers Theory",
+          "levels": "N2",
+          "optional": false
+        },
+        {
+          "subject": "Plating & Structural Steel Drawing",
+          "levels": "N1-N2",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Drawing",
+          "levels": "N3",
+          "optional": false
+        },
+        {
+          "subject": "Mechanotechnology",
+          "levels": "N3",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Rosslyn Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Pre-Learning Programme (PLP)",
+    "institution": "Tshwane North TVET College",
+    "institutionType": "college",
+    "faculty": "Bridging Programmes",
+    "qualificationType": "One-year bridging programme",
+    "qualificationCode": "",
+    "duration": "One year, full-time.",
+    "minGrade": "Grade 9",
+    "minNQFLevel": 1,
+    "admissionRequirement": "Grade 9 or higher pass, or NQF Level 1. Passed Mathematics & English. Assists students who do not meet the minimum requirements for direct entry into an NC(V) or NATED programme.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": null,
+      "note": "A foundational bridging year focused on Mathematics, Science, and English/communication skills, preparing students for entry into NC(V) Level 2 or NATED N4 programmes.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": []
+    },
+    "campuses": [
+      {
+        "campus": "Mamelodi Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Soshanguve North Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Temba Campus",
+        "excludeVocational": []
+      }
+    ]
   }
 ]
