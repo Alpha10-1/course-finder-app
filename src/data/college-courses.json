@@ -5548,5 +5548,2204 @@
     "admissionRequirement": "",
     "keySubjects": [],
     "curriculum": null
+  },
+  {
+    "courseName": "NC (V) Utility Studies — Hospitality",
+    "institution": "Waterberg TVET College",
+    "institutionType": "college",
+    "faculty": "Utility Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level for all programmes",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at the preceding NQF Level of the same programme.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 7,
+      "note": "To obtain a National Certificate: a total of 7 subjects — 3 fundamental and 4 vocational subjects.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematical Literacy",
+        "Life Skills and Computer Literacy"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Hospitality Generics",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Food Preparation",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Client Services & Human Relations",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Hospitality Services",
+          "levels": "2-4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "IT and Computer Science Centre",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Engineering Studies — Information Technology and Computer Science",
+    "institution": "Waterberg TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level for all programmes",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at the preceding NQF Level of the same programme.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 14,
+      "note": "To obtain a National Certificate: a total of 7 subjects — 3 fundamental and 4 vocational subjects.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematics",
+        "Life Skills and Computer Literacy"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Introduction to Information Systems",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Introduction to Systems Development",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Electronics",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Entrepreneurship",
+          "levels": "2",
+          "optional": true
+        },
+        {
+          "subject": "Computer Hardware and Software",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Principles of Computer Programming",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Computer Programming",
+          "levels": "4",
+          "optional": false
+        },
+        {
+          "subject": "Systems Analysis and Design",
+          "levels": "3-4",
+          "optional": false
+        },
+        {
+          "subject": "Project Management",
+          "levels": "3-4",
+          "optional": true
+        },
+        {
+          "subject": "Data Communication and Networking",
+          "levels": "4",
+          "optional": false
+        },
+        {
+          "subject": "Physical Science",
+          "levels": "2-4",
+          "optional": true
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "IT and Computer Science Centre",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Utility Studies — Primary Agriculture",
+    "institution": "Waterberg TVET College",
+    "institutionType": "college",
+    "faculty": "Utility Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level for all programmes",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at the preceding NQF Level of the same programme.",
+    "keySubjects": [],
+    "curriculum": null,
+    "campuses": [
+      {
+        "campus": "IT and Computer Science Centre",
+        "excludeVocational": [],
+        "_comment": "Curriculum not published on the source page (course listed by name only, no module breakdown available) — no Primary Agriculture curriculum template exists elsewhere in the dataset either. Confirm with campus."
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Utility Studies — Tourism",
+    "institution": "Waterberg TVET College",
+    "institutionType": "college",
+    "faculty": "Utility Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level for all programmes",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at the preceding NQF Level of the same programme.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 9,
+      "note": "To obtain a National Certificate: a total of 7 subjects — 3 fundamental and 4 vocational subjects.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematical Literacy",
+        "Life Skills and Computer Literacy"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Science of Tourism",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Client Services and Human Relations",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Sustainable Tourism in South Africa",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Tourism Operations and Technology",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Sustainable Tourism in SA & Regional Travel",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Sustainable Tourism in SA and International Travel",
+          "levels": "4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "IT and Computer Science Centre",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Thabazimbi Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Business Studies — Finance, Economics and Accounting",
+    "institution": "Waterberg TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level for all programmes",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at the preceding NQF Level of the same programme.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 8,
+      "note": "To obtain a National Certificate: a total of 7 subjects — 3 fundamental and 4 vocational subjects.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematical Literacy",
+        "Life Skills and Computer Literacy"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Applied Accounting",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Economic Environment",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Financial Management",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Entrepreneurship",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Project Management",
+          "levels": "3-4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Business Studies Centre",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Business Studies — Office Administration",
+    "institution": "Waterberg TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level for all programmes",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at the preceding NQF Level of the same programme.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 8,
+      "note": "To obtain a National Certificate: a total of 7 subjects — 3 fundamental and 4 vocational subjects.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematical Literacy",
+        "Life Skills and Computer Literacy"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Business Practice",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Office Practice",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Office Data Processing",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "New Venture Creation",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Personal Assistance",
+          "levels": "2-4",
+          "optional": true
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Business Studies Centre",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Thabazimbi Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Utility Studies — Primary Health",
+    "institution": "Waterberg TVET College",
+    "institutionType": "college",
+    "faculty": "Utility Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level for all programmes",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at the preceding NQF Level of the same programme.",
+    "keySubjects": [],
+    "curriculum": null,
+    "campuses": [
+      {
+        "campus": "Business Studies Centre",
+        "excludeVocational": [],
+        "_comment": "No curriculum template available — Primary Health does not yet appear anywhere else in the dataset. Confirm subject breakdown with campus before publishing detailed module info."
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Business Studies — Safety in Society",
+    "institution": "Waterberg TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level for all programmes",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at the preceding NQF Level of the same programme.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 14,
+      "note": "Distinct subject set at each level, building from policing/law fundamentals (L2) through criminal justice structures (L3) to applied policing practice (L4).",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Life Orientation",
+        "Mathematical Literacy"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Introduction to Policing Practice",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Introduction to Law",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Principles of Criminal Justice",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Introduction to Governance",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Criminal Law",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Criminal Justice Structure & Mandates",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Theory of Policing",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Criminal Justice Process",
+          "levels": "4",
+          "optional": false
+        },
+        {
+          "subject": "Law Procedure & Evidence",
+          "levels": "4",
+          "optional": false
+        },
+        {
+          "subject": "Applied Policing",
+          "levels": "4",
+          "optional": false
+        },
+        {
+          "subject": "Governance",
+          "levels": "3-4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Business Studies Centre",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Engineering Studies — Civil Engineering and Building Construction",
+    "institution": "Waterberg TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level for all programmes",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at the preceding NQF Level of the same programme.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 9,
+      "note": "To obtain a National Certificate: a total of 7 subjects — 3 fundamental and 4 vocational subjects.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematics",
+        "Life Skills and Computer Literacy"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Construction Planning",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Plant and Equipment",
+          "levels": "2-3",
+          "optional": false
+        },
+        {
+          "subject": "Materials",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Carpentry & Roof Work",
+          "levels": "2-4",
+          "optional": true
+        },
+        {
+          "subject": "Masonry",
+          "levels": "2-4",
+          "optional": true
+        },
+        {
+          "subject": "Construction Supervision",
+          "levels": "4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Engineering and Skills Training Centre",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Engineering Studies — Electrical Infrastructure Construction",
+    "institution": "Waterberg TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level for all programmes",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at the preceding NQF Level of the same programme.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 9,
+      "note": "To obtain a National Certificate: a total of 7 subjects — 3 fundamental and 4 vocational subjects.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematics",
+        "Life Skills and Computer Literacy"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Electrical Principles and Practice",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Workshop Practice",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Electronic Control and Digital Electronics",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Electrical Systems and Construction",
+          "levels": "2-4",
+          "optional": true
+        },
+        {
+          "subject": "Electrical Workmanship",
+          "levels": "3-4",
+          "optional": false
+        },
+        {
+          "subject": "Physical Science",
+          "levels": "2-4",
+          "optional": true
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Engineering and Skills Training Centre",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Thabazimbi Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Engineering Studies — Engineering and Related Design",
+    "institution": "Waterberg TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level for all programmes",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at the preceding NQF Level of the same programme.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 17,
+      "note": "To obtain a National Certificate: a total of 7 subjects — 3 fundamental and 4 vocational subjects. Specific vocational-subject exclusions per Waterberg campus not confirmed from the source page — this is the full national subject set.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematics",
+        "Life Skills and Computer Literacy"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Engineering Fundamentals",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Technology",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Systems",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Fitting and Turning",
+          "levels": "2-4",
+          "optional": true
+        },
+        {
+          "subject": "Automotive Repair and Maintenance",
+          "levels": "2-4",
+          "optional": true
+        },
+        {
+          "subject": "Engineering Fabrication (Boilermaking)",
+          "levels": "2-4",
+          "optional": true
+        },
+        {
+          "subject": "Welding",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Physical Science",
+          "levels": "2-4",
+          "optional": true
+        },
+        {
+          "subject": "Engineering Graphic and Design",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Material Technology",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Practice and Maintenance",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Applied Engineering Technology",
+          "levels": "4",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Processes",
+          "levels": "4",
+          "optional": false
+        },
+        {
+          "subject": "Professional Engineering Practice",
+          "levels": "4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Engineering and Skills Training Centre",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Thabazimbi Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Utility Studies — Education and Development",
+    "institution": "Waterberg TVET College",
+    "institutionType": "college",
+    "faculty": "Utility Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level for all programmes",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at the preceding NQF Level of the same programme.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 7,
+      "note": "To obtain a National Certificate: a total of 7 subjects — 3 fundamental and 4 vocational subjects.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematical Literacy",
+        "Life Skills and Computer Literacy"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Art and Science of Teaching",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Human and Social Development",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Learning Psychology",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Early Childhood Development",
+          "levels": "2-4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Thabazimbi Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Tourism (NATED)",
+    "institution": "Waterberg TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "N4–N6, 1 year and 6 months typical (as per level)",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 12 (or relevant NQF equivalent) for N4 entry — confirm specific subject requirements with the campus.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 5,
+      "note": "Report 191 programme.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Travel Office Procedures",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Tourist Destination",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Travel Services",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Tourism Communication",
+          "levels": "N4-N5",
+          "optional": false
+        },
+        {
+          "subject": "Hotel Reception",
+          "levels": "N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "IT and Computer Science Centre",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Business Management (NATED)",
+    "institution": "Waterberg TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "N4–N6, 1 year and 6 months typical (as per level)",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 12 (or relevant NQF equivalent) for N4 entry — confirm specific subject requirements with the campus.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 6,
+      "note": "NATED (Report 191) programme — subjects and campus availability as listed.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Computer Practice",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Entrepreneurship and Business Management",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Financial Accounting",
+          "levels": "N4 + N5",
+          "optional": false
+        },
+        {
+          "subject": "Labour Relations",
+          "levels": "N5",
+          "optional": false
+        },
+        {
+          "subject": "Management Communication",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Sales Management",
+          "levels": "N5-N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Business Studies Centre",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Management Assistant (NATED)",
+    "institution": "Waterberg TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "N4–N6, 1 year and 6 months typical (as per level)",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 12 (or relevant NQF equivalent) for N4 entry — confirm specific subject requirements with the campus.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 5,
+      "note": "NATED (Report 191) programme — subjects and campus availability as listed.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Communication",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Computer Practice",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Information Processing",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Office Practice",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Management Assistant",
+          "levels": "N4-N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Business Studies Centre",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Thabazimbi Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Civil Engineering N4 (NATED)",
+    "institution": "Waterberg TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "N4 (as listed on source page; N5/N6 not shown — confirm with campus)",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 12 with Mathematics and Physical Science recommended — confirm specific subject requirements with the campus.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 4,
+      "note": "Report 191 programme. Only N4 is listed on the Waterberg source page (unlike the N4–N6 span offered at some other colleges) — confirm with the campus whether N5/N6 progression is available.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Building Administration",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Building and Structural Construction",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Building & Structural Surveying",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Quantity Surveying",
+          "levels": "N4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Engineering and Skills Training Centre",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Millwright N1–N3 (NATED)",
+    "institution": "Waterberg TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "N1–N3",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 9-11 (or relevant NQF equivalent) for N1/N2 entry — confirm specific subject requirements with the campus.",
+    "keySubjects": [],
+    "curriculum": null,
+    "campuses": [
+      {
+        "campus": "Thabazimbi Campus",
+        "excludeVocational": [],
+        "_comment": "No curriculum template available for Millwright anywhere in the dataset yet — subject list not published on the source page. Confirm with campus before adding module detail."
+      }
+    ]
+  },
+   {
+    "courseName": "NC (V) Business Studies — Finance, Economics and Accounting",
+    "institution": "Coastal KZN TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level for all programmes",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at the preceding NQF Level of the same programme.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 8,
+      "note": "To obtain a National Certificate: a total of 7 subjects — 3 fundamental and 4 vocational subjects.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematical Literacy",
+        "Life Skills and Computer Literacy"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Applied Accounting",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Economic Environment",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Financial Management",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Entrepreneurship",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Project Management",
+          "levels": "3-4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Appelsbosch Campus",
+        "excludeVocational": [],
+        "_comment": "Campus list reflects the 'Business Studies' faculty registration campuses confirmed in the college's official prospectus, not a per-programme confirmation — not all 6 campuses may run every Business Studies NCV field. Confirm with the college."
+      },
+      {
+        "campus": "As-Salaam Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Swinton Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Ubuhle Bogu Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Umbumbulu Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Umlazi BB Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Business Studies — Office Administration",
+    "institution": "Coastal KZN TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level for all programmes",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at the preceding NQF Level of the same programme.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 8,
+      "note": "To obtain a National Certificate: a total of 7 subjects — 3 fundamental and 4 vocational subjects.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematical Literacy",
+        "Life Skills and Computer Literacy"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Business Practice",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Office Practice",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Office Data Processing",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "New Venture Creation",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Personal Assistance",
+          "levels": "2-4",
+          "optional": true
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Appelsbosch Campus",
+        "excludeVocational": [],
+        "_comment": "Campus list is faculty-level (Business Studies), not confirmed per-programme. Confirm with the college."
+      },
+      {
+        "campus": "As-Salaam Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Swinton Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Ubuhle Bogu Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Umbumbulu Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Umlazi BB Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Business Studies — Information Technology and Computer Science",
+    "institution": "Coastal KZN TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level for all programmes",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at the preceding NQF Level of the same programme.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 14,
+      "note": "To obtain a National Certificate: a total of 7 subjects — 3 fundamental and 4 vocational subjects. Coastal KZN groups this field under Business Studies (unlike some other colleges, which group it under Engineering Studies).",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematics",
+        "Life Skills and Computer Literacy"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Introduction to Information Systems",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Introduction to Systems Development",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Electronics",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Entrepreneurship",
+          "levels": "2",
+          "optional": true
+        },
+        {
+          "subject": "Computer Hardware and Software",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Principles of Computer Programming",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Computer Programming",
+          "levels": "4",
+          "optional": false
+        },
+        {
+          "subject": "Systems Analysis and Design",
+          "levels": "3-4",
+          "optional": false
+        },
+        {
+          "subject": "Project Management",
+          "levels": "3-4",
+          "optional": true
+        },
+        {
+          "subject": "Data Communication and Networking",
+          "levels": "4",
+          "optional": false
+        },
+        {
+          "subject": "Physical Science",
+          "levels": "2-4",
+          "optional": true
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Appelsbosch Campus",
+        "excludeVocational": [],
+        "_comment": "Campus list is faculty-level (Business Studies), not confirmed per-programme. Confirm with the college."
+      },
+      {
+        "campus": "As-Salaam Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Swinton Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Ubuhle Bogu Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Umbumbulu Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Umlazi BB Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Business Studies — Management",
+    "institution": "Coastal KZN TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level for all programmes",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at the preceding NQF Level of the same programme.",
+    "keySubjects": [],
+    "curriculum": null,
+    "campuses": [
+      {
+        "campus": "Appelsbosch Campus",
+        "excludeVocational": [],
+        "_comment": "No curriculum template available anywhere in the dataset for NCV Management — confirm subject list with the college. Campus list is faculty-level, not confirmed per-programme."
+      },
+      {
+        "campus": "As-Salaam Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Swinton Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Ubuhle Bogu Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Umbumbulu Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Umlazi BB Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Business Studies — Marketing",
+    "institution": "Coastal KZN TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level for all programmes",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at the preceding NQF Level of the same programme.",
+    "keySubjects": [],
+    "curriculum": null,
+    "campuses": [
+      {
+        "campus": "Appelsbosch Campus",
+        "excludeVocational": [],
+        "_comment": "No curriculum template available anywhere in the dataset for NCV Marketing — confirm subject list with the college. Campus list is faculty-level, not confirmed per-programme."
+      },
+      {
+        "campus": "As-Salaam Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Swinton Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Ubuhle Bogu Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Umbumbulu Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Umlazi BB Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Engineering Studies — Civil Engineering and Building Construction",
+    "institution": "Coastal KZN TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level for all programmes",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at the preceding NQF Level of the same programme.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 9,
+      "note": "To obtain a National Certificate: a total of 7 subjects — 3 fundamental and 4 vocational subjects.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematics",
+        "Life Skills and Computer Literacy"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Construction Planning",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Plant and Equipment",
+          "levels": "2-3",
+          "optional": false
+        },
+        {
+          "subject": "Materials",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Carpentry & Roof Work",
+          "levels": "2-4",
+          "optional": true
+        },
+        {
+          "subject": "Masonry",
+          "levels": "2-4",
+          "optional": true
+        },
+        {
+          "subject": "Construction Supervision",
+          "levels": "4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Appelsbosch Campus",
+        "excludeVocational": [],
+        "_comment": "Campus list reflects the 'Engineering Studies' faculty registration campuses confirmed in the college's official prospectus, not a per-programme confirmation. Confirm with the college."
+      },
+      {
+        "campus": "As-Salaam Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Durban Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Swinton Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Umlazi V Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Engineering Studies — Electrical Infrastructure Construction",
+    "institution": "Coastal KZN TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level for all programmes",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at the preceding NQF Level of the same programme.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 9,
+      "note": "To obtain a National Certificate: a total of 7 subjects — 3 fundamental and 4 vocational subjects.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematics",
+        "Life Skills and Computer Literacy"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Electrical Principles and Practice",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Workshop Practice",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Electronic Control and Digital Electronics",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Electrical Systems and Construction",
+          "levels": "2-4",
+          "optional": true
+        },
+        {
+          "subject": "Electrical Workmanship",
+          "levels": "3-4",
+          "optional": false
+        },
+        {
+          "subject": "Physical Science",
+          "levels": "2-4",
+          "optional": true
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Appelsbosch Campus",
+        "excludeVocational": [],
+        "_comment": "Campus list is faculty-level (Engineering Studies), not confirmed per-programme. Confirm with the college."
+      },
+      {
+        "campus": "As-Salaam Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Durban Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Swinton Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Umlazi V Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) Engineering Studies — Engineering and Related Design",
+    "institution": "Coastal KZN TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level for all programmes",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at the preceding NQF Level of the same programme.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 17,
+      "note": "Full national subject set — specific per-campus exclusions at Coastal KZN not confirmed.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematics",
+        "Life Skills and Computer Literacy"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Engineering Fundamentals",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Technology",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Systems",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Fitting and Turning",
+          "levels": "2-4",
+          "optional": true
+        },
+        {
+          "subject": "Automotive Repair and Maintenance",
+          "levels": "2-4",
+          "optional": true
+        },
+        {
+          "subject": "Engineering Fabrication (Boilermaking)",
+          "levels": "2-4",
+          "optional": true
+        },
+        {
+          "subject": "Welding",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Physical Science",
+          "levels": "2-4",
+          "optional": true
+        },
+        {
+          "subject": "Engineering Graphic and Design",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Material Technology",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Practice and Maintenance",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Applied Engineering Technology",
+          "levels": "4",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Processes",
+          "levels": "4",
+          "optional": false
+        },
+        {
+          "subject": "Professional Engineering Practice",
+          "levels": "4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Appelsbosch Campus",
+        "excludeVocational": [],
+        "_comment": "Campus list is faculty-level (Engineering Studies), not confirmed per-programme. Confirm with the college."
+      },
+      {
+        "campus": "As-Salaam Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Durban Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Swinton Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Umlazi V Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) General Studies — Education and Development",
+    "institution": "Coastal KZN TVET College",
+    "institutionType": "college",
+    "faculty": "General Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level for all programmes",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at the preceding NQF Level of the same programme.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 7,
+      "note": "To obtain a National Certificate: a total of 7 subjects — 3 fundamental and 4 vocational subjects.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematical Literacy",
+        "Life Skills and Computer Literacy"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Art and Science of Teaching",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Human and Social Development",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Learning Psychology",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Early Childhood Development",
+          "levels": "2-4",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Durban Campus",
+        "excludeVocational": [],
+        "_comment": "Confirmed via the official prospectus registration note ('Durban Campus — General Studies and Engineering Studies')."
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) General Studies — Primary Agriculture",
+    "institution": "Coastal KZN TVET College",
+    "institutionType": "college",
+    "faculty": "General Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level for all programmes",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at the preceding NQF Level of the same programme.",
+    "keySubjects": [],
+    "curriculum": null,
+    "campuses": [
+      {
+        "campus": "Umlazi V Campus",
+        "excludeVocational": [],
+        "_comment": "Campus confirmed via the official prospectus ('Umlazi V Campus — Engineering Studies and Primary Agriculture'). No curriculum template exists anywhere in the dataset for Primary Agriculture — confirm subject list with the college."
+      }
+    ]
+  },
+  {
+    "courseName": "NC (V) General Studies — Tourism",
+    "institution": "Coastal KZN TVET College",
+    "institutionType": "college",
+    "faculty": "General Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level for all programmes",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at the preceding NQF Level of the same programme.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 9,
+      "note": "To obtain a National Certificate: a total of 7 subjects — 3 fundamental and 4 vocational subjects.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematical Literacy",
+        "Life Skills and Computer Literacy"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Science of Tourism",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Client Services and Human Relations",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Sustainable Tourism in South Africa",
+          "levels": "2",
+          "optional": false
+        },
+        {
+          "subject": "Tourism Operations and Technology",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Sustainable Tourism in SA & Regional Travel",
+          "levels": "3",
+          "optional": false
+        },
+        {
+          "subject": "Sustainable Tourism in SA and International Travel",
+          "levels": "4",
+          "optional": false
+        }
+      ]
+    },
+    "_comment": "Listed as an NCV field on the official programme flyer, but no specific campus confirmed. Confirm with the college."
+  },
+  {
+    "courseName": "NC (V) General Studies — Hospitality",
+    "institution": "Coastal KZN TVET College",
+    "institutionType": "college",
+    "faculty": "General Studies",
+    "qualificationType": "National Certificate (Vocational)",
+    "qualificationCode": "",
+    "duration": "One year per NQF Level for all programmes",
+    "minGrade": "Grade 9",
+    "minNQFLevel": null,
+    "admissionRequirement": "NQF Level 2: Grade 9 or higher. NQF Levels 3 & 4: Competency in learning outcomes at the preceding NQF Level of the same programme.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 7,
+      "note": "To obtain a National Certificate: a total of 7 subjects — 3 fundamental and 4 vocational subjects.",
+      "fundamentalSubjects": [
+        "English First Additional Language",
+        "Mathematical Literacy",
+        "Life Skills and Computer Literacy"
+      ],
+      "vocationalSubjects": [
+        {
+          "subject": "Hospitality Generics",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Food Preparation",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Client Services & Human Relations",
+          "levels": "2-4",
+          "optional": false
+        },
+        {
+          "subject": "Hospitality Services",
+          "levels": "2-4",
+          "optional": false
+        }
+      ]
+    },
+    "_comment": "Listed as an NCV field on the official programme flyer, but no specific campus confirmed. Confirm with the college."
+  },
+  {
+    "courseName": "Financial Management (NATED)",
+    "institution": "Coastal KZN TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "6 months per level (N4-N6)",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "N3 Business Studies or Grade 12 with Accounting and Mathematics, each with a minimum pass of 40% (Achievement Level 3), or NCV: Finance, Economics & Accounting Level 4.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 6,
+      "note": "NATED (Report 191) programme — subjects and campus availability as listed.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Management Communication",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Computerized Financial Systems",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Financial Accounting",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Entrepreneurship",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Entrepreneurship (Optional, for N6)",
+          "levels": "N6",
+          "optional": true
+        },
+        {
+          "subject": "Income Tax (Optional, for N6)",
+          "levels": "N6",
+          "optional": true
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Umbumbulu Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Umlazi BB Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "Appelsbosch Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Marketing Management (NATED)",
+    "institution": "Coastal KZN TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "6 months per level (N4-N6)",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "N3 Business Studies or Grade 12, or NCV: Marketing Level 4.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 6,
+      "note": "NATED (Report 191) programme — subjects and campus availability as listed.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Computer Practice",
+          "levels": "N4-N5",
+          "optional": false
+        },
+        {
+          "subject": "Entrepreneurship Business Management",
+          "levels": "N4-N5",
+          "optional": false
+        },
+        {
+          "subject": "Management Communication",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Marketing Communication",
+          "levels": "N6",
+          "optional": false
+        },
+        {
+          "subject": "Marketing Management",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Sales Management",
+          "levels": "N5-N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Umlazi BB Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Public Management (NATED)",
+    "institution": "Coastal KZN TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "6 months per level (N4-N6)",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "N3 Business Studies or Grade 12, or any equivalent qualification.",
+    "keySubjects": [],
+    "curriculum": null,
+    "campuses": [
+      {
+        "campus": "Appelsbosch Campus",
+        "excludeVocational": [],
+        "_comment": "No curriculum template available anywhere in the dataset for Public Management NATED — confirm subject list with the college."
+      },
+      {
+        "campus": "Umbumbulu Campus",
+        "excludeVocational": []
+      },
+      {
+        "campus": "As-Salaam Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Management Assistant (NATED)",
+    "institution": "Coastal KZN TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "6 months per level (N4-N6)",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "N3 Business Studies or Grade 12, or NCV: Office Administration Level 4.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 5,
+      "note": "NATED (Report 191) programme — subjects and campus availability as listed.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Communication",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Computer Practice",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Information Processing",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Office Practice",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Management Assistant",
+          "levels": "N4-N6",
+          "optional": false
+        }
+      ]
+    },
+    "campuses": [
+      {
+        "campus": "Umlazi BB Campus",
+        "excludeVocational": []
+      }
+    ]
+  },
+  {
+    "courseName": "Tourism (NATED)",
+    "institution": "Coastal KZN TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "6 months per level (N4-N6)",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 12 (or relevant NQF equivalent) for N4 entry — confirm specific subject requirements with the campus.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 5,
+      "note": "Report 191 programme.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Travel Office Procedures",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Tourist Destination",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Travel Services",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Tourism Communication",
+          "levels": "N4-N5",
+          "optional": false
+        },
+        {
+          "subject": "Hotel Reception",
+          "levels": "N6",
+          "optional": false
+        }
+      ]
+    },
+    "_comment": "Listed on the official flyer as an afternoon-class NATED programme, but no specific campus confirmed."
+  },
+  {
+    "courseName": "Hospitality (NATED)",
+    "institution": "Coastal KZN TVET College",
+    "institutionType": "college",
+    "faculty": "Business Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "6 months per level (N4-N6)",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 12 (or relevant NQF equivalent) for N4 entry — confirm specific subject requirements with the campus.",
+    "keySubjects": [],
+    "curriculum": null,
+    "_comment": "Listed on the official flyer as an afternoon-class NATED programme, but no specific campus confirmed, and no curriculum template exists for Hospitality NATED anywhere in the dataset."
+  },
+  {
+    "courseName": "Educare (NATED)",
+    "institution": "Coastal KZN TVET College",
+    "institutionType": "college",
+    "faculty": "General Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "6 months per level (N4-N6)",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 12 (or relevant NQF equivalent) for N4 entry — confirm specific subject requirements with the campus.",
+    "keySubjects": [],
+    "curriculum": null,
+    "_comment": "Listed on the official flyer as an afternoon-class NATED programme, but no specific campus confirmed, and no curriculum template exists for Educare anywhere in the dataset."
+  },
+  {
+    "courseName": "Agriculture (NATED)",
+    "institution": "Coastal KZN TVET College",
+    "institutionType": "college",
+    "faculty": "General Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "6 months per level (N4-N6)",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 12 (or relevant NQF equivalent) for N4 entry — confirm specific subject requirements with the campus.",
+    "keySubjects": [],
+    "curriculum": null,
+    "_comment": "Listed on the official flyer as an afternoon-class NATED programme, but no specific campus confirmed, and no curriculum template exists anywhere in the dataset."
+  },
+  {
+    "courseName": "Civil Engineering N4–N6 (NATED)",
+    "institution": "Coastal KZN TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "3 months per level (N4-N6)",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 12 with Mathematics and Physical Science, or N3 Engineering Certificate with Mathematics and Technical/Engineering Drawing.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 4,
+      "note": "Report 191 programme.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Building Administration",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Building and Structural Construction",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Building & Structural Surveying",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Quantity Surveying",
+          "levels": "N4-N6",
+          "optional": false
+        }
+      ]
+    },
+    "_comment": "Listed on the official flyer as an afternoon-class NATED programme, but no specific campus confirmed."
+  },
+  {
+    "courseName": "Electrical Engineering (Heavy Current) (NATED)",
+    "institution": "Coastal KZN TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "3 months per level (N4-N6)",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 12 with Mathematics and Physical Science, or N3 Engineering Certificate with Mathematics and Technical/Engineering Drawing.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 8,
+      "note": "NATED (Report 191) programme — subjects and campus availability as listed.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Electrotechnics",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Electro Technology",
+          "levels": "N3",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Science",
+          "levels": "N3-N4",
+          "optional": false
+        },
+        {
+          "subject": "Industrial Electronics",
+          "levels": "N3-N6",
+          "optional": false
+        },
+        {
+          "subject": "Mathematics",
+          "levels": "N3-N6",
+          "optional": false
+        },
+        {
+          "subject": "Power Machines",
+          "levels": "N5-N6",
+          "optional": false
+        },
+        {
+          "subject": "Strength of Materials and Structure",
+          "levels": "N5-N6",
+          "optional": false
+        },
+        {
+          "subject": "Electrical Trade Theory",
+          "levels": "N3",
+          "optional": false
+        }
+      ]
+    },
+    "_comment": "Listed on the official flyer as an afternoon-class NATED programme, but no specific campus confirmed. Flyer does not specify Heavy vs Light Current — curriculum here is a best-fit reuse from the dataset's Heavy Current template."
+  },
+  {
+    "courseName": "Mechanical Engineering (NATED)",
+    "institution": "Coastal KZN TVET College",
+    "institutionType": "college",
+    "faculty": "Engineering Studies (NATED)",
+    "qualificationType": "National N Diploma (Report 191)",
+    "qualificationCode": "",
+    "duration": "3 months per level (N4-N6)",
+    "minGrade": "Grade 12",
+    "minNQFLevel": null,
+    "admissionRequirement": "Grade 12 with Mathematics and Physical Science, or N3 Engineering Certificate with Mathematics and Technical/Engineering Drawing.",
+    "keySubjects": [],
+    "curriculum": {
+      "totalSubjects": 12,
+      "note": "NATED (Report 191) programme — subjects and campus availability as listed.",
+      "fundamentalSubjects": [],
+      "vocationalSubjects": [
+        {
+          "subject": "Engineering Drawing",
+          "levels": "N2-N3",
+          "optional": false
+        },
+        {
+          "subject": "Engineering Science",
+          "levels": "N2-N4",
+          "optional": false
+        },
+        {
+          "subject": "Fitting and Machining",
+          "levels": "N2",
+          "optional": false
+        },
+        {
+          "subject": "Mathematics",
+          "levels": "N2-N6",
+          "optional": false
+        },
+        {
+          "subject": "Motor/Diesel Trade Theory",
+          "levels": "N2-N3",
+          "optional": true
+        },
+        {
+          "subject": "Power Machines",
+          "levels": "N5-N6",
+          "optional": false
+        },
+        {
+          "subject": "Mechanical Draughting",
+          "levels": "N4",
+          "optional": false
+        },
+        {
+          "subject": "Mechanical Drawing and Design",
+          "levels": "N5-N6",
+          "optional": false
+        },
+        {
+          "subject": "Mechanotechnics",
+          "levels": "N4-N6",
+          "optional": false
+        },
+        {
+          "subject": "Mechano Technology",
+          "levels": "N3",
+          "optional": false
+        },
+        {
+          "subject": "Fluid Mechanics",
+          "levels": "N5-N6",
+          "optional": false
+        }
+      ]
+    },
+    "_comment": "Listed on the official flyer as an afternoon-class NATED programme, but no specific campus confirmed."
   }
 ]
