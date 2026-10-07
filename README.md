@@ -26,7 +26,7 @@ Live site: https://mycoursefinder.web.app · Planned work: [ROADMAP.md](ROADMAP.
 - [Environment variables](#environment-variables)
 - [NPM / build scripts](#npm--build-scripts)
 - [Maintenance scripts](#maintenance-scripts)
-- [Deployment](#deployment)
+- [Deployment](#deployment) (including [offline support](#offline-support))
 - [Known issues, rough edges & security notes](#known-issues-rough-edges--security-notes)
 
 ---
@@ -140,8 +140,11 @@ This is a client-rendered React SPA with two additions layered on top for SEO an
   rules, selection processes, deadlines). Below the list, **Within reach** shows
   courses the learner would qualify for with marks up to 10% higher, and what's
   missing for each; a **What if my marks change?** panel lets them try different
-  marks without saving them (`src/utils/matching.js`). Also drives the guided
-  **application-round selection flow**:
+  marks without saving them (`src/utils/matching.js`). Learners can star courses
+  into a saved **shortlist**, **share** what's on screen on WhatsApp or **save it as
+  a PDF** (print layout), add an application **closing date to their calendar**
+  (.ics), and run a quick **NSFAS funding check** (`src/utils/funding.js`). Also
+  drives the guided **application-round selection flow**:
   - **Round 1** — pick one course per institution, up to 6 institutions (mirroring
     South Africa's real centralized university application process).
   - **Round 2 / 3** — pick a 2nd and 3rd choice course from each of those same 6
@@ -201,7 +204,9 @@ than the tabs, so filters survive switching tabs. It supports:
 see [known issues](#known-issues-rough-edges--security-notes)):
 - `users/{uid}` — `plan` ("free" / "ad_free" / "apply_for_me"), `paidAt`, `paymentId`,
   `amountPaid`, `isAdmin`, `adminRole`, `email`, saved subject marks, grade/status,
-  `applySelections` (the round 1/2/3 course picks keyed by institution).
+  `applySelections` (the round 1/2/3 course picks keyed by institution),
+  `applicationProgress` (which institutions the team has applied to, set by admins),
+  `shortlist` (starred courses: `[{ id, courseName, institution, campus? }]`).
 - `courses/{id}` — one document per course; the shape mirrors the `BLANK_COURSE`
   object in `Admin.jsx` (institution, faculty, campus, duration, qualification type,
   `minAPS`, `apsAlternatives`, `keySubjects`, `admissionRequirement`, and
@@ -358,7 +363,9 @@ The app is split across two hosting providers:
   `/index.html` and `/courses/**` are set to `no-cache, no-store, must-revalidate`
   (since prerendered course pages should always be re-fetched fresh), while
   `/assets/**` gets a 1-year immutable cache (safe because Vite fingerprints asset
-  filenames).
+  filenames). `/sw.js` and `/site.webmanifest` are `no-cache` so changes to them
+  reach browsers straight away. The ignore list deliberately doesn't exclude
+  dotfiles, so `public/.well-known/` (needed for the Android app) gets deployed.
 - **Firebase Cloud Functions** (`functions/`, Node 22 runtime) can be deployed with
   `npm run deploy` from inside `functions/` (`firebase deploy --only functions`), or
   run locally with `npm run serve` (the Functions emulator).
@@ -369,6 +376,34 @@ The app is split across two hosting providers:
 Given the duplicated Yoco logic, deploying a change to the payment flow currently
 means deciding whether to update the Vercel functions, the Firebase functions, or
 both — see [Known issues](#known-issues-rough-edges--security-notes).
+
+### Offline support
+
+The app is installable (`public/site.webmanifest`, icons generated from
+`public/app-icon.svg`) and works offline for pages a learner has already opened:
+
+- **`public/sw.js`** — a small hand-written service worker, registered from
+  `src/main.jsx` in production builds only. Page loads go network-first (so deploys
+  show up immediately) and fall back to the cached app shell offline; hashed files
+  under `/assets/` are cached as they're used. Nothing is downloaded ahead of time,
+  and cross-origin requests (Firebase, Yoco, analytics) and Firebase's `/__/` paths
+  are never intercepted.
+- **Firestore offline cache** — `src/firebase.js` enables IndexedDB persistence, so
+  marks, results and selections loaded once still show offline. Saving needs a
+  connection; `OfflineBanner` tells learners when they're offline.
+
+If the service worker ever misbehaves in production, replace `public/sw.js` with
+this, remove the registration in `src/main.jsx`, and deploy — every browser
+removes the worker the next time it checks for an update:
+
+```js
+self.addEventListener("install", () => self.skipWaiting());
+self.addEventListener("activate", async () => {
+  for (const name of await caches.keys()) await caches.delete(name);
+  await self.registration.unregister();
+  for (const client of await self.clients.matchAll()) client.navigate(client.url);
+});
+```
 
 ## Known issues, rough edges & security notes
 

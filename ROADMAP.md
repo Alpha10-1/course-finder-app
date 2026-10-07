@@ -22,27 +22,41 @@ as they ship, and add new ideas under **Later**.
   higher, with exactly what's missing for each.
 - **What-if simulator.** Try different marks and see which courses open up or close,
   without changing saved marks or using up mark edits.
+- **Offline support / installable web app.** Hand-written service worker
+  (`public/sw.js`, network-first pages, cached hashed assets, nothing downloaded up
+  front), Firestore offline cache, an offline banner, a complete manifest, and a new
+  app icon (`public/app-icon.svg`, matching the cap in `og-image.png`) replacing
+  Vite's default logo in the favicons and iOS icon. Checked in Edge: installable,
+  and visited pages load offline. `firebase.json` now deploys `.well-known/`.
+- **Share or export results.** "Share on WhatsApp", the phone's share sheet, and
+  "Save as PDF" (a print-only layout of marks and courses) — all based on exactly the
+  courses on screen after search and filters.
+- **Calendar reminders for deadlines** (first part of deadline reminders). Each course
+  with an upcoming closing date offers an .ics download with reminders a week and a
+  day before.
+- **Shortlist for everyone.** Any learner can star courses; the shortlist is saved
+  on their user doc (`shortlist`), can be shared on WhatsApp, and offers Apply For Me
+  to free users.
+- **NSFAS funding check** (first part of funding). A 3-question check against NSFAS's
+  financial criteria (R350,000 household income, R600,000 with a disability, SASSA
+  grant recipients qualify), pointing to nsfas.org.za for current rules and dates.
+  No dates are hardcoded — two official 2027-cycle announcements gave different
+  closing dates (31 October vs 18 November 2026).
 
 ## Next (suggested order)
 
-1. **Offline support / installable web app.** Add a service worker (e.g.
-   `vite-plugin-pwa`) and complete the manifest (`id`, `scope`, maskable icon).
-   Helps learners with limited data, and is needed for the Android app and push
-   notifications.
-2. **Android app (Trusted Web Activity).** Wrap the live site with Bubblewrap or
-   PWABuilder. Checklist: fix `firebase.json`'s `"**/.*"` ignore so `.well-known/`
-   deploys; publish `public/.well-known/assetlinks.json` with the signing key's SHA-256
-   (and Play's, if published there); keep the keystore backed up outside git.
-3. **Deadline reminders.** Push notifications when an institution's application window
-   opens or is about to close (the dates are already in Firestore), plus email/calendar
-   (.ics) for learners without push. Also notify Apply For Me learners when the team
-   lodges an application.
-4. **Share or export results.** Let learners send their qualifying courses over
-   WhatsApp or download them as a PDF.
-5. **Funding: bursaries and NSFAS.** Show bursary and NSFAS information next to the
-   matched courses: an NSFAS eligibility check and a bursary directory by field of study.
-6. **Shortlist for everyone.** Free users can star courses; a full shortlist is a
-   natural point to offer Apply For Me.
+1. **Android app (Trusted Web Activity)** — needs you: run Bubblewrap or PWABuilder
+   against the live site, keep the generated keystore backed up outside git, then
+   publish `public/.well-known/assetlinks.json` with the key's SHA-256 (plus Play's,
+   if published there). The hosting config for `.well-known/` is already done.
+2. **Push reminders** (rest of deadline reminders) — needs decisions: web push via
+   Firebase Cloud Messaging needs a VAPID key from the Firebase console and a scheduled
+   job to send notifications when windows open/close (Cloud Functions on the Blaze plan,
+   or a Vercel cron). Also notify Apply For Me learners when the team lodges an
+   application (push, email or WhatsApp).
+3. **Bursary directory** (rest of funding) — needs a content owner: a list of bursaries
+   by field of study with closing dates, kept up to date each year (an admin-editable
+   Firestore collection would fit the existing admin panel).
 
 ## Later
 

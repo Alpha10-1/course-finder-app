@@ -19,7 +19,7 @@ export default function WhatsAppButton({
       rel="noopener noreferrer"
       aria-label="Chat with us on WhatsApp"
       title="Chat with us on WhatsApp"
-      className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center
+      className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center print:hidden
                  rounded-full bg-[#25D366] text-white shadow-lg shadow-black/20
                  transition-transform duration-200 ease-out hover:scale-110 hover:bg-[#20BD5A]
                  focus:outline-none focus:ring-4 focus:ring-[#25D366]/40

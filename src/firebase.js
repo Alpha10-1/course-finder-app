@@ -1,6 +1,11 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import {
+  getFirestore,
+  initializeFirestore,
+  persistentLocalCache,
+  persistentMultipleTabManager,
+} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDgSKlh9_3pBI9_IggS3C9aGh7I2edX484",
@@ -17,4 +22,20 @@ const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
-export const db = getFirestore(app);
+// Keep a local copy of Firestore data (IndexedDB) so marks, results and
+// selections a learner has loaded once still show offline. Falls back to the
+// default in-memory cache where that isn't possible (e.g. the build-time
+// prerender, which runs in Node).
+function createFirestore() {
+  if (typeof window === "undefined") return getFirestore(app);
+  try {
+    return initializeFirestore(app, {
+      localCache: persistentLocalCache({ tabManager: persistentMultipleTabManager() }),
+    });
+  } catch (err) {
+    console.warn("Offline cache unavailable, using in-memory Firestore cache:", err);
+    return getFirestore(app);
+  }
+}
+
+export const db = createFirestore();

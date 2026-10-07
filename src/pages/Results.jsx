@@ -14,6 +14,11 @@ import ContactDetailsStep from "./results/ContactDetailsStep";
 import SubmittedSummary from "./results/SubmittedSummary";
 import WithinReach from "./results/WithinReach";
 import WhatIfPanel from "./results/WhatIfPanel";
+import ShareResults from "./results/ShareResults";
+import PrintableResults from "./results/PrintableResults";
+import ShortlistPanel from "./results/ShortlistPanel";
+import FundingPanel from "./results/FundingPanel";
+import { toggleShortlistEntry } from "../utils/shortlist";
 import { ROUND_INFO } from "./results/roundInfo";
 
 async function fetchCourses() {
@@ -73,6 +78,8 @@ export default function Results() {
   const [submitted,      setSubmitted]      = useState(false);
   // Which institutions the team has applied to — { [institution]: { applied, appliedAt } }
   const [applicationProgress, setApplicationProgress] = useState({});
+  // Starred courses, any plan — [{ id, courseName, institution, campus? }]
+  const [shortlist,      setShortlist]      = useState([]);
   const [showPricing,    setShowPricing]    = useState(false);
 
   // ── Tab state ─────────────────────────────────────────────────────────────
@@ -91,6 +98,17 @@ export default function Results() {
   const universityPool = useMemo(() => allCourses.filter((c) => c.institutionType !== "college"), [allCourses]);
   const collegePool    = useMemo(() => allCourses.filter((c) => c.institutionType === "college"), [allCourses]);
   const whatIfPool     = accessLevel === "colleges_only" ? collegePool : allCourses;
+
+  // "Save as PDF": mount the print-only layout, open the print dialog, and
+  // unmount it again once printing finishes.
+  const [printing,       setPrinting]       = useState(false);
+  useEffect(() => {
+    if (!printing) return;
+    const done = () => setPrinting(false);
+    window.addEventListener("afterprint", done);
+    window.print();
+    return () => window.removeEventListener("afterprint", done);
+  }, [printing]);
 
   // ── Load data ─────────────────────────────────────────────────────────────
   useEffect(() => {
@@ -156,6 +174,7 @@ export default function Results() {
                 }
                 if (data.applySelections) savedSelections = data.applySelections;
                 if (data.applicationProgress) setApplicationProgress(data.applicationProgress);
+                if (Array.isArray(data.shortlist)) setShortlist(data.shortlist);
                 if (data.applyStatus === "submitted" || data.applySubmittedAt) alreadySubmitted = true;
                 // Pre-fill contact details if already saved
                 if (data.applyPhone) setContactPhone(data.applyPhone);
@@ -278,6 +297,9 @@ export default function Results() {
     inRound2or3 ? collegeCourses : (!isUniTab ? collegeCourses : [])
   );
 
+  // What "Share" and "Save as PDF" use: exactly what's listed after search and filters.
+  const coursesOnScreen = [...filteredNormal, ...filteredExtended, ...filteredCollege];
+
   const totalOnTab = inRound2or3
     ? filteredNormal.length + filteredExtended.length + filteredCollege.length
     : (isUniTab ? filteredNormal.length + filteredExtended.length : filteredCollege.length);
@@ -359,6 +381,19 @@ export default function Results() {
     }
   };
 
+  // Saved straight away; if the write is rejected, the star goes back.
+  const handleToggleShortlist = (course) => {
+    const previous = shortlist;
+    const next = toggleShortlistEntry(shortlist, course);
+    setShortlist(next);
+    if (!userId) return;
+    setDoc(doc(db, "users", userId), { shortlist: next }, { merge: true }).catch((err) => {
+      console.error("Shortlist save error:", err);
+      setShortlist(previous);
+    });
+  };
+  const shortlistedIds = new Set(shortlist.map((entry) => entry.id));
+
   const handleSaveDraft = async () => {
     if (!userId) return;
     try {
@@ -400,6 +435,8 @@ export default function Results() {
       isExpanded={expandedIds.has(course.id)}
       onToggleExpand={toggleExpand}
       onPick={handlePickCourse}
+      isShortlisted={shortlistedIds.has(course.id)}
+      onToggleShortlist={selectionMode ? undefined : handleToggleShortlist}
     />
   );
 
@@ -448,9 +485,21 @@ export default function Results() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-purple-200 flex flex-col items-center p-6">
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-purple-200 flex flex-col items-center p-6 print:p-0">
       {showPricing && <PricingModal onClose={() => setShowPricing(false)} />}
-      <div className="w-full max-w-5xl bg-white shadow-xl rounded-2xl p-8">
+      {printing && (
+        <PrintableResults
+          aps={generalAps}
+          gradeLabel={gradeLabel}
+          subjects={subjects}
+          sections={[
+            { title: "Standard entry", courses: filteredNormal },
+            { title: "Extended degrees", courses: filteredExtended },
+            { title: "College courses", courses: filteredCollege, college: true },
+          ]}
+        />
+      )}
+      <div className={`w-full max-w-5xl bg-white shadow-xl rounded-2xl p-8 ${printing ? "print:hidden" : ""}`}>
 
         {/* ── Header ── */}
         {!selectionMode ? (
@@ -648,6 +697,16 @@ export default function Results() {
           </div>
         )}
 
+        {!selectionMode && shortlist.length > 0 && (
+          <ShortlistPanel
+            shortlist={shortlist}
+            aps={generalAps}
+            offerApplyForMe={userPlan !== "apply_for_me"}
+            onRemove={handleToggleShortlist}
+            onApplyForMe={() => setShowPricing(true)}
+          />
+        )}
+
         {/* ── Search ── */}
         <input type="text" placeholder="Search for a course..."
           value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}
@@ -690,10 +749,15 @@ export default function Results() {
           Reset Filters
         </button>
 
-        <p className="text-gray-500 text-sm mb-6">
-          Showing <span className="font-bold text-gray-900">{totalOnTab}</span> qualifying {activeTab}
-          {selectionMode && round > 1 && " from your selected institutions"}
-        </p>
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+          <p className="text-gray-500 text-sm">
+            Showing <span className="font-bold text-gray-900">{totalOnTab}</span> qualifying {activeTab}
+            {selectionMode && round > 1 && " from your selected institutions"}
+          </p>
+          {!selectionMode && (
+            <ShareResults aps={generalAps} courses={coursesOnScreen} onSavePdf={() => setPrinting(true)} />
+          )}
+        </div>
 
         {/* ── University tab ── */}
         {/* University courses — shown on uni tab normally, or always during rounds 2-3 */}
@@ -744,12 +808,15 @@ export default function Results() {
         )}
 
         {!selectionMode && (
-          <WithinReach
-            courses={isUniTab ? universityPool : collegePool}
-            subjects={subjects}
-            grade={grade}
-            gradeStatus={gradeStatus}
-          />
+          <>
+            <WithinReach
+              courses={isUniTab ? universityPool : collegePool}
+              subjects={subjects}
+              grade={grade}
+              gradeStatus={gradeStatus}
+            />
+            <FundingPanel />
+          </>
         )}
 
         <button onClick={() => navigate("/enter-marks")}

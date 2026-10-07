@@ -6,6 +6,7 @@ import Welcome from "./pages/Welcome";
 import RequireAuth from "./components/RequireAuth";
 import RequireAdmin from "./components/RequireAdmin";
 import WhatsAppButton from "./components/WhatsAppButton";
+import OfflineBanner from "./components/OfflineBanner";
 import { trackPageview } from "./utils/analytics";
 
 // Lazy-loaded: these pull in the full course dataset (~2MB of JSON), which
@@ -72,6 +73,7 @@ function App() {
         </Routes>
       </Suspense>
       <WhatsAppButton />
+      <OfflineBanner />
     </Router>
   );
 }

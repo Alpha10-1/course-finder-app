@@ -151,6 +151,68 @@ describe("Results page smoke test", () => {
     expect(screen.queryByRole("button", { name: "Edit selections" })).toBeNull();
   });
 
+  it("shares exactly the courses on screen, and saves them as a PDF", async () => {
+    await renderResults();
+    fireEvent.change(screen.getByPlaceholderText("Search for a course..."), { target: { value: "Account" } });
+    const whatsApp = screen.getByRole("link", { name: "Share on WhatsApp" });
+    const text = decodeURIComponent(whatsApp.getAttribute("href").split("?text=")[1]);
+    expect(text).toContain("I qualify for 1 course:");
+    expect(text).toContain("• BCom Accounting — University of Johannesburg");
+
+    window.print = vi.fn();
+    fireEvent.click(screen.getByRole("button", { name: "Save as PDF" }));
+    expect(window.print).toHaveBeenCalled();
+    expect(screen.getByText("My qualifying courses")).toBeTruthy();
+    fireEvent(window, new Event("afterprint"));
+    expect(screen.queryByText("My qualifying courses")).toBeNull();
+  });
+
+  it("offers a calendar reminder for an open application window", async () => {
+    const inThirtyDays = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+    const closeDate = [inThirtyDays.getFullYear(), String(inThirtyDays.getMonth() + 1).padStart(2, "0"), String(inThirtyDays.getDate()).padStart(2, "0")].join("-");
+    fake.collections.institutionSettings = [{ id: "University of Johannesburg", openDate: null, closeDate }];
+    URL.createObjectURL = vi.fn(() => "blob:calendar");
+    URL.revokeObjectURL = vi.fn();
+
+    await renderResults();
+    fireEvent.click(screen.getByText("BSc Computer Science"));
+    fireEvent.click(screen.getByRole("button", { name: /Add the closing date .* to my calendar/ }));
+    const blob = URL.createObjectURL.mock.calls[0][0];
+    expect(blob.type).toBe("text/calendar");
+    expect(await blob.text()).toContain(`DTSTART;VALUE=DATE:${closeDate.replace(/-/g, "")}`);
+  });
+
+  it("lets any learner star courses into a saved shortlist", async () => {
+    fake.userDoc = { ...fake.userDoc, plan: "free" };
+    await renderResults();
+    fireEvent.click(screen.getByRole("button", { name: "Add to shortlist: BSc Computer Science" }));
+    expect(screen.getByText("★ My shortlist (1)")).toBeTruthy();
+    expect(screen.getByText("Want us to apply to these for you?")).toBeTruthy();
+    await vi.waitFor(() => expect(fake.setDoc).toHaveBeenCalled());
+    expect(fake.setDoc.mock.calls.at(-1)[1]).toEqual({
+      shortlist: [{ id: "c1", courseName: "BSc Computer Science", institution: "University of Johannesburg" }],
+    });
+
+    // Both the card's star and the panel's star remove it
+    const removeButtons = screen.getAllByRole("button", { name: "Remove from shortlist: BSc Computer Science" });
+    expect(removeButtons).toHaveLength(2);
+    fireEvent.click(removeButtons[0]);
+    expect(screen.queryByText(/My shortlist/)).toBeNull();
+    expect(fake.setDoc.mock.calls.at(-1)[1]).toEqual({ shortlist: [] });
+  });
+
+  it("runs a quick NSFAS funding check", async () => {
+    await renderResults();
+    fireEvent.click(screen.getByRole("button", { name: /Can I get funding to study/ }));
+    fireEvent.click(screen.getAllByRole("button", { name: "No" })[0]); // SASSA grant
+    fireEvent.click(screen.getAllByRole("button", { name: "No" })[1]); // disability
+    expect(screen.queryByRole("status")).toBeNull(); // income not answered yet
+    fireEvent.click(screen.getByRole("button", { name: "Between R350,000 and R600,000" }));
+    expect(screen.getByRole("status").textContent).toMatch(/probably above NSFAS's limit/);
+    fireEvent.click(screen.getAllByRole("button", { name: "Yes" })[1]); // lives with a disability
+    expect(screen.getByRole("status").textContent).toMatch(/probably meet NSFAS's financial criteria/);
+  });
+
   it("filters by search term and switches to colleges", async () => {
     await renderResults();
     fireEvent.change(screen.getByPlaceholderText("Search for a course..."), { target: { value: "Account" } });

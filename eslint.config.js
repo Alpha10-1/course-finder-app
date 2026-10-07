@@ -33,6 +33,10 @@ export default defineConfig([
     languageOptions: { sourceType: 'commonjs', globals: globals.node },
   },
   {
+    files: ['public/sw.js'],
+    languageOptions: { globals: globals.serviceworker },
+  },
+  {
     files: ['**/*.test.{js,jsx}'],
     languageOptions: { globals: globals.node },
   },

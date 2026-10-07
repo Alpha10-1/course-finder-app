@@ -17,6 +17,16 @@ window.addEventListener("vite:preloadError", (event) => {
   }
 });
 
+// Offline support (public/sw.js). Production only — in dev the worker would
+// cache Vite's dev-server modules and get in the way of hot reloading.
+if (import.meta.env.PROD && "serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/sw.js").catch((err) => {
+      console.error("Service worker registration failed:", err);
+    });
+  });
+}
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <HelmetProvider>

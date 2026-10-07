@@ -1,9 +1,26 @@
 import { calculateAPSForCourse, getCompletionLabel, getEffectiveMinAPS } from "../../utils/marksToAPS";
 import { getKeySubjectStatus } from "../../utils/subjectMatch";
-import { getCourseDisplayStatus, getInstitutionApplicationStatus } from "../../utils/institutionStatus";
+import { getCourseDisplayStatus, getEffectiveDatesForCourse, getInstitutionApplicationStatus } from "../../utils/institutionStatus";
 import { getAdmissionNotes, NOTE_ICONS } from "../../utils/courseNotes";
+import { buildDeadlineCalendarFile, downloadTextFile } from "../../utils/shareResults";
+import { slugify } from "../../utils/slug";
 import CourseStatusBadge from "../../components/CourseStatusBadge";
 import { ROUND_INFO } from "./roundInfo";
+
+const formatCloseDate = (isoDate) =>
+  new Date(`${isoDate}T00:00:00`).toLocaleDateString("en-ZA", { day: "numeric", month: "long", year: "numeric" });
+
+// Downloads an .ics file the phone's calendar app can open, with reminders
+// a week and a day before applications close.
+function addDeadlineToCalendar(course, closeDate) {
+  const ics = buildDeadlineCalendarFile({
+    title: `Applications close: ${course.institution}`,
+    closeDate,
+    description: `${course.courseName}${course.faculty ? ` (${course.faculty})` : ""}. Make sure your application and documents are in before the closing date.`,
+    uid: `${slugify(course.institution)}-${slugify(course.faculty || "all")}-${closeDate}`,
+  });
+  downloadTextFile(`${slugify(course.institution)}-closing-date.ics`, ics, "text/calendar");
+}
 
 const NOTE_STYLES = {
   requirement: "text-amber-700 bg-amber-50",
@@ -18,6 +35,7 @@ export default function CourseCard({
   institutionSettings, facultySettings,
   selectionMode, round, selectedRound,
   isExpanded, onToggleExpand, onPick,
+  isShortlisted, onToggleShortlist, // star is hidden when onToggleShortlist isn't passed
 }) {
   // Per-course (not per-institution) so qualification-specific APS methods,
   // e.g. CPUT's Method 1/2/3, are used.
@@ -30,6 +48,8 @@ export default function CourseCard({
   const isCollege = colorScheme === "college";
   const isSelected = selectedRound !== null;
   const instOpen = getInstitutionApplicationStatus(institutionSettings[course.institution]) === "open";
+  const displayStatus = getCourseDisplayStatus(course, institutionSettings, facultySettings);
+  const closeDate = getEffectiveDatesForCourse(course, institutionSettings, facultySettings)?.closeDate;
   // Locked = actively picking round-1 institutions right now, and this one
   // is currently outside its application window.
   const isLocked = selectionMode && round === 1 && !isSelected && !instOpen;
@@ -45,36 +65,49 @@ export default function CourseCard({
   return (
     <div className={`${rowBg} transition`}>
       {/* Collapsed row — always visible, kept to ~2 short lines so many fit on a mobile screen */}
-      <button
-        type="button"
-        onClick={() => onToggleExpand(course.id)}
-        aria-expanded={isExpanded}
-        className="w-full text-left px-3 py-2 flex items-center gap-2 active:bg-gray-50"
-      >
-        <div className="flex-1 min-w-0">
-          <p className={`text-sm font-semibold truncate ${isSelected ? "text-purple-800" : titleColor}`}>
-            {course.courseName}
-          </p>
-          <p className="text-xs text-gray-500 truncate">
-            {course.institution}{course.campus && ` — ${course.campus}`}
-          </p>
-        </div>
+      <div className="flex items-stretch">
+        <button
+          type="button"
+          onClick={() => onToggleExpand(course.id)}
+          aria-expanded={isExpanded}
+          className="flex-1 min-w-0 text-left px-3 py-2 flex items-center gap-2 active:bg-gray-50"
+        >
+          <div className="flex-1 min-w-0">
+            <p className={`text-sm font-semibold truncate ${isSelected ? "text-purple-800" : titleColor}`}>
+              {course.courseName}
+            </p>
+            <p className="text-xs text-gray-500 truncate">
+              {course.institution}{course.campus && ` — ${course.campus}`}
+            </p>
+          </div>
 
-        <div className="flex items-center gap-1.5 shrink-0">
-          {isSelected && (
-            <span className="bg-purple-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full whitespace-nowrap">
-              {ROUND_INFO[selectedRound]?.label}
+          <div className="flex items-center gap-1.5 shrink-0">
+            {isSelected && (
+              <span className="bg-purple-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full whitespace-nowrap">
+                {ROUND_INFO[selectedRound]?.label}
+              </span>
+            )}
+            {isLocked && <span className="text-xs" title="Applications closed">🔒</span>}
+            <span className={`text-xs font-medium whitespace-nowrap ${scoreColor}`}>
+              {isCollege ? "✓ Qualify" : uniScore}
             </span>
-          )}
-          {isLocked && <span className="text-xs" title="Applications closed">🔒</span>}
-          <span className={`text-xs font-medium whitespace-nowrap ${scoreColor}`}>
-            {isCollege ? "✓ Qualify" : uniScore}
-          </span>
-          <span className={`text-gray-400 text-xs transition-transform inline-block ${isExpanded ? "rotate-180" : ""}`}>
-            ▾
-          </span>
-        </div>
-      </button>
+            <span className={`text-gray-400 text-xs transition-transform inline-block ${isExpanded ? "rotate-180" : ""}`}>
+              ▾
+            </span>
+          </div>
+        </button>
+        {onToggleShortlist && (
+          <button
+            type="button"
+            onClick={() => onToggleShortlist(course)}
+            aria-pressed={isShortlisted}
+            aria-label={`${isShortlisted ? "Remove from" : "Add to"} shortlist: ${course.courseName}`}
+            className={`px-3 text-lg leading-none ${isShortlisted ? "text-amber-500" : "text-gray-300 hover:text-amber-400"}`}
+          >
+            {isShortlisted ? "★" : "☆"}
+          </button>
+        )}
+      </div>
 
       {/* Expanded detail — the full tile, unchanged content-wise, shown on tap */}
       {isExpanded && (
@@ -84,7 +117,7 @@ export default function CourseCard({
             Institution: {course.institution}
             {course.campus && <span className="text-gray-500"> — {course.campus}</span>}
             {" "}
-            <CourseStatusBadge status={getCourseDisplayStatus(course, institutionSettings, facultySettings)} className="align-middle" />
+            <CourseStatusBadge status={displayStatus} className="align-middle" />
           </p>
           <p className="text-gray-700 text-sm">Duration: {course.duration}</p>
           <p className="text-gray-700 text-sm">Qualification: {course.qualificationType}</p>
@@ -154,6 +187,15 @@ export default function CourseCard({
                 </p>
               ))}
             </div>
+          )}
+          {closeDate && displayStatus !== "closed" && (
+            <button
+              type="button"
+              onClick={(e) => { e.stopPropagation(); addDeadlineToCalendar(course, closeDate); }}
+              className="mt-2 text-xs text-purple-600 hover:underline"
+            >
+              📅 Add the closing date ({formatCloseDate(closeDate)}) to my calendar
+            </button>
           )}
 
           {/* Selection action — only shown here, so tapping the row header always just expands/collapses */}
