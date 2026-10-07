@@ -131,7 +131,7 @@ export default function SignIn() {
     try {
       await sendPasswordResetEmail(auth, forgotEmail);
       setForgotStatus("sent");
-    } catch (err) {
+    } catch {
       setForgotStatus("error");
     } finally { setForgotLoading(false); }
   };

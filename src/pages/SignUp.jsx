@@ -55,19 +55,8 @@ export default function SignUp() {
   // After email sign-up, show the "check your inbox" screen
   const [verifyScreen, setVerifyScreen] = useState(false);
   const [verifyEmail,  setVerifyEmail]  = useState("");
-  const [resendCooldown, setResendCooldown] = useState(0);
 
   const navigate = useNavigate();
-
-  const startCooldown = () => {
-    setResendCooldown(60);
-    const t = setInterval(() => {
-      setResendCooldown((n) => {
-        if (n <= 1) { clearInterval(t); return 0; }
-        return n - 1;
-      });
-    }, 1000);
-  };
 
   /* ── Email sign-up ── */
   const handleEmailSignUp = async (e) => {
@@ -82,7 +71,6 @@ export default function SignUp() {
       await signOut(auth);
       setVerifyEmail(email);
       setVerifyScreen(true);
-      startCooldown();
     } catch (err) {
       setError(friendlyError(err.code));
     } finally { setLoading(false); }
@@ -108,14 +96,6 @@ export default function SignUp() {
     } catch (err) {
       setError(friendlyError(err.code));
     } finally { setLoading(false); }
-  };
-
-  const handleResend = async () => {
-    if (resendCooldown > 0) return;
-    // Need to temporarily sign in to resend — Firebase requires an active user
-    // We just tell them to use the sign-in page to trigger another send
-    // Simplest: just show the sign-in page where they can trigger another reset
-    navigate("/signin");
   };
 
   /* ── Verify email screen ── */

@@ -1,25 +1,28 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { Suspense, lazy, useEffect } from "react";
-import Home from "./pages/Home";
-import Results from "./pages/Results";
-import EnterMarks from "./pages/EnterMarks";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Welcome from "./pages/Welcome";
-import ExamNumberEntry from "./pages/ExamNumberEntry";
-import Admin from "./pages/Admin";
 import RequireAuth from "./components/RequireAuth";
 import RequireAdmin from "./components/RequireAdmin";
-import PaymentSuccess from "./pages/PaymentSuccess";
 import WhatsAppButton from "./components/WhatsAppButton";
 import { trackPageview } from "./utils/analytics";
 
-// Lazy-loaded: these pull in the full course dataset (~190KB of JSON), which
+// Lazy-loaded: these pull in the full course dataset (~2MB of JSON), which
 // no other route needs. Splitting them into their own chunk keeps that data
 // out of the initial bundle for every other page (sign-in, sign-up, etc).
 const CoursesDirectory = lazy(() => import("./pages/public/CoursesDirectory"));
 const InstitutionCourses = lazy(() => import("./pages/public/InstitutionCourses"));
 const CourseDetail = lazy(() => import("./pages/public/CourseDetail"));
+
+// Signed-in pages are split per route too, so the landing and sign-in pages
+// stay small — in particular, learners never download the admin panel.
+const Home = lazy(() => import("./pages/Home"));
+const EnterMarks = lazy(() => import("./pages/EnterMarks"));
+const Results = lazy(() => import("./pages/Results"));
+const ExamNumberEntry = lazy(() => import("./pages/ExamNumberEntry"));
+const PaymentSuccess = lazy(() => import("./pages/PaymentSuccess"));
+const Admin = lazy(() => import("./pages/Admin"));
 
 function PageLoading() {
   return (
@@ -52,20 +55,22 @@ function App() {
   return (
     <Router>
       <AnalyticsListener />
-      <Routes>
-        <Route path="/" element={<Welcome />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/courses" element={<Suspense fallback={<PageLoading />}><CoursesDirectory /></Suspense>} />
-        <Route path="/courses/:institutionSlug" element={<Suspense fallback={<PageLoading />}><InstitutionCourses /></Suspense>} />
-        <Route path="/courses/:institutionSlug/:courseSlug" element={<Suspense fallback={<PageLoading />}><CourseDetail /></Suspense>} />
-        <Route path="/home" element={<RequireAuth><Home /></RequireAuth>} />
-        <Route path="/enter-marks" element={<RequireAuth><EnterMarks /></RequireAuth>} />
-        <Route path="/results" element={<RequireAuth><Results /></RequireAuth>} />
-        <Route path="/exam-number" element={<RequireAuth><ExamNumberEntry /></RequireAuth>} />
-        <Route path="/admin" element={<RequireAdmin><Admin /></RequireAdmin>} />
-        <Route path="/payment-success" element={<RequireAuth><PaymentSuccess /></RequireAuth>} />
-      </Routes>
+      <Suspense fallback={<PageLoading />}>
+        <Routes>
+          <Route path="/" element={<Welcome />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/courses" element={<CoursesDirectory />} />
+          <Route path="/courses/:institutionSlug" element={<InstitutionCourses />} />
+          <Route path="/courses/:institutionSlug/:courseSlug" element={<CourseDetail />} />
+          <Route path="/home" element={<RequireAuth><Home /></RequireAuth>} />
+          <Route path="/enter-marks" element={<RequireAuth><EnterMarks /></RequireAuth>} />
+          <Route path="/results" element={<RequireAuth><Results /></RequireAuth>} />
+          <Route path="/exam-number" element={<RequireAuth><ExamNumberEntry /></RequireAuth>} />
+          <Route path="/admin" element={<RequireAdmin><Admin /></RequireAdmin>} />
+          <Route path="/payment-success" element={<RequireAuth><PaymentSuccess /></RequireAuth>} />
+        </Routes>
+      </Suspense>
       <WhatsAppButton />
     </Router>
   );

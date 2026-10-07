@@ -2,23 +2,21 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc, setDoc, collection, getDocs } from "firebase/firestore";
-import { calculateAPSForUniversity, calculateAPSForCourse, calculateGeneralAPS, meetsCollegeRequirement, getCompletionLabel, getEffectiveMinAPS } from "../utils/marksToAPS";
-import { meetsKeySubjects, subjectMatches, isGenericCreditSubject, isAnotherLanguagePlaceholder } from "../utils/subjectMatch";
-import { getInstitutionApplicationStatus, getCourseDisplayStatus, fetchApplicationWindowSettings } from "../utils/institutionStatus";
-import CourseStatusBadge from "../components/CourseStatusBadge";
+import { calculateAPSForCourse, calculateGeneralAPS, meetsCollegeRequirement, getEffectiveMinAPS } from "../utils/marksToAPS";
+import { meetsKeySubjects } from "../utils/subjectMatch";
+import { getInstitutionApplicationStatus, fetchApplicationWindowSettings } from "../utils/institutionStatus";
+import { MAX_INSTITUTIONS, getCourseSelectionRound, isRoundComplete } from "../utils/applySelection";
 import { db, auth } from "../firebase";
 import PricingModal from "../components/PricingModal";
+import CourseCard from "./results/CourseCard";
+import RoundReview from "./results/RoundReview";
+import ContactDetailsStep from "./results/ContactDetailsStep";
+import { ROUND_INFO } from "./results/roundInfo";
 
 async function fetchCourses() {
   const snap = await getDocs(collection(db, "courses"));
   return snap.docs.map((d) => ({ id: d.id, ...d.data() }));
 }
-
-const ROUND_INFO = {
-  1: { label: "1st Choice", color: "purple", hint: "Pick one course per university (up to 6 universities)" },
-  2: { label: "2nd Choice", color: "blue",   hint: "Pick a 2nd course from each of your 6 universities"  },
-  3: { label: "3rd Choice", color: "teal",   hint: "Pick a 3rd course from each of your 6 universities"  },
-};
 
 export default function Results() {
   const location = useLocation();
@@ -27,7 +25,6 @@ export default function Results() {
   // ── Core data ─────────────────────────────────────────────────────────────
   const [subjects,       setSubjects]       = useState([]);
   const [generalAps,     setGeneralAps]     = useState(0);
-  const [allQualified,   setAllQualified]   = useState([]);
   const [normalCourses,  setNormalCourses]  = useState([]);
   const [extendedCourses,setExtendedCourses]= useState([]);
   const [collegeCourses, setCollegeCourses]  = useState([]);
@@ -43,11 +40,9 @@ export default function Results() {
   const [selectedQualification,setSelectedQualification]=useState("");
   const [openOnly,            setOpenOnly]            = useState(false);
 
-  // Which course rows are expanded into the full detail tile. Kept as
-  // top-level Results state (not local state inside CourseCard) because
-  // CourseCard is redefined on every Results render — if the expand/collapse
-  // state lived inside CourseCard itself, React would treat each row as a
-  // brand-new component on every render and silently reset it.
+  // Which course rows are expanded into the full detail tile. Kept here
+  // rather than inside CourseCard so a row stays expanded when it's filtered
+  // out and back in, or when switching tabs.
   const [expandedIds,         setExpandedIds]         = useState(() => new Set());
   const toggleExpand = (id) => {
     setExpandedIds((prev) => {
@@ -150,7 +145,9 @@ export default function Results() {
                 if (data.applyPhone) setContactPhone(data.applyPhone);
                 if (data.applyEmail) setContactEmail(data.applyEmail || data.email || "");
               }
-            } catch {}
+            } catch {
+              // Profile load failed — fall through with whatever came from navigation state.
+            }
             resolve();
           });
         });
@@ -192,7 +189,6 @@ export default function Results() {
 
         setSubjects(loadedSubjects);
         setGeneralAps(gAps);
-        setAllQualified(qualified);
         setNormalCourses(uniCourses.filter((c) => !EXTENDED_TYPES.includes(c.qualificationType)));
         setExtendedCourses(uniCourses.filter((c) => EXTENDED_TYPES.includes(c.qualificationType)));
         setCollegeCourses(collCourses);
@@ -208,30 +204,14 @@ export default function Results() {
         // early), and rounds 2/3 silently skip an institution that has
         // nothing left to offer rather than writing a selection for it — so
         // a missing entry might mean "not started yet" or "already
-        // exhausted and skipped". This replicates the same pickable/complete
-        // logic as isRoundComplete() below, but self-contained with local
-        // variables, since the component's normalCourses/extendedCourses/
-        // collegeCourses/institutionSettings state hasn't committed yet at
-        // this point in the load — those closures would still see their
-        // empty initial values if used here.
+        // exhausted and skipped". Uses the freshly loaded pool and window
+        // settings directly, since the component state holding them hasn't
+        // committed yet at this point in the load.
         if (Object.keys(savedSelections).length > 0 && !alreadySubmitted) {
-          const insts = Object.keys(savedSelections);
           const localPool = [...uniCourses, ...collCourses];
           const localIsOpen = (inst) =>
             getInstitutionApplicationStatus(windowSettings.institutionSettings[inst]) === "open";
-          const localPickable = (r) => {
-            if (r === 1) return localPool.filter((c) => !insts.includes(c.institution) && localIsOpen(c.institution));
-            return localPool.filter((c) => {
-              if (!insts.includes(c.institution)) return false;
-              const pickedIds = Object.values(savedSelections[c.institution] || {}).map((s) => s.id);
-              return !pickedIds.includes(c.id);
-            });
-          };
-          const localComplete = (r) => {
-            if (r === 1) return insts.length === 6 || localPickable(1).length === 0;
-            const pickable = localPickable(r);
-            return insts.every((i) => savedSelections[i]?.[r] || !pickable.some((c) => c.institution === i));
-          };
+          const localComplete = (r) => isRoundComplete(localPool, r, savedSelections, localIsOpen);
 
           if (localComplete(1)) {
             const targetRound = localComplete(2) ? 3 : 2;
@@ -298,45 +278,11 @@ export default function Results() {
     ? filteredNormal.length + filteredExtended.length + filteredCollege.length
     : (isUniTab ? filteredNormal.length + filteredExtended.length : filteredCollege.length);
 
-  // All courses across both tabs for filter dropdowns
-  const allForFilters = allQualified;
-
   // ── Selection helpers ─────────────────────────────────────────────────────
   const chosenInstitutions = Object.keys(selections);
-
-  // Courses actually pickable in a given round right now — deliberately built
-  // from the raw qualified pools (not the search/filter-narrowed lists), so a
-  // user's own search term or dropdown filters never look like "no options
-  // left". Round 1: any qualified, open institution not chosen yet. Rounds
-  // 2/3: only courses at already-chosen institutions that haven't already
-  // been used as an earlier choice for that same institution.
-  const getPickableForRound = (r, sels = selections, chosenInsts = chosenInstitutions) => {
-    const pool = [...normalCourses, ...extendedCourses, ...collegeCourses];
-    if (r === 1) {
-      return pool.filter((c) => !chosenInsts.includes(c.institution) && isInstOpen(c.institution));
-    }
-    return pool.filter((c) => {
-      if (!chosenInsts.includes(c.institution)) return false;
-      const pickedIds = Object.values(sels[c.institution] || {}).map((s) => s.id);
-      return !pickedIds.includes(c.id);
-    });
-  };
-
-  // Institutions still pickable in round 1 right now (see getPickableForRound).
-  const round1RemainingInstitutions = new Set(getPickableForRound(1).map((c) => c.institution));
-
-  // A round is complete once every chosen institution either already has a
-  // pick for it, or has genuinely nothing left to pick for it (e.g. an
-  // institution that only offers one course total, already used as an
-  // earlier choice, has nothing left to offer as a 2nd/3rd choice — that
-  // shouldn't block the round forever).
-  const isRoundComplete = (r, sels = selections, chosenInsts = chosenInstitutions) => {
-    if (r === 1) return chosenInsts.length === 6 || getPickableForRound(1, sels, chosenInsts).length === 0;
-    const pickable = getPickableForRound(r, sels, chosenInsts);
-    return chosenInsts.every((inst) => sels[inst]?.[r] || !pickable.some((c) => c.institution === inst));
-  };
-
-  const roundComplete = () => isRoundComplete(round);
+  const qualifiedPool = [...normalCourses, ...extendedCourses, ...collegeCourses];
+  const roundIsComplete = (r, sels = selections) => isRoundComplete(qualifiedPool, r, sels, isInstOpen);
+  const roundComplete = () => roundIsComplete(round);
 
   const handlePickCourse = (course) => {
     if (!selectionMode) return;
@@ -352,7 +298,7 @@ export default function Results() {
     // a 7th+ institution — block it outright rather than letting the count
     // overshoot 6 (which used to silently break roundComplete() and leave
     // the user stuck with no way to undo a pick).
-    if (round === 1 && !selections[inst] && chosenInstitutions.length >= 6) return;
+    if (round === 1 && !selections[inst] && chosenInstitutions.length >= MAX_INSTITUTIONS) return;
 
     const newSelections = {
       ...selections,
@@ -365,7 +311,25 @@ export default function Results() {
     // because every chosen institution is out of further choices for this
     // round (some institutions only offer 1-2 courses total). Without this,
     // a round could sit permanently "incomplete" with no way to finish it.
-    if (isRoundComplete(round, newSelections)) {
+    if (roundIsComplete(round, newSelections)) {
+      setConfirming(true);
+    }
+  };
+
+  // "Continue" on the review screen between rounds.
+  const handleRoundConfirmed = () => {
+    setConfirming(false);
+    if (round === 3) {
+      setContactStep(true); // collect contact info before final save
+      return;
+    }
+    const nextRound = round + 1;
+    setRound(nextRound);
+    // If the next round has nothing left to offer at all (e.g. every chosen
+    // institution only had one course total, already used earlier), don't
+    // leave the user staring at an empty browse screen — jump straight to
+    // its review screen too, same as picking would have triggered.
+    if (roundIsComplete(nextRound)) {
       setConfirming(true);
     }
   };
@@ -382,8 +346,10 @@ export default function Results() {
       }, { merge: true });
       setSubmitted(true);
       setSelectionMode(false);
+      setContactStep(false); // back to the results page, which shows the submitted summary
     } catch (err) {
       console.error("Save error:", err);
+      setContactError("We couldn't submit your applications. Please check your connection and try again.");
     } finally {
       setSaving(false);
     }
@@ -406,61 +372,32 @@ export default function Results() {
     setSelectionMode(false);
   };
 
-  // ── APS & subject helpers ─────────────────────────────────────────────────
-  // Takes the whole course (not just institution) so per-qualification APS
-  // methods — e.g. CPUT's Method 1/2/3 — are used instead of always falling
-  // back to the institution's default model.
-  const getUniAps = (courseOrInstitution) =>
-    typeof courseOrInstitution === "string"
-      ? calculateAPSForUniversity(courseOrInstitution, subjects)
-      : calculateAPSForCourse(courseOrInstitution, subjects);
-
-  const getKeySubjectStatus = (keySubjects) => {
-    if (!keySubjects || keySubjects.length === 0) return [];
-    return keySubjects.map((req) => {
-      if (req.subjectGroup) {
-        const met = req.subjectGroup.some((opt) => {
-          if (isGenericCreditSubject(opt.subject)) {
-            return subjects.some((s) => !subjectMatches(s.subject, "Life Orientation") && parseInt(s.mark, 10) >= opt.minMark);
-          }
-          if (isAnotherLanguagePlaceholder(opt.subject)) {
-            return subjects.some(
-              (s) => /(home language|first additional language)$/i.test(s.subject.trim()) &&
-                !subjectMatches(s.subject, "English") && parseInt(s.mark, 10) >= opt.minMark
-            );
-          }
-          return subjects.some((s) => subjectMatches(s.subject, opt.subject) && parseInt(s.mark, 10) >= opt.minMark);
-        });
-        return { label: req.subjectGroup.map((o) => `${o.subject} ≥${o.minMark}%`).join(" or "), met };
-      }
-      if (isGenericCreditSubject(req.subject)) {
-        const userSubj = subjects.find(
-          (s) => !subjectMatches(s.subject, "Life Orientation") && parseInt(s.mark, 10) >= req.minMark
-        );
-        return { label: `${req.subject} ≥${req.minMark}%`, met: !!userSubj, userMark: userSubj ? parseInt(userSubj.mark, 10) : null };
-      }
-      if (isAnotherLanguagePlaceholder(req.subject)) {
-        const userSubj = subjects.find(
-          (s) => /(home language|first additional language)$/i.test(s.subject.trim()) &&
-            !subjectMatches(s.subject, "English") && parseInt(s.mark, 10) >= req.minMark
-        );
-        return { label: `${req.subject} ≥${req.minMark}%`, met: !!userSubj, userMark: userSubj ? parseInt(userSubj.mark, 10) : null };
-      }
-      const userSubj = subjects.find((s) => subjectMatches(s.subject, req.subject));
-      const met = !!userSubj && parseInt(userSubj.mark, 10) >= req.minMark;
-      return { label: `${req.subject} ≥${req.minMark}%`, met, userMark: userSubj ? parseInt(userSubj.mark, 10) : null };
-    });
+  // Final submit from the contact details step.
+  const handleContactSubmit = async () => {
+    if (!contactPhone.trim()) { setContactError("Please enter a phone number."); return; }
+    if (!contactEmail.trim() || !contactEmail.includes("@")) { setContactError("Please enter a valid email address."); return; }
+    setContactError("");
+    await handleSaveAndSubmit();
   };
 
-  // Check if this course is selected in any round
-  const getCourseSelectionRound = (course) => {
-    for (const inst of chosenInstitutions) {
-      for (const r of [1, 2, 3]) {
-        if (selections[inst]?.[r]?.id === course.id) return r;
-      }
-    }
-    return null;
-  };
+  const renderCourse = (course, colorScheme) => (
+    <CourseCard
+      key={course.id}
+      course={course}
+      colorScheme={colorScheme}
+      subjects={subjects}
+      grade={grade}
+      gradeStatus={gradeStatus}
+      institutionSettings={institutionSettings}
+      facultySettings={facultySettings}
+      selectionMode={selectionMode}
+      round={round}
+      selectedRound={getCourseSelectionRound(selections, course)}
+      isExpanded={expandedIds.has(course.id)}
+      onToggleExpand={toggleExpand}
+      onPick={handlePickCourse}
+    />
+  );
 
   // ── Loading / error ───────────────────────────────────────────────────────
   if (loading) return (
@@ -476,319 +413,33 @@ export default function Results() {
     </div>
   );
 
-  // ── Course row (collapsed list row that expands into the full tile) ───────
-  const CourseCard = ({ course, colorScheme }) => {
-    const { score: uniScore, label: uniLabel } = getUniAps(course);
-    const keyStatus = getKeySubjectStatus(course.keySubjects);
-    const requiredAPS = getEffectiveMinAPS(course, subjects);
-    const usingAltAPS = requiredAPS !== (Number(course.minAPS) || 0);
-    const isGreen   = colorScheme === "green";
-    const isCollege = colorScheme === "college";
-    const selectedRound = getCourseSelectionRound(course);
-    const isSelected = selectedRound !== null;
-    const instOpen = isInstOpen(course.institution);
-    // Locked = actively picking round-1 institutions right now, and this one
-    // is currently outside its application window.
-    const isLocked = selectionMode && round === 1 && !isSelected && !instOpen;
-    const isExpanded = expandedIds.has(course.id);
-
-    const titleColor = isCollege ? "text-amber-800" : isGreen ? "text-green-800" : "text-purple-800";
-    const scoreColor = isCollege ? "text-amber-600" : isGreen ? "text-green-600" : "text-purple-600";
-    const rowBg = isLocked
-      ? "bg-gray-50 opacity-60"
-      : isSelected
-        ? "bg-purple-50"
-        : "bg-white";
-
-    return (
-      <div className={`${rowBg} transition`}>
-        {/* Collapsed row — always visible, kept to ~2 short lines so many fit on a mobile screen */}
-        <button
-          type="button"
-          onClick={() => toggleExpand(course.id)}
-          aria-expanded={isExpanded}
-          className="w-full text-left px-3 py-2 flex items-center gap-2 active:bg-gray-50"
-        >
-          <div className="flex-1 min-w-0">
-            <p className={`text-sm font-semibold truncate ${isSelected ? "text-purple-800" : titleColor}`}>
-              {course.courseName}
-            </p>
-            <p className="text-xs text-gray-500 truncate">
-              {course.institution}{course.campus && ` — ${course.campus}`}
-            </p>
-          </div>
-
-          <div className="flex items-center gap-1.5 shrink-0">
-            {isSelected && (
-              <span className="bg-purple-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full whitespace-nowrap">
-                {ROUND_INFO[selectedRound]?.label}
-              </span>
-            )}
-            {isLocked && <span className="text-xs" title="Applications closed">🔒</span>}
-            <span className={`text-xs font-medium whitespace-nowrap ${scoreColor}`}>
-              {isCollege ? "✓ Qualify" : uniScore}
-            </span>
-            <span className={`text-gray-400 text-xs transition-transform inline-block ${isExpanded ? "rotate-180" : ""}`}>
-              ▾
-            </span>
-          </div>
-        </button>
-
-        {/* Expanded detail — the full tile, unchanged content-wise, shown on tap */}
-        {isExpanded && (
-          <div className="px-3 pb-4 pt-1 border-t border-gray-100">
-            <p className="text-gray-700 text-sm">Faculty: {course.faculty}</p>
-            <p className="text-gray-700 text-sm">
-              Institution: {course.institution}
-              {course.campus && <span className="text-gray-500"> — {course.campus}</span>}
-              {" "}
-              <CourseStatusBadge status={getCourseDisplayStatus(course, institutionSettings, facultySettings)} className="align-middle" />
-            </p>
-            <p className="text-gray-700 text-sm">Duration: {course.duration}</p>
-            <p className="text-gray-700 text-sm">Qualification: {course.qualificationType}</p>
-            <p className="text-gray-500 text-xs mt-1">Code: {course.qualificationCode || "—"}</p>
-
-            {isCollege ? (
-              <>
-                {(course.minGrade || course.minNQFLevel) && (
-                  <p className="text-gray-500 text-xs">
-                    Requires:{" "}
-                    {course.minGrade && <span className="font-medium text-gray-700">{course.minGrade}</span>}
-                    {course.minGrade && course.minNQFLevel && " · "}
-                    {course.minNQFLevel && <span className="font-medium text-gray-700">NQF Level {course.minNQFLevel}</span>}
-                  </p>
-                )}
-                {course.admissionRequirement && (
-                  <p className="text-amber-700 text-xs mt-1 bg-amber-50 rounded-lg px-2 py-1.5 leading-relaxed">
-                    📋 {course.admissionRequirement}
-                  </p>
-                )}
-                {course.curriculum && (course.curriculum.fundamentalSubjects?.length > 0 || course.curriculum.vocationalSubjects?.length > 0) && (
-                  <div className="mt-2 bg-gray-50 rounded-lg px-2 py-1.5 space-y-1.5">
-                    {course.curriculum.fundamentalSubjects?.length > 0 && (
-                      <p className="text-xs text-gray-600">
-                        <span className="font-medium text-gray-700">Fundamental subjects:</span>{" "}
-                        {course.curriculum.fundamentalSubjects.join(", ")}
-                      </p>
-                    )}
-                    {course.curriculum.vocationalSubjects?.length > 0 && (
-                      <div className="text-xs text-gray-600">
-                        <span className="font-medium text-gray-700">Vocational subjects:</span>{" "}
-                        {course.curriculum.vocationalSubjects.map((v, i) => (
-                          <span key={i}>
-                            {v.subject} ({v.levels}{v.optional ? ", optional" : ""})
-                            {i < course.curriculum.vocationalSubjects.length - 1 ? "; " : ""}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                )}
-                <p className={`text-xs font-medium mt-1 ${scoreColor}`}>
-                  ✓ You qualify — {getCompletionLabel(grade, gradeStatus)}
-                </p>
-              </>
-            ) : (
-              <>
-                <p className="text-gray-500 text-xs">
-                  Min APS: {requiredAPS}
-                  {usingAltAPS && <span className="text-gray-400"> (based on your subject choice)</span>}
-                </p>
-                <p className={`text-xs font-medium mt-1 ${scoreColor}`}>
-                  Your score: {uniScore} <span className="text-gray-400 font-normal">({uniLabel})</span>
-                </p>
-              </>
-            )}
-            {keyStatus.length > 0 && (
-              <div className="mt-2 space-y-0.5">
-                {keyStatus.map((req, i) => (
-                  <p key={i} className={`text-xs flex items-center gap-1 ${req.met ? "text-green-600" : "text-red-500"}`}>
-                    {req.met ? "✓" : "✗"} {req.label}
-                    {!req.met && req.userMark !== null && <span className="text-gray-400">(you have {req.userMark}%)</span>}
-                  </p>
-                ))}
-              </div>
-            )}
-
-            {/* Selection action — only shown here, so tapping the row header always just expands/collapses */}
-            {selectionMode && !isSelected && (
-              <button
-                type="button"
-                onClick={(e) => { e.stopPropagation(); if (!isLocked) handlePickCourse(course); }}
-                disabled={isLocked}
-                className={`mt-3 w-full text-sm font-medium rounded-lg py-2 transition ${
-                  isLocked
-                    ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-                    : "bg-purple-600 text-white hover:bg-purple-700"
-                }`}
-              >
-                {isLocked ? "🔒 Applications closed" : "Select this course →"}
-              </button>
-            )}
-          </div>
-        )}
-      </div>
-    );
-  };
-
-  // ── Render ────────────────────────────────────────────────────────────────
-  // ── Confirmation screen between rounds ───────────────────────────────────
+  // ── Review screen between rounds ──────────────────────────────────────────
   if (confirming) {
-    const isLastRound = round === 3;
-    const roundChoices = Object.entries(selections).map(([inst, choices]) => ({
-      inst,
-      course: choices[round],
-    })).filter((e) => e.course);
-
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-100 to-purple-200 flex flex-col items-center justify-center p-6">
-        {showPricing && <PricingModal onClose={() => setShowPricing(false)} />}
-        <div className="w-full max-w-xl bg-white shadow-xl rounded-2xl p-8 space-y-5">
-          <div className="text-center">
-            <div className="text-4xl mb-2">{isLastRound ? "🎉" : "✅"}</div>
-            <h2 className="text-2xl font-bold text-gray-900">
-              {ROUND_INFO[round].label} Confirmed
-            </h2>
-            <p className="text-gray-500 text-sm mt-1">
-              Review your choices below before {isLastRound ? "submitting" : "moving to the next round"}.
-            </p>
-          </div>
-
-          <div className="space-y-3">
-            {roundChoices.map(({ inst, course }) => (
-              <div key={inst} className="bg-purple-50 border border-purple-100 rounded-xl p-4">
-                <p className="text-xs text-gray-400 mb-0.5">{inst}</p>
-                <p className="font-semibold text-purple-800 text-sm">{course.courseName}</p>
-                <p className="text-xs text-gray-500">{course.faculty} · {course.duration}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="flex gap-3 pt-2">
-            <button
-              onClick={() => setConfirming(false)}
-              className="flex-1 border border-gray-200 text-gray-600 hover:bg-gray-50 py-3 rounded-xl font-medium transition text-sm"
-            >
-              ← Edit Choices
-            </button>
-            <button
-              onClick={async () => {
-                setConfirming(false);
-                if (isLastRound) {
-                  setContactStep(true); // collect contact info before final save
-                } else {
-                  const nextRound = round + 1;
-                  setRound(nextRound);
-                  // If the next round has nothing left to offer at all (e.g.
-                  // every chosen institution only had one course total,
-                  // already used earlier), don't leave the user staring at
-                  // an empty browse screen — jump straight to its review
-                  // screen too, same as picking would have triggered.
-                  if (isRoundComplete(nextRound)) {
-                    setConfirming(true);
-                  }
-                }
-              }}
-              disabled={saving}
-              className="flex-1 bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-xl font-semibold transition disabled:opacity-60"
-            >
-              {saving ? "Saving…" : isLastRound ? "Submit →" : `Go to ${round === 1 ? "2nd" : "3rd"} Choices →`}
-            </button>
-          </div>
-        </div>
-      </div>
+      <RoundReview
+        round={round}
+        selections={selections}
+        saving={saving}
+        onEdit={() => setConfirming(false)}
+        onContinue={handleRoundConfirmed}
+      />
     );
   }
 
   // ── Contact details screen ────────────────────────────────────────────────
   if (contactStep) {
-    const validateAndSubmit = async () => {
-      if (!contactPhone.trim()) { setContactError("Please enter a phone number."); return; }
-      if (!contactEmail.trim() || !contactEmail.includes("@")) { setContactError("Please enter a valid email address."); return; }
-      setContactError("");
-      await handleSaveAndSubmit();
-    };
-
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-100 to-purple-200 flex flex-col items-center justify-center p-6">
-        <div className="w-full max-w-md bg-white shadow-xl rounded-2xl p-8 space-y-6">
-          <div className="text-center">
-            <div className="text-4xl mb-2">📞</div>
-            <h2 className="text-2xl font-bold text-gray-900">Contact Details</h2>
-            <p className="text-gray-500 text-sm mt-1 leading-relaxed">
-              These details will be used for your university applications and WhatsApp communication.
-            </p>
-          </div>
-
-          {contactError && (
-            <p className="bg-red-50 border border-red-200 text-red-600 text-sm rounded-xl px-4 py-2">
-              {contactError}
-            </p>
-          )}
-
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                WhatsApp / Phone Number
-              </label>
-              <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">🇿🇦</span>
-                <input
-                  type="tel"
-                  placeholder="e.g. +27 81 234 5678"
-                  value={contactPhone}
-                  onChange={(e) => { setContactPhone(e.target.value); setContactError(""); }}
-                  className="w-full pl-9 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 text-gray-800"
-                />
-              </div>
-              <p className="text-xs text-gray-400 mt-1">We'll use WhatsApp to send you application updates</p>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Email Address for Applications
-              </label>
-              <input
-                type="email"
-                placeholder="e.g. your@email.com"
-                value={contactEmail}
-                onChange={(e) => { setContactEmail(e.target.value); setContactError(""); }}
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 text-gray-800"
-              />
-              <p className="text-xs text-gray-400 mt-1">Universities will contact you at this email</p>
-            </div>
-          </div>
-
-          {/* Summary of selections */}
-          <div className="bg-gray-50 rounded-xl p-4">
-            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Your Selections Summary</p>
-            <div className="space-y-1.5">
-              {Object.entries(selections).map(([inst, choices]) => (
-                <div key={inst} className="text-xs text-gray-600">
-                  <span className="font-medium text-gray-800">{inst.replace("University of ", "U of ")}:</span>{" "}
-                  {[1,2,3].filter(r => choices[r]).map(r => choices[r].courseName).join(" · ")}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex gap-3">
-            <button
-              onClick={() => { setContactStep(false); setConfirming(true); }}
-              className="flex-1 border border-gray-200 text-gray-600 hover:bg-gray-50 py-3 rounded-xl font-medium transition text-sm"
-            >
-              ← Back
-            </button>
-            <button
-              onClick={validateAndSubmit}
-              disabled={saving}
-              className="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-semibold transition disabled:opacity-60"
-            >
-              {saving ? "Submitting…" : "Submit Applications ✓"}
-            </button>
-          </div>
-        </div>
-      </div>
+      <ContactDetailsStep
+        phone={contactPhone}
+        email={contactEmail}
+        error={contactError}
+        saving={saving}
+        selections={selections}
+        onPhoneChange={(value) => { setContactPhone(value); setContactError(""); }}
+        onEmailChange={(value) => { setContactEmail(value); setContactError(""); }}
+        onBack={() => { setContactStep(false); setConfirming(true); }}
+        onSubmit={handleContactSubmit}
+      />
     );
   }
 
@@ -1047,9 +698,7 @@ export default function Results() {
               <>
                 <h2 className="text-xl font-semibold text-purple-700 mb-4">Standard Entry</h2>
                 <div className="rounded-xl border border-gray-200 divide-y divide-gray-100 overflow-hidden shadow-sm">
-                  {filteredNormal.map((course, idx) => (
-                    <CourseCard key={idx} course={course} colorScheme="blue" />
-                  ))}
+                  {filteredNormal.map((course) => renderCourse(course, "blue"))}
                 </div>
               </>
             )}
@@ -1057,9 +706,7 @@ export default function Results() {
               <>
                 <h2 className="text-xl font-semibold text-green-700 mb-4 mt-8">Extended Degrees</h2>
                 <div className="rounded-xl border border-gray-200 divide-y divide-gray-100 overflow-hidden shadow-sm">
-                  {filteredExtended.map((course, idx) => (
-                    <CourseCard key={idx} course={course} colorScheme="green" />
-                  ))}
+                  {filteredExtended.map((course) => renderCourse(course, "green"))}
                 </div>
               </>
             )}
@@ -1071,9 +718,7 @@ export default function Results() {
           <>
             <h2 className="text-xl font-semibold text-amber-700 mb-4 mt-8">College Courses</h2>
             <div className="rounded-xl border border-gray-200 divide-y divide-gray-100 overflow-hidden shadow-sm">
-              {filteredCollege.map((course, idx) => (
-                <CourseCard key={idx} course={course} colorScheme="college" />
-              ))}
+              {filteredCollege.map((course) => renderCourse(course, "college"))}
             </div>
           </>
         )}

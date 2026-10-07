@@ -22,7 +22,9 @@ export default function RequireAdmin({ children }) {
             adminRole: "super",
             email: user.email,
           }, { merge: true });
-        } catch (_) {}
+        } catch {
+          // Best-effort sync only — access is granted by the email check above.
+        }
         setStatus("allowed");
         return;
       }

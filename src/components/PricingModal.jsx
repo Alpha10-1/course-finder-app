@@ -18,7 +18,6 @@ export default function PricingModal({ onClose }) {
     setStep("loading");
 
     try {
-      console.log("[Payment] Calling:", `${API_BASE}/api/create-checkout`);
       const res = await fetch(`${API_BASE}/api/create-checkout`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -29,8 +28,6 @@ export default function PricingModal({ onClose }) {
         }),
       });
 
-      console.log("[Payment] Response status:", res.status);
-
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
         console.error("[Payment] Error response:", data);
@@ -38,7 +35,6 @@ export default function PricingModal({ onClose }) {
       }
 
       const data = await res.json();
-      console.log("[Payment] Success, redirecting to:", data.redirectUrl);
       window.location.href = data.redirectUrl;
     } catch (err) {
       console.error("[Payment] Caught error:", err.message);

@@ -43,6 +43,7 @@ Live site: https://mycoursefinder.web.app
 | Payments | Yoco (South African card payment gateway) |
 | Hosting | Firebase Hosting (site: `mycoursefinder`) |
 | Linting | ESLint 10, `eslint-plugin-react-hooks`, `eslint-plugin-react-refresh` |
+| Tests & CI | Vitest, React Testing Library (jsdom), GitHub Actions (`.github/workflows/ci.yml`: lint → test → build) |
 | Build-time codegen | Babel + `babel-plugin-react-compiler` via `@rolldown/plugin-babel` (React Compiler enabled at build time) |
 
 ## Architecture
@@ -70,9 +71,10 @@ This is a client-rendered React SPA with two additions layered on top for SEO an
      page-specific ones, and writes a static `dist/<path>/index.html`. The client JS
      bundle is still referenced, so once it loads, React hydrates and takes over as a
      normal SPA.
-   - This whole sequence is wired into `npm run build`, and `npm run sitemap` /
-     `prebuild` regenerates `public/sitemap.xml` from the same route data before the
-     build runs.
+   - This whole sequence is wired into `npm run build`. Course pages are capped at
+     `PRERENDER_COURSE_LIMIT` (400 by default); the rest are still served by the SPA.
+   - `npm run sitemap` regenerates `public/sitemap.xml` from the same route data. It is
+     **not** part of the build, so run it after changing course data.
 
 3. **Payments backend (duplicated across two providers)** — the "Apply For Me" paid
    plan (R100, one-time) uses Yoco's hosted checkout. There are **two independent,
@@ -109,15 +111,18 @@ This is a client-rendered React SPA with two additions layered on top for SEO an
   subject list (all 11 official languages × Home Language/First Additional Language,
   plus all standard NSC subjects). Grade/status determines which institution types
   (university vs. college) the learner is even eligible to browse.
-- **Matching engine** (`src/utils/marksToAPS.js`, `src/utils/apsRules.js`,
-  `src/utils/subjectMatch.js`):
+- **Matching engine** (`src/utils/marksToAPS.js`, `src/utils/subjectMatch.js`):
   - Converts each percentage mark to an NSC achievement level (1–7) via standard
     band cutoffs (80/70/60/50/40/30%).
-  - Computes a **general APS** and per-university APS using **institution-specific
-    rules** — e.g. University of Johannesburg caps Life Orientation's contribution at
-    3 points, University of Pretoria excludes LO entirely, Wits sums only the
-    learner's best 6 subjects plus a capped LO contribution, while UNISA/TUT sum all
-    subjects unmodified.
+  - Computes a **general APS** (best 6 levels, Life Orientation excluded) and a
+    per-university score using **institution-specific models** (`UNIVERSITY_MODELS`):
+    most universities use the generic best-6 model, while Wits, UCT, Stellenbosch,
+    UKZN, UWC, UNIZULU, UNIVEN, Rhodes, Sol Plaatje, MUT, NMU and Sefako Makgatho each
+    have their own scale (e.g. Wits' weighted bands with a Maths/English bonus, UCT's
+    percentage sum out of 600). Some rules are per course rather than per
+    institution: CPUT's three APS methods (`apsMethod` on the course) and NMU's
+    course-required subjects. Each model's comment cites the prospectus it follows,
+    and `marksToAPS.test.js` reproduces the prospectuses' worked examples.
   - Fuzzy subject matching (`subjectMatches`) reconciles course requirements written
     in short form (e.g. "English") against full NSC subject names the learner
     entered (e.g. "English Home Language"), while explicitly preventing false
@@ -151,7 +156,11 @@ This is a client-rendered React SPA with two additions layered on top for SEO an
   user's `plan` field in Firestore once payment succeeds.
 
 ### Admin panel (`/admin`, `RequireAdmin`)
-A large (~3,000+ line) single-file admin interface (`src/pages/Admin.jsx`) supporting:
+`src/pages/Admin.jsx` is a thin shell (tab navigation and toasts). Each tab is a
+component in `src/pages/admin/` (`UsersTab`, `CoursesTab`, …), and each area's state and
+actions live in a hook there (`useAdminUsers`, `useAdminCourses`,
+`useApplicationWindows`, `useAuditLog`). The hooks are owned by the shell rather
+than the tabs, so filters survive switching tabs. It supports:
 - **Role-based access**: `super` (hardcoded email, cannot be revoked from the UI,
   always granted full access even if their Firestore doc is deleted), `admin` (full
   panel except the super-admin guarantee), and `moderator` (courses tab only).
@@ -175,15 +184,16 @@ A large (~3,000+ line) single-file admin interface (`src/pages/Admin.jsx`) suppo
   that drive the "open for applications" status seen by learners.
 - **User management**: promote/demote admin roles, view user data, trigger
   password resets.
-- **Audit log**: presumably records admin actions (course edits, role changes,
-  etc.) for accountability.
+- **Audit log**: records every course add/edit/delete (with a field-level diff for
+  edits) and who made it; visible to the super admin only.
 - **Seed-exclusion handling**: logic to prevent originally-seeded courses that an
   admin has since deleted from silently reappearing on the next data seed/import.
 
 ## Data model
 
-**Firestore collections** (inferred from the code, no `firestore.indexes.json`/schema
-file is present beyond `firestore.rules`):
+**Firestore collections** (inferred from the code; there's no schema file, and
+`firestore.rules` is referenced from `firebase.json` but **missing from the repo** —
+see [known issues](#known-issues-rough-edges--security-notes)):
 - `users/{uid}` — `plan` ("free" / "ad_free" / "apply_for_me"), `paidAt`, `paymentId`,
   `amountPaid`, `isAdmin`, `adminRole`, `email`, saved subject marks, grade/status,
   `applySelections` (the round 1/2/3 course picks keyed by institution).
@@ -193,15 +203,22 @@ file is present beyond `firestore.rules`):
   college-only `minGrade`/`minNQFLevel`/`curriculum`).
 - `institutionSettings/{institutionName}` — `{ openDate, closeDate, updatedAt,
   updatedBy }`, driving application-window status.
+- `facultySettings/{institution}|||{faculty}` — optional per-faculty override of the
+  institution's window, same shape.
+- `courseAuditLogs/{id}` — one entry per admin course add/edit/delete.
+- `meta/seedExclusions` — `{ keys: [...] }`, dedupe keys of courses an admin deleted,
+  so re-seeding from the JSON doesn't bring them back.
 
 **Static JSON data** (bundled with the app, used for the public prerendered pages
 and as source data for course seeding):
-- `src/data/courses.json` (~356 KB) — university course catalog.
-- `src/data/college-courses.json` (~96 KB) — college/TVET course catalog, with the
-  `campuses` expansion structure described above.
+- `src/data/courses.json` (~1.6 MB, ~1,940 courses) — university course catalog.
+- `src/data/college-courses.json` (~470 KB, ~300 entries that expand to ~600 course
+  docs) — college/TVET course catalog, with the `campuses` expansion structure
+  described above (`src/utils/collegeCourses.js`).
 
-Firestore security rules live in `firestore.rules` (referenced from `firebase.json`)
-— review that file directly for the actual read/write access model.
+Note that the public course pages read these JSON files, while the matcher on
+`/results` reads the `courses` collection in Firestore. Admin edits only change
+Firestore, so the two can drift apart until the JSON is updated.
 
 ## Project structure
 
@@ -213,7 +230,7 @@ course-finder-app/
 ├── functions/                   # Firebase Cloud Functions (v2) — parallel Yoco impl.
 │   ├── index.js
 │   ├── package.json
-│   └── .env                     # tracked in git — see Known Issues
+│   └── .env.example
 ├── scripts/
 │   ├── routes.mjs               # shared institution/course slug + URL derivation
 │   ├── generate-sitemap.mjs     # builds public/sitemap.xml
@@ -223,22 +240,29 @@ course-finder-app/
 │   ├── data/                    # courses.json, college-courses.json
 │   ├── pages/
 │   │   ├── public/               # CoursesDirectory, InstitutionCourses, CourseDetail (SSR'd)
+│   │   ├── admin/                # admin tabs, panels and the hooks holding their state
+│   │   ├── results/              # CourseCard, RoundReview, ContactDetailsStep
 │   │   ├── Welcome.jsx, SignIn.jsx, SignUp.jsx
 │   │   ├── EnterMarks.jsx, Results.jsx, ExamNumberEntry.jsx
-│   │   ├── Admin.jsx             # large admin panel
+│   │   ├── Admin.jsx             # admin shell: tabs + toasts
 │   │   ├── PaymentSuccess.jsx
 │   │   └── Details.jsx           # currently empty (0 bytes)
-│   ├── utils/                    # APS rules, mark conversion, subject matching, slugs, etc.
+│   ├── utils/                    # APS models, subject matching, apply-round selection, slugs, etc.
 │   ├── App.jsx, main.jsx, entry-server.jsx, firebase.js
+├── .github/workflows/ci.yml     # lint, test and build on every push / PR
 ├── deduplicate-courses.mjs      # one-off Firestore maintenance script (needs serviceAccountKey.json)
-├── verify-college-matching.mjs  # one-off script to sanity-check college matching logic against the JSON data
-├── register-webhook.js          # one-off script to register the Yoco webhook — contains a live secret key, see below
+├── verify-college-matching.mjs  # superseded by src/utils/collegeCourses.test.js (and broken by data changes)
+├── register-webhook.js          # one-off script to register the Yoco webhook (reads YOCO_SECRET_KEY from env)
 ├── build-ewc-courses.mjs        # currently empty (0 bytes)
-├── firebase.json, firestore.rules, .firebaserc
+├── firebase.json, .firebaserc   # firebase.json references firestore.rules, which is missing
 ├── vercel.json
 ├── vite.config.js, tailwind.config.js, postcss.config.js
 └── package.json
 ```
+
+Tests sit next to the code they cover (`*.test.js` / `*.test.jsx`). `Admin.test.jsx` and
+`Results.test.jsx` are smoke tests that render the pages against an in-memory
+fake of Firestore and click through every tab and the full apply flow.
 
 ## Getting started
 
@@ -250,6 +274,7 @@ git clone https://github.com/Alpha10-1/course-finder-app.git
 cd course-finder-app
 npm install
 npm run dev
+npm test        # unit + smoke tests (no Firebase connection needed)
 ```
 
 This starts the Vite dev server (`server.host = true`, so it's reachable from other
@@ -295,9 +320,10 @@ editing that file.
 |---|---|
 | `npm run dev` | Starts the Vite dev server |
 | `npm run sitemap` | Regenerates `public/sitemap.xml` from current course data |
-| `npm run build` | Full production build: client bundle → SSR bundle → prerender public course pages → clean up `dist-ssr` (runs `sitemap` first via `prebuild`) |
+| `npm run build` | Full production build: client bundle → SSR bundle → prerender public course pages → clean up `dist-ssr` |
 | `npm run preview` | Serves the built `dist/` locally to sanity-check the production build |
 | `npm run lint` | Runs ESLint across the project |
+| `npm test` | Runs the Vitest suite once (`npm run test:watch` to re-run on save) |
 
 ## Maintenance scripts
 
@@ -309,14 +335,13 @@ directly with `node <script>` when needed:
   Project Settings → Service Accounts and place at the project root — it is not
   included in the repo) and removes duplicate `courses` documents based on a
   normalized name+institution key.
-- **`verify-college-matching.mjs`** — a standalone sanity check that expands
-  `college-courses.json` the same way the app does and runs sample learner
-  profiles through the matching logic, printing pass/fail results to the console.
-  Useful for validating changes to college matching rules without needing the full
-  app or a Firestore connection.
+- **`verify-college-matching.mjs`** — an older standalone check of college matching
+  against the JSON data. It no longer runs (the course it looks up was renamed)
+  and is superseded by `src/utils/collegeCourses.test.js`; safe to delete.
 - **`register-webhook.js`** — one-time script to register the production Yoco
-  webhook URL with Yoco's API. **Contains a hardcoded live secret key — see Known
-  Issues below before running or committing further changes to this file.**
+  webhook URL with Yoco's API:
+  `YOCO_SECRET_KEY=sk_live_... node register-webhook.js`. An earlier version had a
+  live key hardcoded — see Known Issues.
 
 ## Deployment
 
@@ -341,21 +366,29 @@ both — see [Known issues](#known-issues-rough-edges--security-notes).
 
 ## Known issues, rough edges & security notes
 
-**Secrets committed to the repository — action needed:**
-- `functions/.env` is tracked in git and contains live values for
-  `YOCO_SECRET_KEY` and `YOCO_WEBHOOK_SECRET`.
-- `register-webhook.js` has a live Yoco secret key hardcoded directly in the file.
-- Git history shows a Firebase `serviceAccountKey.json` (a Firebase Admin private
-  key) was committed and later removed in commit `3e605f8` ("Delete
-  serviceAccountKey.json") — but deleting a file in a new commit does **not**
-  remove it from earlier commits, so it's still fully recoverable from git history
-  in this public repository.
+**Secrets in git history — action needed:**
+- `functions/.env` (live `YOCO_SECRET_KEY` and `YOCO_WEBHOOK_SECRET`), a live Yoco
+  key hardcoded in `register-webhook.js`, and a Firebase `serviceAccountKey.json`
+  (removed in `3e605f8`) were all committed at some point. They're gone from the
+  current tree and `.gitignore` now covers them, but deleting a file in a new commit
+  does **not** remove it from earlier commits — they're still recoverable from the
+  history of this public repository.
 - **Recommended action**: rotate the Yoco secret key and webhook secret, generate
   a fresh Firebase service account key (and revoke the old one from the Firebase
-  Console), remove `functions/.env` from git tracking and add it to `.gitignore`,
-  and consider rewriting git history (e.g. with `git filter-repo` or the BFG Repo
-  Cleaner) to purge the old key material if you want it gone from the repo
-  entirely — rotation alone doesn't remove it from history, just neutralizes it.
+  Console), and consider rewriting git history (e.g. with `git filter-repo` or the
+  BFG Repo Cleaner) — rotation neutralizes the old keys; only a rewrite removes them.
+
+**`firestore.rules` is missing from the repo**: `firebase.json` points at it, but
+the live rules exist only in the Firebase Console. The browser writes to
+`users/{uid}` directly (marks, selections), so the rules must stop users from
+changing their own `plan`, `isAdmin` and `adminRole` fields — otherwise anyone can
+grant themselves the paid plan or the admin panel from the browser console. Export
+the live rules into the repo and check this.
+
+**Payment webhooks skip verification when unconfigured**: both `api/yoco-webhook.js`
+and `functions/index.js` accept events without checking the signature if
+`YOCO_WEBHOOK_SECRET` isn't set, so a missing env var would let anyone post a fake
+"payment succeeded" event. They should reject instead.
 
 **Duplicated payment backend**: `api/` (Vercel) and `functions/` (Firebase) both
 implement Yoco checkout creation and webhook handling independently, with slightly
@@ -373,11 +406,19 @@ these means editing source and redeploying, and the super-admin email in
 particular is a single point of privileged access with no rotation mechanism
 built into the UI.
 
-**Empty/placeholder files**: `src/pages/Details.jsx` and `build-ewc-courses.mjs`
-are both 0 bytes — likely in-progress or abandoned work.
+**Leftover files**: `src/pages/Details.jsx` and `build-ewc-courses.mjs` are both
+0 bytes, `y/` and `yes/` hold Firebase's default "Welcome to Firebase Hosting" page
+(leftovers from `firebase init`), and `verify-college-matching.mjs` is superseded by
+tests — all safe to delete.
 
-**No automated tests**: there's no test runner, test files, or CI configuration
-in the repo — `npm run lint` is the only automated check currently available.
+**`/results` downloads the whole catalogue**: every visit reads every document in
+the `courses` collection (~2,500), which is slow on mobile data and uses a lot of
+Firestore reads (the free tier's 50k/day covers only ~20 visits).
+
+**Admin "Delete user" leaves the Auth account**: deleting the Auth account is a
+client-side REST call that needs admin credentials, so it always fails silently and
+only the Firestore document is removed. Delete the account in the Firebase Console,
+or move this into a Cloud Function.
 
 **No `firestore.indexes.json`**: composite Firestore query indexes (if any are
 needed as the `courses` collection grows) aren't captured in the repo; they'd need

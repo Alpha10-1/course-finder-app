@@ -1,26 +1,9 @@
 import { readFileSync } from "fs";
 import { meetsKeySubjects } from "./src/utils/subjectMatch.js";
-import { meetsCollegeRequirement, getEffectiveMinAPS } from "./src/utils/marksToAPS.js";
+import { meetsCollegeRequirement } from "./src/utils/marksToAPS.js";
+import { expandCollegeCourse } from "./src/utils/collegeCourses.js";
 
 const collegeCourses = JSON.parse(readFileSync("./src/data/college-courses.json", "utf8"));
-
-function expandCollegeCourse(entry) {
-  const { campuses, curriculum, _comment, ...base } = entry;
-  if (!campuses || campuses.length === 0) {
-    return [{ institutionType: "college", keySubjects: [], faculty: "", ...base, curriculum: curriculum || null }];
-  }
-  return campuses.map((campusObj) => {
-    const exclude = new Set((campusObj.excludeVocational || []).map((s) => s.trim().toLowerCase()));
-    const vocationalSubjects = (curriculum?.vocationalSubjects || []).filter(
-      (v) => !exclude.has((v.subject || "").trim().toLowerCase())
-    );
-    return {
-      institutionType: "college", keySubjects: [], faculty: "", ...base,
-      campus: campusObj.campus,
-      curriculum: curriculum ? { ...curriculum, vocationalSubjects } : null,
-    };
-  });
-}
 
 const expanded = collegeCourses.flatMap(expandCollegeCourse);
 console.log(`Expanded ${collegeCourses.length} source entries -> ${expanded.length} course docs\n`);

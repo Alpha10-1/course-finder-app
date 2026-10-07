@@ -4,75 +4,7 @@ import { calculateGeneralAPS } from "../utils/marksToAPS";
 import { auth, db } from "../firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
-
-const SUBJECTS = [
-    "Afrikaans Home Language",
-    "Afrikaans First Additional Language",
-    "English Home Language",
-    "English First Additional Language",
-    "isiNdebele Home Language",
-    "isiNdebele First Additional Language",
-    "isiXhosa Home Language",
-    "isiXhosa First Additional Language",
-    "isiZulu Home Language",
-    "isiZulu First Additional Language",
-    "Sepedi Home Language",
-    "Sepedi First Additional Language",
-    "Sesotho Home Language",
-    "Sesotho First Additional Language",
-    "Setswana Home Language",
-    "Setswana First Additional Language",
-    "Siswati Home Language",
-    "Siswati First Additional Language",
-    "South African Sign Language Home Language",
-    "South African Sign Language First Additional Language",
-    "Tshivenda Home Language",
-    "Tshivenda First Additional Language",
-    "Xitsonga Home Language",
-    "Xitsonga First Additional Language",
-    "Accounting",
-    "Agricultural Management Practices",
-    "Agricultural Sciences",
-    "Agricultural Technology",
-    "Business Studies",
-    "CAT (Computer Applications Technology)",
-    "Civil Technology",
-    "Consumer Studies",
-    "Dance Studies",
-    "Design",
-    "Dramatic Arts",
-    "Economics",
-    "Electrical Technology",
-    "Engineering Graphics and Design",
-    "Geography",
-    "History",
-    "Hospitality Studies",
-    "IT (Information Technology)",
-    "Life Orientation",
-    "Life Sciences",
-    "Marine Sciences",
-    "Maritime Economics",
-    "Mathematical Literacy",
-    "Mathematics",
-    "Mechanical Technology",
-    "Music",
-    "Physical Sciences",
-    "Religion Studies",
-    "Technical Mathematics",
-    "Technical Science",
-    "Tourism",
-    "Visual Arts",
-];
-
-const DEFAULT_ROWS = [
-  { subject: "English Home Language", mark: "" },
-  { subject: "Mathematics", mark: "" },
-  { subject: "Life Orientation", mark: "" },
-  { subject: "Accounting", mark: "" },
-  { subject: "Business Studies", mark: "" },
-  { subject: "Geography", mark: "" },
-  { subject: "Physical Sciences", mark: "" },
-];
+import { NSC_SUBJECTS, DEFAULT_SUBJECT_ROWS } from "../utils/nscSubjects";
 
 // ── Grade / status options ────────────────────────────────────────────────────
 const GRADES = ["Grade 9", "Grade 10", "Grade 11", "Grade 12"];
@@ -96,8 +28,6 @@ function getAccessLevel(grade, status) {
 
   return null;
 }
-
-const inputCls = "w-full p-3 border border-gray-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-purple-300 text-gray-800";
 
 // ── Mark-edit restriction rules ───────────────────────────────────────────────
 // Users get MAX_MARK_EDITS "real" edits. An edit only counts against that limit
@@ -128,7 +58,7 @@ export default function EnterMarks() {
   const [accessLevel, setAccessLevel] = useState(null);
 
   // ── Marks step ────────────────────────────────────────────────────────────
-  const [rows,      setRows]      = useState(DEFAULT_ROWS);
+  const [rows,      setRows]      = useState(DEFAULT_SUBJECT_ROWS);
   const [aps,       setAps]       = useState(null);
   const [loading,   setLoading]   = useState(true);
   const [restored,  setRestored]  = useState(false);
@@ -207,7 +137,7 @@ export default function EnterMarks() {
     setAps(null);
   };
 
-  const addRow    = () => { setRows([...rows, { subject: SUBJECTS[0], mark: "" }]); setAps(null); };
+  const addRow    = () => { setRows([...rows, { subject: NSC_SUBJECTS[0], mark: "" }]); setAps(null); };
   const removeRow = (i) => { setRows(rows.filter((_, idx) => idx !== i)); setAps(null); };
 
   const getFilledSubjects = () =>
@@ -482,7 +412,7 @@ export default function EnterMarks() {
               <div className="relative flex-1">
                 <select value={row.subject} onChange={(e) => handleSubjectChange(index, e.target.value)}
                   className="w-full p-3 border border-gray-200 rounded-lg bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-purple-300 text-gray-800">
-                  {SUBJECTS.map((s) => <option key={s} value={s}>{s}</option>)}
+                  {NSC_SUBJECTS.map((s) => <option key={s} value={s}>{s}</option>)}
                 </select>
                 <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">▾</div>
               </div>

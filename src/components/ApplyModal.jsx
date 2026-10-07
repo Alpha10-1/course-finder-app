@@ -12,7 +12,6 @@ export default function ApplyModal({ courses, onClose }) {
   const [selections,  setSelections]  = useState({});     // { institution: { 1: course, 2: course, 3: course } }
   const [saving,      setSaving]      = useState(false);
   const [saved,       setSaved]       = useState(false);
-  const [existing,    setExisting]    = useState(null);   // previously saved selections
 
   // Load any existing saved selections
   useEffect(() => {
@@ -22,7 +21,6 @@ export default function ApplyModal({ courses, onClose }) {
       if (snap.exists() && snap.data().applySelections) {
         const sel = snap.data().applySelections;
         setSelections(sel);
-        setExisting(sel);
         // Resume from where they left off
         const institutionsPicked = Object.keys(sel);
         if (institutionsPicked.length === 6) {

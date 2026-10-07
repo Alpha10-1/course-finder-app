@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { auth, db } from "../firebase";
 import { doc, onSnapshot, getDoc } from "firebase/firestore";
@@ -15,14 +15,16 @@ const PLAN_LABELS = {
 const WEBHOOK_TIMEOUT_MS = 45000;
 
 export default function PaymentSuccess() {
-  const [status,  setStatus]  = useState("upgrading"); // upgrading | done | pending | error
-  const [planId,  setPlanId]  = useState("");
+  const [confirmStatus, setStatus] = useState("upgrading"); // upgrading | done | pending
   const [searchParams]        = useSearchParams();
   const navigate              = useNavigate();
-  const uidRef                = useRef(null);
+  const uid                   = searchParams.get("uid");
+  const planId                = searchParams.get("plan") || "";
+  // Missing redirect params can't be recovered from — derived rather than
+  // stored so the effect below never has to set state synchronously.
+  const status                = !uid || !planId ? "error" : confirmStatus;
 
   const checkNow = async () => {
-    const uid = uidRef.current;
     if (!uid || !planId) return;
     try {
       const snap = await getDoc(doc(db, "users", uid));
@@ -37,16 +39,7 @@ export default function PaymentSuccess() {
   };
 
   useEffect(() => {
-    const uid  = searchParams.get("uid");
-    const plan = searchParams.get("plan");
-
-    if (!uid || !plan) {
-      setStatus("error");
-      return;
-    }
-
-    uidRef.current = uid;
-    setPlanId(plan);
+    if (!uid || !planId) return;
 
     let unsubSnapshot = null;
     let timeoutId      = null;
@@ -65,7 +58,7 @@ export default function PaymentSuccess() {
       // trusting the redirect's query params alone would let anyone unlock
       // the paid feature without actually paying.
       unsubSnapshot = onSnapshot(doc(db, "users", uid), (snap) => {
-        if (snap.exists() && snap.data().plan === plan) {
+        if (snap.exists() && snap.data().plan === planId) {
           setStatus("done");
           if (timeoutId) clearTimeout(timeoutId);
         }
@@ -81,7 +74,7 @@ export default function PaymentSuccess() {
       if (unsubSnapshot) unsubSnapshot();
       if (timeoutId) clearTimeout(timeoutId);
     };
-  }, [navigate, searchParams]);
+  }, [navigate, uid, planId]);
 
   const plan = PLAN_LABELS[planId];
 

@@ -1,9 +1,16 @@
 // Run this ONCE after deploying to Vercel:
-// node register-webhook.js
+// YOCO_SECRET_KEY=sk_live_... node register-webhook.js
 
+const YOCO_SECRET_KEY = process.env.YOCO_SECRET_KEY;
 const WEBHOOK_URL     = "https://course-finder-app-zeta.vercel.app/api/yoco-webhook"; // your Vercel URL
 
 async function register() {
+  if (!YOCO_SECRET_KEY) {
+    console.error("❌ Set YOCO_SECRET_KEY in the environment before running this script.");
+    process.exitCode = 1;
+    return;
+  }
+
   console.log("Checking existing webhooks...");
 
   // First list existing webhooks

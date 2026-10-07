@@ -199,3 +199,47 @@ export function meetsKeySubjects(userSubjects, keySubjects) {
     );
   });
 }
+
+/**
+ * Per-requirement breakdown for a course's detail view: one entry per
+ * keySubjects row with a readable label, whether the learner meets it, and
+ * (for single-subject rows) the learner's own mark so the UI can show
+ * "you have 45%".
+ *
+ * @param {Array<{subject: string, mark: number|string}>} userSubjects
+ * @param {Array} keySubjects
+ * @returns {Array<{label: string, met: boolean, userMark?: number|null}>}
+ */
+export function getKeySubjectStatus(userSubjects, keySubjects) {
+  if (!keySubjects || keySubjects.length === 0) return [];
+  const markOf = (s) => (s ? parseInt(s.mark, 10) : null);
+  const anyNonLO = (minMark) =>
+    userSubjects.find((s) => !isLifeOrientationName(s.subject) && safeMark(s.mark) >= minMark);
+  const otherLanguage = (minMark) =>
+    userSubjects.find(
+      (s) => isLanguageSubjectName(s.subject) && !subjectMatches(s.subject, "English") && safeMark(s.mark) >= minMark
+    );
+
+  return keySubjects.map((req) => {
+    if (req.subjectGroup) {
+      const met = req.subjectGroup.some((opt) => {
+        if (isGenericCreditSubject(opt.subject)) return !!anyNonLO(opt.minMark);
+        if (isAnotherLanguagePlaceholder(opt.subject)) return !!otherLanguage(opt.minMark);
+        return userSubjects.some((s) => subjectMatches(s.subject, opt.subject) && safeMark(s.mark) >= opt.minMark);
+      });
+      return { label: req.subjectGroup.map((o) => `${o.subject} ≥${o.minMark}%`).join(" or "), met };
+    }
+
+    const label = `${req.subject} ≥${req.minMark}%`;
+    if (isGenericCreditSubject(req.subject)) {
+      const match = anyNonLO(req.minMark);
+      return { label, met: !!match, userMark: markOf(match) };
+    }
+    if (isAnotherLanguagePlaceholder(req.subject)) {
+      const match = otherLanguage(req.minMark);
+      return { label, met: !!match, userMark: markOf(match) };
+    }
+    const userSubj = userSubjects.find((s) => subjectMatches(s.subject, req.subject));
+    return { label, met: !!userSubj && safeMark(userSubj.mark) >= req.minMark, userMark: markOf(userSubj) };
+  });
+}

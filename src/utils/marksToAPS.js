@@ -161,7 +161,7 @@ function aps_nsc_49(subjects) {
  */
 function aps_wits(subjects) {
   const scored = subjects.map((s) => {
-    let pts = 0;
+    let pts;
     if (isLifeOrientation(s.subject)) {
       pts = witsBandLO(s.mark);
     } else {
@@ -281,7 +281,7 @@ function aps_uwc(subjects) {
     let category;
     if (isLifeOrientation(s.subject)) category = "lo";
     else if (isEnglish(s.subject)) category = "english";
-    else if (isMaths(s.subject)) category = "maths"; // includes Mathematical Literacy — see note above
+    else if (isMaths(s.subject)) category = "maths"; // Mathematical Literacy falls through to "other" — see note above
     else category = "other";
     total += band[category];
   });
