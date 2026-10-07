@@ -55,7 +55,12 @@ const uni = (id, courseName, institution, extra = {}) => ({
 });
 
 const COURSES = [
-  uni("c1", "BSc Computer Science", "University of Johannesburg", { minAPS: 30, keySubjects: [{ subject: "Mathematics", minMark: 60 }] }),
+  uni("c1", "BSc Computer Science", "University of Johannesburg", {
+    minAPS: 30, keySubjects: [{ subject: "Mathematics", minMark: 60 }],
+    additionalRequirements: "Applicants with an APS of 28-29 may be wait-listed.", selectionProcess: true,
+  }),
+  // APS 35 vs 37 needed and Maths 70 vs 75 — unlocked by +5% on every subject
+  uni("c7", "BSc Actuarial Science", "University of Johannesburg", { minAPS: 37, keySubjects: [{ subject: "Mathematics", minMark: 75 }] }),
   uni("c2", "BCom Accounting", "University of Johannesburg", { faculty: "Commerce", minAPS: 28 }),
   uni("c3", "BSc Engineering", "University of the Witwatersrand", { faculty: "Engineering", minAPS: 42, keySubjects: [{ subject: "Mathematics", minMark: 70 }] }),
   uni("c4", "BSc Extended Programme", "University of Pretoria", { qualificationType: "Bachelor (Extended)" }),
@@ -100,8 +105,50 @@ describe("Results page smoke test", () => {
     fireEvent.click(screen.getByText("BSc Computer Science"));
     expect(screen.getByText(/Min APS: 30/)).toBeTruthy();
     expect(screen.getByText(/Mathematics ≥60%/)).toBeTruthy();
+    expect(screen.getByText(/may be wait-listed/)).toBeTruthy();
+    expect(screen.getByText(/has a selection process/)).toBeTruthy();
     fireEvent.click(screen.getByText("BSc Engineering"));
     expect(screen.getByText(/Wits APS/)).toBeTruthy();
+  });
+
+  it("shows courses within reach and what's missing for each", async () => {
+    await renderResults();
+    expect(screen.getByText("Within reach (1)")).toBeTruthy();
+    expect(screen.getByText("BSc Actuarial Science")).toBeTruthy();
+    expect(screen.getByText("+5% needed")).toBeTruthy();
+    expect(screen.getByText("APS 35 — need 37")).toBeTruthy();
+    expect(screen.getByText("Mathematics ≥75% — you have 70%")).toBeTruthy();
+  });
+
+  it("lets the learner try different marks without saving them", async () => {
+    await renderResults();
+    fireEvent.click(screen.getByRole("button", { name: /What if my marks change/ }));
+    fireEvent.click(screen.getByRole("button", { name: "+5% on every subject" }));
+    expect(screen.getByText("(+1 new)")).toBeTruthy();
+    expect(screen.getByText(/APS \(best 6\): 35/).textContent).toMatch(/35 → 38/);
+    expect(screen.getAllByText("BSc Actuarial Science")).toHaveLength(2); // what-if list + within reach
+
+    fireEvent.change(screen.getByLabelText("What-if mark for Mathematics"), { target: { value: "40" } });
+    expect(screen.getByText(/fewer\)/)).toBeTruthy();
+    expect(fake.setDoc).not.toHaveBeenCalled();
+  });
+
+  it("shows paying learners which applications have been lodged", async () => {
+    fake.userDoc = {
+      ...fake.userDoc,
+      applyStatus: "submitted",
+      applySelections: {
+        "University of Johannesburg": { 1: { id: "c1", courseName: "BSc Computer Science" } },
+        "University of the Witwatersrand": { 1: { id: "c3", courseName: "BSc Engineering" } },
+      },
+      applicationProgress: { "University of Johannesburg": { applied: true, appliedAt: "2026-05-03T10:00:00Z" } },
+    };
+    await renderResults();
+    expect(screen.getByText("We've applied to 1 of 2 institutions so far.")).toBeTruthy();
+    expect(screen.getByText(/✓ Applied/)).toBeTruthy();
+    expect(screen.getByText("⏳ Not yet applied")).toBeTruthy();
+    // Choices can't be edited once applications have been lodged
+    expect(screen.queryByRole("button", { name: "Edit selections" })).toBeNull();
   });
 
   it("filters by search term and switches to colleges", async () => {

@@ -1,8 +1,16 @@
 import { calculateAPSForCourse, getCompletionLabel, getEffectiveMinAPS } from "../../utils/marksToAPS";
 import { getKeySubjectStatus } from "../../utils/subjectMatch";
 import { getCourseDisplayStatus, getInstitutionApplicationStatus } from "../../utils/institutionStatus";
+import { getAdmissionNotes, NOTE_ICONS } from "../../utils/courseNotes";
 import CourseStatusBadge from "../../components/CourseStatusBadge";
 import { ROUND_INFO } from "./roundInfo";
+
+const NOTE_STYLES = {
+  requirement: "text-amber-700 bg-amber-50",
+  additional:  "text-blue-700 bg-blue-50",
+  selection:   "text-purple-700 bg-purple-50",
+  deadline:    "text-gray-700 bg-gray-100",
+};
 
 // Collapsed list row that expands into the full course tile.
 export default function CourseCard({
@@ -15,6 +23,7 @@ export default function CourseCard({
   // e.g. CPUT's Method 1/2/3, are used.
   const { score: uniScore, label: uniLabel } = calculateAPSForCourse(course, subjects);
   const keyStatus = getKeySubjectStatus(subjects, course.keySubjects);
+  const notes = getAdmissionNotes(course);
   const requiredAPS = getEffectiveMinAPS(course, subjects);
   const usingAltAPS = requiredAPS !== (Number(course.minAPS) || 0);
   const isGreen   = colorScheme === "green";
@@ -91,11 +100,6 @@ export default function CourseCard({
                   {course.minNQFLevel && <span className="font-medium text-gray-700">NQF Level {course.minNQFLevel}</span>}
                 </p>
               )}
-              {course.admissionRequirement && (
-                <p className="text-amber-700 text-xs mt-1 bg-amber-50 rounded-lg px-2 py-1.5 leading-relaxed">
-                  📋 {course.admissionRequirement}
-                </p>
-              )}
               {course.curriculum && (course.curriculum.fundamentalSubjects?.length > 0 || course.curriculum.vocationalSubjects?.length > 0) && (
                 <div className="mt-2 bg-gray-50 rounded-lg px-2 py-1.5 space-y-1.5">
                   {course.curriculum.fundamentalSubjects?.length > 0 && (
@@ -138,6 +142,15 @@ export default function CourseCard({
                 <p key={i} className={`text-xs flex items-center gap-1 ${req.met ? "text-green-600" : "text-red-500"}`}>
                   {req.met ? "✓" : "✗"} {req.label}
                   {!req.met && req.userMark !== null && <span className="text-gray-400">(you have {req.userMark}%)</span>}
+                </p>
+              ))}
+            </div>
+          )}
+          {notes.length > 0 && (
+            <div className="mt-2 space-y-1">
+              {notes.map((note) => (
+                <p key={note.kind} className={`text-xs rounded-lg px-2 py-1.5 leading-relaxed ${NOTE_STYLES[note.kind]}`}>
+                  {NOTE_ICONS[note.kind]} {note.text}
                 </p>
               ))}
             </div>

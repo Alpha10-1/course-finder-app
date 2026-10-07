@@ -1,9 +1,9 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc, setDoc, collection, getDocs } from "firebase/firestore";
-import { calculateAPSForCourse, calculateGeneralAPS, meetsCollegeRequirement, getEffectiveMinAPS } from "../utils/marksToAPS";
-import { meetsKeySubjects } from "../utils/subjectMatch";
+import { calculateGeneralAPS } from "../utils/marksToAPS";
+import { courseQualifies } from "../utils/matching";
 import { getInstitutionApplicationStatus, fetchApplicationWindowSettings } from "../utils/institutionStatus";
 import { MAX_INSTITUTIONS, getCourseSelectionRound, isRoundComplete } from "../utils/applySelection";
 import { db, auth } from "../firebase";
@@ -11,6 +11,9 @@ import PricingModal from "../components/PricingModal";
 import CourseCard from "./results/CourseCard";
 import RoundReview from "./results/RoundReview";
 import ContactDetailsStep from "./results/ContactDetailsStep";
+import SubmittedSummary from "./results/SubmittedSummary";
+import WithinReach from "./results/WithinReach";
+import WhatIfPanel from "./results/WhatIfPanel";
 import { ROUND_INFO } from "./results/roundInfo";
 
 async function fetchCourses() {
@@ -68,6 +71,8 @@ export default function Results() {
   const [contactEmail,   setContactEmail]   = useState("");
   const [contactError,   setContactError]   = useState("");
   const [submitted,      setSubmitted]      = useState(false);
+  // Which institutions the team has applied to — { [institution]: { applied, appliedAt } }
+  const [applicationProgress, setApplicationProgress] = useState({});
   const [showPricing,    setShowPricing]    = useState(false);
 
   // ── Tab state ─────────────────────────────────────────────────────────────
@@ -76,6 +81,16 @@ export default function Results() {
   const [gradeLabel,     setGradeLabel]     = useState("");
   const [grade,          setGrade]          = useState(null);
   const [gradeStatus,    setGradeStatus]    = useState(null);
+
+  // ── What-if tools ─────────────────────────────────────────────────────────
+  // The whole catalogue (not just qualifying courses), for "within reach" and
+  // the what-if panel. Pools match what the learner can browse: colleges-only
+  // learners never see university suggestions.
+  const [allCourses,     setAllCourses]     = useState([]);
+  const [showWhatIf,     setShowWhatIf]     = useState(false);
+  const universityPool = useMemo(() => allCourses.filter((c) => c.institutionType !== "college"), [allCourses]);
+  const collegePool    = useMemo(() => allCourses.filter((c) => c.institutionType === "college"), [allCourses]);
+  const whatIfPool     = accessLevel === "colleges_only" ? collegePool : allCourses;
 
   // ── Load data ─────────────────────────────────────────────────────────────
   useEffect(() => {
@@ -140,6 +155,7 @@ export default function Results() {
                   );
                 }
                 if (data.applySelections) savedSelections = data.applySelections;
+                if (data.applicationProgress) setApplicationProgress(data.applicationProgress);
                 if (data.applyStatus === "submitted" || data.applySubmittedAt) alreadySubmitted = true;
                 // Pre-fill contact details if already saved
                 if (data.applyPhone) setContactPhone(data.applyPhone);
@@ -164,21 +180,8 @@ export default function Results() {
         ]);
         setInstitutionSettings(windowSettings.institutionSettings);
         setFacultySettings(windowSettings.facultySettings);
-        const qualified = coursesData.filter((course) => {
-          const isCollegeCourse = course.institutionType === "college";
-
-          if (isCollegeCourse) {
-            // Colleges: eligibility based on grade/NQF level, not APS
-            if (!meetsCollegeRequirement(userGrade, userGradeStatus, course)) return false;
-          } else {
-            // Universities: eligibility based on per-institution APS model
-            const { score: uniAps } = calculateAPSForCourse(course, loadedSubjects);
-            const requiredAPS = getEffectiveMinAPS(course, loadedSubjects);
-            if (uniAps < requiredAPS) return false;
-          }
-
-          return meetsKeySubjects(loadedSubjects, course.keySubjects);
-        });
+        const profile = { grade: userGrade, gradeStatus: userGradeStatus };
+        const qualified = coursesData.filter((course) => courseQualifies(course, loadedSubjects, profile));
 
         const EXTENDED_TYPES = ["Bachelor (Extended)", "Extended Diploma"];
 
@@ -192,6 +195,7 @@ export default function Results() {
         setNormalCourses(uniCourses.filter((c) => !EXTENDED_TYPES.includes(c.qualificationType)));
         setExtendedCourses(uniCourses.filter((c) => EXTENDED_TYPES.includes(c.qualificationType)));
         setCollegeCourses(collCourses);
+        setAllCourses(coursesData);
         setUserPlan(plan);
         setUserId(uid);
         setSelections(savedSelections);
@@ -456,6 +460,22 @@ export default function Results() {
               Your APS: <span className="font-bold text-gray-900">{generalAps}</span>
               {gradeLabel && <span className="text-xs text-gray-400 ml-2">· {gradeLabel}</span>}
             </p>
+            {!showWhatIf && (
+              <p className="text-center mb-4">
+                <button onClick={() => setShowWhatIf(true)} className="text-sm text-indigo-600 hover:underline">
+                  🔮 What if my marks change?
+                </button>
+              </p>
+            )}
+            {showWhatIf && (
+              <WhatIfPanel
+                courses={whatIfPool}
+                subjects={subjects}
+                grade={grade}
+                gradeStatus={gradeStatus}
+                onClose={() => setShowWhatIf(false)}
+              />
+            )}
 
             {/* ── Tab switcher ── */}
             <div className="flex rounded-xl bg-gray-100 p-1 mb-6">
@@ -589,26 +609,11 @@ export default function Results() {
 
         {/* ── Submitted state ── */}
         {submitted && !selectionMode && (
-          <div className="bg-green-50 border border-green-200 rounded-2xl p-5 mb-6">
-            <p className="text-green-800 font-bold">✅ Selections submitted!</p>
-            <p className="text-green-600 text-sm mt-1">Our team will begin applying to your chosen institutions.</p>
-            <div className="mt-3 space-y-2">
-              {Object.entries(selections).map(([inst, choices]) => (
-                <div key={inst} className="bg-white rounded-xl p-3">
-                  <p className="font-semibold text-gray-800 text-sm">{inst}</p>
-                  {[1, 2, 3].map((r) => choices[r] && (
-                    <p key={r} className="text-xs text-gray-500 mt-0.5">
-                      <span className="text-purple-600 font-medium">Choice {r}:</span> {choices[r].courseName}
-                    </p>
-                  ))}
-                </div>
-              ))}
-            </div>
-            <button onClick={() => { setSubmitted(false); setSelectionMode(true); }}
-              className="mt-3 text-sm text-purple-600 hover:underline">
-              Edit selections
-            </button>
-          </div>
+          <SubmittedSummary
+            selections={selections}
+            applicationProgress={applicationProgress}
+            onEdit={() => { setSubmitted(false); setSelectionMode(true); }}
+          />
         )}
 
         {/* ── Apply For Me banner — free users ── */}
@@ -736,6 +741,15 @@ export default function Results() {
               <p className="text-gray-400 text-sm">College courses are being added. Check back soon.</p>
             )}
           </div>
+        )}
+
+        {!selectionMode && (
+          <WithinReach
+            courses={isUniTab ? universityPool : collegePool}
+            subjects={subjects}
+            grade={grade}
+            gradeStatus={gradeStatus}
+          />
         )}
 
         <button onClick={() => navigate("/enter-marks")}

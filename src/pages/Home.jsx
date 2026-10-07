@@ -7,6 +7,17 @@ import OnboardingModal from "../components/OnboardingModal";
 import PricingModal from "../components/PricingModal";
 import SocialLinks from "../components/SocialLinks";
 import { isSuperAdmin, getRoleInfo } from "../utils/adminConfig";
+import { getApplicationProgress } from "../utils/applySelection";
+
+// One line telling an Apply For Me learner where their applications stand.
+function describeApplyStatus(user) {
+  if (user.plan !== "apply_for_me") return null;
+  if (user.applyStatus !== "submitted") return "Next step: choose your courses on your results page";
+  const { status, appliedCount, total } = getApplicationProgress(user);
+  if (status === "complete") return `All ${total} applications submitted`;
+  if (appliedCount > 0) return `Applied to ${appliedCount} of ${total} institutions so far`;
+  return "Choices received — we'll start applying soon";
+}
 
 export default function Home() {
   const navigate = useNavigate();
@@ -15,6 +26,7 @@ export default function Home() {
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [showPricing, setShowPricing] = useState(false);
   const [adminRole, setAdminRole] = useState(null); // null | "super" | "admin" | "moderator"
+  const [applyNote, setApplyNote] = useState(null); // Apply For Me progress line, paid users only
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -38,6 +50,7 @@ export default function Home() {
         if (snap.exists()) {
           const data = snap.data();
           setPlan(data.plan || "free");
+          setApplyNote(describeApplyStatus(data));
 
           // Set admin role from Firestore (super admin already set above)
           if (!isSuperAdmin(user.email) && data.isAdmin === true) {
@@ -96,13 +109,8 @@ export default function Home() {
         </p>
 
         <button onClick={() => navigate("/enter-marks")}
-          className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-xl font-semibold shadow-md transition-all mb-4">
-          Enter marks manually
-        </button>
-
-        <button onClick={() => navigate("/exam-number")}
-          className="w-full bg-yellow-400 hover:bg-yellow-500 text-black py-3 rounded-xl font-semibold shadow-md transition-all mb-6">
-          Use Examination Number
+          className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-xl font-semibold shadow-md transition-all mb-6">
+          Enter my marks
         </button>
 
         {/* Admin button — visible to anyone with isAdmin: true in Firestore */}
@@ -119,6 +127,7 @@ export default function Home() {
           <div className="text-left">
             <p className="text-xs text-gray-400">Current plan</p>
             <p className="text-sm font-semibold text-purple-700">{planLabel}</p>
+            {applyNote && <p className="text-xs text-gray-500 mt-0.5">{applyNote}</p>}
           </div>
           {canUpgrade ? (
             <button onClick={() => setShowPricing(true)}

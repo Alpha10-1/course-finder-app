@@ -27,7 +27,7 @@ export default function OnboardingModal({ onClose }) {
             </div>
 
             <div className="space-y-3 mt-2">
-              <Step n="1" title="Enter your marks" desc="Add your NSC subject marks manually or use your exam number." />
+              <Step n="1" title="Enter your marks" desc="Add your NSC subject marks — Grade 11, June or final results all work." />
               <Step n="2" title="We calculate your APS" desc="Each university uses its own scoring method — we handle that automatically." />
               <Step n="3" title="See your qualifying courses" desc="Browse courses you qualify for across South Africa's top universities." />
             </div>

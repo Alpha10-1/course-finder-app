@@ -1,7 +1,8 @@
 import { useMemo } from "react";
 import { auth } from "../../firebase";
 import { isSuperAdmin, getRoleInfo } from "../../utils/adminConfig";
-import { getQualifiedCourses, getApplicationProgress } from "./helpers";
+import { getApplicationProgress } from "../../utils/applySelection";
+import { getQualifiedCourses } from "./helpers";
 import { InfoCell } from "./ui";
 import QualifiedCoursesPanel from "./QualifiedCoursesPanel";
 

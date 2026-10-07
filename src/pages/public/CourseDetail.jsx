@@ -4,6 +4,7 @@ import Seo from "../../components/Seo";
 import CourseStatusBadge from "../../components/CourseStatusBadge";
 import { getCourseBySlugs, getInstitutionBySlug } from "../../utils/publicCourses";
 import { getCourseDisplayStatus, fetchApplicationWindowSettings } from "../../utils/institutionStatus";
+import { describeKeySubject, getAdmissionNotes, NOTE_ICONS } from "../../utils/courseNotes";
 
 export default function CourseDetail() {
   const { institutionSlug, courseSlug } = useParams();
@@ -41,6 +42,7 @@ export default function CourseDetail() {
   }
 
   const isUniversity = course.institutionType === "university";
+  const notes = getAdmissionNotes(course);
   const description = isUniversity
     ? `${course.courseName} at ${course.institution}: minimum APS ${course.minAPS ?? "N/A"}. See qualifying subjects, duration, and how to check if you're eligible.`
     : `${course.courseName} at ${course.institution}: admission requirements, entry grade, and curriculum. See how to check if you're eligible.`;
@@ -103,7 +105,11 @@ export default function CourseDetail() {
               <div className="mt-6">
                 <h2 className="font-semibold text-gray-800 mb-2">Required subjects</h2>
                 <ul className="space-y-1">
-                  {course.keySubjects.map((s, idx) => (
+                  {course.keySubjects.map((s, idx) => s.subjectGroup ? (
+                    <li key={idx} className="text-sm text-gray-600 bg-gray-50 rounded-lg px-3 py-2">
+                      {describeKeySubject(s)}
+                    </li>
+                  ) : (
                     <li key={idx} className="text-sm text-gray-600 flex justify-between bg-gray-50 rounded-lg px-3 py-2">
                       <span>{s.subject}</span>
                       <span className="font-medium">{s.minMark}%+</span>
@@ -113,10 +119,16 @@ export default function CourseDetail() {
               </div>
             )}
 
-            {course.admissionRequirement && (
+            {notes.length > 0 && (
               <div className="mt-6">
-                <h2 className="font-semibold text-gray-800 mb-2">Admission requirement</h2>
-                <p className="text-sm text-gray-600">{course.admissionRequirement}</p>
+                <h2 className="font-semibold text-gray-800 mb-2">Good to know</h2>
+                <ul className="space-y-2">
+                  {notes.map((note) => (
+                    <li key={note.kind} className="text-sm text-gray-600">
+                      {NOTE_ICONS[note.kind]} {note.text}
+                    </li>
+                  ))}
+                </ul>
               </div>
             )}
 

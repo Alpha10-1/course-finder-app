@@ -11,7 +11,7 @@ results are grouped by the actual South African university application process
 managing the course catalog, a paid "Apply For Me" concierge feature via Yoco, and
 SEO-optimized public course pages that are prerendered to static HTML.
 
-Live site: https://mycoursefinder.web.app
+Live site: https://mycoursefinder.web.app · Planned work: [ROADMAP.md](ROADMAP.md)
 
 ---
 
@@ -136,7 +136,12 @@ This is a client-rendered React SPA with two additions layered on top for SEO an
 - **Results** (`/results`) — shows every course the learner qualifies for, split into
   normal-stream, extended/foundation-stream, and college courses, with search and
   filters by faculty, institution, qualification type, and "open for
-  applications only." Also drives the guided **application-round selection flow**:
+  applications only." Each course card also shows its admission notes (wait-list
+  rules, selection processes, deadlines). Below the list, **Within reach** shows
+  courses the learner would qualify for with marks up to 10% higher, and what's
+  missing for each; a **What if my marks change?** panel lets them try different
+  marks without saving them (`src/utils/matching.js`). Also drives the guided
+  **application-round selection flow**:
   - **Round 1** — pick one course per institution, up to 6 institutions (mirroring
     South Africa's real centralized university application process).
   - **Round 2 / 3** — pick a 2nd and 3rd choice course from each of those same 6
@@ -241,9 +246,10 @@ course-finder-app/
 │   ├── pages/
 │   │   ├── public/               # CoursesDirectory, InstitutionCourses, CourseDetail (SSR'd)
 │   │   ├── admin/                # admin tabs, panels and the hooks holding their state
-│   │   ├── results/              # CourseCard, RoundReview, ContactDetailsStep
+│   │   ├── results/              # CourseCard, WithinReach, WhatIfPanel, RoundReview, SubmittedSummary, …
 │   │   ├── Welcome.jsx, SignIn.jsx, SignUp.jsx
-│   │   ├── EnterMarks.jsx, Results.jsx, ExamNumberEntry.jsx
+│   │   ├── EnterMarks.jsx, Results.jsx
+│   │   ├── ExamNumberEntry.jsx   # no longer routed — safe to delete
 │   │   ├── Admin.jsx             # admin shell: tabs + toasts
 │   │   ├── PaymentSuccess.jsx
 │   │   └── Details.jsx           # currently empty (0 bytes)
@@ -408,8 +414,9 @@ built into the UI.
 
 **Leftover files**: `src/pages/Details.jsx` and `build-ewc-courses.mjs` are both
 0 bytes, `y/` and `yes/` hold Firebase's default "Welcome to Firebase Hosting" page
-(leftovers from `firebase init`), and `verify-college-matching.mjs` is superseded by
-tests — all safe to delete.
+(leftovers from `firebase init`), `src/pages/ExamNumberEntry.jsx` is no longer routed
+(`/exam-number` redirects to `/enter-marks`), and `verify-college-matching.mjs` is
+superseded by tests — all safe to delete.
 
 **`/results` downloads the whole catalogue**: every visit reads every document in
 the `courses` collection (~2,500), which is slow on mobile data and uses a lot of

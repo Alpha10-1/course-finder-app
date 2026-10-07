@@ -1,35 +1,12 @@
-import { calculateAPSForCourse, getEffectiveMinAPS, meetsCollegeRequirement } from "../../utils/marksToAPS";
-import { meetsKeySubjects } from "../../utils/subjectMatch";
+import { courseQualifies } from "../../utils/matching";
 
 // Given a learner's saved subjects/grade and the full course catalog, returns
-// every course they currently qualify for — mirrors the matching logic used
-// on the learner-facing Results page (see src/pages/Results.jsx) so the admin
-// view always agrees with what the learner themselves would see.
+// every course they currently qualify for — the same check the learner-facing
+// Results page uses, so the admin view always agrees with what they see.
 export function getQualifiedCourses(user, allCourses) {
   if (!user?.subjects?.length || !allCourses?.length) return [];
   const { subjects, grade, gradeStatus } = user;
-  return allCourses.filter((course) => {
-    if (course.institutionType === "college") {
-      if (!meetsCollegeRequirement(grade, gradeStatus, course)) return false;
-    } else {
-      const { score: uniAps } = calculateAPSForCourse(course, subjects);
-      const requiredAPS = getEffectiveMinAPS(course, subjects);
-      if (uniAps < requiredAPS) return false;
-    }
-    return meetsKeySubjects(subjects, course.keySubjects);
-  });
-}
-
-// Derives per-institution + overall "Apply For Me" application progress from
-// a user's saved course selections and the admin-maintained applicationProgress
-// map (which institutions an admin has actually submitted the application for).
-export function getApplicationProgress(user) {
-  const institutions = Object.keys(user?.applySelections || {});
-  if (institutions.length === 0) return { status: null, appliedCount: 0, total: 0 };
-  const progress = user.applicationProgress || {};
-  const appliedCount = institutions.filter((inst) => progress[inst]?.applied).length;
-  const status = appliedCount === 0 ? "not_started" : appliedCount === institutions.length ? "complete" : "in_progress";
-  return { status, appliedCount, total: institutions.length };
+  return allCourses.filter((course) => courseQualifies(course, subjects, { grade, gradeStatus }));
 }
 
 // qualificationCode is included when present so that distinct qualification

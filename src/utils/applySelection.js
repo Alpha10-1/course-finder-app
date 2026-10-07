@@ -55,3 +55,15 @@ export function getCourseSelectionRound(selections, course) {
   }
   return null;
 }
+
+// Derives per-institution + overall "Apply For Me" application progress from
+// a user's saved course selections and the admin-maintained applicationProgress
+// map (which institutions an admin has actually submitted the application for).
+export function getApplicationProgress(user) {
+  const institutions = Object.keys(user?.applySelections || {});
+  if (institutions.length === 0) return { status: null, appliedCount: 0, total: 0 };
+  const progress = user.applicationProgress || {};
+  const appliedCount = institutions.filter((inst) => progress[inst]?.applied).length;
+  const status = appliedCount === 0 ? "not_started" : appliedCount === institutions.length ? "complete" : "in_progress";
+  return { status, appliedCount, total: institutions.length };
+}

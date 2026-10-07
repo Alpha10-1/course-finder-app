@@ -401,6 +401,55 @@ export default function CourseFormFields({ data, onChange }) {
         </>
       )}
 
+      {/* Admission notes — display-only, shown to learners on the course card and public page */}
+      <div className="border border-gray-700 rounded-xl p-3 space-y-3">
+        <p className="text-xs text-gray-400 font-semibold uppercase tracking-wider">
+          Admission notes (shown to learners, not used for matching)
+        </p>
+        {!isCollege && (
+          <div>
+            <label className="text-xs text-gray-400 mb-1 block">Admission requirement</label>
+            <textarea
+              value={data.admissionRequirement || ""}
+              onChange={(e) => onChange("admissionRequirement", e.target.value)}
+              placeholder='e.g. "Accounting Code 5 is not required if the applicant has Mathematics Code 5."'
+              rows={2}
+              className={`w-full ${inputCls} resize-none`}
+            />
+          </div>
+        )}
+        <div>
+          <label className="text-xs text-gray-400 mb-1 block">Additional requirements / wait-list rules</label>
+          <textarea
+            value={data.additionalRequirements || ""}
+            onChange={(e) => onChange("additionalRequirements", e.target.value)}
+            placeholder='e.g. "Applicants with an APS of 35-37 may be wait-listed subject to place availability."'
+            rows={2}
+            className={`w-full ${inputCls} resize-none`}
+          />
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div>
+            <label className="text-xs text-gray-400 mb-1 block">Application deadline</label>
+            <input
+              value={data.applicationDeadline || ""}
+              onChange={(e) => onChange("applicationDeadline", e.target.value)}
+              placeholder='e.g. "30 September 2026"'
+              className={`w-full ${inputCls}`}
+            />
+          </div>
+          <label className="flex items-center gap-2 text-sm text-gray-300 md:mt-5">
+            <input
+              type="checkbox"
+              checked={!!data.selectionProcess}
+              onChange={(e) => onChange("selectionProcess", e.target.checked)}
+              className="w-4 h-4 accent-purple-600"
+            />
+            Has a selection process (interview, test or portfolio)
+          </label>
+        </div>
+      </div>
+
       {/* Key Subjects */}
       <div>
         <div className="flex items-center justify-between mb-2">

@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { Suspense, lazy, useEffect } from "react";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
@@ -20,7 +20,6 @@ const CourseDetail = lazy(() => import("./pages/public/CourseDetail"));
 const Home = lazy(() => import("./pages/Home"));
 const EnterMarks = lazy(() => import("./pages/EnterMarks"));
 const Results = lazy(() => import("./pages/Results"));
-const ExamNumberEntry = lazy(() => import("./pages/ExamNumberEntry"));
 const PaymentSuccess = lazy(() => import("./pages/PaymentSuccess"));
 const Admin = lazy(() => import("./pages/Admin"));
 
@@ -66,7 +65,8 @@ function App() {
           <Route path="/home" element={<RequireAuth><Home /></RequireAuth>} />
           <Route path="/enter-marks" element={<RequireAuth><EnterMarks /></RequireAuth>} />
           <Route path="/results" element={<RequireAuth><Results /></RequireAuth>} />
-          <Route path="/exam-number" element={<RequireAuth><ExamNumberEntry /></RequireAuth>} />
+          {/* Exam-number lookup was never built (there's no public results API); keep old links working. */}
+          <Route path="/exam-number" element={<Navigate to="/enter-marks" replace />} />
           <Route path="/admin" element={<RequireAdmin><Admin /></RequireAdmin>} />
           <Route path="/payment-success" element={<RequireAuth><PaymentSuccess /></RequireAuth>} />
         </Routes>
