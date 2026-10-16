@@ -2,7 +2,7 @@ import { buildShareText, whatsAppShareUrl } from "../../utils/shareResults";
 
 // The learner's starred courses, with sharing and — for free users — an
 // offer to have the team apply for them.
-export default function ShortlistPanel({ shortlist, aps, offerApplyForMe, onRemove, onApplyForMe }) {
+export default function ShortlistPanel({ shortlist, aps, offerApplyForMe, onRemove, onApplyForMe, children }) {
   return (
     <div className="bg-amber-50 border border-amber-200 rounded-2xl p-5 mb-6">
       <div className="flex items-center justify-between gap-3 flex-wrap">
@@ -43,6 +43,7 @@ export default function ShortlistPanel({ shortlist, aps, offerApplyForMe, onRemo
           </button>
         </p>
       )}
+      {children}
     </div>
   );
 }

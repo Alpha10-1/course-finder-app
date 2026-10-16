@@ -3,6 +3,7 @@ import { collection, getDocs, doc, updateDoc, deleteDoc, setDoc, getDoc } from "
 import { sendPasswordResetEmail } from "firebase/auth";
 import { db, auth } from "../../firebase";
 import { isSuperAdmin } from "../../utils/adminConfig";
+import { notifyApplicationLodged } from "../../utils/api";
 
 // Users tab state and actions (plus the stats/admin list Dashboard and
 // Settings read). Owned by Admin rather than the tab so filters survive
@@ -160,8 +161,20 @@ export default function useAdminUsers(showToast) {
     try {
       await setDoc(doc(db, "users", uid), { applicationProgress: nextProgress }, { merge: true });
       setUsers((prev) => prev.map((u) => u.uid === uid ? { ...u, applicationProgress: nextProgress } : u));
-      showToast(applied ? `Marked ${institution} as applied` : `Unmarked ${institution}`);
-    } catch (err) { showToast(err.message, "error"); }
+    } catch (err) { showToast(err.message, "error"); return; }
+
+    if (!applied) { showToast(`Unmarked ${institution}`); return; }
+    // Push-notify the learner if they've turned reminders on (api/notify-application.js).
+    // Best effort: the "applied" mark is already saved either way.
+    let note = "";
+    try {
+      const { sent } = await notifyApplicationLodged(uid, institution);
+      if (sent > 0) note = " — learner notified";
+    } catch (err) {
+      console.warn("Couldn't notify the learner:", err);
+      note = " (couldn't send the learner a notification)";
+    }
+    showToast(`Marked ${institution} as applied${note}`);
   };
 
   const handleGrantAdminByEmail = async () => {

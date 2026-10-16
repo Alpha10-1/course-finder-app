@@ -18,12 +18,25 @@ import ShareResults from "./results/ShareResults";
 import PrintableResults from "./results/PrintableResults";
 import ShortlistPanel from "./results/ShortlistPanel";
 import FundingPanel from "./results/FundingPanel";
+import RemindersToggle from "../components/RemindersToggle";
 import { toggleShortlistEntry } from "../utils/shortlist";
+import { bursariesForLearner, studyFieldsForCourses } from "../utils/bursaries";
 import { ROUND_INFO } from "./results/roundInfo";
 
 async function fetchCourses() {
   const snap = await getDocs(collection(db, "courses"));
   return snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+}
+
+// The admin-maintained bursary directory. Optional: if it can't be read
+// (offline, or not allowed by the Firestore rules) the page just shows none.
+async function fetchBursaries() {
+  try {
+    const snap = await getDocs(collection(db, "bursaries"));
+    return snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+  } catch {
+    return [];
+  }
 }
 
 export default function Results() {
@@ -80,6 +93,7 @@ export default function Results() {
   const [applicationProgress, setApplicationProgress] = useState({});
   // Starred courses, any plan — [{ id, courseName, institution, campus? }]
   const [shortlist,      setShortlist]      = useState([]);
+  const [pushTokens,     setPushTokens]     = useState([]); // devices with reminders on
   const [showPricing,    setShowPricing]    = useState(false);
 
   // ── Tab state ─────────────────────────────────────────────────────────────
@@ -98,6 +112,13 @@ export default function Results() {
   const universityPool = useMemo(() => allCourses.filter((c) => c.institutionType !== "college"), [allCourses]);
   const collegePool    = useMemo(() => allCourses.filter((c) => c.institutionType === "college"), [allCourses]);
   const whatIfPool     = accessLevel === "colleges_only" ? collegePool : allCourses;
+
+  // Bursaries that fund a field of study the learner qualifies for.
+  const [bursaries,      setBursaries]      = useState([]);
+  const matchedBursaries = useMemo(
+    () => bursariesForLearner(bursaries, studyFieldsForCourses([...normalCourses, ...extendedCourses, ...collegeCourses])),
+    [bursaries, normalCourses, extendedCourses, collegeCourses]
+  );
 
   // "Save as PDF": mount the print-only layout, open the print dialog, and
   // unmount it again once printing finishes.
@@ -175,6 +196,7 @@ export default function Results() {
                 if (data.applySelections) savedSelections = data.applySelections;
                 if (data.applicationProgress) setApplicationProgress(data.applicationProgress);
                 if (Array.isArray(data.shortlist)) setShortlist(data.shortlist);
+                if (Array.isArray(data.pushTokens)) setPushTokens(data.pushTokens);
                 if (data.applyStatus === "submitted" || data.applySubmittedAt) alreadySubmitted = true;
                 // Pre-fill contact details if already saved
                 if (data.applyPhone) setContactPhone(data.applyPhone);
@@ -193,9 +215,10 @@ export default function Results() {
         setGradeStatus(userGradeStatus);
 
         const gAps = calculateGeneralAPS(loadedSubjects);
-        const [coursesData, windowSettings] = await Promise.all([
+        const [coursesData, windowSettings, bursaryData] = await Promise.all([
           fetchCourses(),
           fetchApplicationWindowSettings().catch(() => ({ institutionSettings: {}, facultySettings: {} })),
+          fetchBursaries(),
         ]);
         setInstitutionSettings(windowSettings.institutionSettings);
         setFacultySettings(windowSettings.facultySettings);
@@ -215,6 +238,7 @@ export default function Results() {
         setExtendedCourses(uniCourses.filter((c) => EXTENDED_TYPES.includes(c.qualificationType)));
         setCollegeCourses(collCourses);
         setAllCourses(coursesData);
+        setBursaries(bursaryData);
         setUserPlan(plan);
         setUserId(uid);
         setSelections(savedSelections);
@@ -704,7 +728,9 @@ export default function Results() {
             offerApplyForMe={userPlan !== "apply_for_me"}
             onRemove={handleToggleShortlist}
             onApplyForMe={() => setShowPricing(true)}
-          />
+          >
+            <RemindersToggle uid={userId} pushTokens={pushTokens} compact />
+          </ShortlistPanel>
         )}
 
         {/* ── Search ── */}
@@ -815,7 +841,7 @@ export default function Results() {
               grade={grade}
               gradeStatus={gradeStatus}
             />
-            <FundingPanel />
+            <FundingPanel bursaries={matchedBursaries} />
           </>
         )}
 

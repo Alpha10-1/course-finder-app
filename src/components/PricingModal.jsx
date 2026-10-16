@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { auth } from "../firebase";
-
-// Your Vercel deployment URL — update after deploying to Vercel
-const API_BASE = "https://course-finder-app-zeta.vercel.app";
+import { API_BASE } from "../utils/api";
 
 // Final price — must stay in sync with the `amount` in api/create-checkout.js / functions/index.js
 const APPLY_FOR_ME_PRICE = "R100";

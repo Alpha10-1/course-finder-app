@@ -8,10 +8,12 @@ import useAdminUsers from "./admin/useAdminUsers";
 import useAuditLog from "./admin/useAuditLog";
 import useAdminCourses from "./admin/useAdminCourses";
 import useApplicationWindows from "./admin/useApplicationWindows";
+import useBursaries from "./admin/useBursaries";
 import DashboardTab from "./admin/DashboardTab";
 import QuickCheckPanel from "./admin/QuickCheckPanel";
 import UsersTab from "./admin/UsersTab";
 import CoursesTab from "./admin/CoursesTab";
+import BursariesTab from "./admin/BursariesTab";
 import AuditLogTab from "./admin/AuditLogTab";
 import SettingsTab from "./admin/SettingsTab";
 
@@ -27,6 +29,7 @@ export default function Admin() {
   const audit = useAuditLog();
   const courseAdmin = useAdminCourses(showToast, audit);
   const windows = useApplicationWindows(showToast);
+  const bursaryAdmin = useBursaries(showToast);
   const { currentUserRole } = userAdmin;
   const { courses } = courseAdmin;
 
@@ -90,6 +93,9 @@ export default function Admin() {
 
         {/* ── COURSES ── */}
         {tab === "Courses" && <CoursesTab admin={courseAdmin} windows={windows} />}
+
+        {/* ── BURSARIES ── */}
+        {tab === "Bursaries" && <BursariesTab admin={bursaryAdmin} />}
 
         {/* ── AUDIT LOG (super admin only) ── */}
         {tab === "Audit Log" && isSuperAdmin(auth.currentUser?.email) && <AuditLogTab audit={audit} />}

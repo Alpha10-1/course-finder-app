@@ -5,8 +5,9 @@ const course = { id: "c1", courseName: "BSc", institution: "UJ", faculty: "Scien
 
 describe("toggleShortlistEntry", () => {
   it("adds a compact entry without undefined fields", () => {
-    expect(toggleShortlistEntry([], course)).toEqual([{ id: "c1", courseName: "BSc", institution: "UJ" }]);
+    expect(toggleShortlistEntry([], course)).toEqual([{ id: "c1", courseName: "BSc", institution: "UJ", faculty: "Science" }]);
     expect(toggleShortlistEntry([], { ...course, campus: "Soweto" })[0].campus).toBe("Soweto");
+    expect(toggleShortlistEntry([], { ...course, faculty: undefined })[0]).not.toHaveProperty("faculty");
   });
 
   it("removes a course that's already on the list", () => {

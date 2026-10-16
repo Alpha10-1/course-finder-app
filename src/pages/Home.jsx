@@ -6,6 +6,7 @@ import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import OnboardingModal from "../components/OnboardingModal";
 import PricingModal from "../components/PricingModal";
 import SocialLinks from "../components/SocialLinks";
+import RemindersToggle from "../components/RemindersToggle";
 import { isSuperAdmin, getRoleInfo } from "../utils/adminConfig";
 import { getApplicationProgress } from "../utils/applySelection";
 
@@ -27,6 +28,8 @@ export default function Home() {
   const [showPricing, setShowPricing] = useState(false);
   const [adminRole, setAdminRole] = useState(null); // null | "super" | "admin" | "moderator"
   const [applyNote, setApplyNote] = useState(null); // Apply For Me progress line, paid users only
+  const [uid, setUid] = useState(null);
+  const [pushTokens, setPushTokens] = useState([]); // devices with reminders on
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -34,6 +37,7 @@ export default function Home() {
 
       const name = user.displayName || user.email || "";
       setDisplayName(name.toUpperCase());
+      setUid(user.uid);
 
       try {
         // Super admin: always ensure Firestore doc has correct role
@@ -51,6 +55,7 @@ export default function Home() {
           const data = snap.data();
           setPlan(data.plan || "free");
           setApplyNote(describeApplyStatus(data));
+          setPushTokens(Array.isArray(data.pushTokens) ? data.pushTokens : []);
 
           // Set admin role from Firestore (super admin already set above)
           if (!isSuperAdmin(user.email) && data.isAdmin === true) {
@@ -138,6 +143,8 @@ export default function Home() {
             <span className="text-green-600 text-xs font-medium bg-green-50 px-3 py-1 rounded-full">🚀 Active</span>
           )}
         </div>
+
+        <RemindersToggle uid={uid} pushTokens={pushTokens} />
       </div>
 
       <div className="mt-6 flex items-center gap-3">

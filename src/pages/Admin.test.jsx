@@ -201,6 +201,29 @@ describe("Admin panel smoke test", () => {
     expect(screen.getByText("🎓 Universities")).toBeTruthy();
   });
 
+  it("adds a bursary to the directory", async () => {
+    click(tabButton("Bursaries"));
+    expect(await screen.findByText(/No bursaries yet/)).toBeTruthy();
+
+    click(screen.getByRole("button", { name: "+ Add bursary" }));
+    click(screen.getByRole("button", { name: "Save bursary" }));
+    expect(screen.getByText("Add the bursary's name.")).toBeTruthy();
+
+    fireEvent.change(screen.getByPlaceholderText("e.g. Funza Lushaka Bursary"), { target: { value: "Teaching Bursary" } });
+    fireEvent.change(screen.getByPlaceholderText("Company, department or institution"), { target: { value: "Department of Education" } });
+    fireEvent.change(screen.getByPlaceholderText("https://"), { target: { value: "https://example.com/teach" } });
+    click(screen.getByRole("button", { name: "Education & teaching" }));
+    click(screen.getByRole("button", { name: "Save bursary" }));
+    expect(await screen.findByText("Added Teaching Bursary")).toBeTruthy();
+    expect(screen.getByText("Department of Education")).toBeTruthy();
+
+    click(screen.getByRole("button", { name: "Delete" }));
+    expect(screen.getByText("Delete bursary?")).toBeTruthy();
+    click(within(screen.getByText("Delete bursary?").parentElement).getByRole("button", { name: "Delete" }));
+    expect(await screen.findByText("Deleted Teaching Bursary")).toBeTruthy();
+    expect(screen.getByText(/No bursaries yet/)).toBeTruthy();
+  });
+
   it("shows the audit log to the super admin", async () => {
     click(tabButton("Audit Log"));
     expect(screen.getByText("Course Audit Log")).toBeTruthy();

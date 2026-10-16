@@ -10,5 +10,7 @@ export function toggleShortlistEntry(shortlist, course) {
   // Only defined fields — Firestore rejects `undefined` values.
   const entry = { id: course.id, courseName: course.courseName, institution: course.institution };
   if (course.campus) entry.campus = course.campus;
+  // Lets reminders follow a faculty's own application dates (api/_lib/reminders.js).
+  if (course.faculty) entry.faculty = course.faculty;
   return [...shortlist, entry];
 }

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { checkNsfasFinancialEligibility, INCOME_BANDS, NSFAS_URL } from "../../utils/funding";
+import { studyFieldLabel } from "../../utils/bursaries";
 
 const RESULT_TEXT = {
   likely: {
@@ -16,9 +17,51 @@ const RESULT_TEXT = {
   },
 };
 
+function formatDate(isoDate) {
+  const d = new Date(`${isoDate}T00:00:00`);
+  return Number.isNaN(d.getTime()) ? isoDate : d.toLocaleDateString("en-ZA", { day: "numeric", month: "long", year: "numeric" });
+}
+
+// Bursaries from the admin-maintained directory that fund a field the
+// learner qualifies for (already filtered and sorted by bursariesForLearner).
+function BursaryList({ bursaries }) {
+  return (
+    <div className="border-t border-emerald-200 pt-4">
+      <p className="font-semibold text-emerald-900 text-sm">🎓 Bursaries for courses you qualify for</p>
+      <p className="text-xs text-gray-500 mt-0.5 mb-3">Many bursaries close months before final results come out, so apply with your Grade 11 or June results.</p>
+      <ul className="space-y-2">
+        {bursaries.map((b) => (
+          <li key={b.id} className="bg-white border border-emerald-100 rounded-xl px-4 py-3">
+            <div className="flex items-start justify-between gap-3 flex-wrap">
+              <div className="min-w-0">
+                <p className="text-sm font-semibold text-gray-900">{b.name}</p>
+                <p className="text-xs text-gray-500">{b.provider}{b.academicYear && ` · for ${b.academicYear}`}</p>
+              </div>
+              <span className="text-xs font-medium text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full shrink-0">
+                {b.closeDate ? `Closes ${formatDate(b.closeDate)}` : "Check closing date"}
+              </span>
+            </div>
+            {b.covers && <p className="text-xs text-gray-700 mt-1.5"><span className="font-medium">Covers:</span> {b.covers}</p>}
+            {b.description && <p className="text-xs text-gray-600 mt-1">{b.description}</p>}
+            <p className="text-[11px] text-gray-500 mt-1.5">
+              {b.anyField ? "Any field of study" : `For ${b.matchedFields.map(studyFieldLabel).join(", ").toLowerCase()}`}
+            </p>
+            {/^https?:\/\//i.test(b.applyUrl || "") && (
+              <a href={b.applyUrl} target="_blank" rel="noopener noreferrer" className="inline-block text-xs font-medium text-purple-600 hover:underline mt-1.5">
+                Official details and how to apply ↗
+              </a>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 // "Can I get funding?" — a quick check against NSFAS's published financial
-// criteria, with a pointer to the official site for current rules and dates.
-export default function FundingPanel() {
+// criteria, with a pointer to the official site for current rules and dates,
+// plus any directory bursaries that match the learner's courses.
+export default function FundingPanel({ bursaries = [] }) {
   const [open, setOpen] = useState(false);
   const [answers, setAnswers] = useState({ sassaGrant: null, disability: null, incomeBand: "" });
   const answered = answers.sassaGrant === true ||
@@ -50,7 +93,10 @@ export default function FundingPanel() {
       >
         <span>
           <span className="block font-semibold text-emerald-900">💰 Can I get funding to study?</span>
-          <span className="block text-xs text-emerald-800/80 mt-0.5">Quick check for an NSFAS bursary — 3 questions</span>
+          <span className="block text-xs text-emerald-800/80 mt-0.5">
+            Quick check for an NSFAS bursary — 3 questions
+            {bursaries.length > 0 && ` · ${bursaries.length} ${bursaries.length === 1 ? "bursary matches" : "bursaries match"} your courses`}
+          </span>
         </span>
         <span className={`text-emerald-700 transition-transform ${open ? "rotate-180" : ""}`}>▾</span>
       </button>
@@ -92,6 +138,8 @@ export default function FundingPanel() {
             rules and application dates change each year — confirm everything on{" "}
             <a href={NSFAS_URL} target="_blank" rel="noopener noreferrer" className="text-purple-600 hover:underline">nsfas.org.za</a>.
           </p>
+
+          {bursaries.length > 0 && <BursaryList bursaries={bursaries} />}
         </div>
       )}
     </section>

@@ -5,6 +5,22 @@ as they ship, and add new ideas under **Later**.
 
 ## Done
 
+**2026-10-16**
+- **Bursary directory** (rest of funding). Admins add bursaries in a new
+  Bursaries tab (name, provider, closing date, official link, fields of study);
+  learners see the open ones that fund a field they qualify for, inside "Can I get
+  funding to study?". Courses are mapped to ten broad study fields by keyword. The
+  directory starts empty; nothing was invented.
+- **Push reminders** (rest of deadline reminders). Learners turn reminders on per
+  device (Home and the shortlist). A daily Vercel Cron job (`api/send-reminders.js`)
+  notifies them when a shortlisted or chosen institution opens, closes in 7 days or
+  closes tomorrow; Apply For Me learners are told when the team lodges each
+  application (`api/notify-application.js`). Built on Vercel rather than Cloud
+  Functions, so no Blaze plan is needed. Off until the setup below is done.
+- **Android app groundwork.** Step-by-step guide (`docs/android-app.md`),
+  `npm run assetlinks` to write a validated `assetlinks.json`, and keystores/APKs
+  git-ignored.
+
 **2026-10-07**
 - **Admission notes on every course.** Wait-list rules (`additionalRequirements`),
   selection processes (`selectionProcess`), deadlines (`applicationDeadline`) and
@@ -45,18 +61,18 @@ as they ship, and add new ideas under **Later**.
 
 ## Next (suggested order)
 
-1. **Android app (Trusted Web Activity)** — needs you: run Bubblewrap or PWABuilder
-   against the live site, keep the generated keystore backed up outside git, then
-   publish `public/.well-known/assetlinks.json` with the key's SHA-256 (plus Play's,
-   if published there). The hosting config for `.well-known/` is already done.
-2. **Push reminders** (rest of deadline reminders) — needs decisions: web push via
-   Firebase Cloud Messaging needs a VAPID key from the Firebase console and a scheduled
-   job to send notifications when windows open/close (Cloud Functions on the Blaze plan,
-   or a Vercel cron). Also notify Apply For Me learners when the team lodges an
-   application (push, email or WhatsApp).
-3. **Bursary directory** (rest of funding) — needs a content owner: a list of bursaries
-   by field of study with closing dates, kept up to date each year (an admin-editable
-   Firestore collection would fit the existing admin panel).
+1. **Switch on push reminders** — needs you, about 15 minutes: generate the web
+   push key in the Firebase console and paste it into `src/pushConfig.js`, add
+   `CRON_SECRET` in Vercel, deploy Vercel and hosting, and allow learners to write
+   `reminders`/`pushTokens` in the Firestore rules. Steps in README → Push reminders.
+2. **Fill the bursary directory** — needs a content owner: add bursaries from the
+   providers' own sites in the admin Bursaries tab, and refresh the dates every
+   year. The Firestore rules need a `bursaries` entry (README → Firestore rules).
+3. **Build and publish the Android app** — needs you: follow `docs/android-app.md`
+   (Bubblewrap or PWABuilder, back up the keystore, `npm run assetlinks`, deploy).
+   Google Play also needs a privacy policy, so it depends on the POPIA item below.
+4. **Subject-choice advisor for Grade 9** — the next thing that can be built without
+   outside input (see Later).
 
 ## Later
 
@@ -74,6 +90,10 @@ as they ship, and add new ideas under **Later**.
   data.
 - **Compare courses side by side.**
 - **Interface in other South African languages.**
+- **Email or WhatsApp notifications** — for learners without push (e.g. "we've applied
+  for you"), using the phone and email collected in the Apply For Me contact step.
+- **Bursaries on the public course pages** — the prerendered pages read the JSON
+  catalogue, so this needs the bursary list at build time or a client-side fetch.
 
 ## Prerequisites and open issues
 

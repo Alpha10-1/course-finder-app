@@ -6,7 +6,7 @@ export const SUPER_ADMIN_EMAIL = "lubisialpha@gmail.com";
 // ─── Admin Roles ─────────────────────────────────────────────────────────────
 // role: "super"     — full access to everything (auto-assigned to SUPER_ADMIN_EMAIL)
 // role: "admin"     — full admin panel: users + courses + settings
-// role: "moderator" — courses tab only; cannot manage users or grant roles
+// role: "moderator" — courses and bursaries tabs only; cannot manage users or grant roles
 export const ADMIN_ROLES = {
   super:     { label: "Super Admin", color: "text-red-400",    bg: "bg-red-900",    badge: "🔴" },
   admin:     { label: "Admin",       color: "text-orange-400", bg: "bg-orange-900", badge: "🟠" },
@@ -15,9 +15,9 @@ export const ADMIN_ROLES = {
 
 // What each role can access
 export const PERMISSIONS = {
-  super:     ["dashboard", "quick check", "users", "courses", "settings", "audit log"],
-  admin:     ["dashboard", "quick check", "users", "courses", "settings"],
-  moderator: ["quick check", "courses"],
+  super:     ["dashboard", "quick check", "users", "courses", "bursaries", "settings", "audit log"],
+  admin:     ["dashboard", "quick check", "users", "courses", "bursaries", "settings"],
+  moderator: ["quick check", "courses", "bursaries"],
 };
 
 export function isSuperAdmin(email) {

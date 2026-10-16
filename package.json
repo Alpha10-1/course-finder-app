@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "sitemap": "node scripts/generate-sitemap.mjs",
+    "assetlinks": "node scripts/make-assetlinks.mjs",
     "build": "vite build && vite build --ssr src/entry-server.jsx --outDir dist-ssr && node scripts/prerender.mjs && node -e \"require('fs').rmSync('dist-ssr', { recursive: true, force: true })\"",
     "lint": "eslint .",
     "test": "vitest run",

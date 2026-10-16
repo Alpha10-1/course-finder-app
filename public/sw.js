@@ -6,6 +6,8 @@
 // - Files under /assets/ have content hashes in their names and never change,
 //   so once fetched they're served from the cache.
 // - Firebase, Yoco, analytics and other cross-origin requests aren't touched.
+// - Push reminders (api/send-reminders.js) arrive as data-only Firebase Cloud
+//   Messaging messages; this worker shows them and opens the app on a tap.
 //
 // Bump VERSION to throw away everything cached by an earlier version.
 // To switch the worker off entirely, see "Offline support" in the README.
@@ -100,3 +102,41 @@ async function trimCache(cache) {
   const keys = await cache.keys(); // oldest first
   await Promise.all(keys.slice(0, Math.max(0, keys.length - MAX_ASSETS)).map((key) => cache.delete(key)));
 }
+
+// ── Push reminders ──────────────────────────────────────────────────────────
+// FCM delivers { data: { title, body, url, tag } } (see api/_lib/push.js).
+self.addEventListener("push", (event) => {
+  let payload;
+  try {
+    payload = event.data ? event.data.json() : {};
+  } catch {
+    payload = {};
+  }
+  const data = payload.data || payload.notification || {};
+  event.waitUntil(
+    self.registration.showNotification(data.title || "Course Finder", {
+      body: data.body || "",
+      icon: "/app-icon-192.png",
+      tag: data.tag || undefined,
+      data: { url: data.url || "/home" },
+    })
+  );
+});
+
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+  // Only ever open pages on this site.
+  const target = new URL(event.notification.data?.url || "/home", self.location.origin);
+  if (target.origin !== self.location.origin) return;
+
+  event.waitUntil((async () => {
+    const windows = await self.clients.matchAll({ type: "window", includeUncontrolled: true });
+    const existing = windows.find((client) => new URL(client.url).origin === self.location.origin);
+    if (existing) {
+      await existing.focus();
+      if ("navigate" in existing) await existing.navigate(target.href).catch(() => {});
+      return;
+    }
+    await self.clients.openWindow(target.href);
+  })());
+});

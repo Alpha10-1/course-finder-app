@@ -34,3 +34,13 @@ serviceAccountKey.json
 **/serviceAccountKey.json
 *.pem
 *.key
+
+# Android app (Bubblewrap / PWABuilder). The signing key must never be
+# committed — back it up somewhere safe instead (see docs/android-app.md).
+*.keystore
+*.jks
+android/**/build/
+android/.gradle/
+*.apk
+*.aab
+*.idsig

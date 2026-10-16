@@ -5,8 +5,11 @@
       "headers": [
         { "key": "Access-Control-Allow-Origin",  "value": "https://mycoursefinder.web.app" },
         { "key": "Access-Control-Allow-Methods", "value": "GET, POST, OPTIONS" },
-        { "key": "Access-Control-Allow-Headers", "value": "Content-Type" }
+        { "key": "Access-Control-Allow-Headers", "value": "Content-Type, Authorization" }
       ]
     }
+  ],
+  "crons": [
+    { "path": "/api/send-reminders", "schedule": "0 6 * * *" }
   ]
 }

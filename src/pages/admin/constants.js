@@ -1,6 +1,6 @@
 import { HOME_LANGUAGE_SUBJECTS, FAL_SUBJECTS } from "../../utils/languages";
 
-export const ALL_TABS = ["Dashboard", "Quick Check", "Users", "Courses", "Audit Log", "Settings"];
+export const ALL_TABS = ["Dashboard", "Quick Check", "Users", "Courses", "Bursaries", "Audit Log", "Settings"];
 
 export const INSTITUTIONS = [
   "University of the Witwatersrand",

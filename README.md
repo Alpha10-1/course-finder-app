@@ -26,7 +26,7 @@ Live site: https://mycoursefinder.web.app · Planned work: [ROADMAP.md](ROADMAP.
 - [Environment variables](#environment-variables)
 - [NPM / build scripts](#npm--build-scripts)
 - [Maintenance scripts](#maintenance-scripts)
-- [Deployment](#deployment) (including [offline support](#offline-support))
+- [Deployment](#deployment) (including [offline support](#offline-support), [push reminders](#push-reminders), [Firestore rules for newer features](#firestore-rules-for-newer-features) and the [Android app](#android-app))
 - [Known issues, rough edges & security notes](#known-issues-rough-edges--security-notes)
 
 ---
@@ -87,9 +87,25 @@ This is a client-rendered React SPA with two additions layered on top for SEO an
      the Yoco metadata to guard against metadata tampering.
 
    `src/components/PricingModal.jsx` currently calls the **Vercel** endpoint
-   (hardcoded `API_BASE = "https://course-finder-app-zeta.vercel.app"`). It's unclear
-   from the code alone whether the Firebase Functions version is still live or is a
-   leftover from an earlier architecture — worth confirming before touching either.
+   (`API_BASE` in `src/utils/api.js`, `https://course-finder-app-zeta.vercel.app`).
+   It's unclear from the code alone whether the Firebase Functions version is still
+   live or is a leftover from an earlier architecture — worth confirming before
+   touching either.
+
+4. **Push reminders (Vercel)** — also in `api/`, next to the payment functions, so
+   they reuse the same Firebase Admin credentials and need no Blaze plan:
+   - `api/send-reminders.js` runs once a day from Vercel Cron (`crons` in
+     `vercel.json`, 06:00 UTC = 08:00 SAST) and sends Firebase Cloud Messaging push
+     notifications when an institution a learner shortlisted or chose opens, closes
+     in 7 days, or closes tomorrow.
+   - `api/notify-application.js` is called by the admin panel when an admin marks an
+     Apply For Me institution as applied, and tells the learner.
+   - Shared code lives in `api/_lib/` (Vercel doesn't turn `_`-prefixed folders into
+     endpoints): `reminders.js` (pure, tested logic for who gets what),
+     `push.js` (sending, dead-token cleanup) and `firebaseAdmin.js`.
+   - In the browser, `src/utils/pushReminders.js` registers the device and
+     `public/sw.js` shows the notifications. See [Push reminders](#push-reminders)
+     for setup.
 
 ## Core features
 
@@ -143,8 +159,11 @@ This is a client-rendered React SPA with two additions layered on top for SEO an
   marks without saving them (`src/utils/matching.js`). Learners can star courses
   into a saved **shortlist**, **share** what's on screen on WhatsApp or **save it as
   a PDF** (print layout), add an application **closing date to their calendar**
-  (.ics), and run a quick **NSFAS funding check** (`src/utils/funding.js`). Also
-  drives the guided **application-round selection flow**:
+  (.ics), and run a quick **NSFAS funding check** (`src/utils/funding.js`) that also
+  lists **bursaries** from the admin-maintained directory funding a field of study
+  they qualify for (`src/utils/bursaries.js`). Learners can turn on **push
+  reminders** for their shortlisted and chosen institutions (`RemindersToggle`, also
+  on Home). Also drives the guided **application-round selection flow**:
   - **Round 1** — pick one course per institution, up to 6 institutions (mirroring
     South Africa's real centralized university application process).
   - **Round 2 / 3** — pick a 2nd and 3rd choice course from each of those same 6
@@ -171,10 +190,11 @@ actions live in a hook there (`useAdminUsers`, `useAdminCourses`,
 than the tabs, so filters survive switching tabs. It supports:
 - **Role-based access**: `super` (hardcoded email, cannot be revoked from the UI,
   always granted full access even if their Firestore doc is deleted), `admin` (full
-  panel except the super-admin guarantee), and `moderator` (courses tab only).
+  panel except the super-admin guarantee), and `moderator` (courses and bursaries
+  tabs only).
   Permissions per role are centrally defined in `src/utils/adminConfig.js`.
-- **Dashboard, Users, Courses, Audit Log, and Settings tabs** (tab visibility is
-  filtered by the current admin's role).
+- **Dashboard, Users, Courses, Bursaries, Audit Log, and Settings tabs** (tab
+  visibility is filtered by the current admin's role).
 - **Course management**: create/edit/delete courses for ~26 named public
   universities plus TVET/private colleges, with fields for faculty, campus (for
   colleges with multiple sites), duration, qualification type, minimum APS (with
@@ -191,7 +211,13 @@ than the tabs, so filters survive switching tabs. It supports:
 - **Institution application windows**: set per-institution open/close dates
   that drive the "open for applications" status seen by learners.
 - **User management**: promote/demote admin roles, view user data, trigger
-  password resets.
+  password resets, and mark a learner's Apply For Me institutions as applied (which
+  push-notifies the learner if they've turned reminders on).
+- **Bursary directory** (`BursariesTab`, `useBursaries`): add, edit and delete
+  bursaries with their provider, closing date, official link and the fields of study
+  they fund. Learners only see open bursaries in a field they qualify for. Courses
+  are mapped to about ten broad fields by keywords in the course and faculty names
+  (`studyFieldsForCourse`). The directory starts empty.
 - **Audit log**: records every course add/edit/delete (with a field-level diff for
   edits) and who made it; visible to the super admin only.
 - **Seed-exclusion handling**: logic to prevent originally-seeded courses that an
@@ -206,7 +232,10 @@ see [known issues](#known-issues-rough-edges--security-notes)):
   `amountPaid`, `isAdmin`, `adminRole`, `email`, saved subject marks, grade/status,
   `applySelections` (the round 1/2/3 course picks keyed by institution),
   `applicationProgress` (which institutions the team has applied to, set by admins),
-  `shortlist` (starred courses: `[{ id, courseName, institution, campus? }]`).
+  `shortlist` (starred courses: `[{ id, courseName, institution, campus?, faculty? }]`),
+  `reminders` (true when push reminders are on) and `pushTokens` (one Firebase Cloud
+  Messaging token per device). `applicationProgress.{institution}.notifiedAt` records
+  when the learner was told about that application.
 - `courses/{id}` — one document per course; the shape mirrors the `BLANK_COURSE`
   object in `Admin.jsx` (institution, faculty, campus, duration, qualification type,
   `minAPS`, `apsAlternatives`, `keySubjects`, `admissionRequirement`, and
@@ -216,6 +245,11 @@ see [known issues](#known-issues-rough-edges--security-notes)):
 - `facultySettings/{institution}|||{faculty}` — optional per-faculty override of the
   institution's window, same shape.
 - `courseAuditLogs/{id}` — one entry per admin course add/edit/delete.
+- `bursaries/{id}` — `{ name, provider, fields: [studyFieldKey], closeDate, applyUrl,
+  covers, description, academicYear, updatedAt, updatedBy }`; edited in the admin
+  panel's Bursaries tab.
+- `system/pushReminders` — `{ lastRunDate, lastSummary }`, written by
+  `api/send-reminders.js` so a day's reminders are never sent twice.
 - `meta/seedExclusions` — `{ keys: [...] }`, dedupe keys of courses an admin deleted,
   so re-seeding from the JSON doesn't bring them back.
 
@@ -234,15 +268,21 @@ Firestore, so the two can drift apart until the JSON is updated.
 
 ```
 course-finder-app/
-├── api/                        # Vercel serverless functions (Yoco checkout/webhook)
-│   ├── create-checkout.js
-│   └── yoco-webhook.js
+├── api/                        # Vercel serverless functions
+│   ├── create-checkout.js       # Yoco checkout
+│   ├── yoco-webhook.js          # Yoco payment webhook
+│   ├── send-reminders.js        # daily push reminders (Vercel Cron)
+│   ├── notify-application.js    # "we've applied for you" push, called by the admin panel
+│   └── _lib/                    # shared helpers (not endpoints): reminders, push, firebaseAdmin
+├── docs/
+│   └── android-app.md           # building and publishing the Android app
 ├── functions/                   # Firebase Cloud Functions (v2) — parallel Yoco impl.
 │   ├── index.js
 │   ├── package.json
 │   └── .env.example
 ├── scripts/
 │   ├── routes.mjs               # shared institution/course slug + URL derivation
+│   ├── make-assetlinks.mjs      # writes public/.well-known/assetlinks.json (npm run assetlinks)
 │   ├── generate-sitemap.mjs     # builds public/sitemap.xml
 │   └── prerender.mjs            # writes static HTML for public course routes
 ├── src/
@@ -260,6 +300,7 @@ course-finder-app/
 │   │   └── Details.jsx           # currently empty (0 bytes)
 │   ├── utils/                    # APS models, subject matching, apply-round selection, slugs, etc.
 │   ├── App.jsx, main.jsx, entry-server.jsx, firebase.js
+│   ├── pushConfig.js             # web push (VAPID) public key — reminders stay hidden while empty
 ├── .github/workflows/ci.yml     # lint, test and build on every push / PR
 ├── deduplicate-courses.mjs      # one-off Firestore maintenance script (needs serviceAccountKey.json)
 ├── verify-college-matching.mjs  # superseded by src/utils/collegeCourses.test.js (and broken by data changes)
@@ -312,7 +353,8 @@ npm install
 |---|---|---|
 | `YOCO_SECRET_KEY` | `api/create-checkout.js`, `functions/index.js` | Server-side Yoco API key to create a hosted checkout session |
 | `YOCO_WEBHOOK_SECRET` | `api/yoco-webhook.js`, `functions/index.js` | Verifies the HMAC signature on incoming Yoco webhook events |
-| `FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY` | `api/yoco-webhook.js` (Vercel path only) | Firebase Admin SDK credentials, used to update Firestore from the Vercel webhook handler |
+| `FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY` | `api/yoco-webhook.js`, `api/send-reminders.js`, `api/notify-application.js` (Vercel) | Firebase Admin SDK credentials, used to update Firestore and send push notifications from the Vercel functions |
+| `CRON_SECRET` | `api/send-reminders.js` (Vercel) | Vercel Cron sends it as `Authorization: Bearer …`; the endpoint refuses every request while it's unset |
 
 The Firebase Functions path (`functions/index.js`) doesn't need explicit Firebase
 Admin credentials since `initializeApp()` picks up ambient credentials automatically
@@ -331,6 +373,7 @@ editing that file.
 |---|---|
 | `npm run dev` | Starts the Vite dev server |
 | `npm run sitemap` | Regenerates `public/sitemap.xml` from current course data |
+| `npm run assetlinks -- --fingerprint <SHA-256>` | Writes `public/.well-known/assetlinks.json` for the Android app (see [docs/android-app.md](docs/android-app.md)) |
 | `npm run build` | Full production build: client bundle → SSR bundle → prerender public course pages → clean up `dist-ssr` |
 | `npm run preview` | Serves the built `dist/` locally to sanity-check the production build |
 | `npm run lint` | Runs ESLint across the project |
@@ -405,6 +448,84 @@ self.addEventListener("activate", async () => {
 });
 ```
 
+### Push reminders
+
+Push reminders are built but switched off until these steps are done. While
+`src/pushConfig.js` has no key, the "Remind me" buttons don't render and no push
+code runs.
+
+1. **Web push key.** Firebase Console → Project settings → Cloud Messaging → *Web
+   configuration* → *Web Push certificates* → *Generate key pair*. Paste the public
+   key into `FCM_VAPID_KEY` in `src/pushConfig.js`. It's a public key, so it's fine
+   to commit. On the same page, check that *Firebase Cloud Messaging API (V1)* is
+   enabled.
+2. **Cron secret.** In Vercel → Project → Settings → Environment Variables, add
+   `CRON_SECRET` with a long random value, for example from
+   `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`. The
+   `FIREBASE_*` variables the webhook uses are reused.
+3. **Deploy both sides.** Deploy the Vercel project, which picks up the `crons`
+   entry in `vercel.json`; crons only run on production deployments. The Hobby plan
+   allows a once-a-day job, which is all this needs. Then
+   `npm run build && firebase deploy --only hosting`.
+4. **Firestore rules.** Learners must be allowed to write `reminders` and
+   `pushTokens` on their own user doc. See
+   [Firestore rules for newer features](#firestore-rules-for-newer-features).
+5. **Try it.** Turn reminders on from Home on a phone (Android Chrome, or an iPhone
+   with the site added to the Home Screen). Shortlist a course, set that
+   institution's closing date to tomorrow in the admin panel, then preview the run
+   without sending anything:
+   ```sh
+   curl -H "Authorization: Bearer $CRON_SECRET" "https://course-finder-app-zeta.vercel.app/api/send-reminders?dryRun=1"
+   ```
+   Drop `?dryRun=1` to really send. Each day only sends once; the date is recorded
+   in `system/pushReminders`.
+
+If "Remind me" fails with a 403 error in the browser console, the web API key in
+`src/firebase.js` is probably restricted. Allow it to call the *Firebase
+Installations API* and the *FCM Registration API* in Google Cloud Console → APIs &
+Services → Credentials.
+
+Who gets what: learners with reminders on, for each institution on their shortlist
+or in their Apply For Me choices (a faculty's own dates win over the
+institution's). They get one notification a day, combining that day's events:
+applications open today, close in 7 days, or close tomorrow. Apply For Me learners
+who have submitted their choices get no closing reminders for those institutions.
+Instead, they get a "We've applied to … for you" notification when an admin marks
+each one as applied. Tokens that Firebase reports as dead are removed
+automatically. There's no email or WhatsApp channel yet.
+
+### Firestore rules for newer features
+
+`firestore.rules` isn't in the repo, so these features may be blocked by the live
+rules until they're updated in the Firebase Console:
+
+- **`bursaries`**: any signed-in learner can read; only admins can write.
+- **`users/{uid}`**: the learner can write `shortlist`, `reminders` and `pushTokens`
+  on their own doc, as they already do for marks and selections.
+- **`system`**: the Vercel functions use the Admin SDK, which bypasses rules, so no
+  client access is needed.
+
+For example, adapt the admin check to however the live rules already identify
+admins:
+
+```
+match /bursaries/{id} {
+  allow read: if request.auth != null;
+  allow write: if request.auth != null
+    && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isAdmin == true;
+}
+```
+
+If the bursary rules are missing, the admin panel shows a "Failed to load
+bursaries" error and the results page simply shows no bursaries.
+
+### Android app
+
+The site is ready to be wrapped as an Android app (Trusted Web Activity). Building
+and signing it needs your own signing key, so follow
+[docs/android-app.md](docs/android-app.md). It covers Bubblewrap or PWABuilder, key
+backup, `npm run assetlinks` and Google Play.
+
 ## Known issues, rough edges & security notes
 
 **Secrets in git history — action needed:**
@@ -440,7 +561,7 @@ other may be dead code, or may be a second live integration point that's easy to
 forget about when rotating keys or fixing bugs.
 
 **Hardcoded configuration in source**: the Vercel API base URL in
-`PricingModal.jsx`, the app URL in `api/create-checkout.js`/`functions/index.js`,
+`src/utils/api.js`, the app URL in `api/create-checkout.js`/`functions/index.js`,
 the sitemap's site URL, and the super-admin email in `adminConfig.js` are all
 hardcoded strings rather than environment/config-driven values. Changing any of
 these means editing source and redeploying, and the super-admin email in

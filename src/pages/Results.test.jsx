@@ -190,7 +190,7 @@ describe("Results page smoke test", () => {
     expect(screen.getByText("Want us to apply to these for you?")).toBeTruthy();
     await vi.waitFor(() => expect(fake.setDoc).toHaveBeenCalled());
     expect(fake.setDoc.mock.calls.at(-1)[1]).toEqual({
-      shortlist: [{ id: "c1", courseName: "BSc Computer Science", institution: "University of Johannesburg" }],
+      shortlist: [{ id: "c1", courseName: "BSc Computer Science", institution: "University of Johannesburg", faculty: "Science" }],
     });
 
     // Both the card's star and the panel's star remove it
@@ -211,6 +211,26 @@ describe("Results page smoke test", () => {
     expect(screen.getByRole("status").textContent).toMatch(/probably above NSFAS's limit/);
     fireEvent.click(screen.getAllByRole("button", { name: "Yes" })[1]); // lives with a disability
     expect(screen.getByRole("status").textContent).toMatch(/probably meet NSFAS's financial criteria/);
+  });
+
+  it("lists directory bursaries that fund the learner's courses", async () => {
+    fake.collections.bursaries = [
+      { id: "b1", name: "Engineering Futures Bursary", provider: "Acme Mining", fields: ["engineering"], closeDate: "2099-11-30", applyUrl: "https://example.com/eng", covers: "Tuition and residence" },
+      { id: "b2", name: "Any Field Bursary", provider: "Example Trust", fields: ["any"], closeDate: null, applyUrl: "https://example.com/any" },
+      { id: "b3", name: "Law Bursary", provider: "Example Attorneys", fields: ["law"], closeDate: "2099-11-30", applyUrl: "https://example.com/law" },
+      { id: "b4", name: "Closed Engineering Bursary", provider: "Acme", fields: ["engineering"], closeDate: "2000-01-31", applyUrl: "https://example.com/old" },
+    ];
+    await renderResults();
+    const toggle = screen.getByRole("button", { name: /Can I get funding to study/ });
+    expect(toggle.textContent).toMatch(/2 bursaries match your courses/);
+    fireEvent.click(toggle);
+    expect(screen.getByText("Engineering Futures Bursary")).toBeTruthy();
+    expect(screen.getByText(/Tuition and residence/)).toBeTruthy();
+    expect(screen.getByText("Any Field Bursary")).toBeTruthy();
+    expect(screen.queryByText("Law Bursary")).toBeNull();
+    expect(screen.queryByText("Closed Engineering Bursary")).toBeNull();
+    const links = screen.getAllByRole("link", { name: /Official details and how to apply/ });
+    expect(links.map((a) => a.getAttribute("href"))).toEqual(["https://example.com/eng", "https://example.com/any"]);
   });
 
   it("filters by search term and switches to colleges", async () => {
