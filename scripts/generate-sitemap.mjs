@@ -42,6 +42,7 @@ const urls = [
   { loc: `${SITE_URL}/signup`, changefreq: "monthly", priority: "0.8" },
   { loc: `${SITE_URL}/signin`, changefreq: "monthly", priority: "0.5" },
   { loc: `${SITE_URL}/courses`, changefreq: "weekly", priority: "0.9" },
+  { loc: `${SITE_URL}/subject-choices`, changefreq: "monthly", priority: "0.8" },
 ];
 
 for (const institution of institutions) {
@@ -69,7 +70,7 @@ ${urls
 
 fs.writeFileSync(path.join(root, "public/sitemap.xml"), xml);
 console.log(
-  `sitemap.xml generated with ${urls.length} URLs (4 static + ${institutions.length} institution hubs). ` +
+  `sitemap.xml generated with ${urls.length} URLs (5 static + ${institutions.length} institution hubs). ` +
   `${courses.length} individual course pages are intentionally omitted from the sitemap — ` +
   `they remain crawlable via links from their institution pages and via prerendered static HTML.`
 );

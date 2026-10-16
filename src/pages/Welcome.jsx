@@ -50,6 +50,12 @@ export default function Welcome() {
         >
           Or browse all courses first →
         </Link>
+        <Link
+          to="/subject-choices"
+          className="block mt-2 text-sm text-purple-600 hover:underline"
+        >
+          Choosing Grade 10 subjects? See what each one keeps open →
+        </Link>
       </div>
 
       <p className="mt-8 text-sm text-gray-400">

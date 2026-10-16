@@ -139,6 +139,7 @@ const coursesToPrerender = selectRoundRobin(courses, COURSE_LIMIT);
 
 const routes = [
   "/courses",
+  "/subject-choices",
   ...institutions.map((i) => `/courses/${i.slug}`),
   ...coursesToPrerender.map((c) => `/courses/${c.institutionSlug}/${c.courseSlug}`),
 ];

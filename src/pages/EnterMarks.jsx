@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { calculateGeneralAPS } from "../utils/marksToAPS";
 import { auth, db } from "../firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
@@ -258,6 +258,14 @@ export default function EnterMarks() {
           </div>
           {grade && parseInt(grade.replace("Grade ", "")) < 9 && (
             <p className="text-xs text-red-500 mt-2">Minimum grade is Grade 9.</p>
+          )}
+          {grade === "Grade 9" && (
+            <p className="text-xs text-gray-600 mt-2">
+              Choosing your Grade 10 subjects?{" "}
+              <Link to="/subject-choices" className="font-medium text-purple-700 hover:underline">
+                See which university courses each subject keeps open →
+              </Link>
+            </p>
           )}
         </div>
 

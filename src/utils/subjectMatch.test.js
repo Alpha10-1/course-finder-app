@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import universityCourses from "../data/courses.json";
+import { NSC_SUBJECTS } from "./nscSubjects";
 import {
   getKeySubjectStatus,
   isAnotherLanguagePlaceholder,
@@ -41,10 +42,43 @@ describe("subjectMatches", () => {
   it("matches an abbreviation contained in a longer requirement", () => {
     expect(subjectMatches("CAT", "CAT (Computer Applications Technology)")).toBe(true);
   });
+
+  it("understands requirement names that aren't NSC subject names", () => {
+    expect(subjectMatches("English Home Language", "English Language")).toBe(true);
+    expect(subjectMatches("English First Additional Language", "English Language")).toBe(true);
+    expect(subjectMatches("Afrikaans Home Language", "English Language")).toBe(false);
+    expect(subjectMatches("Life Sciences", "Biology")).toBe(true);
+    expect(subjectMatches("Agricultural Sciences", "Agriculture")).toBe(true);
+    expect(subjectMatches("Agricultural Technology", "Agriculture")).toBe(true);
+    expect(subjectMatches("Geography", "Agriculture")).toBe(false);
+  });
+
+  it("never treats two different official subjects as the same", () => {
+    expect(subjectMatches("Maritime Economics", "Economics")).toBe(false);
+    expect(subjectMatches("Economics", "Maritime Economics")).toBe(false);
+    expect(subjectMatches("Engineering Graphics and Design", "Design")).toBe(false);
+    expect(subjectMatches("Design", "Engineering Graphics and Design")).toBe(false);
+    expect(subjectMatches("Engineering Graphics and Design", "Engineering Graphics")).toBe(true);
+  });
+
+  it("only overlaps official subject names where intended", () => {
+    const overlaps = NSC_SUBJECTS.flatMap((req) =>
+      NSC_SUBJECTS.filter((user) => user !== req && subjectMatches(user, req)).map((user) => `${user} → ${req}`)
+    );
+    expect(overlaps).toEqual(["Mathematics → Technical Mathematics"]);
+  });
+
+  it("matches 'African language' requirements to the nine African languages only", () => {
+    expect(subjectMatches("isiZulu Home Language", "Any other African Language")).toBe(true);
+    expect(subjectMatches("Tshivenda First Additional Language", "African Languages")).toBe(true);
+    expect(subjectMatches("English Home Language", "African Languages")).toBe(false);
+    expect(subjectMatches("Afrikaans First Additional Language", "Any other African Language")).toBe(false);
+    expect(subjectMatches("History", "African Languages")).toBe(false);
+  });
 });
 
 describe("placeholder requirements", () => {
-  it.each(["20 Credit Subject", "20-credit subject 2", "Other Subject", "Other Subjects (2)", "Other Subjects 3"])(
+  it.each(["20 Credit Subject", "20-credit subject 2", "Other Subject", "Other Subjects (2)", "Other Subjects 3", "Any other subject"])(
     "%s is a generic credit subject", (name) => expect(isGenericCreditSubject(name)).toBe(true)
   );
 

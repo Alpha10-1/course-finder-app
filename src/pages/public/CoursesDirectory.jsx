@@ -49,6 +49,9 @@ export default function CoursesDirectory() {
               {totalCourses}+ courses across {institutions.length} South African universities and colleges.
               Sign up to check exactly which ones you qualify for.
             </p>
+            <Link to="/subject-choices" className="inline-block mt-3 text-sm font-medium text-purple-700 hover:underline">
+              Choosing your Grade 10 subjects? See which courses each subject keeps open →
+            </Link>
           </div>
 
           <div className="bg-white rounded-2xl shadow-md p-4 mb-8 flex flex-col sm:flex-row gap-3">

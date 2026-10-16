@@ -116,6 +116,18 @@ This is a client-rendered React SPA with two additions layered on top for SEO an
 - **Institution course list** (`/courses/:institutionSlug`) and **course detail**
   (`/courses/:institutionSlug/:courseSlug`) — public, SEO-indexed pages showing
   admission requirements without requiring sign-up.
+- **Subject-choice advisor** (`/subject-choices`, `SubjectAdvisor.jsx`,
+  `src/utils/subjectAdvisor.js`) — for Grade 9 learners choosing their Grade 10–12
+  subjects. Pick a maths subject, three electives and two languages (or a preset
+  stream). It shows how many university and college courses the combination keeps
+  open, what most often rules courses out, a per-field breakdown with the ruled-out
+  courses and what they need, and the single swaps that would open the most courses.
+  It runs the same `courseQualifies` as the results page, with every subject at an
+  assumed mark: at 100% only subject requirements matter, and lower marks add APS
+  and subject minimums back in. Choices live in the query string, so a combination
+  can be shared. The swap suggestions take about 60 full catalogue checks, so
+  `useChangeSuggestions` works through them a few at a time. Prerendered for SEO;
+  reads the bundled JSON like the other public pages.
 
 ### Authenticated learner flow
 - **Sign up / sign in** (`/signup`, `/signin`) — Firebase Auth, email/password and
@@ -144,8 +156,14 @@ This is a client-rendered React SPA with two additions layered on top for SEO an
     entered (e.g. "English Home Language"), while explicitly preventing false
     matches like Mathematics ↔ Mathematical Literacy or Mathematics ↔ Technical
     Mathematics. It also understands known synonym pairs (e.g. Computer Literacy ↔
-    CAT) and generic placeholder requirements like "20 Credit Subject" or "Other
-    Subject" (any subject except Life Orientation, at a minimum mark).
+    CAT) and generic placeholder requirements like "20 Credit Subject", "Other
+    Subject" or "Any other subject" (any subject except Life Orientation, at a
+    minimum mark). Requirement names that aren't NSC subject names are mapped to the
+    subjects they mean ("English Language", "Biology", "Agriculture", "African
+    Languages"), and two different official subjects never match each other however
+    their names overlap (Economics ≠ Maritime Economics, Design ≠ Engineering
+    Graphics and Design). The one deliberate exception is that Mathematics satisfies
+    a Technical Mathematics requirement.
   - Separate eligibility logic for colleges (`meetsCollegeRequirement`,
     `getEffectiveMinAPS`), which gate on grade level and NQF level rather than pure
     APS, since TVET/NCV qualifications work differently from university admission.
@@ -289,7 +307,7 @@ course-finder-app/
 │   ├── components/              # ApplyModal, PricingModal, Seo, RequireAuth/Admin, OnboardingModal
 │   ├── data/                    # courses.json, college-courses.json
 │   ├── pages/
-│   │   ├── public/               # CoursesDirectory, InstitutionCourses, CourseDetail (SSR'd)
+│   │   ├── public/               # CoursesDirectory, InstitutionCourses, CourseDetail, SubjectAdvisor (SSR'd)
 │   │   ├── admin/                # admin tabs, panels and the hooks holding their state
 │   │   ├── results/              # CourseCard, WithinReach, WhatIfPanel, RoundReview, SubmittedSummary, …
 │   │   ├── Welcome.jsx, SignIn.jsx, SignUp.jsx
@@ -582,6 +600,13 @@ Firestore reads (the free tier's 50k/day covers only ~20 visits).
 client-side REST call that needs admin credentials, so it always fails silently and
 only the Firestore document is removed. Delete the account in the Firebase Console,
 or move this into a Cloud Function.
+
+**Course data with requirements nobody can meet**: a few `keySubjects` rows name
+something that isn't a school subject, so the matcher can't satisfy them. These
+are "Sport Science" (DUT, 2 courses, once as the only requirement), "Computer
+Science" (one Fort Hare BEd option) and "Engineering Sciences" (two VUT options).
+Four Ehlanzeni TVET "Pre-Vocational Learning Programme" rows have no subject at
+all, which matches anything. Check these against the prospectuses and fix the data.
 
 **No `firestore.indexes.json`**: composite Firestore query indexes (if any are
 needed as the `courses` collection grows) aren't captured in the repo; they'd need

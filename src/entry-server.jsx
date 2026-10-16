@@ -4,8 +4,10 @@ import { HelmetProvider } from "react-helmet-async";
 import CoursesDirectory from "./pages/public/CoursesDirectory.jsx";
 import InstitutionCourses from "./pages/public/InstitutionCourses.jsx";
 import CourseDetail from "./pages/public/CourseDetail.jsx";
+import SubjectAdvisor from "./pages/public/SubjectAdvisor.jsx";
 
-// Only the public, data-driven course pages are rendered here. They don't
+// Only the public, data-driven pages (the course pages and the subject-choice
+// advisor) are rendered here. They don't
 // touch Firebase auth or any browser-only APIs, so they're safe to render
 // in Node at build time. Welcome/SignIn/SignUp are intentionally excluded —
 // they depend on Firebase's auth listener, which assumes a browser.
@@ -24,6 +26,7 @@ export function render(url) {
           <Route path="/courses" element={<CoursesDirectory />} />
           <Route path="/courses/:institutionSlug" element={<InstitutionCourses />} />
           <Route path="/courses/:institutionSlug/:courseSlug" element={<CourseDetail />} />
+          <Route path="/subject-choices" element={<SubjectAdvisor />} />
         </Routes>
       </StaticRouter>
     </HelmetProvider>

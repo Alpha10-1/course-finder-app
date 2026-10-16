@@ -15,6 +15,7 @@ import { trackPageview } from "./utils/analytics";
 const CoursesDirectory = lazy(() => import("./pages/public/CoursesDirectory"));
 const InstitutionCourses = lazy(() => import("./pages/public/InstitutionCourses"));
 const CourseDetail = lazy(() => import("./pages/public/CourseDetail"));
+const SubjectAdvisor = lazy(() => import("./pages/public/SubjectAdvisor"));
 
 // Signed-in pages are split per route too, so the landing and sign-in pages
 // stay small — in particular, learners never download the admin panel.
@@ -63,6 +64,7 @@ function App() {
           <Route path="/courses" element={<CoursesDirectory />} />
           <Route path="/courses/:institutionSlug" element={<InstitutionCourses />} />
           <Route path="/courses/:institutionSlug/:courseSlug" element={<CourseDetail />} />
+          <Route path="/subject-choices" element={<SubjectAdvisor />} />
           <Route path="/home" element={<RequireAuth><Home /></RequireAuth>} />
           <Route path="/enter-marks" element={<RequireAuth><EnterMarks /></RequireAuth>} />
           <Route path="/results" element={<RequireAuth><Results /></RequireAuth>} />

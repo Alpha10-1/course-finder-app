@@ -20,6 +20,19 @@ as they ship, and add new ideas under **Later**.
 - **Android app groundwork.** Step-by-step guide (`docs/android-app.md`),
   `npm run assetlinks` to write a validated `assetlinks.json`, and keystores/APKs
   git-ignored.
+- **Subject-choice advisor for Grade 9** (`/subject-choices`, public and
+  prerendered). Pick maths, electives and languages, or a preset stream. It shows
+  how many university and college courses the combination keeps open, what rules
+  courses out, a per-field breakdown, and the single swaps that open the most
+  courses. Linked from the landing page, the course directory and the marks page
+  for Grade 9 learners. Shareable via its link and WhatsApp.
+- **Subject matching fixes** found while building the advisor, which also change
+  results-page matches:
+  - Requirements written as "English Language", "Biology", "Agriculture",
+    "African Languages" or "Any other subject" could never be met. About 30 courses
+    were affected, e.g. Fort Hare's BCom.
+  - "Maritime Economics" counted as Economics, and Design and Engineering Graphics
+    and Design counted as each other.
 
 **2026-10-07**
 - **Admission notes on every course.** Wait-list rules (`additionalRequirements`),
@@ -71,13 +84,11 @@ as they ship, and add new ideas under **Later**.
 3. **Build and publish the Android app** — needs you: follow `docs/android-app.md`
    (Bubblewrap or PWABuilder, back up the keystore, `npm run assetlinks`, deploy).
    Google Play also needs a privacy policy, so it depends on the POPIA item below.
-4. **Subject-choice advisor for Grade 9** — the next thing that can be built without
+4. **Compare courses side by side** — the next thing that can be built without
    outside input (see Later).
 
 ## Later
 
-- **Subject-choice advisor for Grade 9** — what choosing Maths Literacy over Maths rules
-  out (e.g. engineering, medicine), using the course subject requirements.
 - **Career → course search** — "I want to be a pharmacist" → courses, institutions and
   marks needed. Needs a career-to-course mapping.
 - **Teacher / school counsellor dashboard** — class code, matches for the whole class,
@@ -92,6 +103,8 @@ as they ship, and add new ideas under **Later**.
 - **Interface in other South African languages.**
 - **Email or WhatsApp notifications** — for learners without push (e.g. "we've applied
   for you"), using the phone and email collected in the Apply For Me contact step.
+- **Advisor: compare two subject combinations** side by side, and use it for career
+  questions once the career → course mapping exists.
 - **Bursaries on the public course pages** — the prerendered pages read the JSON
   catalogue, so this needs the bursary list at build time or a client-side fetch.
 

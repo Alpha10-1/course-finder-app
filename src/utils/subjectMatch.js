@@ -18,9 +18,16 @@
  *    NSC subject lists use the formal CAT name.
  */
 
+import { NSC_SUBJECTS } from "./nscSubjects";
+
 function normalize(str) {
   return String(str ?? "").trim().toLowerCase();
 }
+
+// Official NSC subject names. Two different official subjects are never the
+// same subject, however much their names overlap ("Economics" and "Maritime
+// Economics", "Design" and "Engineering Graphics and Design").
+const NSC_SUBJECT_NAMES = new Set(NSC_SUBJECTS.map(normalize));
 
 // Matches "20 Credit Subject", "20 Credit Subject 1", "20-credit subject 2",
 // "Other Subject", "Other Subjects (2)", "Other Subjects 3", etc.
@@ -36,7 +43,8 @@ function normalize(str) {
 // row"), so it does not by itself guarantee the learner has that many *distinct*
 // subjects satisfying the requirement. This mirrors how DUT's numbered
 // "20 Credit Subject 1/2/3" placeholders already behave.
-const GENERIC_CREDIT_SUBJECT_RE = /^(20[\s-]*credit\s*subjects?|other\s*subjects?)(\s*\(?\d+\)?)?$/i;
+// "Any other subject" (Walter Sisulu's wording) means the same thing.
+const GENERIC_CREDIT_SUBJECT_RE = /^(20[\s-]*credit\s*subjects?|(any\s+)?other\s*subjects?)(\s*\(?\d+\)?)?$/i;
 
 function isGenericCreditSubject(reqSubject) {
   return GENERIC_CREDIT_SUBJECT_RE.test(String(reqSubject ?? "").trim());
@@ -90,6 +98,26 @@ function isSynonym(a, b) {
   );
 }
 
+// Requirement names in the course data that aren't NSC subject names, mapped
+// to the NSC subjects they mean. Without these, no learner could ever meet
+// them (e.g. Fort Hare's "English Language" requirement).
+const REQUIREMENT_ALIASES = {
+  "english language": ["english"],
+  "afrikaans language": ["afrikaans"],
+  "biology": ["life sciences"],
+  "agriculture": ["agricultural sciences", "agricultural technology", "agricultural management practices"],
+};
+
+// "African Languages", "Any other African Language": any of South Africa's
+// nine official African languages, as a Home or First Additional Language.
+const AFRICAN_LANGUAGE_REQUIREMENT_RE = /^(any\s+(other\s+)?|an\s+)?african\s+languages?$/;
+const AFRICAN_LANGUAGES = ["isindebele", "isixhosa", "isizulu", "sepedi", "sesotho", "setswana", "siswati", "tshivenda", "xitsonga"];
+
+function isAfricanLanguageSubject(name) {
+  const n = normalize(name);
+  return isLanguageSubjectName(n) && AFRICAN_LANGUAGES.some((lang) => n.startsWith(`${lang} `));
+}
+
 /**
  * Returns true if the user's subject name satisfies the course requirement name.
  *
@@ -103,8 +131,18 @@ export function subjectMatches(userSubject, reqSubject) {
   // Exact match
   if (user === req) return true;
 
+  const aliases = REQUIREMENT_ALIASES[req];
+  if (aliases) return aliases.some((alias) => subjectMatches(userSubject, alias));
+  if (AFRICAN_LANGUAGE_REQUIREMENT_RE.test(req)) return isAfricanLanguageSubject(user);
+
   // Known synonym pairs (e.g. Computer Literacy ↔ CAT)
   if (isSynonym(user, req)) return true;
+
+  // Both official subjects but different ones: no match — except that plain
+  // Mathematics satisfies a Technical Mathematics requirement (see below).
+  if (NSC_SUBJECT_NAMES.has(user) && NSC_SUBJECT_NAMES.has(req)) {
+    return req === "technical mathematics" && user === "mathematics";
+  }
 
   // Special case: "mathematics" requirement must NOT match "mathematical literacy"
   if (req === "mathematics" && user === "mathematical literacy") return false;
