@@ -11,7 +11,7 @@ export default function ShortlistPanel({ shortlist, aps, offerApplyForMe, onRemo
           href={whatsAppShareUrl(buildShareText({ aps, courses: shortlist }))}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-xs font-medium px-3 py-1.5 rounded-lg bg-green-600 hover:bg-green-700 text-white transition"
+          className="text-xs font-medium px-3 py-1.5 rounded-lg bg-green-700 hover:bg-green-800 text-white transition"
         >
           Share shortlist on WhatsApp
         </a>

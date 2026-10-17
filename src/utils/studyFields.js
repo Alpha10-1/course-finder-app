@@ -28,7 +28,7 @@ export const studyFieldLabel = (key) => FIELD_LABELS[key] || key;
 const NOT_NATURAL_SCIENCE = /\b(social|political|consumer|sports?|management|economic|financial|health|human|military|library|information|education|security|computer|veterinary|dental|medical|nursing|pharmaceutical|clinical|wellness|community|actuarial)\s+sciences?\b/g;
 
 const FIELD_PATTERNS = {
-  engineering: /engineer|built environment|architect|construction|quantity survey|mechatronic|mining|metallurg|trades|apprentice|boilermak|fitter|welding|electrician|millwright|plumb|\bmotor mechanic/,
+  engineering: /engineer|\bb\.?\s?eng(tech)?\b|\bsc\.?\s?eng\b|built environment|architect|construction|quantity survey|mechatronic|mining|metallurg|trades|apprentice|boilermak|fitter|welding|electrician|millwright|plumb|\bmotor mechanic/,
   science: /\bb\.?sc\b|\bscience\b|natural|applied (and computer )?sciences|mathemat|physic|chemi|biolog|statistic|geolog|biotech|zoolog|botan|microbio|actuarial/,
   it: /informat|computer|computing|\bict\b|software|data science|\bit\b/,
   health: /health|medic|nursing|pharma|dentist|dental|veterinar|physio|radiograph|wellness|clinical|optometr|occupational therap|dietetic|nutrition|biokinetic|audiolog|speech|mbchb|emergency care|oral hygiene/,

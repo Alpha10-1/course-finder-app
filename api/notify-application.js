@@ -13,7 +13,7 @@ import { getFirestore, FieldValue, FieldPath } from "firebase-admin/firestore";
 import { getMessaging } from "firebase-admin/messaging";
 import { getAdminApp } from "./_lib/firebaseAdmin.js";
 import { applicationLodgedMessage } from "./_lib/reminders.js";
-import { sendToTokens, removeDeadTokens } from "./_lib/push.js";
+import { sendToTokens, removeDeadTokens, assignTokenOwners, ownedTokens } from "./_lib/push.js";
 import { isSuperAdmin } from "../src/utils/adminConfig.js";
 
 const APP_URL = "https://mycoursefinder.web.app";
@@ -69,7 +69,15 @@ export default async function handler(req, res) {
       return res.status(200).json({ sent: 0, reason: "already-notified" });
     }
 
-    const tokens = Array.isArray(learner.pushTokens) ? learner.pushTokens.filter((t) => typeof t === "string" && t) : [];
+    let tokens = Array.isArray(learner.pushTokens) ? learner.pushTokens.filter((t) => typeof t === "string" && t) : [];
+    if (tokens.length === 0) return res.status(200).json({ sent: 0, reason: "no-devices" });
+    // Leave out tokens a later account on a shared phone has taken over.
+    const sharing = await db.collection("users").where("pushTokens", "array-contains-any", tokens.slice(0, 30)).get();
+    const owners = assignTokenOwners([
+      { uid, ...learner },
+      ...sharing.docs.filter((d) => d.id !== uid).map((d) => ({ uid: d.id, ...d.data() })),
+    ]);
+    tokens = ownedTokens({ uid, pushTokens: tokens.slice(0, 30) }, owners);
     if (tokens.length === 0) return res.status(200).json({ sent: 0, reason: "no-devices" });
 
     const result = await sendToTokens(getMessaging(app), tokens, applicationLodgedMessage(institution), ONE_WEEK);

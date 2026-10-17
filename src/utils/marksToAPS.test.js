@@ -255,6 +255,17 @@ describe("getEffectiveMinAPS", () => {
 
   it("handles courses without a minimum or alternatives", () => {
     expect(getEffectiveMinAPS({ minAPS: 26 }, [])).toBe(26);
+  });
+
+  it("doesn't give a Mathematics learner the Technical Mathematics minimum", () => {
+    // NMU Bachelor of Nursing: 370 with Mathematics, 385 with Technical Maths or Maths Literacy.
+    const nursing = {
+      minAPS: 370,
+      apsAlternatives: [{ subject: "Technical Mathematics", minAPS: 385 }, { subject: "Mathematical Literacy", minAPS: 385 }],
+    };
+    expect(getEffectiveMinAPS(nursing, [{ subject: "Mathematics", mark: 60 }])).toBe(370);
+    expect(getEffectiveMinAPS(nursing, [{ subject: "Technical Mathematics", mark: 60 }])).toBe(385);
+    expect(getEffectiveMinAPS(nursing, [{ subject: "Mathematical Literacy", mark: 60 }])).toBe(385);
     expect(getEffectiveMinAPS({}, [])).toBe(0);
   });
 });

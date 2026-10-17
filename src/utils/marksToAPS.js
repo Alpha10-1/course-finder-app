@@ -884,9 +884,14 @@ export function getEffectiveMinAPS(course, userSubjects) {
   const subjects = userSubjects || [];
   for (const alt of alternatives) {
     if (!alt?.subject) continue;
+    // Matched both ways: an alternative means "the learner took this
+    // subject", so a Mathematics learner doesn't get the Technical
+    // Mathematics minimum (Mathematics meets a Technical Mathematics
+    // *requirement*, but isn't the same subject).
     const hasSubject = subjects.some(
       (s) =>
         subjectMatches(s.subject, alt.subject) &&
+        subjectMatches(alt.subject, s.subject) &&
         s.mark !== null && s.mark !== undefined && s.mark !== "" &&
         Number.isFinite(Number(s.mark))
     );

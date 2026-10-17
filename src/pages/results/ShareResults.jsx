@@ -22,7 +22,7 @@ export default function ShareResults({ aps, courses, onSavePdf }) {
         href={whatsAppShareUrl(text)}
         target="_blank"
         rel="noopener noreferrer"
-        className={`${buttonCls} bg-green-600 hover:bg-green-700 text-white`}
+        className={`${buttonCls} bg-green-700 hover:bg-green-800 text-white`}
       >
         Share on WhatsApp
       </a>

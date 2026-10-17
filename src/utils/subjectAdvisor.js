@@ -4,13 +4,22 @@
 // most extra courses.
 //
 // It uses exactly the same matching as the results page (courseQualifies),
-// with every subject at an assumed mark. At 100% the APS checks always pass,
-// so only subject requirements can rule a course out. That's the question a
-// Grade 9 learner is really asking ("does this subject close doors?"). Lower
+// with every subject at an assumed mark. At 100% nearly every APS check
+// passes, so subject requirements are what rule courses out. That's the
+// question a Grade 9 learner is really asking ("does this subject close
+// doors?"). A few APS formulas only count certain subjects (e.g. CPUT's
+// methods skip Mathematical Literacy), so a course can still fail on APS at
+// 100%; it then also has a subject gap, which is shown as the reason. Lower
 // assumed marks add the APS and subject minimums back in.
+//
+// It also knows the Department of Basic Education's subject-combination
+// rules (National Policy on Programme and Promotion Requirements, para 28(A)),
+// so it never suggests a combination a school can't register.
 import { NSC_SUBJECTS } from "./nscSubjects";
 import { courseQualifies, getCourseGaps } from "./matching";
-import { isAnotherLanguagePlaceholder, isGenericCreditSubject, subjectMatches } from "./subjectMatch";
+import {
+  isAnotherLanguagePlaceholder, isBareFirstAdditionalLanguage, isGenericCreditSubject, subjectMatches,
+} from "./subjectMatch";
 import { STUDY_FIELDS, studyFieldsForCourse } from "./studyFields";
 
 // Everyone in the FET phase takes Life Orientation, two official languages
@@ -22,7 +31,7 @@ export const ELECTIVE_COUNT = 3;
 export const MATHS_OPTIONS = [
   { subject: "Mathematics", hint: "Pure maths" },
   { subject: "Mathematical Literacy", hint: "Maths for everyday life" },
-  { subject: "Technical Mathematics", hint: "Offered at technical schools" },
+  { subject: "Technical Mathematics", hint: "Technical pathway only" },
 ];
 const MATHS_SUBJECTS = MATHS_OPTIONS.map((m) => m.subject);
 
@@ -135,16 +144,88 @@ export function buildSubjects(choices, mark = DEFAULT_MARK) {
     .map((subject) => ({ subject, mark }));
 }
 
+// ── Subject-combination rules ───────────────────────────────────────────────
+// Learners follow the Academic (General) or the Technical pathway. The
+// technical pathway is one of Civil, Electrical or Mechanical Technology,
+// plus Engineering Graphics and Design, plus Mathematics or Technical
+// Mathematics, plus Physical Sciences or Technical Sciences. Technical
+// Mathematics is for the technical pathway only, which may not take
+// Mathematical Literacy; Physical Sciences must be taken with Mathematics.
+// Learners who break these rules can't be certified. Sources: DBE Circular
+// E22 of 2022, restated in Eastern Cape Assessment Instruction 05 of 2026.
+export const TECHNOLOGY_SUBJECTS = ["Civil Technology", "Electrical Technology", "Mechanical Technology"];
+const EGD = "Engineering Graphics and Design";
+const TECHNICAL_SCIENCE = "Technical Science";
+
+export function isTechnicalPathway(choices) {
+  return choices.maths === "Technical Mathematics" || choices.electives.some((e) => TECHNOLOGY_SUBJECTS.includes(e));
+}
+
+/**
+ * What's wrong with a combination under the DBE rules, each with a one-click
+ * fix: [{ key, text, fixLabel, fix }] where `fix` is a full set of choices.
+ */
+export function combinationProblems(choices) {
+  const problems = [];
+  const has = (s) => choices.electives.includes(s);
+
+  if (has("Physical Sciences") && choices.maths === "Mathematical Literacy") {
+    problems.push({
+      key: "physical-sciences-maths-lit",
+      text: "Physical Sciences has to be taken with Mathematics, not Mathematical Literacy.",
+      fixLabel: "Switch to Mathematics",
+      fix: { ...choices, maths: "Mathematics" },
+    });
+  }
+
+  if (isTechnicalPathway(choices)) {
+    const technology = choices.electives.find((e) => TECHNOLOGY_SUBJECTS.includes(e));
+    if (technology && choices.maths === "Mathematical Literacy") {
+      problems.push({
+        key: "technical-maths-lit",
+        text: `${technology} is a technical-pathway subject, which can't be taken with Mathematical Literacy.`,
+        fixLabel: "Switch to Mathematics",
+        fix: { ...choices, maths: "Mathematics" },
+      });
+    }
+    const missing = [];
+    if (!technology) missing.push("Civil, Electrical or Mechanical Technology");
+    if (!has(EGD)) missing.push(EGD);
+    if (!has("Physical Sciences") && !has(TECHNICAL_SCIENCE)) missing.push("Physical Sciences or Technical Sciences");
+    if (missing.length) {
+      const science = has("Physical Sciences") ? "Physical Sciences" : TECHNICAL_SCIENCE;
+      problems.push({
+        key: "technical-missing",
+        text: `${choices.maths === "Technical Mathematics" && !technology ? "Technical Mathematics is only for the technical pathway, which" : "The technical pathway"} also needs: ${missing.join("; ")}.`,
+        fixLabel: "Use the technical pathway subjects",
+        fix: {
+          ...choices,
+          maths: choices.maths === "Mathematical Literacy" ? "Technical Mathematics" : choices.maths,
+          electives: [technology || "Electrical Technology", EGD, science],
+        },
+      });
+    }
+  }
+  return problems;
+}
+
 /**
  * Splits courses into the ones these subjects keep open and the ones they
- * rule out, with what's missing for each ruled-out course.
+ * rule out, with what's missing for each ruled-out course. At the default
+ * mark (100%), an APS gap on a course that also lacks a subject is left out:
+ * the missing subject is the real reason (see the note at the top).
  */
-export function evaluateCourses(courses, subjects) {
+export function evaluateCourses(courses, subjects, mark = DEFAULT_MARK) {
   const open = [];
   const closed = [];
   for (const course of courses) {
-    if (courseQualifies(course, subjects, ADVISOR_PROFILE)) open.push(course);
-    else closed.push({ course, gaps: getCourseGaps(course, subjects) });
+    if (courseQualifies(course, subjects, ADVISOR_PROFILE)) {
+      open.push(course);
+      continue;
+    }
+    let gaps = getCourseGaps(course, subjects);
+    if (mark === DEFAULT_MARK && gaps.some((g) => g.type === "subject")) gaps = gaps.filter((g) => g.type !== "aps");
+    closed.push({ course, gaps });
   }
   return { open, closed };
 }
@@ -169,33 +250,72 @@ export function summarizeByField({ open, closed }) {
   return fields.filter((f) => f.total > 0);
 }
 
-// The official subject a requirement name means, when it means exactly one
-// ("Physical Science" → "Physical Sciences"); otherwise the name as written
-// ("English" could be Home or First Additional Language).
-function canonicalSubject(name) {
-  const matches = NSC_SUBJECTS.filter((s) => subjectMatches(s, name));
-  return matches.length === 1 ? matches[0] : name;
+export const MARKS_BLOCKER = "Higher marks";
+
+const stripMarks = (option) => option.replace(/\s*≥\s*\d+%/g, "").trim();
+const isLanguage = (name) => / (home|first additional) language$/i.test(name);
+const NSC_ORDER = new Map(NSC_SUBJECTS.map((s, i) => [s, i]));
+
+// Whether the learner takes something that could satisfy a requirement
+// option — if so, a gap on it is about marks, not about the subject.
+function learnerTakes(subjects, option) {
+  const taken = subjects.filter((s) => s.subject !== LIFE_ORIENTATION);
+  if (isGenericCreditSubject(option)) return taken.length > 0;
+  if (isAnotherLanguagePlaceholder(option)) return taken.some((s) => isLanguage(s.subject) && !s.subject.startsWith("English "));
+  if (isBareFirstAdditionalLanguage(option)) {
+    return taken.some((s) => / first additional language$/i.test(s.subject))
+      || taken.filter((s) => / home language$/i.test(s.subject)).length >= 2;
+  }
+  return taken.some((s) => subjectMatches(s.subject, option));
 }
 
-/** "Physical Science ≥50% or Technical Sciences ≥50%" → "Physical Sciences or Technical Science" */
-function blockerLabel(label) {
-  const options = label.split(" or ").map((o) => canonicalSubject(o.replace(/\s*≥\s*\d+%/g, "").trim()));
-  return [...new Set(options)].join(" or ");
+// A requirement row, keyed by the set of official subjects that would meet
+// it, so "English", "English Language" and "English Home Language or English
+// First Additional Language" count as one blocker.
+function blockerFor(options) {
+  const accepted = new Set();
+  for (const option of options) {
+    const matches = NSC_SUBJECTS.filter((s) => subjectMatches(s, option));
+    for (const m of matches.length ? matches : [option]) accepted.add(m);
+  }
+  const subjects = [...accepted].sort((a, b) => (NSC_ORDER.get(a) ?? 1e9) - (NSC_ORDER.get(b) ?? 1e9) || a.localeCompare(b));
+  const key = subjects.join("|");
+  if (subjects.length > 4) return { key, label: [...new Set(options)].join(" or ") };
+  const names = [];
+  for (const s of subjects) {
+    const language = isLanguage(s) ? s.replace(/ (Home|First Additional) Language$/, "") : null;
+    const bothLevels = language && accepted.has(`${language} Home Language`) && accepted.has(`${language} First Additional Language`);
+    const name = bothLevels ? language : s;
+    if (!names.includes(name)) names.push(name);
+  }
+  return { key, label: names.join(" or ") };
 }
-export const APS_BLOCKER = "Higher marks (APS)";
 
 /**
  * What most often rules courses out: one count per course for each missing
- * requirement, most common first.
+ * subject requirement, most common first. Gaps that are only about marks
+ * (the learner takes the subject, or the APS is short) count as "Higher marks".
  */
-export function topBlockers(closed, limit = 5) {
+export function topBlockers(closed, subjects = [], limit = 5) {
   const counts = new Map();
   for (const { gaps } of closed) {
-    const labels = new Set(gaps.map((g) => (g.type === "aps" ? APS_BLOCKER : blockerLabel(g.label))));
-    for (const label of labels) counts.set(label, (counts.get(label) || 0) + 1);
+    const seen = new Map();
+    for (const g of gaps) {
+      const options = g.type === "aps" ? [] : g.label.split(" or ").map(stripMarks);
+      if (g.type === "aps" || options.some((o) => learnerTakes(subjects, o))) {
+        seen.set(MARKS_BLOCKER, MARKS_BLOCKER);
+      } else {
+        const { key, label } = blockerFor(options);
+        seen.set(key, label);
+      }
+    }
+    for (const [key, label] of seen) {
+      const entry = counts.get(key) || { label, count: 0 };
+      entry.count += 1;
+      counts.set(key, entry);
+    }
   }
-  return [...counts]
-    .map(([label, count]) => ({ label, count }))
+  return [...counts.values()]
     .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label))
     .slice(0, limit);
 }
@@ -226,19 +346,31 @@ export function applyChange(choices, change) {
   return { ...choices, electives: choices.electives.map((e) => (e === change.from ? change.to : e)) };
 }
 
-/** Every single change worth trying: another maths subject, or one elective swapped. */
+/**
+ * Every single change worth trying: another maths subject, or one elective
+ * swapped. Changes that would break a DBE combination rule the current
+ * choices don't already break are left out, and Technical Science is only
+ * suggested on the technical pathway.
+ */
 export function swapCandidates(courses, choices) {
+  const problemsNow = new Set(combinationProblems(choices).map((p) => p.key));
+  const allowed = (change) => {
+    const after = applyChange(choices, change);
+    if (change.to === TECHNICAL_SCIENCE && !isTechnicalPathway(after)) return false;
+    return combinationProblems(after).every((p) => problemsNow.has(p.key));
+  };
   const candidates = MATHS_SUBJECTS.filter((m) => m !== choices.maths)
     .map((to) => ({ type: "maths", from: choices.maths, to }));
   for (const to of requestedElectives(courses)) {
     if (choices.electives.includes(to)) continue;
     for (const from of choices.electives) candidates.push({ type: "elective", from, to });
   }
-  return candidates;
+  return candidates.filter(allowed);
 }
 
 /** Courses gained and lost by one change, against the current open set. */
 export function evaluateChange(courses, choices, mark, change, openNow) {
+  // Same matching as evaluateCourses; only the open/closed split matters here.
   const subjects = buildSubjects(applyChange(choices, change), mark);
   const gained = [];
   const lost = [];

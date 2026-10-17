@@ -160,9 +160,9 @@ export default function CourseDetail() {
             )}
           </div>
 
-          <div className="mt-8 bg-gradient-to-r from-purple-600 to-blue-500 rounded-2xl p-6 text-center">
+          <div className="mt-8 bg-gradient-to-r from-purple-700 to-blue-700 rounded-2xl p-6 text-center">
             <p className="text-white font-bold text-lg">Do you qualify for this course?</p>
-            <p className="text-white/80 text-sm mt-1 mb-4">
+            <p className="text-white/90 text-sm mt-1 mb-4">
               Enter your marks and Course Finder will tell you instantly — plus every other course you're eligible for.
             </p>
             <Link

@@ -45,6 +45,30 @@ export async function sendToTokens(messaging, tokens, message, ttlSeconds) {
   return result;
 }
 
+/**
+ * A device token can end up on several accounts (a shared phone). Each token
+ * belongs to the account that registered it most recently (`pushTokenAddedAt`),
+ * so learners never get each other's notifications.
+ * @returns {Map<string, string>} token → uid
+ */
+export function assignTokenOwners(users) {
+  const owners = new Map();
+  for (const user of users) {
+    for (const token of Array.isArray(user.pushTokens) ? user.pushTokens : []) {
+      if (typeof token !== "string" || !token) continue;
+      const at = String(user.pushTokenAddedAt?.[token] || "");
+      const current = owners.get(token);
+      if (!current || at > current.at) owners.set(token, { uid: user.uid, at });
+    }
+  }
+  return new Map([...owners].map(([token, { uid }]) => [token, uid]));
+}
+
+/** The user's tokens that they own (see assignTokenOwners). */
+export function ownedTokens(user, owners) {
+  return (Array.isArray(user.pushTokens) ? user.pushTokens : []).filter((t) => owners.get(t) === user.uid);
+}
+
 /** Removes device tokens FCM says are gone, so they aren't retried every day. */
 export async function removeDeadTokens(db, FieldValue, uid, deadTokens) {
   if (!deadTokens.length) return;

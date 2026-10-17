@@ -127,9 +127,9 @@ export default function CoursesDirectory() {
             <p className="text-center text-gray-500 py-12">No institutions match your search.</p>
           )}
 
-          <div className="mt-12 bg-gradient-to-r from-purple-600 to-blue-500 rounded-2xl p-6 text-center">
+          <div className="mt-12 bg-gradient-to-r from-purple-700 to-blue-700 rounded-2xl p-6 text-center">
             <p className="text-white font-bold text-lg">Want to know exactly what you qualify for?</p>
-            <p className="text-white/80 text-sm mt-1 mb-4">
+            <p className="text-white/90 text-sm mt-1 mb-4">
               Enter your marks and Course Finder matches you to real courses in seconds.
             </p>
             <Link

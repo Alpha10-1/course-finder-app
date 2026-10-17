@@ -2,10 +2,14 @@
 //
 // The device's FCM token is stored on the learner's user doc (`pushTokens`,
 // one per device) along with `reminders: true`; api/send-reminders.js reads
-// them once a day. Notifications are shown by our own service worker
+// them once a day. `pushTokenAddedAt` records when each token was added: if
+// several accounts were used on one shared phone, the server only sends to
+// the account that registered it last. Signing out removes this device's
+// token (forgetThisDevice), so the next person on the phone doesn't get the
+// previous learner's notifications. Notifications are shown by our own service worker
 // (public/sw.js), so Firebase Messaging is only used here to get a token —
 // and only loaded (dynamically) once a learner actually turns reminders on.
-import { doc, getDoc, setDoc, arrayUnion, arrayRemove } from "firebase/firestore";
+import { doc, getDoc, setDoc, arrayUnion, arrayRemove, deleteField } from "firebase/firestore";
 import { app, db } from "../firebase";
 import { FCM_VAPID_KEY } from "../pushConfig";
 
@@ -25,11 +29,23 @@ function storeToken(token) {
   }
 }
 
-// iPhones only allow web push for sites added to the Home Screen.
-function isIosBrowserTab() {
-  const ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
+// iPhones and iPads (iOS 16.4 and later) only allow web push for sites added
+// to the Home Screen. iPads report a Mac user agent, so they're recognised by
+// touch support instead.
+function iosVersion() {
+  const ua = navigator.userAgent;
+  const ipadAsMac = /Macintosh/.test(ua) && navigator.maxTouchPoints > 1;
+  if (!/iphone|ipad|ipod/i.test(ua) && !ipadAsMac) return null;
+  const m = /OS (\d+)_(\d+)/.exec(ua) || /Version\/(\d+)\.(\d+)/.exec(ua);
+  return m ? Number(m[1]) + Number(m[2]) / 100 : 0;
+}
+
+function iosStatus() {
+  const version = iosVersion();
+  if (version === null) return null;
   const installed = navigator.standalone === true || window.matchMedia?.("(display-mode: standalone)").matches;
-  return ios && !installed;
+  if (version < 16.04) return "unsupported";
+  return installed ? null : "ios-install";
 }
 
 // The worker is registered on page load in production builds only, so in
@@ -43,15 +59,15 @@ function serviceWorkerReady() {
 
 /**
  * Whether reminders can be offered on this device:
- * "unconfigured" (no VAPID key yet), "unsupported", "ios-install" (iPhone,
- * not added to the Home Screen), or the notification permission:
+ * "unconfigured" (no VAPID key yet), "unsupported", "ios-install" (iPhone or
+ * iPad on iOS 16.4+, not added to the Home Screen), or the notification permission:
  * "default" | "granted" | "denied".
  */
 export async function getPushStatus() {
   if (!FCM_VAPID_KEY) return "unconfigured";
   if (typeof window === "undefined") return "unsupported";
   const hasApis = "serviceWorker" in navigator && "Notification" in window && "PushManager" in window;
-  if (!hasApis) return isIosBrowserTab() ? "ios-install" : "unsupported";
+  if (!hasApis) return iosStatus() || "unsupported";
   try {
     const { isSupported } = await import("firebase/messaging");
     if (!(await isSupported())) return "unsupported";
@@ -77,18 +93,25 @@ export async function enableReminders(uid) {
   const permission = await Notification.requestPermission();
   if (permission !== "granted") return permission;
   const token = await getDeviceToken();
-  await setDoc(doc(db, "users", uid), { reminders: true, pushTokens: arrayUnion(token) }, { merge: true });
+  await setDoc(doc(db, "users", uid), {
+    reminders: true,
+    pushTokens: arrayUnion(token),
+    pushTokenAddedAt: { [token]: new Date().toISOString() },
+  }, { merge: true });
   storeToken(token);
   return permission;
 }
 
-/** Stops reminders on this device (other devices keep theirs). */
-export async function disableReminders(uid) {
+// Takes this device's token off the learner's record and unsubscribes it.
+async function removeThisDevice(uid) {
   const token = readStoredToken();
-  const ref = doc(db, "users", uid);
-  if (token) await setDoc(ref, { pushTokens: arrayRemove(token) }, { merge: true });
+  if (token) {
+    await setDoc(doc(db, "users", uid), {
+      pushTokens: arrayRemove(token),
+      pushTokenAddedAt: { [token]: deleteField() },
+    }, { merge: true });
+  }
   storeToken(null);
-
   // Unsubscribing makes the token unusable straight away, even if it's still
   // listed somewhere; the server drops dead tokens when it next sends.
   try {
@@ -98,7 +121,25 @@ export async function disableReminders(uid) {
   } catch {
     // Nothing more to do — the token is already off the learner's record.
   }
+}
 
+/**
+ * Called on sign-out: this phone stops getting this learner's reminders
+ * (their other devices keep theirs). Never throws.
+ */
+export async function forgetThisDevice(uid) {
+  if (!uid || !readStoredToken()) return;
+  try {
+    await removeThisDevice(uid);
+  } catch (err) {
+    console.warn("Couldn't remove this device's reminders:", err);
+  }
+}
+
+/** Stops reminders on this device (other devices keep theirs). */
+export async function disableReminders(uid) {
+  await removeThisDevice(uid);
+  const ref = doc(db, "users", uid);
   const snap = await getDoc(ref);
   const remaining = snap.exists() ? snap.data().pushTokens || [] : [];
   if (remaining.length === 0) await setDoc(ref, { reminders: false }, { merge: true });
@@ -113,7 +154,13 @@ export async function refreshReminderToken(uid) {
   const token = await getDeviceToken();
   if (token === previous) return;
   const ref = doc(db, "users", uid);
-  await setDoc(ref, { reminders: true, pushTokens: arrayUnion(token) }, { merge: true });
-  if (previous) await setDoc(ref, { pushTokens: arrayRemove(previous) }, { merge: true });
+  await setDoc(ref, {
+    reminders: true,
+    pushTokens: arrayUnion(token),
+    pushTokenAddedAt: { [token]: new Date().toISOString() },
+  }, { merge: true });
+  if (previous) {
+    await setDoc(ref, { pushTokens: arrayRemove(previous), pushTokenAddedAt: { [previous]: deleteField() } }, { merge: true });
+  }
   storeToken(token);
 }

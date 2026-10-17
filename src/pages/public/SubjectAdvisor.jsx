@@ -1,13 +1,14 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import Seo from "../../components/Seo";
 import { COURSES } from "../../utils/publicCourses";
 import { courseQualifies } from "../../utils/matching";
 import { SITE_URL, whatsAppShareUrl } from "../../utils/shareResults";
+import useOnlineStatus from "../../utils/useOnlineStatus";
 import {
-  ADVISOR_PROFILE, APS_BLOCKER, ELECTIVES, HOME_LANGUAGES, MARK_LEVELS, MATHS_OPTIONS, PRESETS, SECOND_LANGUAGES,
-  advisorParams, applyChange, buildSubjects, evaluateCourses, exampleCourses, languageOf, normalizeChoices,
-  parseAdvisorParams, summarizeByField, topBlockers,
+  ADVISOR_PROFILE, DEFAULT_MARK, ELECTIVES, HOME_LANGUAGES, MARK_LEVELS, MATHS_OPTIONS, PRESETS, SECOND_LANGUAGES,
+  advisorParams, applyChange, buildSubjects, combinationProblems, evaluateCourses, exampleCourses, languageOf,
+  normalizeChoices, parseAdvisorParams, summarizeByField, topBlockers,
 } from "../../utils/subjectAdvisor";
 import useChangeSuggestions from "./useChangeSuggestions";
 
@@ -16,7 +17,7 @@ const COLLEGE_COURSES = COURSES.filter((c) => c.institutionType === "college");
 const MAX_LISTED = 25;
 
 const selectClass =
-  "w-full p-2.5 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-purple-400";
+  "w-full p-2.5 rounded-xl border border-gray-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-purple-600";
 
 const plural = (n, word) => `${n.toLocaleString("en-ZA")} ${word}${n === 1 ? "" : "s"}`;
 
@@ -24,7 +25,12 @@ function describeChange(change) {
   return <>Take <strong>{change.to}</strong> instead of <strong>{change.from}</strong></>;
 }
 
-function FieldRow({ field }) {
+// At "any marks", an APS-only gap means the course's APS formula doesn't
+// count these subjects (e.g. one that skips Maths Literacy).
+const gapText = (g, mark) =>
+  g.type !== "aps" ? g.label : mark === DEFAULT_MARK ? "a higher APS than these subjects give" : "a higher APS";
+
+function FieldRow({ field, mark }) {
   const [open, setOpen] = useState(false);
   const share = field.total ? field.open / field.total : 0;
   const ruledOut = field.total - field.open;
@@ -57,7 +63,7 @@ function FieldRow({ field }) {
               </Link>
               <span className="text-gray-500"> — {course.institution}</span>
               <span className="block text-red-700 mt-0.5">
-                Needs {gaps.map((g) => (g.type === "aps" ? "a higher APS" : g.label)).join(", ")}
+                Needs {gaps.map((g) => gapText(g, mark)).join(", ")}
               </span>
             </li>
           ))}
@@ -80,10 +86,13 @@ export default function SubjectAdvisor() {
   const stateKey = advisorParams(choices, mark).toString();
 
   const subjects = useMemo(() => buildSubjects(choices, mark), [choices, mark]);
-  const result = useMemo(() => evaluateCourses(UNIVERSITY_COURSES, subjects), [subjects]);
+  const result = useMemo(() => evaluateCourses(UNIVERSITY_COURSES, subjects, mark), [subjects, mark]);
   const openNow = useMemo(() => new Set(result.open), [result]);
   const fields = useMemo(() => summarizeByField(result), [result]);
-  const blockers = useMemo(() => topBlockers(result.closed), [result]);
+  const blockers = useMemo(() => topBlockers(result.closed, subjects), [result, subjects]);
+  const problems = useMemo(() => combinationProblems(choices), [choices]);
+  const online = useOnlineStatus();
+  const suggestionsHeading = useRef(null);
   const collegeOpen = useMemo(
     () => COLLEGE_COURSES.filter((c) => courseQualifies(c, subjects, ADVISOR_PROFILE)).length,
     [subjects]
@@ -101,6 +110,7 @@ export default function SubjectAdvisor() {
 
   const openCount = result.open.length;
   const total = UNIVERSITY_COURSES.length;
+  const summarySentence = `With these subjects${mark < 100 ? ` and about ${mark}% in each` : ""}, you could apply for ${openCount.toLocaleString("en-ZA")} of ${total.toLocaleString("en-ZA")} university courses.`;
   const shareText = [
     "Choosing Grade 10 subjects? 🎓",
     `${choices.maths}, ${choices.electives.join(", ")} keep ${openCount.toLocaleString("en-ZA")} of ${total.toLocaleString("en-ZA")} university courses open.`,
@@ -127,7 +137,7 @@ export default function SubjectAdvisor() {
           </header>
 
           {/* Keeps the result in view while the subject pickers are scrolled on a phone. */}
-          <div className="sticky top-2 z-10 mb-3 sm:hidden" aria-hidden="true">
+          <div className={`sticky ${online ? "top-2" : "top-16"} z-10 mb-3 sm:hidden`} aria-hidden="true">
             <div className="mx-auto w-fit bg-purple-700 text-white text-xs font-medium rounded-full px-4 py-1.5 shadow-md">
               {result.open.length.toLocaleString("en-ZA")} of {UNIVERSITY_COURSES.length.toLocaleString("en-ZA")} university courses open
             </div>
@@ -219,23 +229,49 @@ export default function SubjectAdvisor() {
                 </select>
               </label>
             </div>
-            <p className="text-xs text-gray-500 -mt-2">Plus Life Orientation, which everyone takes.</p>
+            <p className="text-xs text-gray-600 -mt-2">Plus Life Orientation, which everyone takes.</p>
 
-            <label className="block">
-              <span className="block text-sm font-medium text-gray-800 mb-2">Marks</span>
-              <select value={mark} onChange={(e) => update(choices, Number(e.target.value))} className={selectClass}>
+            <div>
+              <label htmlFor="assumed-mark" className="block text-sm font-medium text-gray-800 mb-2">Marks</label>
+              <select
+                id="assumed-mark"
+                value={mark}
+                onChange={(e) => update(choices, Number(e.target.value))}
+                aria-describedby="assumed-mark-hint"
+                className={selectClass}
+              >
                 {MARK_LEVELS.map((m) => <option key={m.value} value={m.value}>{m.label}</option>)}
               </select>
-              <span className="block text-xs text-gray-500 mt-1">
+              <p id="assumed-mark-hint" className="text-xs text-gray-600 mt-1">
                 Choose a mark to also check minimum marks and APS. Leave it on "any marks" to see only what your subjects allow.
-              </span>
-            </label>
+              </p>
+            </div>
+
+            {problems.length > 0 && (
+              <div className="rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 space-y-2" role="alert">
+                <p className="text-sm font-semibold text-amber-900">Schools can't register this combination</p>
+                {problems.map((p) => (
+                  <div key={p.key} className="flex items-start justify-between gap-3 flex-wrap">
+                    <p className="text-sm text-amber-900 min-w-0 flex-1">{p.text}</p>
+                    <button
+                      type="button"
+                      onClick={() => update(p.fix)}
+                      className="text-xs font-semibold text-amber-900 bg-white border border-amber-300 hover:bg-amber-100 px-3 py-1.5 rounded-lg shrink-0"
+                    >
+                      {p.fixLabel}
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
           </section>
 
           {/* ── Summary ── */}
-          <section className="bg-white rounded-2xl shadow-sm p-5 mt-4" aria-live="polite">
-            <p className="text-sm text-gray-600">With these subjects{mark < 100 ? ` and about ${mark}% in each` : ""}, you could apply for</p>
-            <p className="mt-1">
+          <section className="bg-white rounded-2xl shadow-sm p-5 mt-4">
+            {/* One sentence for screen readers, instead of announcing every number and chip that changes. */}
+            <p role="status" className="sr-only">{summarySentence}</p>
+            <p className="text-sm text-gray-600" aria-hidden="true">With these subjects{mark < 100 ? ` and about ${mark}% in each` : ""}, you could apply for</p>
+            <p className="mt-1" aria-hidden="true">
               <span className="text-4xl font-extrabold text-purple-700">{openCount.toLocaleString("en-ZA")}</span>
               <span className="text-gray-700"> of {total.toLocaleString("en-ZA")} university courses</span>
             </p>
@@ -248,7 +284,7 @@ export default function SubjectAdvisor() {
                 <ul className="flex flex-wrap gap-2 mt-2">
                   {blockers.map((b) => (
                     <li key={b.label} className="text-xs bg-red-50 text-red-800 border border-red-100 rounded-lg px-2.5 py-1">
-                      {b.label === APS_BLOCKER ? "Higher marks" : b.label} · {plural(b.count, "course")}
+                      {b.label} · {plural(b.count, "course")}
                     </li>
                   ))}
                 </ul>
@@ -258,15 +294,17 @@ export default function SubjectAdvisor() {
               href={whatsAppShareUrl(shareText)}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block mt-4 text-xs font-medium px-3 py-1.5 rounded-lg bg-green-600 hover:bg-green-700 text-white transition"
+              className="inline-block mt-4 text-xs font-medium px-3 py-1.5 rounded-lg bg-green-700 hover:bg-green-800 text-white transition"
             >
               Share these subjects on WhatsApp
             </a>
           </section>
 
           {/* ── Suggestions ── */}
-          <section className="bg-white rounded-2xl shadow-sm p-5 mt-4" aria-labelledby="open-more">
-            <h2 id="open-more" className="font-semibold text-gray-900">Changes that open the most courses</h2>
+          <section className="bg-white rounded-2xl shadow-sm p-5 mt-4" aria-labelledby="open-more" aria-busy={loading}>
+            <h2 id="open-more" ref={suggestionsHeading} tabIndex={-1} className="font-semibold text-gray-900 focus:outline-none">
+              Changes that open the most courses
+            </h2>
             {loading ? (
               <p className="text-sm text-gray-500 mt-2">Working out which changes would help most…</p>
             ) : suggestions.length === 0 ? (
@@ -284,7 +322,11 @@ export default function SubjectAdvisor() {
                     </div>
                     <button
                       type="button"
-                      onClick={() => update(applyChange(choices, s))}
+                      onClick={() => {
+                        update(applyChange(choices, s));
+                        // The list is rebuilt for the new subjects; keep keyboard focus nearby.
+                        suggestionsHeading.current?.focus();
+                      }}
                       className="text-xs font-semibold text-purple-700 bg-purple-50 hover:bg-purple-100 px-3 py-1.5 rounded-lg shrink-0"
                     >
                       Try it
@@ -300,20 +342,20 @@ export default function SubjectAdvisor() {
             <h2 id="by-field" className="font-semibold text-gray-900">By field of study</h2>
             <p className="text-xs text-gray-500 mt-0.5">Tap a field to see the courses these subjects rule out, and what they need.</p>
             <ul className="divide-y divide-gray-100 mt-2">
-              {fields.map((f) => <FieldRow key={f.key} field={f} />)}
+              {fields.map((f) => <FieldRow key={f.key} field={f} mark={mark} />)}
             </ul>
           </section>
 
-          <p className="text-xs text-gray-500 mt-4 leading-relaxed">
+          <p className="text-xs text-gray-700 mt-4 leading-relaxed">
             This is a guide, based on the subject requirements in our course catalogue. Requirements change from
             year to year, and many courses also need a minimum APS and minimum marks in specific subjects. Talk to
             your Life Orientation teacher or school counsellor before you decide, and check the latest prospectus
             of the institutions you're interested in.
           </p>
 
-          <div className="mt-8 bg-gradient-to-r from-purple-600 to-blue-500 rounded-2xl p-6 text-center">
+          <div className="mt-8 bg-gradient-to-r from-purple-700 to-blue-700 rounded-2xl p-6 text-center">
             <p className="text-white font-bold text-lg">Already have marks?</p>
-            <p className="text-white/80 text-sm mt-1 mb-4">
+            <p className="text-white/90 text-sm mt-1 mb-4">
               Enter your Grade 11 or 12 marks and Course Finder shows exactly which courses you qualify for.
             </p>
             <Link to="/signup" className="inline-block bg-white text-purple-700 font-semibold px-6 py-3 rounded-xl hover:bg-purple-50 transition">

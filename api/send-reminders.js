@@ -15,11 +15,14 @@ import { getFirestore, FieldValue } from "firebase-admin/firestore";
 import { getMessaging } from "firebase-admin/messaging";
 import { getAdminApp, hasBearerSecret } from "./_lib/firebaseAdmin.js";
 import { planReminders } from "./_lib/reminders.js";
-import { sendToTokens, removeDeadTokens } from "./_lib/push.js";
+import { sendToTokens, assignTokenOwners, ownedTokens } from "./_lib/push.js";
 import { saToday } from "../src/utils/saDate.js";
 
 const ONE_DAY = 24 * 60 * 60;
 const CONCURRENCY = 10;
+// A run that claimed today but never finished (timed out or crashed) can be
+// re-run after this long; learners already reminded today are skipped.
+const STALE_RUN_MS = 15 * 60 * 1000;
 
 const mapById = (snap) => Object.fromEntries(snap.docs.map((d) => [d.id, d.data()]));
 
@@ -35,21 +38,29 @@ export default async function handler(req, res) {
 
   const dryRun = req.query?.dryRun === "1";
   const today = saToday();
+  let runRef = null;
+  let claimed = false;
+  let sendingStarted = false;
 
   try {
     const app = getAdminApp();
     const db = getFirestore(app);
-    const runRef = db.collection("system").doc("pushReminders");
+    runRef = db.collection("system").doc("pushReminders");
 
-    // Claim today's run, so a retry or a manual call can't send everything twice.
+    // Claim today's run, so a retry or a manual call can't send everything
+    // twice — unless an earlier claim today never finished.
     if (!dryRun) {
-      const claimed = await db.runTransaction(async (tx) => {
+      claimed = await db.runTransaction(async (tx) => {
         const snap = await tx.get(runRef);
-        if (snap.exists && snap.data().lastRunDate === today) return false;
-        tx.set(runRef, { lastRunDate: today, startedAt: new Date().toISOString() }, { merge: true });
+        const run = snap.exists ? snap.data() : {};
+        if (run.lastRunDate === today) {
+          const stale = !run.finishedAt && run.startedAt && Date.now() - Date.parse(run.startedAt) > STALE_RUN_MS;
+          if (!stale) return false;
+        }
+        tx.set(runRef, { lastRunDate: today, startedAt: new Date().toISOString(), finishedAt: null }, { merge: true });
         return true;
       });
-      if (!claimed) return res.status(200).json({ today, skipped: "Reminders were already sent today." });
+      if (!claimed) return res.status(200).json({ today, skipped: "Reminders were already sent (or are being sent) today." });
     }
 
     const [institutionSnap, facultySnap, usersSnap] = await Promise.all([
@@ -57,8 +68,14 @@ export default async function handler(req, res) {
       db.collection("facultySettings").get(),
       db.collection("users").where("reminders", "==", true).get(),
     ]);
+    const optedIn = usersSnap.docs.map((d) => ({ uid: d.id, ...d.data() }));
+    const owners = assignTokenOwners(optedIn);
     const plan = planReminders({
-      users: usersSnap.docs.map((d) => ({ uid: d.id, ...d.data() })),
+      // Skip learners a retried run already reached today, and only use the
+      // device tokens each learner owns.
+      users: optedIn
+        .filter((u) => u.lastReminderDate !== today)
+        .map((u) => ({ ...u, pushTokens: ownedTokens(u, owners) })),
       institutionSettings: mapById(institutionSnap),
       facultySettings: mapById(facultySnap),
       today,
@@ -75,13 +92,16 @@ export default async function handler(req, res) {
 
     const messaging = getMessaging(app);
     const summary = { today, optedIn: usersSnap.size, learners: plan.length, sent: 0, failed: 0, removedTokens: 0 };
+    sendingStarted = true;
     for (let i = 0; i < plan.length; i += CONCURRENCY) {
       await Promise.all(plan.slice(i, i + CONCURRENCY).map(async ({ uid, tokens, message }) => {
         try {
           const result = await sendToTokens(messaging, tokens, message, ONE_DAY);
           summary.sent += result.sent;
           summary.failed += result.failed;
-          await removeDeadTokens(db, FieldValue, uid, result.deadTokens);
+          const update = { lastReminderDate: today };
+          if (result.deadTokens.length) update.pushTokens = FieldValue.arrayRemove(...result.deadTokens);
+          await db.collection("users").doc(uid).update(update);
           summary.removedTokens += result.deadTokens.length;
         } catch (err) {
           summary.failed += tokens.length;
@@ -95,6 +115,14 @@ export default async function handler(req, res) {
     return res.status(200).json(summary);
   } catch (err) {
     console.error("send-reminders failed:", err);
+    // Nothing was sent yet, so give the day back for a retry.
+    if (claimed && !sendingStarted && runRef) {
+      try {
+        await runRef.set({ lastRunDate: FieldValue.delete() }, { merge: true });
+      } catch (cleanupErr) {
+        console.error("Couldn't release today's reminder run:", cleanupErr);
+      }
+    }
     return res.status(500).json({ error: "Sending reminders failed." });
   }
 }

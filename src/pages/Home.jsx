@@ -7,6 +7,7 @@ import OnboardingModal from "../components/OnboardingModal";
 import PricingModal from "../components/PricingModal";
 import SocialLinks from "../components/SocialLinks";
 import RemindersToggle from "../components/RemindersToggle";
+import { forgetThisDevice } from "../utils/pushReminders";
 import { isSuperAdmin, getRoleInfo } from "../utils/adminConfig";
 import { getApplicationProgress } from "../utils/applySelection";
 
@@ -76,6 +77,9 @@ export default function Home() {
   }, []);
 
   const handleSignOut = async () => {
+    // Stop this phone getting this learner's reminders (it may be shared), but
+    // never let a slow or failed request block signing out.
+    await Promise.race([forgetThisDevice(uid), new Promise((resolve) => setTimeout(resolve, 3000))]);
     await signOut(auth);
     navigate("/");
   };

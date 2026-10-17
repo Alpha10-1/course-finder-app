@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
 import { COURSES } from "./publicCourses";
 import {
-  APS_BLOCKER, DEFAULT_CHOICES, ELECTIVES, PRESETS, advisorParams, applyChange, buildSubjects, evaluateChange,
-  evaluateCourses, exampleCourses, normalizeChoices, parseAdvisorParams, rankChanges, requestedElectives,
-  summarizeByField, swapCandidates, topBlockers,
+  DEFAULT_CHOICES, ELECTIVES, MARKS_BLOCKER, PRESETS, advisorParams, applyChange, buildSubjects, combinationProblems,
+  evaluateChange, evaluateCourses, exampleCourses, normalizeChoices, parseAdvisorParams, rankChanges,
+  requestedElectives, summarizeByField, swapCandidates, topBlockers,
 } from "./subjectAdvisor";
 
 const uni = (courseName, keySubjects, extra = {}) => ({
@@ -76,6 +76,14 @@ describe("evaluateCourses", () => {
     expect(engineering.gaps.map((g) => g.label)).toEqual(["Mathematics ≥60%", "Physical Sciences ≥60%"]);
   });
 
+  it("leaves out APS gaps at the default mark when a subject is missing too", () => {
+    const cput = uni("Diploma", [{ subject: "Physical Sciences", minMark: 50 }], { minAPS: 1000 });
+    const subjects = buildSubjects(choices("Mathematical Literacy", ["History", "Geography", "Tourism"]));
+    expect(evaluateCourses([cput], subjects).closed[0].gaps.map((g) => g.type)).toEqual(["subject"]);
+    expect(evaluateCourses([cput], buildSubjects(choices("Mathematical Literacy", ["History", "Geography", "Tourism"]), 60), 60)
+      .closed[0].gaps.map((g) => g.type)).toEqual(["aps", "subject"]);
+  });
+
   it("ignores marks at the default, and checks them when a mark is assumed", () => {
     const science = choices("Mathematics", ["Physical Sciences", "Life Sciences", "Geography"]);
     expect(evaluateCourses([ENGINEERING], buildSubjects(science)).open).toHaveLength(1);
@@ -110,9 +118,63 @@ describe("summaries", () => {
     ];
     expect(topBlockers(closed)).toEqual([
       { label: "Physical Sciences", count: 2 },
-      { label: APS_BLOCKER, count: 1 },
+      { label: MARKS_BLOCKER, count: 1 },
       { label: "Physical Sciences or Technical Science", count: 1 },
     ]);
+  });
+
+  it("counts every way of writing one requirement as one blocker", () => {
+    const closed = [
+      { gaps: [{ type: "subject", label: "English ≥50%" }] },
+      { gaps: [{ type: "subject", label: "English Language ≥50%" }] },
+      { gaps: [{ type: "subject", label: "English Home Language ≥50% or English First Additional Language ≥60%" }] },
+      { gaps: [{ type: "subject", label: "Accounting ≥50% or Economics ≥50%" }] },
+      { gaps: [{ type: "subject", label: "Economics ≥40% or Accounting ≥40%" }] },
+    ];
+    expect(topBlockers(closed)).toEqual([
+      { label: "English", count: 3 },
+      { label: "Accounting or Economics", count: 2 },
+    ]);
+  });
+
+  it("calls a gap in a subject the learner takes a marks gap", () => {
+    const subjects = buildSubjects(choices("Mathematics", ["Physical Sciences", "Life Sciences", "Geography"]), 60);
+    const closed = [
+      { gaps: [{ type: "subject", label: "Mathematics ≥70%", have: 60 }] },
+      { gaps: [{ type: "subject", label: "Mathematics ≥70% or Technical Mathematics ≥70%" }] },
+      { gaps: [{ type: "subject", label: "Accounting ≥50%", have: null }] },
+    ];
+    expect(topBlockers(closed, subjects)).toEqual([
+      { label: MARKS_BLOCKER, count: 2 },
+      { label: "Accounting", count: 1 },
+    ]);
+  });
+});
+
+describe("combinationProblems (DBE subject rules)", () => {
+  const keys = (maths, electives) => combinationProblems(choices(maths, electives)).map((p) => p.key);
+
+  it("accepts every preset", () => {
+    for (const p of PRESETS) expect(keys(p.maths, p.electives)).toEqual([]);
+  });
+
+  it("doesn't allow Physical Sciences with Mathematical Literacy", () => {
+    const [problem] = combinationProblems(choices("Mathematical Literacy", ["Physical Sciences", "Life Sciences", "Geography"]));
+    expect(problem.key).toBe("physical-sciences-maths-lit");
+    expect(combinationProblems(problem.fix)).toEqual([]);
+  });
+
+  it("requires the full technical pathway with Technical Mathematics or a technology subject", () => {
+    const [problem] = combinationProblems(choices("Technical Mathematics", ["History", "Geography", "Life Sciences"]));
+    expect(problem.key).toBe("technical-missing");
+    expect(problem.text).toMatch(/Technical Mathematics is only for the technical pathway/);
+    expect(problem.fix.electives).toEqual(["Electrical Technology", "Engineering Graphics and Design", "Technical Science"]);
+    expect(combinationProblems(problem.fix)).toEqual([]);
+
+    expect(keys("Mathematics", ["Civil Technology", "Engineering Graphics and Design", "Physical Sciences"])).toEqual([]);
+    expect(keys("Mathematics", ["Civil Technology", "Geography", "Physical Sciences"])).toEqual(["technical-missing"]);
+    expect(keys("Mathematical Literacy", ["Mechanical Technology", "Engineering Graphics and Design", "Technical Science"]))
+      .toEqual(["technical-maths-lit"]);
   });
 });
 
@@ -123,8 +185,32 @@ describe("suggested changes", () => {
   it("only suggests electives some course asks for", () => {
     expect(requestedElectives(CATALOGUE).sort()).toEqual(["Accounting", "Life Sciences", "Physical Sciences"]);
     const candidates = swapCandidates(CATALOGUE, current);
-    expect(candidates.filter((c) => c.type === "maths").map((c) => c.to)).toEqual(["Mathematics", "Technical Mathematics"]);
-    expect(candidates.filter((c) => c.type === "elective")).toHaveLength(9); // 3 requested × 3 current electives
+    // Technical Mathematics would need the technical pathway's subjects, so it isn't offered.
+    expect(candidates.filter((c) => c.type === "maths").map((c) => c.to)).toEqual(["Mathematics"]);
+    // Accounting and Life Sciences for each of the 3 electives; Physical Sciences
+    // can't be taken with Mathematical Literacy.
+    expect(candidates.filter((c) => c.type === "elective")).toHaveLength(6);
+  });
+
+  it("never suggests a combination schools can't register", () => {
+    const universities = COURSES.filter((c) => c.institutionType === "university");
+    for (const preset of PRESETS) {
+      const current = choices(preset.maths, preset.electives);
+      for (const change of swapCandidates(universities, current)) {
+        expect(combinationProblems(applyChange(current, change))).toEqual([]);
+      }
+    }
+    // Humanities (Maths Literacy) is never told to take Physical Sciences.
+    const humanities = choices("Mathematical Literacy", ["History", "Geography", "Life Sciences"]);
+    expect(swapCandidates(universities, humanities).some((c) => c.to === "Physical Sciences")).toBe(false);
+    // Commerce isn't offered Technical Science, which belongs to the technical pathway.
+    const commerce = choices("Mathematics", ["Accounting", "Business Studies", "Economics"]);
+    expect(swapCandidates(universities, commerce).some((c) => c.to === "Technical Science")).toBe(false);
+  });
+
+  it("still suggests the change that fixes a broken combination", () => {
+    const broken = choices("Mathematical Literacy", ["Physical Sciences", "Life Sciences", "Geography"]);
+    expect(swapCandidates(CATALOGUE, broken).some((c) => c.type === "maths" && c.to === "Mathematics")).toBe(true);
   });
 
   it("measures what a change gains and loses", () => {

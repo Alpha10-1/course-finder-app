@@ -59,7 +59,16 @@ describe("Subject advisor", () => {
     renderAdvisor("?maths=Mathematics&e=Accounting,Business%20Studies,Economics&mark=70");
     expect(screen.getByRole("button", { name: "Commerce" }).getAttribute("aria-pressed")).toBe("true");
     expect(screen.getByDisplayValue("About 70% in every subject")).toBeTruthy();
-    expect(screen.getByText(/With these subjects and about 70% in each/)).toBeTruthy();
+    expect(screen.getByRole("status").textContent).toMatch(/^With these subjects and about 70% in each, you could apply for [\d\s]+ of [\d\s]+ university courses\.$/);
+  });
+
+  it("flags a combination schools can't register, and fixes it in one click", () => {
+    renderAdvisor("?maths=Mathematical%20Literacy&e=Physical%20Sciences,Life%20Sciences,Geography");
+    const alert = screen.getByRole("alert");
+    expect(alert.textContent).toMatch(/Physical Sciences has to be taken with Mathematics/);
+    fireEvent.click(within(alert).getByRole("button", { name: "Switch to Mathematics" }));
+    expect(screen.queryByRole("alert")).toBeNull();
+    expect(screen.getByRole("button", { name: "Mathematics Pure maths" }).getAttribute("aria-pressed")).toBe("true");
   });
 
   it("lists the ruled-out courses in a field, with what they need", () => {

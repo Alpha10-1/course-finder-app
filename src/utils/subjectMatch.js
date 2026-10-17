@@ -28,6 +28,7 @@ function normalize(str) {
 // same subject, however much their names overlap ("Economics" and "Maritime
 // Economics", "Design" and "Engineering Graphics and Design").
 const NSC_SUBJECT_NAMES = new Set(NSC_SUBJECTS.map(normalize));
+const NSC_SUBJECT_LIST = [...NSC_SUBJECT_NAMES];
 
 // Matches "20 Credit Subject", "20 Credit Subject 1", "20-credit subject 2",
 // "Other Subject", "Other Subjects (2)", "Other Subjects 3", etc.
@@ -106,6 +107,11 @@ const REQUIREMENT_ALIASES = {
   "afrikaans language": ["afrikaans"],
   "biology": ["life sciences"],
   "agriculture": ["agricultural sciences", "agricultural technology", "agricultural management practices"],
+  // Variant spellings of official subjects. Without these, the containment
+  // rules below would let "Design" satisfy an EGD requirement.
+  "engineering graphics and design (egd)": ["engineering graphics and design"],
+  "engineering graphics design": ["engineering graphics and design"],
+  "technical sciences": ["technical science"],
 };
 
 // "African Languages", "Any other African Language": any of South Africa's
@@ -116,6 +122,32 @@ const AFRICAN_LANGUAGES = ["isindebele", "isixhosa", "isizulu", "sepedi", "sesot
 function isAfricanLanguageSubject(name) {
   const n = normalize(name);
   return isLanguageSubjectName(n) && AFRICAN_LANGUAGES.some((lang) => n.startsWith(`${lang} `));
+}
+
+// A bare "First Additional Language" requirement (no language named). A
+// learner can take their second language as a Home Language instead, which
+// is the higher level, so a second Home Language counts too.
+const BARE_FAL_RE = /^first additional language$/i;
+
+export function isBareFirstAdditionalLanguage(reqSubject) {
+  return BARE_FAL_RE.test(String(reqSubject ?? "").trim());
+}
+
+/**
+ * The subject that meets a bare "First Additional Language" row: a FAL at
+ * the minimum, or — for a learner with two Home Languages — the weaker of
+ * the two (the stronger one is the "home" language), if it's at the minimum.
+ */
+function bareFalSubject(userSubjects, minMark) {
+  const fal = userSubjects.find(
+    (s) => normalize(s.subject).endsWith("first additional language") && safeMark(s.mark) >= minMark
+  );
+  if (fal) return fal;
+  const homeLanguages = userSubjects
+    .filter((s) => normalize(s.subject).endsWith("home language"))
+    .sort((a, b) => safeMark(b.mark) - safeMark(a.mark));
+  const second = homeLanguages[1];
+  return second && safeMark(second.mark) >= minMark ? second : null;
 }
 
 /**
@@ -164,8 +196,16 @@ export function subjectMatches(userSubject, reqSubject) {
   if (user.includes(req)) return true;
 
   // Reverse containment: req contains user as a substring
-  // e.g. req="CAT (Computer Applications Technology)" matches user="CAT"
-  if (req.includes(user) && user.length >= 3) return true;
+  // e.g. req="CAT (Computer Applications Technology)" matches user="CAT".
+  // Not when the requirement names a longer official subject that merely
+  // contains the learner's subject name (a requirement for "Engineering
+  // Graphics and Design (EGD)" isn't met by "Design").
+  if (req.includes(user) && user.length >= 3) {
+    if (NSC_SUBJECT_NAMES.has(user) && NSC_SUBJECT_LIST.some((n) => n !== user && n.includes(user) && req.includes(n))) {
+      return false;
+    }
+    return true;
+  }
 
   return false;
 }
@@ -202,6 +242,7 @@ export function meetsKeySubjects(userSubjects, keySubjects) {
               safeMark(s.mark) >= opt.minMark
           );
         }
+        if (isBareFirstAdditionalLanguage(opt.subject)) return !!bareFalSubject(userSubjects, opt.minMark);
         return userSubjects.some(
           (s) =>
             subjectMatches(s.subject, opt.subject) &&
@@ -228,6 +269,8 @@ export function meetsKeySubjects(userSubjects, keySubjects) {
           safeMark(s.mark) >= req.minMark
       );
     }
+
+    if (isBareFirstAdditionalLanguage(req.subject)) return !!bareFalSubject(userSubjects, req.minMark);
 
     // Single subject requirement
     return userSubjects.some(
@@ -263,6 +306,7 @@ export function getKeySubjectStatus(userSubjects, keySubjects) {
       const met = req.subjectGroup.some((opt) => {
         if (isGenericCreditSubject(opt.subject)) return !!anyNonLO(opt.minMark);
         if (isAnotherLanguagePlaceholder(opt.subject)) return !!otherLanguage(opt.minMark);
+        if (isBareFirstAdditionalLanguage(opt.subject)) return !!bareFalSubject(userSubjects, opt.minMark);
         return userSubjects.some((s) => subjectMatches(s.subject, opt.subject) && safeMark(s.mark) >= opt.minMark);
       });
       return { label: req.subjectGroup.map((o) => `${o.subject} ≥${o.minMark}%`).join(" or "), met };
@@ -276,6 +320,12 @@ export function getKeySubjectStatus(userSubjects, keySubjects) {
     if (isAnotherLanguagePlaceholder(req.subject)) {
       const match = otherLanguage(req.minMark);
       return { label, met: !!match, userMark: markOf(match) };
+    }
+    if (isBareFirstAdditionalLanguage(req.subject)) {
+      const match = bareFalSubject(userSubjects, req.minMark);
+      if (match) return { label, met: true, userMark: markOf(match) };
+      const fal = userSubjects.find((s) => normalize(s.subject).endsWith("first additional language"));
+      return { label, met: false, userMark: markOf(fal) };
     }
     const userSubj = userSubjects.find((s) => subjectMatches(s.subject, req.subject));
     return { label, met: !!userSubj && safeMark(userSubj.mark) >= req.minMark, userMark: markOf(userSubj) };
