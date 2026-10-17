@@ -115,9 +115,12 @@ export default function Results() {
 
   // Bursaries that fund a field of study the learner qualifies for.
   const [bursaries,      setBursaries]      = useState([]);
+  // Learners who can only browse colleges are matched on college courses only.
   const matchedBursaries = useMemo(
-    () => bursariesForLearner(bursaries, studyFieldsForCourses([...normalCourses, ...extendedCourses, ...collegeCourses])),
-    [bursaries, normalCourses, extendedCourses, collegeCourses]
+    () => bursariesForLearner(bursaries, studyFieldsForCourses(
+      accessLevel === "colleges_only" ? collegeCourses : [...normalCourses, ...extendedCourses, ...collegeCourses]
+    )),
+    [bursaries, normalCourses, extendedCourses, collegeCourses, accessLevel]
   );
 
   // "Save as PDF": mount the print-only layout, open the print dialog, and

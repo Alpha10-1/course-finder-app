@@ -217,9 +217,18 @@ describe("Admin panel smoke test", () => {
     expect(await screen.findByText("Added Teaching Bursary")).toBeTruthy();
     expect(screen.getByText("Department of Education")).toBeTruthy();
 
+    // The confirmation is a modal dialog: focus starts on Cancel and Escape closes it.
+    const deleteButton = screen.getByRole("button", { name: "Delete" });
+    deleteButton.focus();
+    click(deleteButton);
+    const dialog = screen.getByRole("alertdialog", { name: "Delete bursary?" });
+    expect(document.activeElement).toBe(within(dialog).getByRole("button", { name: "Cancel" }));
+    fireEvent.keyDown(dialog, { key: "Escape" });
+    expect(screen.queryByRole("alertdialog")).toBeNull();
+    expect(document.activeElement).toBe(deleteButton);
+
     click(screen.getByRole("button", { name: "Delete" }));
-    expect(screen.getByText("Delete bursary?")).toBeTruthy();
-    click(within(screen.getByText("Delete bursary?").parentElement).getByRole("button", { name: "Delete" }));
+    click(within(screen.getByRole("alertdialog")).getByRole("button", { name: "Delete" }));
     expect(await screen.findByText("Deleted Teaching Bursary")).toBeTruthy();
     expect(screen.getByText(/No bursaries yet/)).toBeTruthy();
   });

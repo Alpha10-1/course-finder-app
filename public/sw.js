@@ -44,7 +44,7 @@ self.addEventListener("fetch", (event) => {
   if (url.pathname.startsWith("/__/")) return;
 
   if (request.mode === "navigate") {
-    event.respondWith(networkFirstPage(request, url));
+    event.respondWith(networkFirstPage(request));
   } else if (url.pathname.startsWith("/assets/")) {
     event.respondWith(cacheFirstAsset(request));
   }
@@ -68,13 +68,23 @@ async function storeShell(response) {
   await cache.put(SHELL_URL, response);
 }
 
-async function networkFirstPage(request, url) {
+// The SPA shell has an empty mount point; prerendered pages (/courses/...,
+// /subject-choices, and any added later) have their content inside it and
+// must never become the offline fallback for every other route.
+const EMPTY_ROOT = '<div id="root"></div>';
+
+async function networkFirstPage(request) {
   try {
     const response = await fetch(request);
-    // Every route except the prerendered /courses pages is served the SPA
-    // shell, so keep the newest copy for offline use.
-    if (response.ok && !url.pathname.startsWith("/courses")) {
-      storeShell(response.clone()).catch(() => {});
+    if (response.ok && !response.redirected) {
+      const copy = response.clone();
+      copy.text()
+        .then((html) => {
+          if (html.includes(EMPTY_ROOT)) {
+            return storeShell(new Response(html, { headers: copy.headers }));
+          }
+        })
+        .catch(() => {});
     }
     return response;
   } catch (err) {

@@ -10,6 +10,7 @@ export default function useBursaries(showToast) {
   const [editingBursary, setEditingBursary] = useState(null); // form values, with `id` when editing
   const [bursaryErrors, setBursaryErrors] = useState([]);
   const [confirmDeleteBursary, setConfirmDeleteBursary] = useState(null);
+  const [savingBursary, setSavingBursary] = useState(false);
 
   // Same fetch/load split as the other admin hooks: state is only set from
   // promise callbacks, so the initial-load effect never sets it synchronously.
@@ -41,10 +42,11 @@ export default function useBursaries(showToast) {
   };
 
   const handleSaveBursary = async () => {
-    if (!editingBursary) return;
+    if (!editingBursary || savingBursary) return; // ignore a double click while saving
     const { errors, bursary } = validateBursary(editingBursary);
     setBursaryErrors(errors);
     if (errors.length) return;
+    setSavingBursary(true);
 
     const record = {
       ...bursary,
@@ -62,20 +64,26 @@ export default function useBursaries(showToast) {
         showToast(`Added ${record.name}`);
       }
       setEditingBursary(null);
-    } catch (err) { showToast(err.message, "error"); }
+    } catch (err) {
+      showToast(err.message, "error");
+    } finally {
+      setSavingBursary(false);
+    }
   };
 
   const handleDeleteBursary = async (bursary) => {
     try {
       await deleteDoc(doc(db, "bursaries", bursary.id));
       setBursaries((prev) => prev.filter((b) => b.id !== bursary.id));
+      // Saving the open form afterwards would quietly recreate it.
+      if (editingBursary?.id === bursary.id) cancelEditBursary();
       showToast(`Deleted ${bursary.name}`);
     } catch (err) { showToast(err.message, "error"); }
     setConfirmDeleteBursary(null);
   };
 
   return {
-    bursaries, loadingBursaries, editingBursary, setEditingBursary, bursaryErrors,
+    bursaries, loadingBursaries, editingBursary, setEditingBursary, bursaryErrors, savingBursary,
     confirmDeleteBursary, setConfirmDeleteBursary, startAddBursary, startEditBursary,
     cancelEditBursary, handleSaveBursary, handleDeleteBursary,
   };

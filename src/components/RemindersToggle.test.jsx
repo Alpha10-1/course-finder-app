@@ -39,7 +39,9 @@ describe("RemindersToggle", () => {
   it("turns reminders on for this device", async () => {
     render(<RemindersToggle uid="u1" pushTokens={[]} />);
     fireEvent.click(await screen.findByRole("button", { name: /Remind me when applications open or close/ }));
-    expect(await screen.findByText(/Reminders are on for this device/)).toBeTruthy();
+    const turnOff = await screen.findByRole("button", { name: "Turn off" });
+    expect(screen.getByRole("status").textContent).toBe("Reminders are on for this device.");
+    expect(document.activeElement).toBe(turnOff); // focus follows the swapped control
     expect(push.enableReminders).toHaveBeenCalledWith("u1");
   });
 
@@ -50,7 +52,9 @@ describe("RemindersToggle", () => {
     expect(await screen.findByText(/Reminders are on for this device/)).toBeTruthy();
     expect(push.refreshReminderToken).toHaveBeenCalledWith("u1");
     fireEvent.click(screen.getByRole("button", { name: "Turn off" }));
-    expect(await screen.findByRole("button", { name: /Remind me/ })).toBeTruthy();
+    const turnOn = await screen.findByRole("button", { name: /Remind me/ });
+    expect(document.activeElement).toBe(turnOn);
+    expect(screen.getByRole("status").textContent).toBe("Reminders are off for this device.");
     expect(push.disableReminders).toHaveBeenCalledWith("u1");
   });
 
@@ -58,7 +62,8 @@ describe("RemindersToggle", () => {
     push.enableReminders = vi.fn(async () => "denied");
     render(<RemindersToggle uid="u1" />);
     fireEvent.click(await screen.findByRole("button", { name: /Remind me/ }));
-    expect(await screen.findByText(/Notifications are blocked/)).toBeTruthy();
+    await vi.waitFor(() => expect(screen.getByRole("status").textContent).toBe("Notifications are blocked for Course Finder."));
+    expect(document.activeElement.textContent).toMatch(/Allow them in your browser's site settings/);
   });
 
   it("tells iPhone users to add the app to their Home Screen", async () => {

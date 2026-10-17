@@ -33,6 +33,18 @@ as they ship, and add new ideas under **Later**.
     were affected, e.g. Fort Hare's BCom.
   - "Maritime Economics" counted as Economics, and Design and Engineering Graphics
     and Design counted as each other.
+  - Mathematics learners were held to the higher Technical Mathematics APS
+    minimum on 38 courses, 34 of them at NMU.
+  - Learners with two Home Languages failed about 80 courses that ask for a
+    "First Additional Language". A second Home Language now counts.
+- **Review fixes** (an independent six-area review of the push, bursary and
+  advisor work, with every finding re-checked by a skeptic):
+  - The advisor follows the DBE subject-combination rules.
+  - Push tokens no longer outlive sign-out on a shared phone.
+  - The daily reminder run recovers from failures.
+  - The offline fallback page can no longer be replaced by a prerendered page.
+  - Bursary admin fixes, contrast and keyboard fixes, and Android guide
+    corrections.
 
 **2026-10-07**
 - **Admission notes on every course.** Wait-list rules (`additionalRequirements`),

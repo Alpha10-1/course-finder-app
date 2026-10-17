@@ -47,7 +47,7 @@ Then build:
 bubblewrap build
 ```
 
-This prints the key's SHA-256 fingerprint and produces two files:
+This produces two files:
 
 - `app-release-signed.apk` — for installing directly on a phone (send it over
   WhatsApp or USB, or run `bubblewrap install` with the phone plugged in).
@@ -74,18 +74,24 @@ a brand new app.
 
 ## 3. Get the fingerprints
 
-Your key's fingerprint is printed by `bubblewrap build`. To see it again:
+Read your key's fingerprint with `keytool`. It comes with the JDK Bubblewrap
+downloaded, but that JDK isn't on your PATH. Its folder is the `jdkPath` value
+in `%USERPROFILE%\.bubblewrap\config.json` (`~/.bubblewrap/config.json` on macOS
+or Linux). From the `android` folder in Git Bash:
 
 ```sh
-keytool -list -v -keystore android.keystore -alias android
+"$(node -p "require(require('os').homedir()+'/.bubblewrap/config.json').jdkPath")/bin/keytool" -list -v -keystore android.keystore -alias android
 ```
 
-Copy the `SHA256:` line (32 pairs of hex digits). Don't use the `SHA1:` one.
+On macOS the JDK's tools are under `<jdkPath>/Contents/Home/bin/keytool`. Copy
+the `SHA256:` line (32 pairs of hex digits). Don't use the `SHA1:` one. If you
+used PWABuilder, the fingerprint is already in `signing-key-info.txt`.
 
 If you publish on Google Play with Play App Signing (the default), Google re-signs
-the app with its own key. You then also need Play's fingerprint: Play Console →
-your app → *Test and release* → *App integrity* → *App signing* → *App signing key
-certificate* → SHA-256.
+the app with its own key. You then also need Play's fingerprint. In Play Console,
+open your app, then go to *Protected with Play* → *Play Store distribution* →
+*Go to Play app signing* → *App signing key certificate* and copy the SHA-256.
+Older consoles show it under *Test and release* → *App integrity* → *App signing*.
 
 ## 4. Publish assetlinks.json
 
@@ -127,6 +133,14 @@ APK is signed with yours.
 
 ## Updating the app
 
-Website changes need no new app build. Rebuild the app (`bubblewrap update` then
-`bubblewrap build`, bumping the version when asked) only when the manifest changes:
-name, icon, colours or start URL.
+Website changes need no new app build. Rebuild the app only when
+`site.webmanifest` changes (name, icon, colours or start URL):
+
+1. Deploy the site first, so the live manifest has the change.
+2. In the `android` folder, run `bubblewrap merge`. It fetches the live web
+   manifest, copies its values into `twa-manifest.json` and bumps the version.
+3. Run `bubblewrap update --skipVersionUpgrade` (merge already bumped the
+   version), then `bubblewrap build`.
+
+`bubblewrap update` on its own doesn't read the web manifest. You can also edit
+`twa-manifest.json` by hand and then run `bubblewrap update` and `bubblewrap build`.

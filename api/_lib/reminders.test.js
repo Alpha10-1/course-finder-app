@@ -7,7 +7,7 @@ import {
   planReminders,
   reminderEventsFor,
 } from "./reminders.js";
-import { sendToTokens, removeDeadTokens } from "./push.js";
+import { sendToTokens, removeDeadTokens, assignTokenOwners, ownedTokens } from "./push.js";
 import { addDays, formatDayMonth, saToday } from "../../src/utils/saDate.js";
 
 const TODAY = "2026-10-16";
@@ -149,6 +149,23 @@ describe("planReminders", () => {
 describe("applicationLodgedMessage", () => {
   it("names the institution", () => {
     expect(applicationLodgedMessage("Rhodes University").title).toBe("We've applied to Rhodes University for you 🎉");
+  });
+});
+
+describe("assignTokenOwners", () => {
+  it("gives a token shared by several accounts to the one that registered it last", () => {
+    const older = { uid: "a", pushTokens: ["shared", "a-only"], pushTokenAddedAt: { shared: "2026-10-01T08:00:00Z" } };
+    const newer = { uid: "b", pushTokens: ["shared"], pushTokenAddedAt: { shared: "2026-10-10T08:00:00Z" } };
+    const owners = assignTokenOwners([older, newer]);
+    expect(ownedTokens(older, owners)).toEqual(["a-only"]);
+    expect(ownedTokens(newer, owners)).toEqual(["shared"]);
+    // Order doesn't matter.
+    expect(ownedTokens(older, assignTokenOwners([newer, older]))).toEqual(["a-only"]);
+  });
+
+  it("never sends one token to two accounts, even without timestamps", () => {
+    const owners = assignTokenOwners([{ uid: "a", pushTokens: ["t"] }, { uid: "b", pushTokens: ["t"] }]);
+    expect([...owners]).toEqual([["t", "a"]]);
   });
 });
 

@@ -21,6 +21,9 @@ describe("studyFieldsForCourse", () => {
     expect(fieldsOf("Bachelor of Nursing", "Faculty of Health Sciences")).toEqual(["health"]);
     expect(fieldsOf("MBChB", "School of Medicine")).toEqual(["health"]);
     expect(fieldsOf("Diploma in Civil Engineering", "Engineering and the Built Environment")).toEqual(["engineering"]);
+    // Abbreviated engineering degrees (UCT, Wits) are engineering too.
+    expect(fieldsOf("BEng (Chemical)", "Faculty of Engineering")).toContain("engineering");
+    expect(fieldsOf("B Sc Eng: Computer", "Faculty of Engineering and the Built Environment")).toEqual(["engineering", "it"]);
   });
 
   it("doesn't treat health, social or management 'sciences' as natural science", () => {

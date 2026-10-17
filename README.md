@@ -124,8 +124,17 @@ This is a client-rendered React SPA with two additions layered on top for SEO an
   courses and what they need, and the single swaps that would open the most courses.
   It runs the same `courseQualifies` as the results page, with every subject at an
   assumed mark: at 100% only subject requirements matter, and lower marks add APS
-  and subject minimums back in. Choices live in the query string, so a combination
-  can be shared. The swap suggestions take about 60 full catalogue checks, so
+  and subject minimums back in. It also applies the Department of Basic
+  Education's subject-combination rules (`combinationProblems`):
+  - Physical Sciences only with Mathematics.
+  - Technical Mathematics only on the technical pathway, which is Civil, Electrical
+    or Mechanical Technology, plus Engineering Graphics and Design, plus Physical
+    or Technical Sciences.
+  - No Maths Literacy on the technical pathway.
+
+  It warns about a combination that breaks a rule, with a one-click fix, and never
+  suggests a swap that would break one. Choices live in the query string, so a
+  combination can be shared. The swap suggestions take about 60 full catalogue checks, so
   `useChangeSuggestions` works through them a few at a time. Prerendered for SEO;
   reads the bundled JSON like the other public pages.
 
@@ -251,9 +260,12 @@ see [known issues](#known-issues-rough-edges--security-notes)):
   `applySelections` (the round 1/2/3 course picks keyed by institution),
   `applicationProgress` (which institutions the team has applied to, set by admins),
   `shortlist` (starred courses: `[{ id, courseName, institution, campus?, faculty? }]`),
-  `reminders` (true when push reminders are on) and `pushTokens` (one Firebase Cloud
-  Messaging token per device). `applicationProgress.{institution}.notifiedAt` records
-  when the learner was told about that application.
+  `reminders` (true when push reminders are on), `pushTokens` (one Firebase Cloud
+  Messaging token per device), `pushTokenAddedAt` (`{ [token]: ISO date }`, so a
+  token shared by two accounts on one phone only goes to the latest) and
+  `lastReminderDate` (the last day a reminder was sent, so a retried run skips
+  them). `applicationProgress.{institution}.notifiedAt` records when the learner was
+  told about that application.
 - `courses/{id}` — one document per course; the shape mirrors the `BLANK_COURSE`
   object in `Admin.jsx` (institution, faculty, campus, duration, qualification type,
   `minAPS`, `apsAlternatives`, `keySubjects`, `admissionRequirement`, and
@@ -266,8 +278,10 @@ see [known issues](#known-issues-rough-edges--security-notes)):
 - `bursaries/{id}` — `{ name, provider, fields: [studyFieldKey], closeDate, applyUrl,
   covers, description, academicYear, updatedAt, updatedBy }`; edited in the admin
   panel's Bursaries tab.
-- `system/pushReminders` — `{ lastRunDate, lastSummary }`, written by
-  `api/send-reminders.js` so a day's reminders are never sent twice.
+- `system/pushReminders` — `{ lastRunDate, startedAt, finishedAt, lastSummary }`,
+  written by `api/send-reminders.js` so a day's reminders are never sent twice. A
+  run that never finished can be retried after 15 minutes. A run that fails before
+  sending anything gives the day back.
 - `meta/seedExclusions` — `{ keys: [...] }`, dedupe keys of courses an admin deleted,
   so re-seeding from the JSON doesn't bring them back.
 
@@ -485,18 +499,18 @@ code runs.
    entry in `vercel.json`; crons only run on production deployments. The Hobby plan
    allows a once-a-day job, which is all this needs. Then
    `npm run build && firebase deploy --only hosting`.
-4. **Firestore rules.** Learners must be allowed to write `reminders` and
-   `pushTokens` on their own user doc. See
+4. **Firestore rules.** Learners must be allowed to write `reminders`,
+   `pushTokens` and `pushTokenAddedAt` on their own user doc. See
    [Firestore rules for newer features](#firestore-rules-for-newer-features).
-5. **Try it.** Turn reminders on from Home on a phone (Android Chrome, or an iPhone
-   with the site added to the Home Screen). Shortlist a course, set that
+5. **Try it.** Turn reminders on from Home on a phone: Android Chrome, or an iPhone
+   or iPad on iOS 16.4 or later with the site added to the Home Screen. Shortlist a course, set that
    institution's closing date to tomorrow in the admin panel, then preview the run
    without sending anything:
    ```sh
    curl -H "Authorization: Bearer $CRON_SECRET" "https://course-finder-app-zeta.vercel.app/api/send-reminders?dryRun=1"
    ```
    Drop `?dryRun=1` to really send. Each day only sends once; the date is recorded
-   in `system/pushReminders`.
+   in `system/pushReminders`. To test again on the same day, delete that document.
 
 If "Remind me" fails with a 403 error in the browser console, the web API key in
 `src/firebase.js` is probably restricted. Allow it to call the *Firebase
@@ -510,7 +524,10 @@ applications open today, close in 7 days, or close tomorrow. Apply For Me learne
 who have submitted their choices get no closing reminders for those institutions.
 Instead, they get a "We've applied to … for you" notification when an admin marks
 each one as applied. Tokens that Firebase reports as dead are removed
-automatically. There's no email or WhatsApp channel yet.
+automatically. Signing out removes that phone's token, so on a shared phone the
+next learner doesn't get the previous learner's notifications. If a token still
+ends up on two accounts, only the account that registered it last is sent to.
+There's no email or WhatsApp channel yet.
 
 ### Firestore rules for newer features
 
@@ -518,8 +535,8 @@ automatically. There's no email or WhatsApp channel yet.
 rules until they're updated in the Firebase Console:
 
 - **`bursaries`**: any signed-in learner can read; only admins can write.
-- **`users/{uid}`**: the learner can write `shortlist`, `reminders` and `pushTokens`
-  on their own doc, as they already do for marks and selections.
+- **`users/{uid}`**: the learner can write `shortlist`, `reminders`, `pushTokens` and
+  `pushTokenAddedAt` on their own doc, as they already do for marks and selections.
 - **`system`**: the Vercel functions use the Admin SDK, which bypasses rules, so no
   client access is needed.
 

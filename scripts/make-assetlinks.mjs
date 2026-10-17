@@ -3,8 +3,9 @@
 //   npm run assetlinks -- --fingerprint <SHA-256> [--fingerprint <SHA-256>] [--package <name>]
 //
 // Pass your upload key's fingerprint, plus Google Play's app signing key
-// fingerprint once the app is on Play (Play Console → Test and release →
-// App integrity → App signing). Then build and deploy hosting as usual.
+// fingerprint once the app is on Play (Play Console → Protected with Play →
+// Play Store distribution → Go to Play app signing → App signing key
+// certificate). Then build and deploy hosting as usual.
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";

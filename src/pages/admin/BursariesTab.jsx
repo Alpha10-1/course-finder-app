@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { STUDY_FIELDS, studyFieldLabel, saToday } from "../../utils/bursaries";
 
 const inputClass =
@@ -8,12 +9,17 @@ function Field({ label, hint, children }) {
     <label className="block space-y-1">
       <span className="text-xs font-medium text-gray-300">{label}</span>
       {children}
-      {hint && <span className="block text-[11px] text-gray-500">{hint}</span>}
+      {hint && <span className="block text-[11px] text-gray-400">{hint}</span>}
     </label>
   );
 }
 
-function BursaryForm({ form, setForm, errors, onSave, onCancel }) {
+// Rendered with a key per bursary, so opening it (Add, or Edit on any card)
+// always mounts it afresh: focus moves to the first field, which also
+// scrolls the form into view when it opens above a card lower down the list.
+function BursaryForm({ form, setForm, errors, saving, onSave, onCancel }) {
+  const nameRef = useRef(null);
+  useEffect(() => { nameRef.current?.focus(); }, []);
   const set = (field) => (e) => setForm({ ...form, [field]: e.target.value });
   const toggleField = (key) => {
     const fields = form.fields.includes(key) ? form.fields.filter((f) => f !== key) : [...form.fields, key];
@@ -25,7 +31,7 @@ function BursaryForm({ form, setForm, errors, onSave, onCancel }) {
       <p className="font-semibold text-white">{form.id ? `Edit ${form.name || "bursary"}` : "Add a bursary"}</p>
       <div className="grid sm:grid-cols-2 gap-4">
         <Field label="Bursary name">
-          <input value={form.name} onChange={set("name")} placeholder="e.g. Funza Lushaka Bursary" className={inputClass} />
+          <input ref={nameRef} value={form.name} onChange={set("name")} placeholder="e.g. Funza Lushaka Bursary" className={inputClass} />
         </Field>
         <Field label="Offered by">
           <input value={form.provider} onChange={set("provider")} placeholder="Company, department or institution" className={inputClass} />
@@ -66,7 +72,7 @@ function BursaryForm({ form, setForm, errors, onSave, onCancel }) {
             );
           })}
         </div>
-        <p className="text-[11px] text-gray-500">
+        <p className="text-[11px] text-gray-400">
           Learners see a bursary when they qualify for at least one course in one of these fields.
         </p>
       </fieldset>
@@ -79,7 +85,51 @@ function BursaryForm({ form, setForm, errors, onSave, onCancel }) {
 
       <div className="flex gap-3">
         <button onClick={onCancel} className="px-4 py-2 rounded-xl bg-gray-700 hover:bg-gray-600 text-sm transition">Cancel</button>
-        <button onClick={onSave} className="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-sm font-semibold transition">Save bursary</button>
+        <button onClick={onSave} disabled={saving} className="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-sm font-semibold transition disabled:opacity-60">
+          {saving ? "Saving…" : "Save bursary"}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// The delete confirmation, as a proper modal dialog: focus starts on Cancel,
+// Tab stays inside, Escape cancels, and focus goes back to the card's Delete
+// button afterwards.
+function ConfirmDeleteDialog({ bursary, onCancel, onConfirm }) {
+  const cancelRef = useRef(null);
+  const dialogRef = useRef(null);
+  useEffect(() => {
+    const opener = document.activeElement;
+    cancelRef.current?.focus();
+    return () => { if (opener instanceof HTMLElement && opener.isConnected) opener.focus(); };
+  }, []);
+  const onKeyDown = (e) => {
+    if (e.key === "Escape") { e.preventDefault(); onCancel(); return; }
+    if (e.key !== "Tab") return;
+    const buttons = [...dialogRef.current.querySelectorAll("button")];
+    const i = buttons.indexOf(document.activeElement);
+    const next = e.shiftKey ? (i <= 0 ? buttons.length - 1 : i - 1) : (i + 1) % buttons.length;
+    e.preventDefault();
+    buttons[next].focus();
+  };
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
+      <div
+        ref={dialogRef}
+        role="alertdialog"
+        aria-modal="true"
+        aria-labelledby="delete-bursary-title"
+        aria-describedby="delete-bursary-text"
+        onKeyDown={onKeyDown}
+        className="bg-gray-900 border border-gray-700 rounded-2xl p-6 w-80 text-center space-y-4"
+      >
+        <p id="delete-bursary-title" className="text-lg font-bold text-red-400">Delete bursary?</p>
+        <p id="delete-bursary-text" className="text-gray-400 text-sm">Remove <span className="text-white font-medium">"{bursary.name}"</span> permanently?</p>
+        <div className="flex gap-3">
+          <button ref={cancelRef} onClick={onCancel} className="flex-1 py-2 rounded-xl bg-gray-700 hover:bg-gray-600 text-sm transition">Cancel</button>
+          <button onClick={onConfirm} className="flex-1 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-sm font-semibold transition">Delete</button>
+        </div>
       </div>
     </div>
   );
@@ -87,7 +137,7 @@ function BursaryForm({ form, setForm, errors, onSave, onCancel }) {
 
 export default function BursariesTab({ admin }) {
   const {
-    bursaries, loadingBursaries, editingBursary, setEditingBursary, bursaryErrors,
+    bursaries, loadingBursaries, editingBursary, setEditingBursary, bursaryErrors, savingBursary,
     confirmDeleteBursary, setConfirmDeleteBursary, startAddBursary, startEditBursary,
     cancelEditBursary, handleSaveBursary, handleDeleteBursary,
   } = admin;
@@ -97,16 +147,11 @@ export default function BursariesTab({ admin }) {
   return (
     <div className="space-y-6">
       {confirmDeleteBursary && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
-          <div className="bg-gray-900 border border-gray-700 rounded-2xl p-6 w-80 text-center space-y-4">
-            <p className="text-lg font-bold text-red-400">Delete bursary?</p>
-            <p className="text-gray-400 text-sm">Remove <span className="text-white font-medium">"{confirmDeleteBursary.name}"</span> permanently?</p>
-            <div className="flex gap-3">
-              <button onClick={() => setConfirmDeleteBursary(null)} className="flex-1 py-2 rounded-xl bg-gray-700 hover:bg-gray-600 text-sm transition">Cancel</button>
-              <button onClick={() => handleDeleteBursary(confirmDeleteBursary)} className="flex-1 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-sm font-semibold transition">Delete</button>
-            </div>
-          </div>
-        </div>
+        <ConfirmDeleteDialog
+          bursary={confirmDeleteBursary}
+          onCancel={() => setConfirmDeleteBursary(null)}
+          onConfirm={() => handleDeleteBursary(confirmDeleteBursary)}
+        />
       )}
 
       <div className="flex items-start justify-between gap-4 flex-wrap">
@@ -127,9 +172,11 @@ export default function BursariesTab({ admin }) {
 
       {editingBursary && (
         <BursaryForm
+          key={editingBursary.id || "new"}
           form={editingBursary}
           setForm={setEditingBursary}
           errors={bursaryErrors}
+          saving={savingBursary}
           onSave={handleSaveBursary}
           onCancel={cancelEditBursary}
         />
