@@ -138,7 +138,25 @@ This is a client-rendered React SPA with two additions layered on top for SEO an
   `useChangeSuggestions` works through them a few at a time. Prerendered for SEO;
   reads the bundled JSON like the other public pages.
 
+- **Free courses** (`/free-courses`, `FreeCourses.jsx`, `src/utils/freeCourses.js`) —
+  free online courses curated by admins (Firestore `freeCourses`), filterable by
+  topic, each labelled honestly: free certificate, certificate costs money, or no
+  certificate. Links go to the provider's own site.
+
 ### Authenticated learner flow
+- **Learnerships & jobs** (`/opportunities`, `Opportunities.jsx`,
+  `src/utils/opportunities.js`):
+  - **Listings:** learnerships, internships, apprenticeships and entry-level jobs
+    that admins verified at the source (Firestore `opportunities`).
+  - **Profile:** each learner answers a short work profile (`workProfile`):
+    education, province, date of birth, citizenship, licence, employment and
+    disability.
+  - **Matching:** a listing is shown only if the profile meets every structured
+    requirement (`matchOpportunity`), with the reasons. Unanswered questions never
+    count as a pass; they're listed as prompts. Matric subject requirements use the
+    marks saved on the marks page.
+  - **Safety:** a "never pay to apply" warning is always shown.
+  - **Not built yet:** CV upload (see ROADMAP).
 - **Sign up / sign in** (`/signup`, `/signin`) — Firebase Auth, email/password and
   Google sign-in. Email/password accounts must verify their email before accessing
   any gated route (`RequireAuth` blocks access and offers a resend-verification flow
@@ -240,6 +258,11 @@ than the tabs, so filters survive switching tabs. It supports:
 - **User management**: promote/demote admin roles, view user data, trigger
   password resets, and mark a learner's Apply For Me institutions as applied (which
   push-notifies the learner if they've turned reminders on).
+- **Free courses and Opportunities tabs** (`FreeCoursesTab`, `OpportunitiesTab`, both
+  on the generic `useAdminCollection` hook): add, edit, publish and delete entries.
+  Free courses has a button that adds a vetted starter list (CS50, freeCodeCamp,
+  Cisco, Microsoft Learn, Khan Academy, Coursera) as unpublished drafts to check
+  first. Listings have structured requirements and must say where they were verified.
 - **Bursary directory** (`BursariesTab`, `useBursaries`): add, edit and delete
   bursaries with their provider, closing date, official link and the fields of study
   they fund. Learners only see open bursaries in a field they qualify for. Courses
@@ -278,6 +301,14 @@ see [known issues](#known-issues-rough-edges--security-notes)):
 - `bursaries/{id}` — `{ name, provider, fields: [studyFieldKey], closeDate, applyUrl,
   covers, description, academicYear, updatedAt, updatedBy }`; edited in the admin
   panel's Bursaries tab.
+- `freeCourses/{id}` — `{ title, provider, url, topics, certificate: "free"|"paid"|"none",
+  level, duration, description, published, updatedAt, updatedBy }`.
+- `opportunities/{id}` — `{ title, organisation, type, applyUrl, closeDate, stipend,
+  description, source, minEducation, requiredSubjects: [{ subject, minMark }], ageMin,
+  ageMax, provinces, saCitizenOnly, driversLicence, unemployedOnly, disabilityOnly,
+  otherRequirements, published, updatedAt, updatedBy }`.
+- `users/{uid}.workProfile` — `{ education?, province?, dateOfBirth?, saCitizen?,
+  hasDriversLicence?, unemployed?, disability? }`, written by the learner.
 - `system/pushReminders` — `{ lastRunDate, startedAt, finishedAt, lastSummary }`,
   written by `api/send-reminders.js` so a day's reminders are never sent twice. A
   run that never finished can be retried after 15 minutes. A run that fails before
@@ -534,9 +565,11 @@ There's no email or WhatsApp channel yet.
 `firestore.rules` isn't in the repo, so these features may be blocked by the live
 rules until they're updated in the Firebase Console:
 
-- **`bursaries`**: any signed-in learner can read; only admins can write.
-- **`users/{uid}`**: the learner can write `shortlist`, `reminders`, `pushTokens` and
-  `pushTokenAddedAt` on their own doc, as they already do for marks and selections.
+- **`bursaries`** and **`opportunities`**: any signed-in learner can read; only admins
+  can write.
+- **`freeCourses`**: anyone can read (the page is public); only admins can write.
+- **`users/{uid}`**: the learner can write `shortlist`, `reminders`, `pushTokens`,
+  `pushTokenAddedAt` and `workProfile` on their own doc, as they already do for marks and selections.
 - **`system`**: the Vercel functions use the Admin SDK, which bypasses rules, so no
   client access is needed.
 

@@ -122,6 +122,17 @@ export default function Home() {
           Enter my marks
         </button>
 
+        <div className="grid grid-cols-2 gap-3 -mt-3 mb-6">
+          <button onClick={() => navigate("/opportunities")}
+            className="bg-white border-2 border-purple-200 hover:border-purple-400 text-purple-800 py-3 px-2 rounded-xl font-semibold text-sm transition">
+            💼 Learnerships & jobs
+          </button>
+          <button onClick={() => navigate("/free-courses")}
+            className="bg-white border-2 border-purple-200 hover:border-purple-400 text-purple-800 py-3 px-2 rounded-xl font-semibold text-sm transition">
+            🆓 Free courses
+          </button>
+        </div>
+
         {/* Admin button — visible to anyone with isAdmin: true in Firestore */}
         {adminRole && (
           <button onClick={() => navigate("/admin")}

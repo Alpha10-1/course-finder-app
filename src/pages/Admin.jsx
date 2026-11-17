@@ -9,6 +9,11 @@ import useAuditLog from "./admin/useAuditLog";
 import useAdminCourses from "./admin/useAdminCourses";
 import useApplicationWindows from "./admin/useApplicationWindows";
 import useBursaries from "./admin/useBursaries";
+import useAdminCollection from "./admin/useAdminCollection";
+import FreeCoursesTab from "./admin/FreeCoursesTab";
+import OpportunitiesTab from "./admin/OpportunitiesTab";
+import { BLANK_FREE_COURSE, validateFreeCourse } from "../utils/freeCourses";
+import { BLANK_OPPORTUNITY, validateOpportunity } from "../utils/opportunities";
 import DashboardTab from "./admin/DashboardTab";
 import QuickCheckPanel from "./admin/QuickCheckPanel";
 import UsersTab from "./admin/UsersTab";
@@ -21,6 +26,8 @@ import SettingsTab from "./admin/SettingsTab";
 // live in a hook (src/pages/admin/use*.js) owned here rather than inside its
 // tab component, so filters and searches survive switching tabs and data
 // shared between tabs (users, courses) is loaded once.
+const titleOf = (record) => record.title || "";
+
 export default function Admin() {
   const navigate = useNavigate();
   const [tab, setTab] = useState("Dashboard");
@@ -30,6 +37,12 @@ export default function Admin() {
   const courseAdmin = useAdminCourses(showToast, audit);
   const windows = useApplicationWindows(showToast);
   const bursaryAdmin = useBursaries(showToast);
+  const freeCourseAdmin = useAdminCollection({
+    name: "freeCourses", blank: BLANK_FREE_COURSE, validate: validateFreeCourse, recordKey: "course", nameOf: titleOf, showToast,
+  });
+  const opportunityAdmin = useAdminCollection({
+    name: "opportunities", blank: BLANK_OPPORTUNITY, validate: validateOpportunity, recordKey: "opportunity", nameOf: titleOf, showToast,
+  });
   const { currentUserRole } = userAdmin;
   const { courses } = courseAdmin;
 
@@ -96,6 +109,10 @@ export default function Admin() {
 
         {/* ── BURSARIES ── */}
         {tab === "Bursaries" && <BursariesTab admin={bursaryAdmin} />}
+
+        {/* ── FREE COURSES / OPPORTUNITIES ── */}
+        {tab === "Free Courses" && <FreeCoursesTab admin={freeCourseAdmin} />}
+        {tab === "Opportunities" && <OpportunitiesTab admin={opportunityAdmin} />}
 
         {/* ── AUDIT LOG (super admin only) ── */}
         {tab === "Audit Log" && isSuperAdmin(auth.currentUser?.email) && <AuditLogTab audit={audit} />}

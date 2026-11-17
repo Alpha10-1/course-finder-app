@@ -5,6 +5,17 @@ as they ship, and add new ideas under **Later**.
 
 ## Done
 
+**2026-11-17**
+- **Free courses** (`/free-courses`, public). Admin-curated, filterable by topic,
+  each labelled honestly by certificate cost. Includes an 8-course starter list
+  that's added as drafts to check before publishing.
+- **Learnerships & jobs** (`/opportunities`). Learners fill a short work profile.
+  Only verified, published, open listings whose every requirement the profile
+  meets are shown, with reasons, plus a "never pay to apply" warning. Admins add
+  listings with structured requirements in a new Opportunities tab.
+- **App shortcuts** for Results, Learnerships & jobs and Free courses (long-press
+  the installed app's icon, including the Android app).
+
 **2026-10-16**
 - **Bursary directory** (rest of funding). Admins add bursaries in a new
   Bursaries tab (name, provider, closing date, official link, fields of study);
@@ -98,8 +109,29 @@ as they ship, and add new ideas under **Later**.
    Google Play also needs a privacy policy, so it depends on the POPIA item below.
 4. **Compare courses side by side** — the next thing that can be built without
    outside input (see Later).
+5. **CV upload for learnerships & jobs** — needs decisions:
+   - **Storage.** New Firebase projects need the Blaze (pay-as-you-go) plan for
+     Cloud Storage. Alternatively, read the CV in the browser only, to pre-fill the
+     work profile, and never store it.
+   - **POPIA.** Consent wording, retention and deletion for documents holding ID
+     numbers and addresses, many from minors.
+6. **Fill the free courses and listings** — needs a content owner: check and publish
+   the starter free courses, and add verified learnerships and jobs.
+7. **A listings feed** — once manual listings work, consider SA Youth, SETA lists or a
+   jobs API (e.g. Adzuna) as extra sources, with the same strict requirement matching.
 
 ## Later
+
+- **CV builder** — build a one-page CV from the profile, download as PDF or share.
+- **"Plan B" pathways** — for learners who didn't get into university: TVET,
+  learnerships, free courses and the matric second-chance programme in one plan.
+- **Certificate wallet** — free-course certificates saved to the profile, counted
+  in learnership and job matching.
+- **Opportunity reminders and tracker** — reuse push reminders for learnership and
+  job closing dates; track "applied / interview / outcome".
+- **Interview and cover-letter help** — practice questions and a cover-letter draft
+  from the profile and the listing.
+- **Travel-cost check** — distance from home and transport cost versus the stipend.
 
 - **Career → course search** — "I want to be a pharmacist" → courses, institutions and
   marks needed. Needs a career-to-course mapping.

@@ -233,6 +233,39 @@ describe("Admin panel smoke test", () => {
     expect(screen.getByText(/No bursaries yet/)).toBeTruthy();
   });
 
+  it("adds the suggested free courses as drafts, and validates a new course", async () => {
+    click(tabButton("Free Courses"));
+    expect(await screen.findByText("No free courses yet.")).toBeTruthy();
+    click(screen.getByRole("button", { name: /Add 8 suggested courses as drafts/ }));
+    expect(await screen.findByText("Added 8 drafts")).toBeTruthy();
+    expect(screen.getAllByText("Draft")).toHaveLength(8);
+    expect(screen.queryByRole("button", { name: /suggested courses/ })).toBeNull();
+
+    click(screen.getByRole("button", { name: "+ Add course" }));
+    click(screen.getByRole("button", { name: "Save course" }));
+    expect(screen.getByText("Add the course title.")).toBeTruthy();
+  });
+
+  it("adds a learnership with structured requirements", async () => {
+    click(tabButton("Opportunities"));
+    expect(await screen.findByText("No listings yet.")).toBeTruthy();
+    click(screen.getByRole("button", { name: "+ Add listing" }));
+    expect(document.activeElement).toBe(screen.getByPlaceholderText("e.g. Wholesale & Retail Learnership"));
+    fireEvent.change(screen.getByPlaceholderText("e.g. Wholesale & Retail Learnership"), { target: { value: "Retail Learnership" } });
+    fireEvent.change(screen.getByLabelText("Organisation"), { target: { value: "Acme" } });
+    fireEvent.change(screen.getByLabelText("Official application link"), { target: { value: "https://example.com/apply" } });
+    fireEvent.change(screen.getByLabelText(/Where you verified it/), { target: { value: "Acme careers page" } });
+    click(screen.getByRole("button", { name: "+ Add a subject requirement" }));
+    fireEvent.change(screen.getByLabelText("Required subject 1"), { target: { value: "English" } });
+    click(screen.getByRole("button", { name: "Save listing" }));
+    expect(screen.getByText(/Matric subject requirements need the minimum education/)).toBeTruthy();
+    fireEvent.change(screen.getByLabelText("Minimum education"), { target: { value: "matric" } });
+    click(screen.getByRole("checkbox", { name: "South African citizens only" }));
+    click(screen.getByRole("button", { name: "Save listing" }));
+    expect(await screen.findByText("Added Retail Learnership")).toBeTruthy();
+    expect(screen.getByText("Matric (Grade 12)+ · English 50%+ · SA citizen")).toBeTruthy();
+  });
+
   it("shows the audit log to the super admin", async () => {
     click(tabButton("Audit Log"));
     expect(screen.getByText("Course Audit Log")).toBeTruthy();

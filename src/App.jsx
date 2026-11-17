@@ -24,6 +24,8 @@ const EnterMarks = lazy(() => import("./pages/EnterMarks"));
 const Results = lazy(() => import("./pages/Results"));
 const PaymentSuccess = lazy(() => import("./pages/PaymentSuccess"));
 const Admin = lazy(() => import("./pages/Admin"));
+const FreeCourses = lazy(() => import("./pages/FreeCourses"));
+const Opportunities = lazy(() => import("./pages/Opportunities"));
 
 function PageLoading() {
   return (
@@ -65,6 +67,8 @@ function App() {
           <Route path="/courses/:institutionSlug" element={<InstitutionCourses />} />
           <Route path="/courses/:institutionSlug/:courseSlug" element={<CourseDetail />} />
           <Route path="/subject-choices" element={<SubjectAdvisor />} />
+          <Route path="/free-courses" element={<FreeCourses />} />
+          <Route path="/opportunities" element={<RequireAuth><Opportunities /></RequireAuth>} />
           <Route path="/home" element={<RequireAuth><Home /></RequireAuth>} />
           <Route path="/enter-marks" element={<RequireAuth><EnterMarks /></RequireAuth>} />
           <Route path="/results" element={<RequireAuth><Results /></RequireAuth>} />

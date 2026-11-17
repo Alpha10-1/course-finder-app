@@ -56,6 +56,12 @@ export default function Welcome() {
         >
           Choosing Grade 10 subjects? See what each one keeps open →
         </Link>
+        <Link
+          to="/free-courses"
+          className="block mt-2 text-sm text-purple-600 hover:underline"
+        >
+          Free online courses with certificates →
+        </Link>
       </div>
 
       <p className="mt-8 text-sm text-gray-400">
